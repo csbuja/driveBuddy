@@ -10,6 +10,7 @@
   "license": "none",
   "dependencies": {
     "express": "^4.8.8",
+    "underscore": "^1.7.0",
     "yelp": "^0.1.1"
   }
 }
