@@ -17,15 +17,12 @@ app.get('/', function(req, res) {
 
 
 
-app.get('/food', function(req, res) {
-
-
-
-});
-
-app.get('/gas', function(req, res) {
-
+app.get('/yelp', function(req, res) {
+	var typeParam = req.body.type;
+	
 
 
 });
+
+
 app.listen(3000);
