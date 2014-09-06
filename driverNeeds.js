@@ -3,8 +3,9 @@ var _ = require('underscore')
 
 //returns a object - business name, type of place, rating, and address, 
 function moveThroughYelp(data, type){
-	var info = {}
+	var setOfInfo = []
 	for(var i = 0; i< data.businesses.length; ++i){
+		var info = {}
 		if (!data.businesses[i].is_closed || (type === 'food' && data.businesses[i].rating<2 ) ) continue;
 		info.rating = data.businesses[i].rating;
 		info.rating_img_url_small=  data.businesses[i].rating_img_url_small;
@@ -12,10 +13,10 @@ function moveThroughYelp(data, type){
 		info.rating_img_url = data.businesses[i].rating_img_url;
 		info.address = data.businesses[i].location.address + ' ' + data.businesses[i].location.city + ', ' + data.businesses[i].location.state_code + ' ' +data.businesses[i].location.postal_code
 		info.name = data.businesses[i].name;
-		
+		setOfInfo.push(info);
 	}
 
-	return info;
+	return setOfInfo;
 }
 
 module.exports.getNeeds = function(res, type, lat, lon, yelp){
