@@ -1,0 +1,14 @@
+{
+  "name": "driveBuddy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "driveBuddy",
+  "license": "none",
+  "dependencies": {
+    "express": "^4.8.8"
+  }
+}
