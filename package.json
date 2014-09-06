@@ -9,6 +9,7 @@
   "author": "driveBuddy",
   "license": "none",
   "dependencies": {
-    "express": "^4.8.8"
+    "express": "^4.8.8",
+    "yelp": "^0.1.1"
   }
 }
