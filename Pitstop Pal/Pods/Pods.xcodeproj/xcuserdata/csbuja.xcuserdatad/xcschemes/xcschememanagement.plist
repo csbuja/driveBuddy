@@ -8,25 +8,31 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
+		</dict>
+		<key>Pods-Pitstop Pal-Google-Maps-iOS-SDK.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods-Pitstop Pal.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>42E47AA85CD94C71AD8B3F55</key>
+		<key>31DB456472F4435682D9ED96</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AFAB5DC5EFF14520B8DB7744</key>
+		<key>6C1A972A7269476C8ADD1890</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C276AF10D89640DDA78EFD58</key>
 		<dict>
 			<key>primary</key>
 			<true/>
