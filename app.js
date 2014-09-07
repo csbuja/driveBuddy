@@ -19,10 +19,11 @@ var app = express();
 
 function calcDistance(lat1,lon1,lat2,lon2){
 var R = 6371; // km
-var φ1 = lat1.toRadians();
-var φ2 = lat2.toRadians();
-var Δφ = (lat2-lat1).toRadians();
-var Δλ = (lon2-lon1).toRadians();
+var pi = 3.141592653589793238462643383279502884;
+var φ1 = lat1*(pi/180);
+var φ2 = lat2*(pi/180)
+var Δφ = (lat2-lat1)*(pi/180);
+var Δλ = (lon2-lon1)* (pi/180);
 
 var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
         Math.cos(φ1) * Math.cos(φ2) *
@@ -41,6 +42,8 @@ app.get('/', function(req, res) {
     res.send('This isn\'t built in yet');
 });
 
+
+
 app.get('/googlemaps/:lat1/:lon1/:lat2/:lon2/:interval', function(req,res){
 	var lon1 = req.params.lon1;
 	var lat1 = req.params.lat1;
@@ -56,25 +59,27 @@ app.get('/googlemaps/:lat1/:lon1/:lat2/:lon2/:interval', function(req,res){
 	}
 	, function (err, response, body){
 		if(err) console.log(body.error_message);
-		body = body.routes;
 		var distance = 0;
-		_.each(body, function(v,i){
-			if (i!=(body.length -1)) {
-				distance += calcDistance(v[0],v[1],body[i+1][0],body[i+1][1]);
+		
+		var latLons = polyline.decode(body.routes[0].overview_polyline.points);
+		_.each(latLons, function(v,i){
+			if (i!=(latLons.length -1)) {
+				distance += calcDistance(v[0],v[1],latLons[i+1][0],latLons[i+1][1]);
 			}
 		});
 
 		var numPlaces = (toMiles(distance)/ mileInterval );
 		var numPitstops = numPlaces -1;
-		var index = Math.floor(body.length/numPitstops);
+
+		var index = Math.floor(latLons.length/numPitstops);
 		var curr_index = index;
-		var indices = [];
-		while(curr_index < (body.length-1)){
-			indices.push(curr_index);
+		var pitstops = [];
+		while(curr_index < (latLons.length-1)){
+			pitstops.push(latLons[curr_index]);
 			curr_index += index;
 		}
 
-		res.send(JSON.stringify(indices) );
+		res.send(JSON.stringify({ 'pitstops': pitstops, 'body' : body }) );
 
   	  }
 	);
