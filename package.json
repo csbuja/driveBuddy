@@ -9,7 +9,10 @@
   "author": "driveBuddy",
   "license": "none",
   "dependencies": {
+    "events": "^1.0.2",
     "express": "^4.8.8",
+    "request": "^2.42.0",
+    "require": "^0.5.0",
     "underscore": "^1.7.0",
     "yelp": "^0.1.1"
   }

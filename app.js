@@ -22,8 +22,18 @@ app.get('/yelp/:theType/:lat/:lon', function(req, res) {
 	var theType = req.params.theType;
 	var lat = req.params.lat;
 	var lon = req.params.lon;
+
 	//sends an http response back to the frontend
 	driverNeeds.getNeeds(res,theType,lat,lon, yelp);
+});
+
+app.get('/yelp/:theType/:lat/:lon/:foodParams', function(req, res) {
+	var theType = req.params.theType;
+	var lat = req.params.lat;
+	var lon = req.params.lon;
+
+	//sends an http response back to the frontend
+	driverNeeds.getNeeds(res,theType,lat,lon, yelp, foodParams);
 });
 
 console.log('App running on port: ' + port);
