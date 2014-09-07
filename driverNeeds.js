@@ -14,12 +14,14 @@ function filterGasFeed(data, callback){
 	}
 
 	for (var i = 0; i < data.length; i++){
-		setOfStations.push({
-			name: data[i].station,
-			price: data[i].reg_price, 
-			latitude: data[i].lat, 
-			longitude: data[i].lng
-		});
+		if(data[i].reg_price !== "N/A") {
+			setOfStations.push({
+				name: data[i].station,
+				price: data[i].reg_price, 
+				latitude: data[i].lat, 
+				longitude: data[i].lng
+			});
+		}
 	}
 
 	return setOfStations;
