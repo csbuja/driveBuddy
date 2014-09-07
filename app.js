@@ -51,12 +51,12 @@ app.get('/googlemaps/:lat1/:lon1/:lat2/:lon2/:interval', function(req,res){
 
 	request({
 		method: 'GET', 
-		uri: "http://maps.googleapis.com/maps/api/directions/json?origin= " +  lat1 + "," + lon1 + "&destination=" +  lat2 + "," + lon2 + "&key=" + API_KEY , 
+		uri: "https://maps.googleapis.com/maps/api/directions/json?origin= " +  lat1 + "," + lon1 + "&destination=" +  lat2 + "," + lon2 + "&key=" + API_KEY , 
 		json: true
 	}
 	, function (err, response, body){
-		if(err) console.log(error);
-
+		if(err) console.log(body.error_message);
+		body = body.routes;
 		var distance = 0;
 		_.each(body, function(v,i){
 			if (i!=(body.length -1)) {
