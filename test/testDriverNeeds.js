@@ -1,5 +1,6 @@
 var driverNeeds = require('../driverNeeds');
 var assert = require("assert");
+var sinon = require('sinon')
 
 describe('driverNeeds', function(){
   describe('#setFoodCategories()', function(){
@@ -38,6 +39,20 @@ describe('driverNeeds', function(){
 					lat: '45.492367', 
 					lng: '-73'
 				}]), []);
+    })
+  })
+})
+
+describe('driverNeeds', function(){
+  describe('#getStations', function(){
+    it('should call res.send', function(){
+    	var res = {
+    		send: function(){}
+    	};
+    	var mock = sinon.mock(res);
+    	mock.expects('send').once().throws();
+    	driverNeeds.getStations(45,'-73', mock);
+    	mock.verify();
     })
   })
 })
