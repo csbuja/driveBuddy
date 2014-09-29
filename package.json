@@ -16,5 +16,9 @@
     "require": "^0.5.0",
     "underscore": "^1.7.0",
     "yelp": "^0.1.1"
+  },
+  "devDependencies": {
+    "assert": "^1.1.2",
+    "mocha": "^1.21.4"
   }
 }

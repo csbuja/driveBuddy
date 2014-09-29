@@ -42,8 +42,6 @@ app.get('/', function(req, res) {
     res.send('This isn\'t built in yet');
 });
 
-
-
 app.get('/googlemaps/:lat1/:lon1/:lat2/:lon2/:interval', function(req,res){
 	var lon1 = req.params.lon1;
 	var lat1 = req.params.lat1;
@@ -98,6 +96,7 @@ app.get('/yelp/:theType/:lat/:lon/:foodParams', function(req, res) {
 	var theType = req.params.theType;
 	var lat = req.params.lat;
 	var lon = req.params.lon;
+	var foodParams = req.params.foodParams;
 
 	//sends an http response back to the frontend
 	driverNeeds.getNeeds(res,theType,lat,lon, yelp, foodParams);
