@@ -1,10 +1,7 @@
 var request = require('request');
+var _ = require('underscore')
 
 var MAX_RADIUS = 40000;
-
-var gasFeedUrl = 'http://api.mygasfeed.com/stations/radius/';
-var gasFeedKey = 'p1mww4bpb5';
-
 
 module.exports = {
 	filterGasFeed: function (data, callback){
@@ -30,12 +27,16 @@ module.exports = {
 	},
 
 	// returns array of station literals sorted with lowest price first
+	//there is no daily limit of api calls specified on the mygasfeed website
 	getStations: function (lat, lng, res){
 		var self = this
+
+		var GAS_FEED_URL = 'http://api.mygasfeed.com/stations/radius/';
+		var GAS_FEED_KEY = 'p1mww4bpb5';
 		var radius = 25;//rad || 15; //miles
 		request({
 			method: 'GET', 
-			uri: gasFeedUrl + lat + '/' + lng + '/' + radius + '/reg/Price/' + gasFeedKey + '.json', 
+			uri: GAS_FEED_URL + lat + '/' + lng + '/' + radius + '/reg/Price/' + GAS_FEED_KEY + '.json', 
 			json: true
 		}
 		, function (err, response, body){
@@ -44,7 +45,6 @@ module.exports = {
 				res.send( JSON.stringify([]));
 			}
 			else {
-				console.log (JSON.stringify(self.filterGasFeed(body.stations) ));
 			 res.send(JSON.stringify(self.filterGasFeed(body.stations) ) );
 	  	    }
 	  	  }
@@ -99,15 +99,16 @@ module.exports = {
 		return setOfInfo;
 	},
 
+	//note: the limit on yelp api calls is 25,000 per day
+	//if we go over this, contact api@yelp.com
 	getNeeds : function(res, type, lat, lng, yelp, foodFavs){
 		var self = this;
 		var categories = "";
-		if (foodFavs) categories = this.setFoodCategories(foodFavs);
-
+		if (foodFavs && _.isString(foodFavs)) categories = this.setFoodCategories(foodFavs);
 		if (type === 'food') 
 			yelp.search({term: type, ll: lat +',' + lng, category_filter: categories, radius_filter: MAX_RADIUS}, 
 				function(err, data){
-					if (err) console.log('ERROR!');
+					if (err) res.send(JSON.stringify([]));
 					else res.send(JSON.stringify(self.moveThroughYelp(data, 'food')));
 				}
 			);

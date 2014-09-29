@@ -44,16 +44,54 @@ describe('driverNeeds', function(){
 })
 
 describe('driverNeeds', function(){
-  describe('#getStations', function(){
-    it('should call res.send', function(){
-    	var res = {
-    		send: function(){}
-    	};
-    	var mock = sinon.mock(res);
-    	mock.expects('send').once().throws();
-    	driverNeeds.getStations(45,'-73', mock);
-    	mock.verify();
+  describe('#getStations()', function(){
+    it('should call res.send to get gas', function(done){
+     	var res = {
+        send: function(arg){ console.log('The spy is called.')}
+      };
+      var spy = sinon.spy(res,'send');
+      driverNeeds.getStations(45,'-73', res);
+      setTimeout(function(){
+        var signifiesError = []; //sends an empty array on api call error
+         assert( spy.calledOnce);
+         assert( spy.neverCalledWith(signifiesError));
+         res.send.restore();
+        done();
+      },1500)
+     })
+   })
+ })
+
+
+
+describe('driverNeeds', function(){
+  describe('#getNeeds', function(){
+    it('should call res.sends given a food input and Fast Food category', function(done){
+      var res = {
+        send: function(arg){ console.log('The spy is called.')}
+      };
+      var spy = sinon.spy(res,'send')
+
+      var yelp = require("yelp").createClient({
+        consumer_key: "T0VjCY0WkEUOuyC5U46qMw", 
+        consumer_secret: "LwzcaQMBcdE2cz-iv5M3KDxHwCk",
+        token: "QF86lSA004Z3R5mbKmXLGVFaUGfLSTET",
+        token_secret: "HedWTyztvJe_cuVgPL0IwqsHYjs"
+      });
+      
+      driverNeeds.getNeeds( res , 'food', 45,'-73',yelp,'Fast Food');
+      setTimeout(function(){
+        var signifiesError = []; //sends an empty array on api call error
+         assert( spy.calledOnce);
+         assert( spy.neverCalledWith(signifiesError));
+         res.send.restore();
+        done();
+      },1500)
+
     })
   })
 })
+
+
+
       

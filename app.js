@@ -1,11 +1,12 @@
 // Module dependencies.
 var express = require('express');
 var driverNeeds = require('./driverNeeds');
+var calcDistance = require('./calcDistance')
 var request = require('request');
 var polyline = require('polyline');
+var pg = require('pg')
 var port = (process.env.PORT || 3000);
 var _ = require('underscore');
-
 var yelp = require("yelp").createClient({
   consumer_key: "T0VjCY0WkEUOuyC5U46qMw", 
   consumer_secret: "LwzcaQMBcdE2cz-iv5M3KDxHwCk",
@@ -14,25 +15,7 @@ var yelp = require("yelp").createClient({
 });
 
 var app = express();
-//comment
 
-
-function calcDistance(lat1,lon1,lat2,lon2){
-var R = 6371; // km
-var pi = 3.141592653589793238462643383279502884;
-var φ1 = lat1*(pi/180);
-var φ2 = lat2*(pi/180)
-var Δφ = (lat2-lat1)*(pi/180);
-var Δλ = (lon2-lon1)* (pi/180);
-
-var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-        Math.cos(φ1) * Math.cos(φ2) *
-        Math.sin(Δλ/2) * Math.sin(Δλ/2);
-var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-var d = R * c;
-return d;
-}
 
 function toMiles(km){
 	return km * 0.621371;
@@ -42,6 +25,7 @@ app.get('/', function(req, res) {
     res.send('This isn\'t built in yet');
 });
 
+//the google maps api call is limited to 100,000 requests per day
 app.get('/googlemaps/:lat1/:lon1/:lat2/:lon2/:interval', function(req,res){
 	var lon1 = req.params.lon1;
 	var lat1 = req.params.lat1;
