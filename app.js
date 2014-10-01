@@ -14,6 +14,7 @@ var yelp = require("yelp").createClient({
   token_secret: "HedWTyztvJe_cuVgPL0IwqsHYjs"
 });
 
+//starting server
 var app = express();
 
 
