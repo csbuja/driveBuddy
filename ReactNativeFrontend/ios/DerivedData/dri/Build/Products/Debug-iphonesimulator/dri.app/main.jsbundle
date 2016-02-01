@@ -1254,7 +1254,8 @@ AppRegistry=
 
 
 
-React.AppRegistry;var Component=React.Component;var StyleSheet=React.StyleSheet;var View=React.View;
+
+React.AppRegistry;var Component=React.Component;var StyleSheet=React.StyleSheet;var Text=React.Text;var View=React.View;
 
 var fakeOptions=[
 {
@@ -1272,17 +1273,21 @@ stars:4}];
 var App=React.createClass({displayName:'App',
 render:function(){
 return (
-React.createElement(View,null,
+React.createElement(View,{style:styles.liveView},
 React.createElement(GasFoodSwiper,{
 title:'Food',
-options:fakeOptions})));}});
+options:fakeOptions}),
+
+React.createElement(Text,null,'Title')));}});
 
 
 
 
 
+var styles=StyleSheet.create({
+liveView:{
 
-var styles=StyleSheet.create({});
+backgroundColor:'#81c04d'}});
 
 
 
@@ -58726,30 +58731,25 @@ title:PropTypes.string.isRequired},
 
 
 render:function(){
-var places=[];
-
-this.props.options.map(function(place){
-places.push(
-React.createElement(View,{key:i},
-React.createElement(Image,{source:{uri:'http://facebook.github.io/react/img/logo_og.png'}}),
-React.createElement(Text,null,place.name),
-React.createElement(Text,null,place.price&&place.price),
-React.createElement(Text,null,place.distance),
-React.createElement(Text,null,place.stars&&place.stars)));
-
-
-i++;});
-
-
 return (
 React.createElement(View,null,
 React.createElement(Text,null,this.props.title),
 React.createElement(Swiper,{
 activeDot:React.createElement(View,null),
 dot:React.createElement(View,null),
-style:styles.wrapper,
+style:styles.container,
 showsButtons:true},
-places)));}});
+this.props.options.map(function(place){
+return (
+React.createElement(View,null,
+React.createElement(Image,{source:{uri:'http://facebook.github.io/react/img/logo_og.png'}}),
+React.createElement(Text,null,place.name),
+React.createElement(Text,null,place.price&&place.price),
+React.createElement(Text,null,place.distance),
+React.createElement(Text,null,place.stars&&place.stars)));}))));}});
+
+
+
 
 
 
@@ -58757,7 +58757,17 @@ places)));}});
 
 
 var styles=StyleSheet.create({
-wrapper:{},
+container:{
+flexDirection:'row',
+backgroundColor:'red',
+height:100},
+
+
+
+
+wrapper:{
+backgroundColor:'red',
+flex:2},
 
 slide1:{
 flex:1,
@@ -59316,4 +59326,4 @@ this.props.showsButtons&&this.renderButtons());}});
 });
 ;require("InitializeJavaScriptAppEngine");
 ;require("dri/index.ios.js");
-__SSTOKENSTRING = "@generated SignedSource<<148ad2bd13bd5da7cf2e768bf359a068>>";
+__SSTOKENSTRING = "@generated SignedSource<<fa87c9875a2974627ed2878137bdb9a7>>";
