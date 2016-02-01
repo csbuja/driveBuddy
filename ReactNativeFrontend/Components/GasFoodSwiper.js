@@ -13,16 +13,9 @@ var {
 } = React;
 var i = 0;
 
-var GasFoodSwiper = React.createClass({
-    propTypes: {
-        title: PropTypes.string.isRequired,
-    },
-
-    render: function() {
-        return (
-            <View style={[this.props.style, styles.container, styles.col]}>
-                <Text style={styles.title}>{this.props.title}</Text>
-                <Swiper
+var GasFoodSubSwiper = React.createClass({
+    render: function(){
+        return(<Swiper
                     height={110}
                     showsButtons={true}
                     showsPagination={false}
@@ -45,7 +38,34 @@ var GasFoodSwiper = React.createClass({
                             </View>
                         );
                     })}
-                </Swiper>
+                </Swiper>)
+    }
+})
+
+var GasFoodSwiper = React.createClass({
+    propTypes: {
+        title: PropTypes.string.isRequired,
+    },
+
+    getInitialState: function(){
+        return {error_message:  "Holyshit no options bro"}
+    },
+
+    render: function() {
+        var morethanzerooptions = this.props.options.length > 0;
+        var show_swiper_or_error
+        if (morethanzerooptions){
+            var show_swiper_or_error = <GasFoodSubSwiper options={this.props.options}/>;
+        }
+        else{
+            var show_swiper_or_error= (<View style={styles.no_options}>
+                <Text>{this.state.error_message}</Text>
+                </View>)
+        }
+
+        return (
+            <View style={[this.props.style, styles.container, styles.col]}>
+                <Text style={styles.title}>{this.props.title}</Text>{show_swiper_or_error}
             </View>
         );
     },
@@ -69,6 +89,10 @@ var styles = StyleSheet.create({
     },
     container: {
         alignItems: 'center',
+    },
+    no_options: {
+        height:110, 
+        width:300
     },
     image: {
         height: 60,

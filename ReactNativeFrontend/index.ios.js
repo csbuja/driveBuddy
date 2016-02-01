@@ -26,6 +26,8 @@ var fakeOptions = [
     },
 ];
 
+var noOptions = [];
+
 var App = React.createClass({
     render: function() {
         return (
