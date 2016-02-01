@@ -35,7 +35,7 @@ var styles = StyleSheet.create({
     borderBottom: {
         borderBottomWidth: 2,
         borderColor: '#000000',
-        marginTop: 10,
+        marginBottom: 10,
         marginLeft: 80,
         marginRight: 80,
     }
