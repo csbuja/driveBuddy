@@ -16,8 +16,12 @@ var App = React.createClass({
     render: function() {
         return (
             <View style={styles.liveView}>
-              <FoodSwiperContainer />
-              <GasSwiperContainer />
+                <FoodSwiperContainer
+                    style={styles.borderBottom}
+                />
+                <GasSwiperContainer
+                    style={styles.borderBottom}
+                />
             </View>
         );
     }
@@ -28,6 +32,13 @@ var styles = StyleSheet.create({
         backgroundColor:'#FFFFFF',
         paddingTop: 28, // temporary
     },
+    borderBottom: {
+        borderBottomWidth: 2,
+        borderColor: '#000000',
+        marginTop: 10,
+        marginLeft: 80,
+        marginRight: 80,
+    }
 });
 
 AppRegistry.registerComponent('dri', () => App);

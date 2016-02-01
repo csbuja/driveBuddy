@@ -24,7 +24,7 @@ var GasFoodSwiper = React.createClass({
             <View style={[this.props.style, styles.container, styles.col]}>
                 <Text style={styles.title}>{this.props.title}</Text>
                 <Swiper
-                    height={110}
+                    height={114}
                     showsButtons={true}
                     showsPagination={false}
                     width={300}>
