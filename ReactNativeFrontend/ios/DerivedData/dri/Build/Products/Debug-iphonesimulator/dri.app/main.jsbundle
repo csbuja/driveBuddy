@@ -1254,17 +1254,18 @@ AppRegistry=
 
 
 
-
-React.AppRegistry;var Component=React.Component;var StyleSheet=React.StyleSheet;var Text=React.Text;var View=React.View;
+React.AppRegistry;var Component=React.Component;var StyleSheet=React.StyleSheet;var View=React.View;
 
 var fakeOptions=[
 {
 name:"Shell",
+image:"http://facebook.github.io/react/img/logo_og.png",
 distance:"23 miles",
 price:"$3.00 / gal"},
 
 {
 name:"In & Out",
+image:"http://facebook.github.io/react/img/logo_og.png",
 distance:"43 miles",
 stars:4}];
 
@@ -1276,9 +1277,8 @@ return (
 React.createElement(View,{style:styles.liveView},
 React.createElement(GasFoodSwiper,{
 title:'Food',
-options:fakeOptions}),
+options:fakeOptions})));}});
 
-React.createElement(Text,null,'Title')));}});
 
 
 
@@ -1286,8 +1286,8 @@ React.createElement(Text,null,'Title')));}});
 
 var styles=StyleSheet.create({
 liveView:{
-
-backgroundColor:'#81c04d'}});
+backgroundColor:'#FFFFFF',
+paddingTop:28}});
 
 
 
@@ -58722,9 +58722,8 @@ Image=
 
 
 React.Image;var StyleSheet=React.StyleSheet;var PropTypes=React.PropTypes;var Text=React.Text;var View=React.View;
-
-var items=[{title:"food"},{title:"gas"}];
 var i=0;
+
 var GasFoodSwiper=React.createClass({displayName:'GasFoodSwiper',
 propTypes:{
 title:PropTypes.string.isRequired},
@@ -58732,21 +58731,28 @@ title:PropTypes.string.isRequired},
 
 render:function(){
 return (
-React.createElement(View,null,
-React.createElement(Text,null,this.props.title),
+React.createElement(View,{style:[this.props.style,styles.container,styles.col]},
+React.createElement(Text,{style:styles.title},this.props.title),
 React.createElement(Swiper,{
-activeDot:React.createElement(View,null),
-dot:React.createElement(View,null),
-style:styles.container,
-showsButtons:true},
+height:110,
+showsButtons:true,
+showsPagination:false,
+width:300},
 this.props.options.map(function(place){
 return (
-React.createElement(View,null,
-React.createElement(Image,{source:{uri:'http://facebook.github.io/react/img/logo_og.png'}}),
-React.createElement(Text,null,place.name),
-React.createElement(Text,null,place.price&&place.price),
+React.createElement(View,{
+key:i++,
+style:[styles.col,styles.placeView]},
+React.createElement(View,{style:styles.row},
+React.createElement(Image,{style:styles.image,source:{uri:place.image}}),
+React.createElement(View,{style:styles.col},
+React.createElement(Text,{style:styles.name},place.name),
+place.price&&React.createElement(Text,null,place.price),
 React.createElement(Text,null,place.distance),
-React.createElement(Text,null,place.stars&&place.stars)));}))));}});
+place.stars&&React.createElement(Text,null,place.stars))),
+
+
+React.createElement(Text,{style:styles.button},'Start Route Guidance')));}))));}});
 
 
 
@@ -58757,39 +58763,42 @@ React.createElement(Text,null,place.stars&&place.stars)));}))));}});
 
 
 var styles=StyleSheet.create({
+button:{
+backgroundColor:'#80ff80',
+borderColor:'#00cc00',
+borderRadius:2,
+borderStyle:'solid',
+borderWidth:1,
+flex:1,
+marginTop:8,
+overflow:'hidden',
+padding:4,
+textAlign:'center'},
+
+col:{
+flexDirection:'column'},
+
 container:{
-flexDirection:'row',
-backgroundColor:'red',
-height:100},
+alignItems:'center'},
 
+image:{
+height:60,
+marginRight:28,
+width:60},
 
+name:{
+fontSize:16},
 
+placeView:{
+paddingLeft:50,
+paddingRight:50,
+paddingTop:8},
 
-wrapper:{
-backgroundColor:'red',
-flex:2},
+row:{
+flexDirection:'row'},
 
-slide1:{
-flex:1,
-justifyContent:'center',
-alignItems:'center',
-backgroundColor:'#9DD6EB'},
-
-slide2:{
-flex:1,
-justifyContent:'center',
-alignItems:'center',
-backgroundColor:'#97CAE5'},
-
-slide3:{
-flex:1,
-justifyContent:'center',
-alignItems:'center',
-backgroundColor:'#92BBD9'},
-
-text:{
-color:'#fff',
-fontSize:30,
+title:{
+fontSize:16,
 fontWeight:'bold'}});
 
 
@@ -59326,4 +59335,4 @@ this.props.showsButtons&&this.renderButtons());}});
 });
 ;require("InitializeJavaScriptAppEngine");
 ;require("dri/index.ios.js");
-__SSTOKENSTRING = "@generated SignedSource<<fa87c9875a2974627ed2878137bdb9a7>>";
+__SSTOKENSTRING = "@generated SignedSource<<108438842c1a247c8789f36edb625526>>";

@@ -16,6 +16,7 @@ var i = 0;
 var GasFoodSwiper = React.createClass({
     propTypes: {
         title: PropTypes.string.isRequired,
+        options: PropTypes.array.isRequired,
     },
 
     render: function() {
