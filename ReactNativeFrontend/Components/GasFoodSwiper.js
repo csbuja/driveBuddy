@@ -16,7 +16,7 @@ var i = 0;
 var GasFoodSubSwiper = React.createClass({
     render: function(){
         return(<Swiper
-                    height={110}
+                    height={114}
                     showsButtons={true}
                     showsPagination={false}
                     width={300}>
@@ -40,7 +40,7 @@ var GasFoodSubSwiper = React.createClass({
                     })}
                 </Swiper>)
     }
-})
+});
 
 var GasFoodSwiper = React.createClass({
     propTypes: {

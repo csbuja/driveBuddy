@@ -2,7 +2,8 @@
 
 var React = require('react-native');
 
-var GasFoodSwiper = require('./Components/GasFoodSwiper.js');
+var FoodSwiperContainer = require('./Components/FoodSwiperContainer.js');
+var GasSwiperContainer = require('./Components/GasSwiperContainer.js');
 
 var {
     AppRegistry,
@@ -32,10 +33,12 @@ var App = React.createClass({
     render: function() {
         return (
             <View style={styles.liveView}>
-              <GasFoodSwiper
-                title="Food"
-                options={fakeOptions}
-              />
+                <FoodSwiperContainer
+                    style={styles.borderBottom}
+                />
+                <GasSwiperContainer
+                    style={styles.borderBottom}
+                />
             </View>
         );
     }
@@ -46,6 +49,13 @@ var styles = StyleSheet.create({
         backgroundColor:'#FFFFFF',
         paddingTop: 28, // temporary
     },
+    borderBottom: {
+        borderBottomWidth: 2,
+        borderColor: '#000000',
+        marginBottom: 10,
+        marginLeft: 80,
+        marginRight: 80,
+    }
 });
 
 AppRegistry.registerComponent('dri', () => App);
