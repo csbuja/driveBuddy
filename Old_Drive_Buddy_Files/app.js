@@ -16,7 +16,14 @@ var yelp = require("yelp").createClient({
 
 //starting server
 var app = express();
+var bodyParser= require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
+app.set('views', __dirname + '/views');
+app.engine('html', require('ejs').renderFile);
+var fooddata = [];
+var gasdata = []
 
 function toMiles(km){
 	return km * 0.621371;
@@ -25,6 +32,46 @@ function toMiles(km){
 app.get('/', function(req, res) {
     res.send('This isn\'t built in yet');
 });
+
+app.all('/api/fooddatacollection/:lat/:lon/:name', function(req, res){
+	var name = req.params.name;
+	var lat = req.params.lat;
+	var lon = req.params.lon;
+	fooddata.push({name: name, lon: lon, lat:lat});
+	res.send('Data sent');
+	console.log(fooddata.length + 'Data Received');
+})
+/*
+app.all('/api/fooddatacollection', function(req, res){
+	res.render('form.html')
+	var name = req.body.name;
+	var lat = req.body.lat;
+	var lon = req.body.lon;
+	fooddata.push({name: name, lon: lon, lat:lat});
+	console.log(fooddata.length + 'Data Received');
+})*/
+
+app.get('/api/fooddatacollection/view', function(req, res){
+	res.send(JSON.stringify(fooddata));
+})
+
+app.get('/api/gasdatacollection/:lat/:lon/:name', function(req, res){
+	var name = req.params.name;
+	var lat = req.params.lat;
+	var lon = req.params.lon;
+	gasdata.push({name: name, lon: lon, lat:lat});
+	console.log('Data Received');
+	res.send('Data sent');
+})
+
+app.get('/api/gasdatacollection', function(req, res){
+	res.send(JSON.stringify(gasdata));
+	console.log(fooddata.length + ' data sent')
+})
+
+app.get('/api/gasdatacollection/view', function(req, res){
+	res.send(JSON.stringify(gasdata));
+})
 
 //the google maps api call is limited to 100,000 requests per day
 app.get('/googlemaps/:lat1/:lon1/:lat2/:lon2/:interval', function(req,res){
@@ -68,16 +115,16 @@ app.get('/googlemaps/:lat1/:lon1/:lat2/:lon2/:interval', function(req,res){
 	);
 });
 
-app.get('/yelp/:theType/:lat/:lon', function(req, res) {
+app.get('/api/:theType/:lat/:lon', function(req, res) {
 	var theType = req.params.theType;
 	var lat = req.params.lat;
 	var lon = req.params.lon;
-
+	console.log('call getNeeds');
 	//sends an http response back to the frontend
 	driverNeeds.getNeeds(res,theType,lat,lon, yelp);
 });
 
-app.get('/yelp/:theType/:lat/:lon/:foodParams', function(req, res) {
+app.get('/api/:theType/:lat/:lon/:foodParams', function(req, res) {
 	var theType = req.params.theType;
 	var lat = req.params.lat;
 	var lon = req.params.lon;
