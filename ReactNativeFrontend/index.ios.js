@@ -9,7 +9,8 @@ var {
     AppRegistry,
     Component,
     StyleSheet,
-    View
+    View,
+    Navigator
 } = React;
 
 var fakeOptions = [
@@ -27,23 +28,65 @@ var fakeOptions = [
     },
 ];
 
+var LoginScreen = require('./views/login1');
 var noOptions = [];
+
+var loginroute = {
+        component: LoginScreen,
+        title: 'My View Title',
+        passProps: {}
+}
 
 var App = React.createClass({
     render: function() {
-        return (
-            <View style={styles.liveView}>
-                <FoodSwiperContainer
+        return (    
+             <Navigator
+    initialRoute={loginroute}   
+    renderScene={(route, navigator) =>
+      <LoginScreen
+        name={route.title}
+        onForward={() => {
+          var nextIndex = route.index + 1;
+          navigator.push({
+            name: 'Scene ' + nextIndex,
+            index: nextIndex,
+          });
+        }}
+        onPressLogin={ () => {
+            var next = {
+            name: 'liveView',
+            component: liveView
+            };
+            console.log(next);
+            this.props.navigator.push(next);
+        }}
+        onBack={() => {
+          if (route.index > 0) {
+            navigator.pop();
+          }
+        }}
+      />
+    }/>);
+    }
+});
+
+
+
+var liveView = React.createClass({
+    render: function(){
+        return( <View style={styles.liveView}>
+<FoodSwiperContainer
                     style={styles.borderBottom}
                 />
                 <GasSwiperContainer
                     style={styles.borderBottom}
                 />
-            </View>
-        );
+ </View>);
     }
 });
+/*
 
+*/
 var styles = StyleSheet.create({
     liveView: {
         backgroundColor:'#FFFFFF',
