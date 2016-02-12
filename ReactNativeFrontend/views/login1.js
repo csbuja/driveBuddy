@@ -14,17 +14,38 @@ var {
   Image
 } = React;
 
+var liveView= require('./liveView');
+
 var Login1 = React.createClass({
-
-  propTypes: {
-        onForward: PropTypes.func.isRequired,
-        onPressLogin: PropTypes.func.isRequired
-    },
-
   getInitialState: function() {
     return {
       username: '',
       password: ''
+    }
+  },
+
+  onForward: function() {
+          var nextIndex = route.index + 1;
+          this.props.navigator.push({
+            name: 'Scene ' + nextIndex,
+            index: nextIndex,
+          });
+        },
+
+  onPressLogin : function() {
+      var next = {
+      name: 'liveView',
+      component: liveView
+      };
+      
+      this.props.navigator.push(next);
+      this.props.navigator.popToTop();
+      //console.log(this.props.navigator.getCurrentRoutes());
+  },
+
+  onBack : function() {
+    if (route.index > 0) {
+      this.props.navigator.pop();
     }
   },
   render: function() {
@@ -58,7 +79,7 @@ var Login1 = React.createClass({
                     <Text style={styles.greyFont}>Forgot Password</Text>
                 </View>
             </View>
-            <TouchableHighlight onPress={() => this.props.onPressLogin()}>
+            <TouchableHighlight onPress={() => this.onPressLogin()}>
             <View style={styles.signin}>
                 <Text style={styles.whiteFont}>Sign In</Text>
             </View>
