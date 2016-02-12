@@ -32,7 +32,8 @@ var App = React.createClass({
     render: function() {
         return (    
              <NavigatorIOS style={styles.wrapper}
-    initialRoute={{component: LoginScreen,title: 'LoginScreen',passProps: {} }}   />);
+    initialRoute={{component: LoginScreen,title: 'LoginScreen',passProps: {} }} 
+    navigationBarHidden={true}  />);
     }
 });
 
