@@ -11,10 +11,19 @@ var {
   Text,
   TextInput,
   TouchableHighlight,
-  Image
+  Image,
+  NativeModules
 } = React;
 
 var liveView= require('./liveView');
+
+var FBLogin = require('react-native-facebook-login');
+//var FBLoginMock = require('./facebook/FBLoginMock.js');
+var { FBLoginManager } = NativeModules;
+
+console.log(FBLoginManager)
+
+var FB_PHOTO_WIDTH = 200;
 
 var Login1 = React.createClass({
   getInitialState: function() {
@@ -81,7 +90,7 @@ var Login1 = React.createClass({
             </View>
             <TouchableHighlight onPress={() => this.onPressLogin()}>
             <View style={styles.signin}>
-                <Text style={styles.whiteFont}>Sign In</Text>
+                <FBLogin style={{ marginBottom: 10, }}/>
             </View>
             </TouchableHighlight>
             <View style={styles.signup}>
