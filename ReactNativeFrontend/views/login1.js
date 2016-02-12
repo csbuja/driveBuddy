@@ -65,37 +65,13 @@ var Login1 = React.createClass({
                 <Image style={styles.mark} source={{uri: 'http://i.imgur.com/da4G0Io.png'}} />
             </View>
             <View style={styles.inputs}>
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputUsername} source={{uri: 'http://i.imgur.com/iVVVMRX.png'}}/>
-                    <TextInput 
-                        style={[styles.input, styles.whiteFont]}
-                        placeholder="Username"
-                        placeholderTextColor="#FFF"
-                        value={this.state.username}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputPassword} source={{uri: 'http://i.imgur.com/ON58SIG.png'}}/>
-                    <TextInput
-                        password={true}
-                        style={[styles.input, styles.whiteFont]}
-                        placeholder="Pasword"
-                        placeholderTextColor="#FFF"
-                        value={this.state.password}
-                    />
-                </View>
-                <View style={styles.forgotContainer}>
-                    <Text style={styles.greyFont}>Forgot Password</Text>
-                </View>
+                
             </View>
             <TouchableHighlight onPress={() => this.onPressLogin()}>
             <View style={styles.signin}>
-                <FBLogin style={{ marginBottom: 10, }}/>
+                <FBLogin style={styles.signin}/>
             </View>
             </TouchableHighlight>
-            <View style={styles.signup}>
-                <Text style={styles.greyFont}>No account?<Text style={styles.whiteFont}>  Sign Up</Text></Text>
-            </View>
         </View>
     );
   }
