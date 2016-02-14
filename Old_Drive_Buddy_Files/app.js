@@ -8,7 +8,7 @@ var pg = require('pg')
 var port = (process.env.PORT || 3000);
 var _ = require('underscore');
 var yelp = require("yelp").createClient({
-  consumer_key: "T0VjCY0WkEUOuyC5U46qMw", 
+  consumer_key: "T0VjCY0WkEUOuyC5U46qMw",
   consumer_secret: "LwzcaQMBcdE2cz-iv5M3KDxHwCk",
   token: "QF86lSA004Z3R5mbKmXLGVFaUGfLSTET",
   token_secret: "HedWTyztvJe_cuVgPL0IwqsHYjs"
@@ -16,14 +16,11 @@ var yelp = require("yelp").createClient({
 
 //starting server
 var app = express();
-var bodyParser= require("body-parser");
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
 app.set('views', __dirname + '/views');
-app.engine('html', require('ejs').renderFile);
 var fooddata = [];
 var gasdata = []
+var sensorData = [];
 
 function toMiles(km){
 	return km * 0.621371;
@@ -64,6 +61,17 @@ app.get('/api/gasdatacollection/:lat/:lon/:name', function(req, res){
 	res.send('Data sent');
 })
 
+app.get('/api/sensordatacollection/:time/:temp/:lat/:lon/:status', function(req,res) {
+  var UTCtime = req.params.time;
+  var tempF = req.params.temp;
+  var latitude = req.params.lat;
+  var longitude = req.params.lon;
+  var travelType = req.params.status;
+
+  sensorData.push({UTCtime: UTCtime, tempF: tempF, latitude: latitude, longitude: longitude, travelType: travelType});
+  console.log('Received Data');
+})
+
 app.get('/api/gasdatacollection', function(req, res){
 	res.send(JSON.stringify(gasdata));
 	console.log(fooddata.length + ' data sent')
@@ -77,20 +85,20 @@ app.get('/api/gasdatacollection/view', function(req, res){
 app.get('/googlemaps/:lat1/:lon1/:lat2/:lon2/:interval', function(req,res){
 	var lon1 = req.params.lon1;
 	var lat1 = req.params.lat1;
-	var lon2 = req.params.lon2;	
+	var lon2 = req.params.lon2;
 	var lat2 = req.params.lat2;
 	var mileInterval = req.params.interval;
 	var API_KEY = "AIzaSyDv_GaD1jG3T4iKWyxksqVnrFJ1f-Mphh8";
 
 	request({
-		method: 'GET', 
-		uri: "https://maps.googleapis.com/maps/api/directions/json?origin= " +  lat1 + "," + lon1 + "&destination=" +  lat2 + "," + lon2 + "&key=" + API_KEY , 
+		method: 'GET',
+		uri: "https://maps.googleapis.com/maps/api/directions/json?origin= " +  lat1 + "," + lon1 + "&destination=" +  lat2 + "," + lon2 + "&key=" + API_KEY ,
 		json: true
 	}
 	, function (err, response, body){
 		if(err) console.log(body.error_message);
 		var distance = 0;
-		
+
 		var latLons = polyline.decode(body.routes[0].overview_polyline.points);
 		_.each(latLons, function(v,i){
 			if (i!=(latLons.length -1)) {
