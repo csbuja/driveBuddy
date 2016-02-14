@@ -13,73 +13,59 @@ var yelp = require("yelp").createClient({
   token: "QF86lSA004Z3R5mbKmXLGVFaUGfLSTET",
   token_secret: "HedWTyztvJe_cuVgPL0IwqsHYjs"
 });
+var db = require('./db');
+
+
 
 //starting server
 var app = express();
 
-app.set('views', __dirname + '/views');
 var fooddata = [];
-var gasdata = []
-var sensorData = [];
+var gasdata = [];
 
-function toMiles(km){
-	return km * 0.621371;
-}
-// Routes
-app.get('/', function(req, res) {
-    res.send('This isn\'t built in yet');
+app.all('/api/fooddatacollection/:lat/:lon/:name/:userid', function(req, res){
+	var post = {userid: req.params.userid, name:req.params.name, lon:req.params.lon, lat:req.params.lat};
+	var query = db.query('INSERT INTO foodcollection SET ?', post, function(err, result) {
+		if (err) throw err;
+		});
+	res.send('Data sent');
 });
 
-app.all('/api/fooddatacollection/:lat/:lon/:name', function(req, res){
-	var name = req.params.name;
-	var lat = req.params.lat;
-	var lon = req.params.lon;
-	fooddata.push({name: name, lon: lon, lat:lat});
+
+app.get('/api/fooddatacollection', function(req, res){
+	db.query('SELECT * FROM foodcollection',function(err,rows){
+		if(err) throw err;
+		console.log('Data received from Db:\n');
+		res.send(JSON.stringify(rows));
+	});
+});
+
+app.all('/api/gasdatacollection/:lat/:lon/:name/:userid', function(req, res){
+	var post = {userid: req.params.userid, name:req.params.name, lon:req.params.lon, lat:req.params.lat};
+	var query = db.query('INSERT INTO gascollection SET ?', post, function(err, result) {
+		if (err) throw err;
+		});
 	res.send('Data sent');
-	console.log(fooddata.length + 'Data Received');
-})
-/*
-app.all('/api/fooddatacollection', function(req, res){
-	res.render('form.html')
-	var name = req.body.name;
-	var lat = req.body.lat;
-	var lon = req.body.lon;
-	fooddata.push({name: name, lon: lon, lat:lat});
-	console.log(fooddata.length + 'Data Received');
-})*/
+});
 
-app.get('/api/fooddatacollection/view', function(req, res){
-	res.send(JSON.stringify(fooddata));
-})
-
-app.get('/api/gasdatacollection/:lat/:lon/:name', function(req, res){
-	var name = req.params.name;
-	var lat = req.params.lat;
-	var lon = req.params.lon;
-	gasdata.push({name: name, lon: lon, lat:lat});
-	console.log('Data Received');
+app.all('/api/sensordatacollection/:time/:temp/:lat/:lon/:status/:userid', function(req,res) {
+	var post = {userid: req.params.userid,  time:req.params.time, temperature:req.params.temp,
+	lon:req.params.lon, lat:req.params.lat, status:req.params.status};
+	var query = db.query('INSERT INTO sensordata SET ?', post, function(err, result) {
+	if (err) throw err;
+	});
 	res.send('Data sent');
-})
-
-app.get('/api/sensordatacollection/:time/:temp/:lat/:lon/:status', function(req,res) {
-  var UTCtime = req.params.time;
-  var tempF = req.params.temp;
-  var latitude = req.params.lat;
-  var longitude = req.params.lon;
-  var travelType = req.params.status;
-
-  sensorData.push({UTCtime: UTCtime, tempF: tempF, latitude: latitude, longitude: longitude, travelType: travelType});
-  console.log('Received Data');
 })
 
 app.get('/api/gasdatacollection', function(req, res){
-	res.send(JSON.stringify(gasdata));
-	console.log(fooddata.length + ' data sent')
-})
+	db.query('SELECT * FROM gascollection',function(err,rows){
+		if(err) throw err;
+		console.log('Data received from Db:\n');
+		res.send(JSON.stringify(rows));
+	});
+});
 
-app.get('/api/gasdatacollection/view', function(req, res){
-	res.send(JSON.stringify(gasdata));
-})
+
 
 //the google maps api call is limited to 100,000 requests per day
 app.get('/googlemaps/:lat1/:lon1/:lat2/:lon2/:interval', function(req,res){
