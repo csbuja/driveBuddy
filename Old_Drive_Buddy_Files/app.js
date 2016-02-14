@@ -16,13 +16,12 @@ var yelp = require("yelp").createClient({
 var db = require('./db');
 
 
-
 //starting server
 var app = express();
 
-var fooddata = [];
-var gasdata = [];
-
+function toMiles(km){
+	return km * 0.621371;
+}
 app.all('/api/fooddatacollection/:lat/:lon/:name/:userid', function(req, res){
 	var post = {userid: req.params.userid, name:req.params.name, lon:req.params.lon, lat:req.params.lat};
 	var query = db.query('INSERT INTO foodcollection SET ?', post, function(err, result) {
@@ -48,8 +47,8 @@ app.all('/api/gasdatacollection/:lat/:lon/:name/:userid', function(req, res){
 	res.send('Data sent');
 });
 
-app.all('/api/sensordatacollection/:time/:temp/:lat/:lon/:status/:userid', function(req,res) {
-	var post = {userid: req.params.userid,  time:req.params.time, temperature:req.params.temp,
+app.all('/api/sensordatacollection/:time/:lat/:lon/:status/:userid', function(req,res) {
+	var post = {userid: req.params.userid,  time:req.params.time,
 	lon:req.params.lon, lat:req.params.lat, status:req.params.status};
 	var query = db.query('INSERT INTO sensordata SET ?', post, function(err, result) {
 	if (err) throw err;
@@ -128,5 +127,26 @@ app.get('/api/:theType/:lat/:lon/:foodParams', function(req, res) {
 	driverNeeds.getNeeds(res,theType,lat,lon, yelp, foodParams);
 });
 
+//use open weather api to get the weather information
+app.get('/weather/:lat/:lon',function (req, res) {
+	var API_KEY = "d83f80e09d1864365dad8e2f4abd344d";
+	var lon = req.params.lon;
+	var lat = req.params.lat;
+	uri = "http://api.openweathermap.org/data/2.5/weather?lat=" +  lat + "&lon=" + lon + "&appid=" + API_KEY;
+	console.log(uri);	 
+	request({
+		method: 'GET',
+		uri: uri,
+	}
+	, function (err, response, body){
+		if(err){
+			res.send("error");
+		}
+		else{
+			res.send(body);
+			
+		}
+	});
+});
 console.log('App running on port: ' + port);
 app.listen(port);

@@ -1,4 +1,4 @@
-drop foodcollection if exist;
+drop table if exists foodcollection;
 create table foodcollection(
 	userid int not null,
 	name varchar(255),
@@ -6,7 +6,7 @@ create table foodcollection(
 	lat double
 );
 
-drop gascollection if exist;
+drop table if exists gascollection;
 create table gascollection(
 	userid int not null,
 	name varchar(255),
@@ -14,12 +14,12 @@ create table gascollection(
 	lat double
 );
 
-drop sensordata if exist;
+drop table if exists sensordata;
 create table sensordata(
 	userid int not null,
 	time long,
-	temperature double,
 	lon double,
 	lat double,
 	status int
 );
+
