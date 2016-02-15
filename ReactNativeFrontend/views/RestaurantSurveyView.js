@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var SearchBar = require('react-native-search-bar');
+var SurveyListView = require('../Components/SurveyListView');
 
 var {
     StyleSheet,
@@ -17,6 +18,8 @@ var RestaurantSurveyView = React.createClass({
     getInitialState: function() {
         return {
             query: '',
+            selected: [],
+            options: [],
         };
     },
 
@@ -30,12 +33,28 @@ var RestaurantSurveyView = React.createClass({
                     onSearchButtonPress={this._onSearchButtonPress}
                     onCancelButtonPress={this._onCancelButtonPress}
                 />
+                <SurveyListView
+                    data={this.state.options}
+                />
             </View>
         );
     },
 
     _onTextChange: function(text) {
         this.setState({query: text});
+        // will change lat and lon later
+        fetch('http://localhost:3000/yelp/search/37.788022/-122.399797/' + text)
+            .then((response) => response.text())
+            .then((responseText) => {
+                var data = JSON.parse(responseText);
+                var arr = Object.keys(data).map(function(k) { return data[k] });
+
+                this.setState({options: arr});
+            })
+            .catch((error) => {
+                // need to add error handling
+                console.log('error')
+            })
     },
 
     _onSearchButtonPress: function() {

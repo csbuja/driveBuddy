@@ -112,7 +112,8 @@ app.get('/googlemaps/:lat1/:lon1/:lat2/:lon2/:interval', function(req,res){
 
 app.get('/yelp/search/:lat/:lon/:name', (req, res) => {
     var location = req.params.lat + ',' + req.params.lon;
-    yelp.search({term: req.params.name, ll: location})
+    var search = 'food+' + req.params.name;
+    yelp.search({term: search, ll: location})
     .then((data) => {
         // need further error checking, succesful request but failed response
         // getYelpBusinesses data retrieval may need to be changed

@@ -93,10 +93,13 @@ module.exports = {
 			info.rating_img_url_small=  data.businesses[i].rating_img_url_small;
 			info.rating_img_url_large = data.businesses[i].rating_img_url_large;
 			info.rating_img_url = data.businesses[i].rating_img_url;
-			info.address = data.businesses[i].location.address + ' ' + data.businesses[i].location.city + ', ' + data.businesses[i].location.state_code + ' ' +data.businesses[i].location.postal_code
+			info.address = data.businesses[i].location.address + ' ' + data.businesses[i].location.city + ', ' + data.businesses[i].location.state_code + ' ' +data.businesses[i].location.postal_code;
 			info.name = data.businesses[i].name;
-			info.la = data.businesses[i].location.coordinate.latitude
-			info.lo = data.businesses[i].location.coordinate.longitude
+			info.la = data.businesses[i].location.coordinate.latitude;
+			info.lo = data.businesses[i].location.coordinate.longitude;
+            info.id = data.businesses[i].id;
+            info.image_url = data.businesses[i].image_url;
+            info.snippet_image_url = data.businesses[i].snippet_image_url;
 
 			businesses[info.name] = info;
 		}
