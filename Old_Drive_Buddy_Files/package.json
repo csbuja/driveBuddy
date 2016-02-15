@@ -11,11 +11,12 @@
   "dependencies": {
     "events": "^1.0.2",
     "express": "^4.8.8",
+    "mysql": "^2.10.2",
     "polyline": "0.0.3",
     "request": "^2.42.0",
     "require": "^0.5.0",
     "underscore": "^1.7.0",
-    "yelp": "^0.1.1"
+    "yelp": "^1.0.1"
   },
   "devDependencies": {
     "assert": "^1.1.2",

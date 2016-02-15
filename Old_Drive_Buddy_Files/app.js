@@ -7,7 +7,9 @@ var polyline = require('polyline');
 var pg = require('pg')
 var port = (process.env.PORT || 3000);
 var _ = require('underscore');
-var yelp = require("yelp").createClient({
+
+var Yelp = require('yelp');
+var yelp = new Yelp({
   consumer_key: "T0VjCY0WkEUOuyC5U46qMw",
   consumer_secret: "LwzcaQMBcdE2cz-iv5M3KDxHwCk",
   token: "QF86lSA004Z3R5mbKmXLGVFaUGfLSTET",
@@ -108,6 +110,19 @@ app.get('/googlemaps/:lat1/:lon1/:lat2/:lon2/:interval', function(req,res){
 	);
 });
 
+app.get('/yelp/search/:lat/:lon/:name', (req, res) => {
+    var location = req.params.lat + ',' + req.params.lon;
+    yelp.search({term: req.params.name, ll: location})
+    .then((data) => {
+        // need further error checking, succesful request but failed response
+        // getYelpBusinesses data retrieval may need to be changed
+        res.send(JSON.stringify(driverNeeds.getYelpBusinesses(data)));
+    })
+    .catch((error) => {
+        // need further error checking, failed request
+    });
+});
+
 app.get('/api/:theType/:lat/:lon', function(req, res) {
 	var theType = req.params.theType;
 	var lat = req.params.lat;
@@ -133,7 +148,7 @@ app.get('/weather/:lat/:lon',function (req, res) {
 	var lon = req.params.lon;
 	var lat = req.params.lat;
 	uri = "http://api.openweathermap.org/data/2.5/weather?lat=" +  lat + "&lon=" + lon + "&appid=" + API_KEY;
-	console.log(uri);	 
+	console.log(uri);
 	request({
 		method: 'GET',
 		uri: uri,
@@ -144,7 +159,7 @@ app.get('/weather/:lat/:lon',function (req, res) {
 		}
 		else{
 			res.send(body);
-			
+
 		}
 	});
 });

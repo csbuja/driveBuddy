@@ -7,8 +7,8 @@ module.exports = {
 	filterGasFeed: function (data, callback){
 		var setOfStations = [];
 
-		if (!data){ 
-			console.log('ERROR FILTERING GASFEED'); 
+		if (!data){
+			console.log('ERROR FILTERING GASFEED');
 			return setOfStations;
 		}
 
@@ -16,8 +16,8 @@ module.exports = {
 			if(data[i].reg_price !== "N/A") {
 				setOfStations.push({
 					name: data[i].station,
-					price: data[i].reg_price, 
-					latitude: data[i].lat, 
+					price: data[i].reg_price,
+					latitude: data[i].lat,
 					longitude: data[i].lng
 				});
 			}
@@ -36,8 +36,8 @@ module.exports = {
 		var GAS_FEED_KEY = 'p1mww4bpb5';
 		var radius = 25;//rad || 15; //miles
 		request({
-			method: 'GET', 
-			uri: GAS_FEED_URL + lat + '/' + lng + '/' + radius + '/reg/Price/' + GAS_FEED_KEY + '.json', 
+			method: 'GET',
+			uri: GAS_FEED_URL + lat + '/' + lng + '/' + radius + '/reg/Price/' + GAS_FEED_KEY + '.json',
 			json: true
 		}
 		, function (err, response, body){
@@ -83,6 +83,27 @@ module.exports = {
 		return categories.join();
 	},
 
+    getYelpBusinesses: function(data) {
+        var businesses = {};
+
+        for(var i = 0; i< data.businesses.length; ++i){
+			var info = {}
+
+			info.rating = data.businesses[i].rating;
+			info.rating_img_url_small=  data.businesses[i].rating_img_url_small;
+			info.rating_img_url_large = data.businesses[i].rating_img_url_large;
+			info.rating_img_url = data.businesses[i].rating_img_url;
+			info.address = data.businesses[i].location.address + ' ' + data.businesses[i].location.city + ', ' + data.businesses[i].location.state_code + ' ' +data.businesses[i].location.postal_code
+			info.name = data.businesses[i].name;
+			info.la = data.businesses[i].location.coordinate.latitude
+			info.lo = data.businesses[i].location.coordinate.longitude
+
+			businesses[info.name] = info;
+		}
+
+        return businesses;
+    },
+
 	moveThroughYelp: function(data, type){
 		var setOfInfo = [];
 		for(var i = 0; i< data.businesses.length; ++i){
@@ -98,7 +119,7 @@ module.exports = {
 			info.lo = data.businesses[i].location.coordinate.longitude
 			setOfInfo.push(info);
 		}
-	 
+
 		return setOfInfo;
 	},
 
@@ -109,8 +130,8 @@ module.exports = {
 		var self = this;
 		var categories = "";
 		if (foodFavs && _.isString(foodFavs)) categories = this.setFoodCategories(foodFavs);
-		if (type === 'food') 
-			yelp.search({term: type, ll: lat +',' + lng, category_filter: categories, radius_filter: MAX_RADIUS}, 
+		if (type === 'food')
+			yelp.search({term: type, ll: lat +',' + lng, category_filter: categories, radius_filter: MAX_RADIUS},
 				function(err, data){
 					if (err) res.send(JSON.stringify([]));
 					else res.send(JSON.stringify(self.moveThroughYelp(data, 'food')));
