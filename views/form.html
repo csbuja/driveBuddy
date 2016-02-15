@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title> Data collection</title>
+	</head>
+	<body>
+		<header> Food Data Collection</header>
+		
+
+		<form action='/api/fooddatacollection' method='post' enctype='application/x-www-form-urlencoded'>
+			longtitude: <input type='text' name = 'lon' id='lon' > 
+			latitude: <input type='text' name = 'lat' id='lat' >
+			name:<input type='text' name = 'name'id='name' >
+			<input type='submit' value='submit' id = 'submit' onclick="message()" >
+			<p id="msg"></p>
+			<script>
+			function message(){
+				document.getElementById("msg").innerHTML = "Submitted";
+			}
+			
+			</script>
+						
+	    </form>
+	</body>
+</html>

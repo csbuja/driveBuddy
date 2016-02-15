@@ -29,6 +29,7 @@ module.exports = {
 	// returns array of station literals sorted with lowest price first
 	//there is no daily limit of api calls specified on the mygasfeed website
 	getStations: function (lat, lng, res){
+		console.log('get Station is running');
 		var self = this
 
 		var GAS_FEED_URL = 'http://api.mygasfeed.com/stations/radius/';
@@ -93,6 +94,8 @@ module.exports = {
 			info.rating_img_url = data.businesses[i].rating_img_url;
 			info.address = data.businesses[i].location.address + ' ' + data.businesses[i].location.city + ', ' + data.businesses[i].location.state_code + ' ' +data.businesses[i].location.postal_code
 			info.name = data.businesses[i].name;
+			info.la = data.businesses[i].location.coordinate.latitude
+			info.lo = data.businesses[i].location.coordinate.longitude
 			setOfInfo.push(info);
 		}
 	 
@@ -102,6 +105,7 @@ module.exports = {
 	//note: the limit on yelp api calls is 25,000 per day
 	//if we go over this, contact api@yelp.com
 	getNeeds : function(res, type, lat, lng, yelp, foodFavs){
+		console.log('getNeeds is running');
 		var self = this;
 		var categories = "";
 		if (foodFavs && _.isString(foodFavs)) categories = this.setFoodCategories(foodFavs);

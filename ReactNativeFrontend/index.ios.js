@@ -2,14 +2,12 @@
 
 var React = require('react-native');
 
-var FoodSwiperContainer = require('./Components/FoodSwiperContainer.js');
-var GasSwiperContainer = require('./Components/GasSwiperContainer.js');
-
 var {
     AppRegistry,
     Component,
     StyleSheet,
-    View
+    View,
+    NavigatorIOS
 } = React;
 
 var fakeOptions = [
@@ -27,34 +25,24 @@ var fakeOptions = [
     },
 ];
 
+var LoginScreen = require('./views/login1');
 var noOptions = [];
 
 var App = React.createClass({
     render: function() {
-        return (
-            <View style={styles.liveView}>
-                <FoodSwiperContainer
-                    style={styles.borderBottom}
-                />
-                <GasSwiperContainer
-                    style={styles.borderBottom}
-                />
-            </View>
-        );
+        return (    
+             <NavigatorIOS style={styles.wrapper}
+    initialRoute={{component: LoginScreen,title: 'LoginScreen',passProps: {} }} 
+    navigationBarHidden={true}  />);
     }
 });
 
+/*
+
+*/
 var styles = StyleSheet.create({
-    liveView: {
-        backgroundColor:'#FFFFFF',
-        paddingTop: 28, // temporary
-    },
-    borderBottom: {
-        borderBottomWidth: 2,
-        borderColor: '#000000',
-        marginBottom: 10,
-        marginLeft: 80,
-        marginRight: 80,
+    wrapper: {
+        flex: 1,
     }
 });
 
