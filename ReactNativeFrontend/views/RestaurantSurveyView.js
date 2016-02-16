@@ -18,7 +18,7 @@ var RestaurantSurveyView = React.createClass({
     getInitialState: function() {
         return {
             query: '',
-            selected: [],
+            selected: {},
             options: [],
         };
     },
@@ -26,16 +26,21 @@ var RestaurantSurveyView = React.createClass({
     render: function() {
         return (
             <View style={styles.mainView}>
-                <SearchBar
-                    ref='searchBar'
-                    placeholder='Search'
-                    onChangeText={this._onTextChange}
-                    onSearchButtonPress={this._onSearchButtonPress}
-                    onCancelButtonPress={this._onCancelButtonPress}
-                />
-                <SurveyListView
-                    data={this.state.options}
-                />
+                <Text style={styles.title}>Search resturants you like</Text>
+                <Text style={styles.subtitle}>Select at least 10</Text>
+                <View>
+                    <SearchBar
+                        ref='searchBar'
+                        placeholder='Search'
+                        onChangeText={this._onTextChange}
+                        onSearchButtonPress={this._onSearchButtonPress}
+                        onCancelButtonPress={this._onCancelButtonPress}
+                    />
+                    <SurveyListView
+                        data={this.state.options}
+                        onPress={this._onRestaurantSelect}
+                    />
+                </View>
             </View>
         );
     },
@@ -64,13 +69,31 @@ var RestaurantSurveyView = React.createClass({
     _onCancelButtonPress: function() {
 
     },
+
+    _onRestaurantSelect: function(info) {
+        this.state.selected[info.name] = info;
+        console.log(this.state.selected)
+    },
 });
 
 var styles = StyleSheet.create({
     mainView: {
         backgroundColor: 'red',
-        height: 440,
-    }
+        height: 640,
+        paddingTop: 50,
+    },
+    subtitle: {
+        color: "#FFFFFF",
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    title: {
+        color: "#FFFFFF",
+        fontSize: 26,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
 });
 
 module.exports = RestaurantSurveyView;

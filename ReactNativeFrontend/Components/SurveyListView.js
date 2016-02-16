@@ -9,12 +9,14 @@ var {
     RecyclerViewBackedScrollView,
     StyleSheet,
     Text,
+    TouchableHighlight,
     View,
 } = React;
 
 var SurveyListView = React.createClass({
     propTypes: {
         data: PropTypes.array.isRequired,
+        onPress: PropTypes.func.isRequired,
     },
 
     // may be a more efficient way
@@ -46,21 +48,23 @@ var SurveyListView = React.createClass({
 
     _renderRow: function(info) {
         return (
-            <View style={styles.row}>
-                <View style={styles.directionRow}>
-                    <Image
-                        style={styles.thumbnail}
-                        source={{uri: info.image_url}}
-                    />
-                    <View style={styles.directionCol}>
-                        <View style={styles.directionRow}>
-                            <Text style={styles.title}>{info.name}</Text>
-                            <Text>{info.rating + " Stars"}</Text>
+            <TouchableHighlight onPress={() => this.props.onPress(info)}>
+                <View style={styles.row}>
+                    <View style={styles.directionRow}>
+                        <Image
+                            style={styles.thumbnail}
+                            source={{uri: info.image_url}}
+                        />
+                        <View style={styles.directionCol}>
+                            <View style={styles.directionRow}>
+                                <Text style={styles.title}>{info.name}</Text>
+                                <Text>{info.rating + " Stars"}</Text>
+                            </View>
+                            <Text style={styles.address}>{info.address}</Text>
                         </View>
-                        <Text style={styles.address}>{info.address}</Text>
                     </View>
                 </View>
-            </View>
+            </TouchableHighlight>
         );
     },
 });
