@@ -48,21 +48,14 @@ var Login1 = React.createClass({
       };
       
       this.props.navigator.push(next);
-      this.props.navigator.popToTop();
       //console.log(this.props.navigator.getCurrentRoutes());
-  },
-
-  onBack : function() {
-    if (route.index > 0) {
-      this.props.navigator.pop();
-    }
   },
   render: function() {
     return (
         <View style={styles.container}>
             <Image style={styles.bg} source={{uri: 'http://i.imgur.com/xlQ56UK.jpg'}} />
             <View style={styles.header}>
-                <Image style={styles.mark} source={{uri: 'http://i.imgur.com/da4G0Io.png'}} />
+                <Text>Pitstop Pal</Text>
             </View>
             <View style={styles.inputs}>
                 
