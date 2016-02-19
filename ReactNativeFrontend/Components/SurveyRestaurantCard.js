@@ -42,9 +42,14 @@ var SurveyRestaurantCard = React.createClass({
                     name="close"
                     size={20}
                     color="#0080ff"
+                    onPress={this._onRemovePress}
                 />
             </View>
         );
+    },
+
+    _onRemovePress: function() {
+        this.props.onRestaurantRemove(this.props.info.id);
     },
 });
 
