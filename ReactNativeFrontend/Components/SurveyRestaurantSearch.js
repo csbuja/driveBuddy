@@ -41,6 +41,7 @@ var SurveyListView = React.createClass({
                 <SearchBar
                     ref='searchBar'
                     placeholder='Search'
+                    onCancelButtonPress={this._onCancelButtonPress}
                     onChangeText={this._onTextChange}
                 />
                 <Overlay isVisible={this.state.showOptions}>
@@ -84,6 +85,11 @@ var SurveyListView = React.createClass({
     },
 
     _onTextChange: function(text) {
+        if (!text.length) {
+            this._onCancelButtonPress();
+            return;
+        }
+
         // TODO (urlauba): change url, lat, and lon
         fetch('http://localhost:3000/yelp/search/37.788022/-122.399797/' + text)
             .then((response) => response.text())
@@ -94,13 +100,20 @@ var SurveyListView = React.createClass({
                 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
                 this.setState({
                     dataSource: ds.cloneWithRows(arr),
-                    showOptions: true,
+                    showOptions: arr.length,
                 });
             })
             .catch((error) => {
                 // TODO (urlauba): handle error state
                 console.log('error')
             })
+    },
+
+    _onCancelButtonPress: function() {
+        this.setState({
+            options: [],
+            showOptions: false,
+        });
     },
 });
 
