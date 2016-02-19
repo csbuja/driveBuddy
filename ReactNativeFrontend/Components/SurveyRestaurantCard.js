@@ -31,7 +31,7 @@ var SurveyRestaurantCard = React.createClass({
                         {this.props.info.name}
                     </Text>
                     <Text style={styles.text}>
-                        {this.props.info.rating + " 4 Stars"}
+                        {this.props.info.rating + " Stars"}
                     </Text>
                     <Text style={styles.text}>
                         {this.props.info.address}
