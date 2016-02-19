@@ -101,7 +101,7 @@ module.exports = {
             info.image_url = data.businesses[i].image_url;
             info.snippet_image_url = data.businesses[i].snippet_image_url;
 
-			businesses[info.name] = info;
+			businesses[info.id] = info;
 		}
 
         return businesses;

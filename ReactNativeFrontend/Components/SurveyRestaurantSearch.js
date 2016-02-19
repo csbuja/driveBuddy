@@ -53,7 +53,7 @@ var SurveyListView = React.createClass({
                                 props => <RecyclerViewBackedScrollView {...props} />
                             }
                             renderSeparator={(secID, rowID, adjHighlighted) =>
-                                <View style={styles.separator} />
+                                <View key={rowID} style={styles.separator} />
                             }
                         />
                     </View>
@@ -62,9 +62,11 @@ var SurveyListView = React.createClass({
         );
     },
 
-    _renderRow: function(info) {
+    _renderRow: function(info, sectionID, rowID, adjHighlighted) {
         return (
-            <TouchableHighlight onPress={() => this.props.onPress(info)}>
+            <TouchableHighlight
+                key={rowID}
+                onPress={() => this.props.onPress(info)}>
                 <View style={styles.row}>
                     <View style={styles.directionRow}>
                         <Image
@@ -96,11 +98,12 @@ var SurveyListView = React.createClass({
             .then((responseText) => {
                 var data = JSON.parse(responseText);
                 var arr = Object.keys(data).map(function(k) { return data[k] });
+                var showOptions = arr.length ? true : false;
 
                 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
                 this.setState({
-                    dataSource: ds.cloneWithRows(arr),
-                    showOptions: arr.length,
+                    dataSource: ds.cloneWithRows(data),
+                    showOptions: true,
                 });
             })
             .catch((error) => {

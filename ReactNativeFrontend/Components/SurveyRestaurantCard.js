@@ -67,7 +67,6 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start',
         overflow: 'hidden',
-        textAlign: 'center',
         width: 350,
     },
     infoSec: {

@@ -48,9 +48,11 @@ var SurveySelectedRestaurantList = React.createClass({
         );
     },
 
-    _renderRow: function(info) {
+    _renderRow: function(info, sectionID, rowID, adjHighlighted) {
         return (
-            <View style={styles.listItem}>
+            <View
+                key={rowID}
+                style={styles.listItem}>
                 <SurveyRestaurantCard
                     onRestaurantRemove={this.props.onRestaurantRemove}
                     info={info}
