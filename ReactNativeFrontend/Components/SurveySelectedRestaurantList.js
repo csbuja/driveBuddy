@@ -71,6 +71,7 @@ var styles = StyleSheet.create({
     },
     mainView: {
         backgroundColor: 'transparent',
+        flex: 1,
     },
 });
 
