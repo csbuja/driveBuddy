@@ -27,7 +27,8 @@ var RestaurantSurveyView = React.createClass({
     render: function() {
         var selectedInfo = Object.keys(this.state.selected).map((k) => { return this.state.selected[k]; });
         var isNextDisabled = selectedInfo.length < 10 ? true : false;
-        var nextButtonText = isNextDisabled ? "Select 10 Restaurants" : "Next";
+        var restaurant = (selectedInfo.length == 9) ? " Restuarant" : " Restaurants";
+        var nextButtonText = isNextDisabled ? "Select " +  (10 - selectedInfo.length) + restaurant : "Next";
 
         return (
             <View style={styles.mainView}>
