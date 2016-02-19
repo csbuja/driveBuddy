@@ -13,7 +13,7 @@ var {
      NativeModules
 } = React;
 
-
+// var Login1 = require('./Login1');
 var FoodSwiperContainer = require('../Components/FoodSwiperContainer.js');
 var GasSwiperContainer = require('../Components/GasSwiperContainer.js');
 var FBLogin = require('react-native-facebook-login');
@@ -23,14 +23,22 @@ var liveView = React.createClass({
     onBack : function() {
             this.props.navigator.pop();
     },
-  
+    
+    toLoginBack:function(){
+        this.props.navigator.pop();
+    },
     render: function(){
+
+        var toLoginBack = this.toLoginBack;
         return( 
              
             <View style={styles.liveView}>
             <TouchableHighlight style={styles.circleButton} onPress={this.onBack}>
                 <View>
-                 <FBLogin />
+                 <FBLogin onCancel={function(){
+                    console.log('CANNCCELLLLEd');
+                    toLoginBack();
+          }}/>
                  </View>
              </TouchableHighlight>
                 <  FoodSwiperContainer

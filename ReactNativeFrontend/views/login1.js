@@ -32,14 +32,9 @@ var Login1 = React.createClass({
       password: ''
     }
   },
-
-  onForward: function() {
-          var nextIndex = route.index + 1;
-          this.props.navigator.push({
-            name: 'Scene ' + nextIndex,
-            index: nextIndex,
-          });
-        },
+  onBack : function() {
+            this.props.navigator.pop();
+  },
 
   onPressLogin : function() {
       var next = {
@@ -51,6 +46,7 @@ var Login1 = React.createClass({
       //console.log(this.props.navigator.getCurrentRoutes());
   },
   render: function() {
+    var onBack = this.onBack;
     return (
         <View style={styles.container}>
             <Image style={styles.bg} source={{uri: 'http://i.imgur.com/xlQ56UK.jpg'}} />
@@ -62,13 +58,18 @@ var Login1 = React.createClass({
             </View>
             <TouchableHighlight onPress={() => this.onPressLogin()}>
             <View style={styles.signin}>
-                <FBLogin style={styles.signin}/>
+                <FBLogin style={styles.signin} onCancel={function(){
+                    console.log('CANNCCELLLLEd');
+                    onBack();
+          }}/>
             </View>
             </TouchableHighlight>
         </View>
     );
   }
 });
+
+
 
 var styles = StyleSheet.create({
     container: {
