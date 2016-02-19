@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+
 var SurveyRestaurantCard = require('./SurveyRestaurantCard');
 
 var {
@@ -34,14 +35,14 @@ var SurveySelectedRestaurantList = React.createClass({
 
     render: function() {
         return (
-            <View>
+            <View style={styles.mainView}>
                 <ListView
                     dataSource={this.state.dataSource}
+                    contentContainerStyle={styles.listContainer}
                     renderRow={this._renderRow}
                     renderScrollComponent={
                         props => <RecyclerViewBackedScrollView {...props} />
                     }
-                    contentContainerStyle={styles.list}
                 />
             </View>
         );
@@ -60,12 +61,15 @@ var SurveySelectedRestaurantList = React.createClass({
 });
 
 var styles = StyleSheet.create({
-    list: {
+    listContainer: {
         alignItems: 'center',
     },
     listItem: {
         margin: 10,
     },
-})
+    mainView: {
+        backgroundColor: 'transparent',
+    },
+});
 
 module.exports = SurveySelectedRestaurantList;

@@ -1,8 +1,9 @@
 'use strict';
 
 var React = require('react-native');
-var SearchBar = require('react-native-search-bar');
+
 var Overlay = require('react-native-overlay');
+var SearchBar = require('react-native-search-bar');
 
 var {
     Image,
@@ -115,15 +116,15 @@ var styles = StyleSheet.create({
     },
     overlay: {
         backgroundColor: '#333333',
-        height: 200,
-        marginTop: 97,
+        height: 150,
+        marginTop: 191, // TODO (urlauba): make dynamic, measure in NativeMethodsMixin?
     },
     row: {
         backgroundColor: '#FFFFFF',
         padding: 10,
     },
     separator: {
-        backgroundColor: '#1aa3ff',
+        backgroundColor: '#3399ff',
         height: 1,
     },
     thumbnail: {
