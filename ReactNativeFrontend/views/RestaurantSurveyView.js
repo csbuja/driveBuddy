@@ -61,12 +61,14 @@ var RestaurantSurveyView = React.createClass({
 
     _onRestaurantSelect: function(info) {
         var selected = this.state.selected;
-        selected[info.name] = info;
+        selected[info.id] = info;
         this.setState({selected: selected});
     },
 
     _onRestaurantRemove: function(id) {
-        console.log('yo');
+        var selected = this.state.selected;
+        delete selected[id];
+        this.setState({selected: selected});
     },
 
     _onNextPress: function() {
