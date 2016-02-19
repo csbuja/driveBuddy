@@ -25,6 +25,10 @@ var SurveyListView = React.createClass({
         this.refs.searchBar.focus();
     },
 
+    componentWillUnmount: function() {
+        this.setState({showOptions: false});
+    },
+
     getInitialState: function() {
         var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 

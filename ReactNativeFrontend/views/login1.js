@@ -15,13 +15,11 @@ var {
   NativeModules
 } = React;
 
-var liveView= require('./liveView');
+var RestaurantSurveyView= require('./RestaurantSurveyView');
 
 var FBLogin = require('react-native-facebook-login');
 //var FBLoginMock = require('./facebook/FBLoginMock.js');
 var { FBLoginManager } = NativeModules;
-
-console.log(FBLoginManager)
 
 var FB_PHOTO_WIDTH = 200;
 
@@ -37,14 +35,13 @@ var Login1 = React.createClass({
   },
 
   onPressLogin : function() {
-      var next = {
-      name: 'liveView',
-      component: liveView
-      };
-      
-      this.props.navigator.push(next);
-      //console.log(this.props.navigator.getCurrentRoutes());
+      this.props.navigator.push({
+          name: 'RestaurantSurveyView',
+          component: RestaurantSurveyView,
+      });
+      this.props.navigator.popToTop();
   },
+
   render: function() {
     var onBack = this.onBack;
     return (
@@ -54,7 +51,7 @@ var Login1 = React.createClass({
                 <Text>Pitstop Pal</Text>
             </View>
             <View style={styles.inputs}>
-                
+
             </View>
             <TouchableHighlight onPress={() => this.onPressLogin()}>
             <View style={styles.signin}>

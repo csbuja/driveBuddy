@@ -4,6 +4,7 @@ var React = require('react-native');
 
 var Button = require('react-native-button');
 var Dimensions = require('Dimensions');
+var liveView = require('./liveView');
 var SurveyRestaurantSearch = require('../Components/SurveyRestaurantSearch');
 var SurveySelectedRestaurantList = require('../Components/SurveySelectedRestaurantList');
 
@@ -72,7 +73,11 @@ var RestaurantSurveyView = React.createClass({
     },
 
     _onNextPress: function() {
-        // TODO (urlauba): send survey results to server and handle view change
+        // TODO (urlauba): send survey results to server
+        this.props.navigator.replace({
+            name: 'liveView',
+            component: liveView,
+        });
     },
 });
 
@@ -86,13 +91,13 @@ var styles = StyleSheet.create({
         flex: 0.8,
         flexDirection: 'column',
     },
+    button: {
+        color: "#FFFFFF",
+    },
     buttonContainer: {
         backgroundColor: '#3399ff',
         flex: 0.12,
         justifyContent: 'center',
-    },
-    buttonText: {
-        color: "#FFFFFF",
     },
     mainView: {
         backgroundColor: '#FFFFFF',
