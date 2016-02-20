@@ -7,12 +7,13 @@ var Dimensions = require('Dimensions');
 var liveView = require('./liveView');
 var SurveyRestaurantSearch = require('../Components/SurveyRestaurantSearch');
 var SurveySelectedRestaurantList = require('../Components/SurveySelectedRestaurantList');
-
+var FBLoginTopBar = require('../Components/FBLoginTopBar.js')
 var {
     Image,
     StyleSheet,
     Text,
-    View,
+    TouchableHighlight,
+    View
 } = React;
 
 var { width } = Dimensions.get('window');
@@ -32,6 +33,11 @@ var RestaurantSurveyView = React.createClass({
 
         return (
             <View style={styles.mainView}>
+                <TouchableHighlight style={styles.circleButton} onPress={this.onBack}>
+                <View>
+                 <FBLoginTopBar navigator={this.props.navigator}/>
+                 </View>
+             </TouchableHighlight>
                 <View style={styles.top}>
                     <Text style={styles.title}>Search resturants you like</Text>
                     <Text style={styles.subtitle}>Select at least 10</Text>
@@ -87,6 +93,13 @@ var styles = StyleSheet.create({
         flex: 1,
         resizeMode: 'cover',
         width: width,
+    },
+    circleButton: {
+        padding: 10,
+        borderWidth: 1,
+        borderColor: "#FFFFFF",
+        margin: 5,
+        borderRadius: 500
     },
     bottom: {
         flex: 0.8,

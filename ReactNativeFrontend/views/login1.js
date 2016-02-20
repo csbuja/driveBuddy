@@ -31,7 +31,8 @@ var Login1 = React.createClass({
     }
   },
   onBack : function() {
-            this.props.navigator.pop();
+            console.log('should be poppping')
+            this.props.navigator.popToTop();
   },
 
   onPressLogin : function() {
@@ -44,6 +45,7 @@ var Login1 = React.createClass({
 
   render: function() {
     var onBack = this.onBack;
+    var onPressLogin = this.onPressLogin;
     return (
         <View style={styles.container}>
             <Image style={styles.bg} source={{uri: 'http://i.imgur.com/xlQ56UK.jpg'}} />
@@ -53,12 +55,18 @@ var Login1 = React.createClass({
             <View style={styles.inputs}>
 
             </View>
-            <TouchableHighlight onPress={() => this.onPressLogin()}>
+            <TouchableHighlight>
             <View style={styles.signin}>
                 <FBLogin style={styles.signin} onCancel={function(){
                     console.log('CANNCCELLLLEd');
                     onBack();
-          }}/>
+          }}
+          onLogin={
+            function(){
+              onPressLogin();
+            }
+          }
+          />
             </View>
             </TouchableHighlight>
         </View>

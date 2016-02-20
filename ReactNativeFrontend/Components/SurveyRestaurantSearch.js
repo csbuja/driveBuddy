@@ -139,7 +139,7 @@ var styles = StyleSheet.create({
         borderBottomWidth: 5,
         borderColor: '#3399ff',
         height: 150,
-        marginTop: 191, // TODO (urlauba): make dynamic, measure in NativeMethodsMixin?
+        marginTop: 240, // TODO (urlauba): make dynamic, measure in NativeMethodsMixin?
     },
     row: {
         backgroundColor: '#FFFFFF',
