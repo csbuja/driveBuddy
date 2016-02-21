@@ -124,27 +124,29 @@ app.get('/yelp/search/:lat/:lon/:name', (req, res) => {
     });
 });
 
-app.get('/api/:theType/:lat/:lon', function(req, res) {
-	var theType = req.params.theType;
+
+app.get('/api/yelp/:lat/:lon',function (req, res) {
 	var lat = req.params.lat;
 	var lon = req.params.lon;
-	console.log('call getNeeds');
-	//sends an http response back to the frontend
-	driverNeeds.getNeeds(res,theType,lat,lon, yelp);
+	var radius = 40000; //max
+	yelp.search({term: "food", ll: lat +',' + lon, radius_filter: radius},
+		function(err, data){
+			if (err) res.send(JSON.stringify([]));
+			else res.send(JSON.stringify(driverNeeds.moveThroughYelp(data, 'food')));
+		}
+	);
 });
 
-app.get('/api/:theType/:lat/:lon/:foodParams', function(req, res) {
-	var theType = req.params.theType;
+app.get('/api/gas/:lat/:lon',function (req, res) {
 	var lat = req.params.lat;
 	var lon = req.params.lon;
-	var foodParams = req.params.foodParams;
-
-	//sends an http response back to the frontend
-	driverNeeds.getNeeds(res,theType,lat,lon, yelp, foodParams);
+	var radius = 25;//rad || 15; //miles
+	driverNeeds.getStations(lat, lon, radius,res);
 });
+
 
 //use open weather api to get the weather information
-app.get('/weather/:lat/:lon',function (req, res) {
+app.get('/api/weather/:lat/:lon',function (req, res) {
 	var API_KEY = "d83f80e09d1864365dad8e2f4abd344d";
 	var lon = req.params.lon;
 	var lat = req.params.lat;

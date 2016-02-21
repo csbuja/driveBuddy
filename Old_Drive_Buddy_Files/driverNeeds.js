@@ -28,13 +28,12 @@ module.exports = {
 
 	// returns array of station literals sorted with lowest price first
 	//there is no daily limit of api calls specified on the mygasfeed website
-	getStations: function (lat, lng, res){
+	getStations: function (lat, lng, radius, res){
 		console.log('get Station is running');
 		var self = this
 
 		var GAS_FEED_URL = 'http://api.mygasfeed.com/stations/radius/';
 		var GAS_FEED_KEY = 'p1mww4bpb5';
-		var radius = 25;//rad || 15; //miles
 		request({
 			method: 'GET',
 			uri: GAS_FEED_URL + lat + '/' + lng + '/' + radius + '/reg/Price/' + GAS_FEED_KEY + '.json',
@@ -132,6 +131,7 @@ module.exports = {
 		console.log('getNeeds is running');
 		var self = this;
 		var categories = "";
+		
 		if (foodFavs && _.isString(foodFavs)) categories = this.setFoodCategories(foodFavs);
 		if (type === 'food')
 			yelp.search({term: type, ll: lat +',' + lng, category_filter: categories, radius_filter: MAX_RADIUS},
@@ -141,7 +141,7 @@ module.exports = {
 				}
 			);
 		else{
-			self.getStations(lat, lng, res);
+			self.getStations(lat, lng, radius, res);
 		}
 	}
 
