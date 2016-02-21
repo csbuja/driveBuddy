@@ -145,13 +145,14 @@ app.get('/api/gas/:lat/:lon',function (req, res) {
 });
 
 
-//use open weather api to get the weather information
+//use http://www.worldweatheronline.com/api/
+//5 query per second
+//250 query per day
 app.get('/api/weather/:lat/:lon',function (req, res) {
-	var API_KEY = "d83f80e09d1864365dad8e2f4abd344d";
+	var API_KEY = "e189ac7eb58172bc86f984c5eadd2";
 	var lon = req.params.lon;
 	var lat = req.params.lat;
-	uri = "http://api.openweathermap.org/data/2.5/weather?lat=" +  lat + "&lon=" + lon + "&appid=" + API_KEY;
-	console.log(uri);
+	uri = "http://api.worldweatheronline.com/free/v2/weather.ashx?key=" + API_KEY + "&q=" + lat + "," + lon + "&num_of_days=1&format=json&fx=no";
 	request({
 		method: 'GET',
 		uri: uri,
