@@ -24,50 +24,137 @@ var app = express();
 function toMiles(km){
 	return km * 0.621371;
 }
-app.all('/api/fooddatacollection/:lat/:lon/:name/:userid', function(req, res){
-	var post = {userid: req.params.userid, name:req.params.name, lon:req.params.lon, lat:req.params.lat};
-	var query = db.query('INSERT INTO foodcollection SET ?', post, function(err, result) {
-		if (err) throw err;
-		});
-	res.send('Data sent');
-});
 
-
-app.get('/api/fooddatacollection', function(req, res){
-	db.query('SELECT * FROM foodcollection',function(err,rows){
-		if(err) throw err;
-		console.log('Data received from Db:\n');
-		res.send(JSON.stringify(rows));
+//insert the userid into user table
+app.all('/api/user/:userid', function(req,res) {
+	var post = {userid: req.params.userid};
+	var query = db.query('SELECT userid from user where userid = ?', req.params.userid, function(err, result) {
+		if (err){
+			throw err
+		}else{
+			if(result.length == 0){
+				var query2 = db.query('INSERT INTO user SET ?', post, function(err, result) {
+					if (err) throw err;
+				});
+				res.send('Registered');
+			}else{
+				res.send('Alreay exists');
+			}
+		}
 	});
 });
 
-app.all('/api/gasdatacollection/:lat/:lon/:name/:userid', function(req, res){
-	var post = {userid: req.params.userid, name:req.params.name, lon:req.params.lon, lat:req.params.lat};
-	var query = db.query('INSERT INTO gascollection SET ?', post, function(err, result) {
+//insert resturant info into resturant table
+//insert user visted info into user_res table
+app.all('/api/fooddata/:resturant/:userid', function(req, res){
+	db.query('SELECT resturant_id from resturant where resturant_id = ?', req.params.resturant, function(err, result) {
+		if (err){
+			throw err
+		}else{
+			if(result.length == 0){
+				yelp.business(req.params.resturant,
+				function(err, data){
+					if (err){
+						res.send(JSON.stringify([]));
+					}else{
+						var term = {
+							resturant_id: data.id,
+							name: data.name,
+							rate: data.rating,
+							foodtype: (data.categories).toString()
+						};
+						console.log(term);
+						db.query('INSERT INTO resturant SET ?', term,function(err, result) {
+							if (err) throw err;
+						});
+
+					}
+				});
+			}
+		}
+	});
+			
+	var post = {userid: req.params.userid, resturant_id:req.params.resturant};
+	db.query('INSERT INTO user_res SET ?', post, function(err, result) {
 		if (err) throw err;
 		});
 	res.send('Data sent');
+	
 });
 
-app.all('/api/sensordatacollection/:time/:lat/:lon/:status/:userid', function(req,res) {
-	var post = {userid: req.params.userid,  time:req.params.time,
-	lon:req.params.lon, lat:req.params.lat, status:req.params.status};
+//insert sensor data into sensordata table
+app.all('/api/sensordata/:lat/:lon/:status/:userid', function(req,res) {
+	var post = {userid: req.params.userid,lon:req.params.lon, lat:req.params.lat, status:req.params.status};
 	var query = db.query('INSERT INTO sensordata SET ?', post, function(err, result) {
 	if (err) throw err;
 	});
 	res.send('Data sent');
-})
-
-app.get('/api/gasdatacollection', function(req, res){
-	db.query('SELECT * FROM gascollection',function(err,rows){
-		if(err) throw err;
-		console.log('Data received from Db:\n');
-		res.send(JSON.stringify(rows));
-	});
 });
 
 
+/*
+app.get('/yelp/search/:lat/:lon/:name', (req, res) => {
+    var location = req.params.lat + ',' + req.params.lon;
+    var search = 'food+' + req.params.name;
+    yelp.search({term: search, ll: location})
+    .then((data) => {
+        // need further error checking, succesful request but failed response
+        // getYelpBusinesses data retrieval may need to be changed
+        res.send(JSON.stringify(driverNeeds.getYelpBusinesses(data)));
+    })
+    .catch((error) => {
+        // need further error checking, failed request
+    });
+});
+*/
 
+//return the resturant within radius = 40000 
+app.get('/api/yelp/:lat/:lon',function (req, res) {
+	var lat = req.params.lat;
+	var lon = req.params.lon;
+	var radius = 40000; //max 40000 meters
+	yelp.search({term: "food", ll: lat +',' + lon, radius_filter: radius},
+		function(err, data){
+			if (err) res.send(JSON.stringify([]));
+			else res.send(JSON.stringify(driverNeeds.getYelpBusinesses(data, 'food')));
+		}
+	);
+});
+
+//return the gas station within radius = 25 miles
+app.get('/api/gas/:lat/:lon',function (req, res) {
+	var lat = req.params.lat;
+	var lon = req.params.lon;
+	var radius = 25;//rad || 15; //miles
+	driverNeeds.getStations(lat, lon, radius,res);
+});
+
+
+//use http://www.worldweatheronline.com/api/
+//5 query per second
+//250 query per day
+app.get('/api/weather/:lat/:lon',function (req, res) {
+	var API_KEY = "e189ac7eb58172bc86f984c5eadd2";
+	var lon = req.params.lon;
+	var lat = req.params.lat;
+	uri = "http://api.worldweatheronline.com/free/v2/weather.ashx?key=" + API_KEY + "&q=" + lat + "," + lon + "&num_of_days=1&format=json&fx=no";
+	request({
+		method: 'GET',
+		uri: uri,
+	}
+	, function (err, response, body){
+		if(err){
+			res.send("error");
+		}
+		else{
+			res.send(body);
+
+		}
+	});
+	
+});
+
+/*
 //the google maps api call is limited to 100,000 requests per day
 app.get('/googlemaps/:lat1/:lon1/:lat2/:lon2/:interval', function(req,res){
 	var lon1 = req.params.lon1;
@@ -110,62 +197,6 @@ app.get('/googlemaps/:lat1/:lon1/:lat2/:lon2/:interval', function(req,res){
 	);
 });
 
-app.get('/yelp/search/:lat/:lon/:name', (req, res) => {
-    var location = req.params.lat + ',' + req.params.lon;
-    var search = 'food+' + req.params.name;
-    yelp.search({term: search, ll: location})
-    .then((data) => {
-        // need further error checking, succesful request but failed response
-        // getYelpBusinesses data retrieval may need to be changed
-        res.send(JSON.stringify(driverNeeds.getYelpBusinesses(data)));
-    })
-    .catch((error) => {
-        // need further error checking, failed request
-    });
-});
-
-
-app.get('/api/yelp/:lat/:lon',function (req, res) {
-	var lat = req.params.lat;
-	var lon = req.params.lon;
-	var radius = 40000; //max
-	yelp.search({term: "food", ll: lat +',' + lon, radius_filter: radius},
-		function(err, data){
-			if (err) res.send(JSON.stringify([]));
-			else res.send(JSON.stringify(driverNeeds.moveThroughYelp(data, 'food')));
-		}
-	);
-});
-
-app.get('/api/gas/:lat/:lon',function (req, res) {
-	var lat = req.params.lat;
-	var lon = req.params.lon;
-	var radius = 25;//rad || 15; //miles
-	driverNeeds.getStations(lat, lon, radius,res);
-});
-
-
-//use http://www.worldweatheronline.com/api/
-//5 query per second
-//250 query per day
-app.get('/api/weather/:lat/:lon',function (req, res) {
-	var API_KEY = "e189ac7eb58172bc86f984c5eadd2";
-	var lon = req.params.lon;
-	var lat = req.params.lat;
-	uri = "http://api.worldweatheronline.com/free/v2/weather.ashx?key=" + API_KEY + "&q=" + lat + "," + lon + "&num_of_days=1&format=json&fx=no";
-	request({
-		method: 'GET',
-		uri: uri,
-	}
-	, function (err, response, body){
-		if(err){
-			res.send("error");
-		}
-		else{
-			res.send(body);
-
-		}
-	});
-});
+*/
 console.log('App running on port: ' + port);
 app.listen(port);

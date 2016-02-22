@@ -1,37 +1,39 @@
-drop table if exists user;
-create table user(
-	userid int not null,
-	primary key(userid)
-);
-
-drop table if exists resturant;
-create table resturant(
-	resturant_id int not null,
-	name varchar(255),
-	foodtype int not null,
-	cost int not null,
-	rate double not null
-	primary key(resturant_id)
-);
-
+drop table if exists sensordata;
 drop table if exists user_res;
+drop table if exists resturant;
+drop table if exists user;
+
+create table user(
+	userid int not null primary key
+);
+
+create table resturant(
+	resturant_id varchar(255) not null  primary key,
+	name varchar(255),
+	foodtype varchar(255) not null,
+	cost int,
+	rate double not null
+);
+
 create table user_res(
 	userid int not null,
-	resturant_id int not null,
-	time timestamp,
-	primary key (userid, resturant_id),
-	foreign key userid references user,
-	foreign key resturant_id references resturant
+	resturant_id varchar(255) not null,
+	time timestamp DEFAULT CURRENT_TIMESTAMP,
+	primary key (userid, time),
+	foreign key (userid) references user(userid),
+	foreign key (resturant_id) references resturant(resturant_id)
 );
 
-drop table if exists sensordata;
 create table sensordata(
 	userid int not null,
-	time timestamp,
 	lon double,
 	lat double,
 	status int,
-	primary key (userid, timestamp),
-	foreign key userid references user
+	time timestamp DEFAULT CURRENT_TIMESTAMP,
+	primary key (userid, time),
+	foreign key (userid) references user(userid)
+	
 );
 
+#insert into user (userid) values (0);
+#insert an root user with userid 0;
