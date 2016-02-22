@@ -1,14 +1,14 @@
 drop table if exists sensordata;
 drop table if exists user_res;
-drop table if exists resturant;
+drop table if exists restaurant;
 drop table if exists user;
 
 create table user(
 	userid int not null primary key
 );
 
-create table resturant(
-	resturant_id varchar(255) not null  primary key,
+create table restaurant(
+	restaurant_id varchar(255) not null  primary key,
 	name varchar(255),
 	foodtype varchar(255) not null,
 	cost int,
@@ -17,11 +17,11 @@ create table resturant(
 
 create table user_res(
 	userid int not null,
-	resturant_id varchar(255) not null,
+	restaurant_id varchar(255) not null,
 	time timestamp DEFAULT CURRENT_TIMESTAMP,
 	primary key (userid, time),
 	foreign key (userid) references user(userid),
-	foreign key (resturant_id) references resturant(resturant_id)
+	foreign key (restaurant_id) references restaurant(restaurant_id)
 );
 
 create table sensordata(

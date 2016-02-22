@@ -32,7 +32,7 @@ app.all('/api/user/:userid', function(req,res) {
 		if (err){
 			throw err
 		}else{
-			if(result.length == 0){
+			if(result.length == 0){restaurant
 				var query2 = db.query('INSERT INTO user SET ?', post, function(err, result) {
 					if (err) throw err;
 				});
@@ -44,37 +44,39 @@ app.all('/api/user/:userid', function(req,res) {
 	});
 });
 
-//insert resturant info into resturant table
+//insert restaurant info into restaurant table
 //insert user visted info into user_res table
-app.all('/api/fooddata/:resturant/:userid', function(req, res){
-	db.query('SELECT resturant_id from resturant where resturant_id = ?', req.params.resturant, function(err, result) {
+app.all('/api/fooddata/:restaurant/:userid', function(req, res){
+	db.query('SELECT restaurant_id from restaurant where restaurant_id = ?', req.params.restaurant, function(err, result) {
 		if (err){
 			throw err
 		}else{
 			if(result.length == 0){
-				yelp.business(req.params.resturant,
+				yelp.business(req.params.restaurant,
 				function(err, data){
 					if (err){
 						res.send(JSON.stringify([]));
 					}else{
+						for(var i = 0; i < (data.categories).length; ++i){
+							data.categories[i] = (data.categories[i])[1];
+						}
 						var term = {
-							resturant_id: data.id,
+							restaurant_id: data.id,
 							name: data.name,
 							rate: data.rating,
 							foodtype: (data.categories).toString()
 						};
-						console.log(data.categories);
-						db.query('INSERT INTO resturant SET ?', term,function(err, result) {
+						db.query('INSERT INTO restaurant SET ?', term,function(err, result) {
 							if (err) throw err;
 						});
-						var post = {userid: req.params.userid, resturant_id:req.params.resturant};
+						var post = {userid: req.params.userid, restaurant_id:req.params.restaurant};
 						db.query('INSERT INTO user_res SET ?', post, function(err, result) {
 							if (err) throw err;
 						});
 					}
 				});
 			}else{
-				var post = {userid: req.params.userid, resturant_id:req.params.resturant};
+				var post = {userid: req.params.userid, restaurant_id:req.params.restaurant};
 				db.query('INSERT INTO user_res SET ?', post, function(err, result) {
 					if (err) throw err;
 				});
@@ -113,12 +115,12 @@ app.get('/yelp/search/:lat/:lon/:name', (req, res) => {
 });
 */
 
-//return the resturant within radius = 40000 
+//return the restaurant within radius = 40000 
 app.get('/api/yelp/:lat/:lon',function (req, res) {
 	var lat = req.params.lat;
 	var lon = req.params.lon;
 	var radius = 40000; //max 40000 meters
-	yelp.search({term: "food", ll: lat +',' + lon, radius_filter: radius},
+	yelp.search({term: "restaurants", ll: lat +',' + lon, radius_filter: radius},
 		function(err, data){
 			if (err) res.send(JSON.stringify([]));
 			else res.send(JSON.stringify(driverNeeds.getYelpBusinesses(data, 'food')));
