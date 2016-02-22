@@ -63,21 +63,26 @@ app.all('/api/fooddata/:resturant/:userid', function(req, res){
 							rate: data.rating,
 							foodtype: (data.categories).toString()
 						};
-						console.log(term);
+						console.log(data.categories);
 						db.query('INSERT INTO resturant SET ?', term,function(err, result) {
 							if (err) throw err;
 						});
-
+						var post = {userid: req.params.userid, resturant_id:req.params.resturant};
+						db.query('INSERT INTO user_res SET ?', post, function(err, result) {
+							if (err) throw err;
+						});
 					}
 				});
+			}else{
+				var post = {userid: req.params.userid, resturant_id:req.params.resturant};
+				db.query('INSERT INTO user_res SET ?', post, function(err, result) {
+					if (err) throw err;
+				});
 			}
+			
+
 		}
 	});
-			
-	var post = {userid: req.params.userid, resturant_id:req.params.resturant};
-	db.query('INSERT INTO user_res SET ?', post, function(err, result) {
-		if (err) throw err;
-		});
 	res.send('Data sent');
 	
 });
