@@ -1,7 +1,6 @@
 'use strict';
 
-var GoogleStaticMap = require('react-native-google-static-map').default;
-
+var GoogleMap = require('@pod-point/react-native-maps');
 var React = require('react-native');
 
 var {
@@ -29,66 +28,37 @@ var MapContainer = React.createClass({
         //this.setState({options: mockLocation});
     },
 
-    getInitialState: function() {
-        return {
-          //if there are any member variables
-        };
-    },
-
     render: function() {
         return (
-          <View style={[this.props.style, styles.container, styles.col]}>
-            <Text style={styles.title} >Businesses Locations</Text>
-            <GoogleStaticMap style={styles.map} {...mockLocation} />
-          </View>
+            <GoogleMap 
+                markers={[
+                    {
+                        id: 'marker-100',
+                        latitude: 42.277790,
+                        longitude: -83.742705
+                    },
+                    {
+                        id: 'marker-200',
+                        latitude: 42.277743,
+                        longitude: -83.742705
+                    },
+                ]}
+                style={styles.map}
+                cameraPosition={{auto: true, zoom: 15}}
+                showsUserLocation={true}
+            />
         );
-        //return null;
-    },
-});
-var styles = StyleSheet.create({
-    button: {
-        backgroundColor: '#80ff80',
-        borderColor: '#00cc00',
-        borderRadius: 2,
-        borderStyle: 'solid',
-        borderWidth: 1,
-        flex: 1,
-        marginTop: 8,
-        overflow: 'hidden',
-        padding: 4,
-        textAlign: 'center',
-    },
-    col: {
-        flexDirection: 'column',
-    },
-    container: {
-        alignItems: 'center',
-    },
-    no_options: {
-        height:110, 
-        width:300
-    },
-    image: {
-        height: 60,
-        marginRight: 28,
-        width: 60,
-    },
-    name: {
-        fontSize: 16,
-    },
-    placeView: {
-        paddingLeft: 50,
-        paddingRight: 50,
-        paddingTop: 8,
-    },
-    row: {
-        flexDirection: 'row',
-    },
-    title: {
-        fontSize: 16,
-        fontWeight: 'bold',
     },
 });
 
+var styles = StyleSheet.create({
+    map: {
+        height: 250,
+        width: 250,
+        margin: 62,
+        borderWidth: 1,
+        borderColor: '#000000',
+    },
+});
 
 module.exports = MapContainer;
