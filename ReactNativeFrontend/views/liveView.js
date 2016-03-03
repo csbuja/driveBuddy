@@ -16,6 +16,7 @@ var {
 // var Login1 = require('./Login1');
 var FoodSwiperContainer = require('../Components/FoodSwiperContainer.js');
 var GasSwiperContainer = require('../Components/GasSwiperContainer.js');
+var MapContainer = require('../Components/MapContainer.js');
 var FBLoginTopBar = require('../Components/FBLoginTopBar.js')
 var FBLogin = require('react-native-facebook-login');
 var { FBLoginManager } = NativeModules;
@@ -34,6 +35,8 @@ var liveView = React.createClass({
                 <  FoodSwiperContainer
                     style={styles.borderBottom}/>
                 <GasSwiperContainer
+                    style={styles.borderBottom}/>
+                <MapContainer
                     style={styles.borderBottom}/>
  </View>);
     }

@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
-
+#import "PPTGoogleMapProvider.h"
 #import "AppDelegate.h"
 
 #import "RCTRootView.h"
@@ -18,6 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [PPTGoogleMapProvider provideAPIKey];
   NSURL *jsCodeLocation;
 
   /**
@@ -34,7 +35,7 @@
    * on the same Wi-Fi network.
    */
 
-  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+  jsCodeLocation = [NSURL URLWithString:@"http://35.2.235.117:8081/index.ios.bundle?platform=ios&dev=true"];
 
   /**
    * OPTION 2
