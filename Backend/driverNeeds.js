@@ -1,5 +1,6 @@
 var request = require('request');
-var _ = require('underscore')
+var _ = require('underscore');
+var calcDistance = require('./calcDistance.js');
 
 var MAX_RADIUS = 40000;
 
@@ -51,54 +52,19 @@ module.exports = {
 		);
 	},
 
-	// REQUIRES: foodFavs be a valid string, may be empty string
-	// foodFavs as a string with comma seperated categories
-	setFoodCategories: function(foodFavs){
-		var categories = foodFavs.split(',');
-
-		for (var i = 0; i < categories.length; i++){
-			if (categories[i] === 'American') categories[i] = 'tradamerican';
-			else if (categories[i] === 'Asian') categories[i] = 'asianfusion';
-			else if (categories[i] === 'Bar') categories[i] = 'bars';
-			else if (categories[i] === 'Barbeque') categories[i] = 'bbq';
-			else if (categories[i] === 'Breakfast') categories[i] = 'breakfast_brunch';
-			else if (categories[i] === 'Chinese') categories[i] = 'chinese';
-			else if (categories[i] === 'Coffee') categories[i] = 'coffee';
-			else if (categories[i] === 'Diner') categories[i] = 'diners';
-			else if (categories[i] === 'European') categories[i] = 'modern_european';
-			else if (categories[i] === 'Fast Food') categories[i] = 'hotdogs';
-			else if (categories[i] === 'Indian') categories[i] = 'indpak';
-			else if (categories[i] === 'Korean') categories[i] = 'korean';
-			else if (categories[i] === 'Mexican') categories[i] = 'mexican';
-			else if (categories[i] === 'Pizza') categories[i] = 'pizza';
-			else if (categories[i] === 'Seafood') categories[i] = 'seafood';
-			else if (categories[i] === 'Steakhouse') categories[i] = 'steak';
-			else if (categories[i] === 'Sushi') categories[i] = 'sushi';
-			else if (categories[i] === 'Thai') categories[i] = 'thai';
-			else if (categories[i] === 'Vegetarian') categories[i] = 'vegetarian';
-			else if (categories[i] === 'Vietnamese') categories[i] = 'vietnamese';
-		}
-
-		return categories.join();
-	},
-
-    getYelpBusinesses: function(data) {
+    getYelpBusinesses: function(data, lat, lon) {
         var businesses = {};
 
         for(var i = 0; i< data.businesses.length; ++i){
 			var info = {}
 			info.rating = data.businesses[i].rating;
-			info.yelp_id = data.businesses[i].id;
-			//info.rating_img_url_small=  data.businesses[i].rating_img_url_small;
-			//info.rating_img_url_large = data.businesses[i].rating_img_url_large;
-			//info.rating_img_url = data.businesses[i].rating_img_url;
+			info.id = data.businesses[i].id;
 			info.address = data.businesses[i].location.address + ' ' + data.businesses[i].location.city + ', ' + data.businesses[i].location.state_code + ' ' +data.businesses[i].location.postal_code;
 			info.name = data.businesses[i].name;
-			info.la = data.businesses[i].location.coordinate.latitude;
-			info.lo = data.businesses[i].location.coordinate.longitude;
-            info.id = data.businesses[i].id;
-            //info.image_url = data.businesses[i].image_url;
-            //info.snippet_image_url = data.businesses[i].snippet_image_url;
+			info.lat = data.businesses[i].location.coordinate.latitude;
+			info.lon = data.businesses[i].location.coordinate.longitude;
+            info.image = data.businesses[i].image_url;
+            info.distance = calcDistance(lat, lon, info.lat, info.lon);
 
 			businesses[info.id] = info;
 		}
@@ -106,32 +72,13 @@ module.exports = {
         return businesses;
     },
 
-	moveThroughYelp: function(data, type){
-		var setOfInfo = [];
-		for(var i = 0; i< data.businesses.length; ++i){
-			if (data.businesses[i].is_closed || (type === 'food' && data.businesses[i].rating<2 ) ) continue;
-			var info = {}
-			info.rating = data.businesses[i].rating;
-			info.rating_img_url_small=  data.businesses[i].rating_img_url_small;
-			info.rating_img_url_large = data.businesses[i].rating_img_url_large;
-			info.rating_img_url = data.businesses[i].rating_img_url;
-			info.address = data.businesses[i].location.address + ' ' + data.businesses[i].location.city + ', ' + data.businesses[i].location.state_code + ' ' +data.businesses[i].location.postal_code
-			info.name = data.businesses[i].name;
-			info.la = data.businesses[i].location.coordinate.latitude
-			info.lo = data.businesses[i].location.coordinate.longitude
-			setOfInfo.push(info);
-		}
-
-		return setOfInfo;
-	},
-
 	//note: the limit on yelp api calls is 25,000 per day
 	//if we go over this, contact api@yelp.com
 	getNeeds : function(res, type, lat, lng, yelp, foodFavs){
 		console.log('getNeeds is running');
 		var self = this;
 		var categories = "";
-		
+
 		if (foodFavs && _.isString(foodFavs)) categories = this.setFoodCategories(foodFavs);
 		if (type === 'food')
 			yelp.search({term: type, ll: lat +',' + lng, category_filter: categories, radius_filter: MAX_RADIUS},
@@ -166,7 +113,7 @@ module.exports = {
 		'tapasmallplates','tex-mex','thai','tradamerican','traditional_swedish','trattorie','turkish',
 		'ukrainian','uzbek','vegan','vegetarian','venison','vietnamese','wok','wraps','yugoslav']
 		for(var i = 0; i < categories.length; ++i){
-			
+
 		}
 	}
 }

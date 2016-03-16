@@ -1,29 +1,11 @@
 'use strict';
 
-var React = require('react-native');
-
 var GasFoodSwiper = require('./GasFoodSwiper');
-
-var fakeOptions = [
-    {
-        name: "In & Out",
-        image: "http://facebook.github.io/react/img/logo_og.png",
-        distance: "43 miles",
-        stars: 4,
-    },
-    {
-        name: "No Thai",
-        image: "http://facebook.github.io/react/img/logo_og.png",
-        distance: "13 miles",
-        stars: 3,
-    },
-];
+var React = require('react-native');
 
 var FoodSwiperContainer = React.createClass({
     componentDidMount: function() {
-
-        // make API call and set state accordingly
-        this.setState({options: fakeOptions});
+        this._setOptions();
     },
 
     getInitialState: function() {
@@ -40,6 +22,22 @@ var FoodSwiperContainer = React.createClass({
                 title={"Food"}
             />
         );
+    },
+
+    _setOptions: function() {
+        // TODO (urlauba): change url path
+        fetch('http://localhost:3000/api/yelp/37.788022/-122.399797')
+            .then((response) => response.text())
+            .then((responseText) => {
+                var data = JSON.parse(responseText);
+                var options = Object.keys(data).map(function(k) { return data[k] });
+
+                this.setState({options: options});
+            })
+            .catch((error) => {
+                // TODO (urlauba): handle error state
+                console.log('error')
+            });
     },
 });
 

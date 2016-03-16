@@ -30,9 +30,9 @@ var noOptions = [];
 
 var App = React.createClass({
     render: function() {
-        return (    
+        return (
              <NavigatorIOS style={styles.wrapper}
-    initialRoute={{component: LoginScreen,title: 'LoginScreen',passProps: {} }} 
+    initialRoute={{component: LoginScreen,title: 'LoginScreen',passProps: {} }}
     navigationBarHidden={true}  />);
     }
 });

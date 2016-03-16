@@ -30,8 +30,8 @@ var GasFoodSubSwiper = React.createClass({
                                     <View style={styles.col}>
                                         <Text style={styles.name}>{place.name}</Text>
                                         {place.price && <Text>{place.price}</Text>}
-                                        <Text>{place.distance}</Text>
-                                        {place.stars && <Text>{place.stars}</Text>}
+                                        <Text>{"More than " + place.distance + " miles"}</Text>
+                                        {place.rating && <Text>{place.rating + " Stars"}</Text>}
                                     </View>
                                 </View>
                                 <Text style={styles.button}>Start Route Guidance</Text>
@@ -91,7 +91,7 @@ var styles = StyleSheet.create({
         alignItems: 'center',
     },
     no_options: {
-        height:110, 
+        height:110,
         width:300
     },
     image: {

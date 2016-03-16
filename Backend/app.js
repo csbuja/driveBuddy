@@ -81,12 +81,12 @@ app.all('/api/fooddata/:restaurant/:userid', function(req, res){
 					if (err) throw err;
 				});
 			}
-			
+
 
 		}
 	});
 	res.send('Data sent');
-	
+
 });
 
 //insert sensor data into sensordata table
@@ -115,7 +115,7 @@ app.get('/yelp/search/:lat/:lon/:name', (req, res) => {
 });
 */
 
-//return the restaurant within radius = 40000 
+//return the restaurant within radius = 40000
 app.get('/api/yelp/:lat/:lon',function (req, res) {
 	var lat = req.params.lat;
 	var lon = req.params.lon;
@@ -123,7 +123,7 @@ app.get('/api/yelp/:lat/:lon',function (req, res) {
 	yelp.search({term: "restaurants", ll: lat +',' + lon, radius_filter: radius},
 		function(err, data){
 			if (err) res.send(JSON.stringify([]));
-			else res.send(JSON.stringify(driverNeeds.getYelpBusinesses(data, 'food')));
+			else res.send(JSON.stringify(driverNeeds.getYelpBusinesses(data, lat, lon)));
 		}
 	);
 });
@@ -158,7 +158,7 @@ app.get('/api/weather/:lat/:lon',function (req, res) {
 
 		}
 	});
-	
+
 });
 
 /*
