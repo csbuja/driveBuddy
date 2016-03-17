@@ -3,18 +3,33 @@
 var React = require('react-native');
 
 var Swiper = require('react-native-swiper');
+var Linking = require('Linking');
 
 var {
     Image,
     StyleSheet,
     PropTypes,
     Text,
-    View
+    View,
+    Platform,
+    TouchableHighlight,
+    TouchableNativeFeedback 
 } = React;
 var i = 0;
 
 var GasFoodSubSwiper = React.createClass({
+    getDirections: function(lat, lon) {
+        var saddr = this.props.latitude + ',' + this.props.longitude;
+        var daddr = lat + ',' + lon;
+        var directionsmode = 'driving';
+        var url = 'comgooglemaps://?saddr=' + saddr + '&daddr=' + daddr + '&directionsmode=' + directionsmode;
+        Linking.openURL(url).catch(err => console.error('An error occurred', err));
+    },
     render: function(){
+        var TouchableElement = TouchableHighlight;
+        if (Platform.OS === 'android') {
+            TouchableElement = TouchableNativeFeedback;
+        }
         return(<Swiper
                     height={114}
                     showsButtons={true}
@@ -34,7 +49,13 @@ var GasFoodSubSwiper = React.createClass({
                                         {place.rating && <Text>{place.rating + " Stars"}</Text>}
                                     </View>
                                 </View>
-                                <Text style={styles.button}>Start Route Guidance</Text>
+                                <TouchableElement
+                                    style={styles.button}
+                                    onPress={this.getDirections.bind(this, place.lat, place.lon)}>
+                                    <View>
+                                        <Text style={styles.buttonText}>Start Route Guidance</Text>
+                                    </View>
+                                </TouchableElement>
                             </View>
                         );
                     })}
@@ -45,6 +66,8 @@ var GasFoodSubSwiper = React.createClass({
 var GasFoodSwiper = React.createClass({
     propTypes: {
         title: PropTypes.string.isRequired,
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
     },
 
     getInitialState: function(){
@@ -55,7 +78,10 @@ var GasFoodSwiper = React.createClass({
         var morethanzerooptions = this.props.options.length > 0;
         var show_swiper_or_error
         if (morethanzerooptions){
-            var show_swiper_or_error = <GasFoodSubSwiper options={this.props.options}/>;
+            var show_swiper_or_error = <GasFoodSubSwiper 
+                                            options={this.props.options}
+                                            latitude={this.props.latitude}
+                                            longitude={this.props.longitude}/>;
         }
         else{
             var show_swiper_or_error= (<View style={styles.no_options}>
@@ -82,6 +108,8 @@ var styles = StyleSheet.create({
         marginTop: 8,
         overflow: 'hidden',
         padding: 4,
+    },
+    buttonText: {
         textAlign: 'center',
     },
     col: {

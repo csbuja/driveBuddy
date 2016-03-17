@@ -28,6 +28,8 @@ var FoodSwiperContainer = React.createClass({
     render: function() {
         return (
             <GasFoodSwiper
+                latitude={this.props.latitude}
+                longitude={this.props.longitude}
                 options={this.state.options}
                 style={this.props.style}
                 title={"Food"}
@@ -42,7 +44,6 @@ var FoodSwiperContainer = React.createClass({
             .then((responseText) => {
                 var data = JSON.parse(responseText);
                 var options = Object.keys(data).map(function(k) { return data[k] });
-
                 this.setState({options: options});
             })
             .catch((error) => {

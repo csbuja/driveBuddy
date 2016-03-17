@@ -31,7 +31,7 @@ var MapContainer = React.createClass({
     render: function() {
         return (
             <GoogleMap 
-                markers={[
+                /*markers={[
                     {
                         id: 'marker-100',
                         latitude: 42.277790,
@@ -42,7 +42,7 @@ var MapContainer = React.createClass({
                         latitude: 42.277743,
                         longitude: -83.742705
                     },
-                ]}
+                ]}*/
                 style={styles.map}
                 cameraPosition={{auto: true, zoom: 15}}
                 showsUserLocation={true}
