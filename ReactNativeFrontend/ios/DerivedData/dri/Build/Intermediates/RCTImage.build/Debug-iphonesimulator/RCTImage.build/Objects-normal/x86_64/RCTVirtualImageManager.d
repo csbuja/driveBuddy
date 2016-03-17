@@ -15,4 +15,5 @@ dependencies: \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/Libraries/Image/RCTShadowVirtualImage.h \
   ../../React/Views/RCTShadowView.h ../../React/Base/RCTRootView.h \
   ../../React/Views/RCTImageComponent.h \
-  ../../React/Base/RCTImageSource.h
+  ../../React/Base/RCTImageSource.h \
+  /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/Libraries/Image/RCTResizeMode.h

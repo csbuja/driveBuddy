@@ -29,4 +29,5 @@ dependencies: \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Views/RCTComponent.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Base/RCTUtils.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Views/RCTView.h \
-  /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Views/UIView+React.h
+  /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Views/UIView+React.h \
+  /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Profiler/RCTProfile.h

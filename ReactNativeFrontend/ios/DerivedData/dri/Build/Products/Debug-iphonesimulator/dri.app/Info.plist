@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>dri</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.csbuja.dri</string>
+	<string>org.reactjs.native.example.dri</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -23,15 +23,6 @@
 	<key>CFBundleSupportedPlatforms</key>
 	<array>
 		<string>iPhoneSimulator</string>
-	</array>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb1086653268053781</string>
-			</array>
-		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
@@ -51,19 +42,6 @@
 	<string>0700</string>
 	<key>DTXcodeBuild</key>
 	<string>7A220</string>
-	<key>FacebookAppID</key>
-	<string>1086653268053781</string>
-	<key>FacebookDisplayName</key>
-	<string>	
-	PitstopPal                    
-	</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-api</string>
-		<string>fbauth2</string>
-		<string>fbshareextension</string>
-	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MinimumOSVersion</key>
@@ -77,10 +55,6 @@
 	<string></string>
 	<key>SERVER_IP</key>
 	<string>10.165.10.216</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>FontAwesome.ttf</string>
-	</array>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>

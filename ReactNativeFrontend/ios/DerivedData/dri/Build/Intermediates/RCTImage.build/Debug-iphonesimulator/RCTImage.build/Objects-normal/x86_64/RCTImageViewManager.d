@@ -15,6 +15,7 @@ dependencies: \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/Libraries/Image/RCTImageLoader.h \
   ../../React/Base/RCTURLRequestHandler.h \
   ../../React/Base/RCTURLRequestDelegate.h \
+  /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/Libraries/Image/RCTResizeMode.h \
   ../../React/Base/RCTImageSource.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/Libraries/Image/RCTImageView.h \
   ../../React/Views/RCTImageComponent.h

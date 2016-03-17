@@ -11,6 +11,7 @@ dependencies: \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Base/RCTJavaScriptExecutor.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Base/RCTEventDispatcher.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Base/RCTLog.h \
+  /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Base/RCTTouchEvent.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Modules/RCTUIManager.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Views/RCTViewManager.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Base/RCTConvert.h \

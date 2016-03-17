@@ -23,4 +23,5 @@ dependencies: \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Views/RCTBorderStyle.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Views/RCTTextDecorationLineType.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Views/RCTPointerEvents.h \
-  /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Base/RCTEventDispatcher.h
+  /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Base/RCTEventDispatcher.h \
+  /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Executors/RCTJSCExecutor.h

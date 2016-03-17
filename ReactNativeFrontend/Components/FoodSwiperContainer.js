@@ -3,15 +3,26 @@
 var GasFoodSwiper = require('./GasFoodSwiper');
 var React = require('react-native');
 
+var {PropTypes} = React;
+
 var FoodSwiperContainer = React.createClass({
-    componentDidMount: function() {
-        this._setOptions();
+    propTypes: {
+        latitude: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
     },
 
     getInitialState: function() {
         return {
             options: [],
         };
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        this._setOptions(nextProps.latitude, nextProps.longitude);
+    },
+
+    componentWillMount: function() {
+        this._setOptions(this.props.latitude, this.props.longitude);
     },
 
     render: function() {
@@ -24,9 +35,9 @@ var FoodSwiperContainer = React.createClass({
         );
     },
 
-    _setOptions: function() {
+    _setOptions: function(lat, lon) {
         // TODO (urlauba): change url path
-        fetch('http://localhost:3000/api/yelp/37.788022/-122.399797')
+        fetch('http://localhost:3000/api/yelp/' + lat + '/' + lon)
             .then((response) => response.text())
             .then((responseText) => {
                 var data = JSON.parse(responseText);

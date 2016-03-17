@@ -15,4 +15,6 @@ dependencies: \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Profiler/RCTProfile.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Base/RCTPerformanceLogger.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Base/RCTUtils.h \
-  /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Profiler/RCTJSCProfiler.h
+  /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Profiler/RCTJSCProfiler.h \
+  /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Modules/RCTRedBox.h \
+  /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/React/Modules/RCTSourceCode.h
