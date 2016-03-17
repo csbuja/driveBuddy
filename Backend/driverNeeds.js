@@ -5,7 +5,7 @@ var calcDistance = require('./calcDistance.js');
 var MAX_RADIUS = 40000;
 
 module.exports = {
-	filterGasFeed: function (data, callback){
+	filterGasFeed: function (data, lat, lon){
 		var setOfStations = [];
 
 		if (!data){
@@ -14,12 +14,14 @@ module.exports = {
 		}
 
 		for (var i = 0; i < data.length; i++){
-			if(data[i].reg_price !== "N/A") {
+            var distance = calcDistance(data[i].lat, data[i].lng, lat, lon);
+			if(data[i].reg_price !== "N/A" && distance <= 25) {
 				setOfStations.push({
 					name: data[i].station,
 					price: data[i].reg_price,
 					latitude: data[i].lat,
-					longitude: data[i].lng
+					longitude: data[i].lng,
+                    distance: distance,
 				});
 			}
 		}
@@ -29,7 +31,7 @@ module.exports = {
 
 	// returns array of station literals sorted with lowest price first
 	//there is no daily limit of api calls specified on the mygasfeed website
-	getStations: function (lat, lng, radius, res){
+	getStations: function (lat, lon, radius, res){
 		console.log('get Station is running');
 		var self = this
 
@@ -37,7 +39,7 @@ module.exports = {
 		var GAS_FEED_KEY = 'p1mww4bpb5';
 		request({
 			method: 'GET',
-			uri: GAS_FEED_URL + lat + '/' + lng + '/' + radius + '/reg/Price/' + GAS_FEED_KEY + '.json',
+			uri: GAS_FEED_URL + lat + '/' + lon + '/' + radius + '/reg/Price/' + GAS_FEED_KEY + '.json',
 			json: true
 		}
 		, function (err, response, body){
@@ -46,7 +48,7 @@ module.exports = {
 				res.send( JSON.stringify([]));
 			}
 			else {
-			 res.send(JSON.stringify(self.filterGasFeed(body.stations) ) );
+			 res.send(JSON.stringify(self.filterGasFeed(body.stations, lat, lon)));
 	  	    }
 	  	  }
 		);
