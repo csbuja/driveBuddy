@@ -44,9 +44,9 @@ var GasFoodSubSwiper = React.createClass({
                                     <Image style={styles.image} source={{uri: place.image}}/>
                                     <View style={styles.col}>
                                         <Text style={styles.name}>{place.name}</Text>
-                                        {place.price && <Text>{place.price}</Text>}
-                                        <Text>{"More than " + place.distance + " miles"}</Text>
-                                        {place.rating && <Text>{place.rating + " Stars"}</Text>}
+                                        {place.price && <Text style={styles.texts} numberOfLines={1}>{place.price}</Text>}
+                                        <Text style={styles.texts} numberOfLines={1}>{"More than " + place.distance}</Text>
+                                        {place.rating && <Text style={styles.texts} numberOfLines={1}>{place.rating + " Stars"}</Text>}
                                     </View>
                                 </View>
                                 <TouchableElement
@@ -129,6 +129,10 @@ var styles = StyleSheet.create({
     },
     name: {
         fontSize: 16,
+        width: 120,
+    },
+    texts: {
+        width: 120,
     },
     placeView: {
         paddingLeft: 50,
