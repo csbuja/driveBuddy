@@ -88,10 +88,11 @@ var RestaurantSurveyView = React.createClass({
     _onNextPress: function() {
         // TODO (urlauba): Problems if userID retrieval fails
         // TODO (urlauba): send survey results to server
-        this.props.navigator.replace({
+        this.props.navigator.push({
             name: 'liveView',
             component: liveView,
         });
+        this.props.navigator.popToTop();
     },
 
     _getUserID: function() {

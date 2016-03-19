@@ -24,7 +24,7 @@ var SurveyRestaurantCard = React.createClass({
                 <Image
                     style={styles.thumbnail}
                     resizeMode="cover"
-                    source={{uri: this.props.info.image_url}}
+                    source={{uri: this.props.info.image}}
                 />
                 <View style={styles.infoSec}>
                     <Text style={[styles.text, styles.name]}>
