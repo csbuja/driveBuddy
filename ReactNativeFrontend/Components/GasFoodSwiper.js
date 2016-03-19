@@ -27,6 +27,10 @@ var GasFoodSubSwiper = React.createClass({
     },
     render: function(){
         var TouchableElement = TouchableHighlight;
+        var isFood = false;
+        if (this.props.title === 'Food') {
+            isFood = true;
+        }
         if (Platform.OS === 'android') {
             TouchableElement = TouchableNativeFeedback;
         }
@@ -41,7 +45,7 @@ var GasFoodSubSwiper = React.createClass({
                                 key={i++}
                                 style={[styles.col, styles.placeView]}>
                                 <View style={styles.row}>
-                                    <Image style={styles.image} source={{uri: place.image}}/>
+                                    {isFood && <Image style={styles.image} source={{uri: place.image}}/>}
                                     <View style={styles.col}>
                                         <Text style={styles.name}>{place.name}</Text>
                                         {place.price && <Text style={styles.texts} numberOfLines={1}>{place.price}</Text>}
@@ -80,6 +84,7 @@ var GasFoodSwiper = React.createClass({
         if (morethanzerooptions){
             var show_swiper_or_error = <GasFoodSubSwiper 
                                             options={this.props.options}
+                                            title={this.props.title}
                                             latitude={this.props.latitude}
                                             longitude={this.props.longitude}/>;
         }
