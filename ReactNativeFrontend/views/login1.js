@@ -5,6 +5,7 @@ var windowSize = Dimensions.get('window');
 
 var {
   AppRegistry,
+  AsyncStorage,
   StyleSheet,
   View,
   PropTypes,
@@ -43,9 +44,21 @@ var Login1 = React.createClass({
       this.props.navigator.popToTop();
   },
 
+  setUserID: function(userID, callback) {
+      AsyncStorage.setItem('userID', '' + userID + '')
+          .then(function() {
+              callback();
+          })
+          .catch(function(error) {
+              console.log('error saving userID to disc' + error)
+          });
+  },
+
   render: function() {
     var onBack = this.onBack;
     var onPressLogin = this.onPressLogin;
+    var setUserID = this.setUserID;
+
     return (
         <View style={styles.container}>
             <Image style={styles.bg} source={{uri: 'http://i.imgur.com/xlQ56UK.jpg'}} />
@@ -60,18 +73,20 @@ var Login1 = React.createClass({
                 <FBLogin style={styles.signin} onCancel={function(){
                     console.log('CANNCCELLLLEd');
                     onBack();
-          }}
-          onLogin={
-            function(){
-              onPressLogin();
-            }
-          }
-          />
+                }}
+                onLogin={function(data){
+                    // need as callback otherwise userID may not be updated in next view
+                    setUserID(data.credentials.userID, onPressLogin);
+                }}
+                onLoginFound={function(data) { // may not need onLoginFound, useful for developing
+                    setUserID(data.credentials.userID, onPressLogin);
+                }}
+                />
             </View>
             </TouchableHighlight>
         </View>
     );
-  }
+  },
 });
 
 
