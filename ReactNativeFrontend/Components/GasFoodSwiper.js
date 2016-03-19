@@ -27,6 +27,10 @@ var GasFoodSubSwiper = React.createClass({
     },
     render: function(){
         var TouchableElement = TouchableHighlight;
+        var isFood = false;
+        if (this.props.title === 'Food') {
+            isFood = true;
+        }
         if (Platform.OS === 'android') {
             TouchableElement = TouchableNativeFeedback;
         }
@@ -41,12 +45,12 @@ var GasFoodSubSwiper = React.createClass({
                                 key={i++}
                                 style={[styles.col, styles.placeView]}>
                                 <View style={styles.row}>
-                                    <Image style={styles.image} source={{uri: place.image}}/>
+                                    {isFood && <Image style={styles.image} source={{uri: place.image}}/>}
                                     <View style={styles.col}>
                                         <Text style={styles.name}>{place.name}</Text>
-                                        {place.price && <Text>{place.price}</Text>}
-                                        <Text>{"More than " + place.distance + " miles"}</Text>
-                                        {place.rating && <Text>{place.rating + " Stars"}</Text>}
+                                        {place.price && <Text style={styles.texts} numberOfLines={1}>{place.price}</Text>}
+                                        <Text style={styles.texts} numberOfLines={1}>{"More than " + place.distance}</Text>
+                                        {place.rating && <Text style={styles.texts} numberOfLines={1}>{place.rating + " Stars"}</Text>}
                                     </View>
                                 </View>
                                 <TouchableElement
@@ -80,6 +84,7 @@ var GasFoodSwiper = React.createClass({
         if (morethanzerooptions){
             var show_swiper_or_error = <GasFoodSubSwiper 
                                             options={this.props.options}
+                                            title={this.props.title}
                                             latitude={this.props.latitude}
                                             longitude={this.props.longitude}/>;
         }
@@ -129,6 +134,10 @@ var styles = StyleSheet.create({
     },
     name: {
         fontSize: 16,
+        width: 120,
+    },
+    texts: {
+        width: 120,
     },
     placeView: {
         paddingLeft: 50,
