@@ -71,15 +71,14 @@ var Login1 = React.createClass({
             <TouchableHighlight>
             <View style={styles.signin}>
                 <FBLogin style={styles.signin} onCancel={function(){
-                    console.log('CANNCCELLLLEd');
                     onBack();
                 }}
                 onLogin={function(data){
                     // need as callback otherwise userID may not be updated in next view
-                    setUserID(data.credentials.userID, onPressLogin);
+                    setUserID(data['credentials']['userId'], onPressLogin);
                 }}
                 onLoginFound={function(data) { // may not need onLoginFound, useful for developing
-                    setUserID(data.credentials.userID, onPressLogin);
+                    setUserID(data['credentials']['userId'], onPressLogin);
                 }}
                 />
             </View>

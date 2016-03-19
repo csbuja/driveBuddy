@@ -75,7 +75,7 @@ var SurveyListView = React.createClass({
                     <View style={styles.directionRow}>
                         <Image
                             style={styles.thumbnail}
-                            source={{uri: info.image_url}}
+                            source={{uri: info.image}}
                         />
                         <View style={styles.directionCol}>
                             <View style={styles.directionRow}>
@@ -97,7 +97,7 @@ var SurveyListView = React.createClass({
         }
 
         // TODO (urlauba): change url, lat, and lon
-        fetch('http://localhost:3000/yelp/search/37.788022/-122.399797/' + text)
+        fetch('http://localhost:3000/api/search/37.788022/-122.399797/' + text)
             .then((response) => response.text())
             .then((responseText) => {
                 var data = JSON.parse(responseText);
