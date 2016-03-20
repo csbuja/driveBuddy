@@ -1,5 +1,6 @@
 // Module dependencies.
 var express = require('express');
+var bodyParser = require('body-parser');
 var driverNeeds = require('./driverNeeds');
 var calcDistance = require('./calcDistance')
 var request = require('request');
@@ -20,6 +21,11 @@ var db = require('./db');
 
 //starting server
 var app = express();
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
 
 function toMiles(km){
 	return km * 0.621371;
@@ -46,6 +52,43 @@ app.all('/api/user/:userid', function(req,res) {
 
 //insert restaurant info into restaurant table
 //insert user visted info into user_res table
+app.all('/api/survey', function(req,res){
+	console.log('Start Initializing');	
+	console.log(req.body.userID);
+	for(var i = 0; i < (req.body.restaurants).length; ++i){
+		
+		var data = req.body.restaurants[i];
+		var term = {
+			userid: req.body.userID,
+			restaurant_id: data.id,
+			name: data.name,
+			rate: data.rating,
+			foodtype: ""//current empty
+		};
+		console.log(i);
+		driverNeeds.check_add(term);
+	}
+	console.log('Initialization Complete');
+});
+
+app.all('/api/test/:restaurant', function(req,res){
+	yelp.business(req.params.restaurant,
+	function(err, data){
+		if (err){
+			res.send(JSON.stringify([]));
+		}else{
+			console.log(data.review_count)
+			console.log(data.location.coordinate.longitude)
+			console.log(data.location.coordinate.latitude)
+
+			for(var i = 0; i < (data.reviews).length; ++i){
+				console.log(data.reviews[i]);
+			}
+		}
+	});
+
+});
+
 app.all('/api/fooddata/:restaurant/:userid', function(req, res){
 	db.query('SELECT restaurant_id from restaurant where restaurant_id = ?', req.params.restaurant, function(err, result) {
 		if (err){
@@ -91,6 +134,7 @@ app.all('/api/fooddata/:restaurant/:userid', function(req, res){
 
 //insert sensor data into sensordata table
 app.all('/api/sensordata/:lat/:lon/:status/:userid', function(req,res) {
+	//for speed maybe
 	var post = {userid: req.params.userid,lon:req.params.lon, lat:req.params.lat, status:req.params.status};
 	var query = db.query('INSERT INTO sensordata SET ?', post, function(err, result) {
 	if (err) throw err;
@@ -99,21 +143,21 @@ app.all('/api/sensordata/:lat/:lon/:status/:userid', function(req,res) {
 });
 
 
-/*
-app.get('/yelp/search/:lat/:lon/:name', (req, res) => {
-    var location = req.params.lat + ',' + req.params.lon;
+app.get('/api/search/:lat/:lon/:name', (req, res) => {
+    var lat = req.params.lat;
+    var lon = req.params.lon;
+    var location = lat + ',' + lon;
     var search = 'food+' + req.params.name;
     yelp.search({term: search, ll: location})
     .then((data) => {
         // need further error checking, succesful request but failed response
         // getYelpBusinesses data retrieval may need to be changed
-        res.send(JSON.stringify(driverNeeds.getYelpBusinesses(data)));
+        res.send(JSON.stringify(driverNeeds.getYelpBusinesses(data, lat, lon)));
     })
     .catch((error) => {
         // need further error checking, failed request
     });
 });
-*/
 
 //return the restaurant within radius = 40000
 app.get('/api/yelp/:lat/:lon',function (req, res) {

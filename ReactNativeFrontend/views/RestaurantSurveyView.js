@@ -4,11 +4,12 @@ var React = require('react-native');
 
 var Button = require('react-native-button');
 var Dimensions = require('Dimensions');
+var FBLoginTopBar = require('../Components/FBLoginTopBar.js')
 var liveView = require('./liveView');
 var SurveyRestaurantSearch = require('../Components/SurveyRestaurantSearch');
 var SurveySelectedRestaurantList = require('../Components/SurveySelectedRestaurantList');
-var FBLoginTopBar = require('../Components/FBLoginTopBar.js')
 var {
+    AsyncStorage,
     Image,
     StyleSheet,
     Text,
@@ -22,7 +23,13 @@ var RestaurantSurveyView = React.createClass({
     getInitialState: function() {
         return {
             selected: {},
+            showSearchResults: true,
+            userID: '',
         };
+    },
+
+    componentWillMount: function() {
+        this._getUserID();
     },
 
     render: function() {
@@ -48,6 +55,7 @@ var RestaurantSurveyView = React.createClass({
                         source={require('../Images/london.jpg')}>
                         <SurveyRestaurantSearch
                             onPress={this._onRestaurantSelect}
+                            showSearchResults={this.state.showSearchResults}
                         />
                         <SurveySelectedRestaurantList
                             onRestaurantRemove={this._onRestaurantRemove}
@@ -80,11 +88,36 @@ var RestaurantSurveyView = React.createClass({
     },
 
     _onNextPress: function() {
-        // TODO (urlauba): send survey results to server
-        this.props.navigator.replace({
+        // TODO (urlauba): Problems if userID retrieval fails
+        var selectedInfo = Object.keys(this.state.selected).map((k) => { return this.state.selected[k]; });
+        fetch('http://localhost:3000/api/survey', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                'restaurants': selectedInfo,
+                'userID': this.state.userID,
+            })
+        });
+
+        this.setState({showSearchResults: false});
+        this.props.navigator.push({
             name: 'liveView',
             component: liveView,
         });
+        this.props.navigator.popToTop();
+    },
+
+    _getUserID: function() {
+        AsyncStorage.getItem('userID')
+            .then(function(userID) {
+                this.setState({userID: userID});
+            }.bind(this))
+            .catch(function(error) {
+                console.log('error retrieving userID from disc' + error);
+            });
     },
 });
 
