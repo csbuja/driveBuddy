@@ -53,30 +53,22 @@ app.all('/api/user/:userid', function(req,res) {
 //insert restaurant info into restaurant table
 //insert user visted info into user_res table
 app.all('/api/survey', function(req,res){
-	for(var i = 0; i < (req.body.restaurants).length; ++ i){
+	console.log('Start Initializing');	
+	console.log(req.body.userID);
+	for(var i = 0; i < (req.body.restaurants).length; ++i){
+		
 		var data = req.body.restaurants[i];
-		db.query('SELECT restaurant_id from restaurant where restaurant_id = ?', data.id, function(err, result) {
-			if (err){
-				throw err
-			}else{
-				if(result.length == 0){
-					var term = {
-						restaurant_id: data.id,
-						name: data.name,
-						rate: data.rating,
-						foodtype: (data.categories).toString()
-					};
-					db.query('INSERT INTO restaurant SET ?', term,function(err, result) {
-						if (err) throw err;
-					});
-				}
-				var post = {userid: res.body.userID, restaurant_id:data.id};
-				db.query('INSERT INTO user_res SET ?', post, function(err, result) {
-					if (err) throw err;
-				});
-			}
-		});
+		var term = {
+			userid: req.body.userID,
+			restaurant_id: data.id,
+			name: data.name,
+			rate: data.rating,
+			foodtype: ""//current empty
+		};
+		console.log(i);
+		driverNeeds.check_add(term);
 	}
+	console.log('Initialization Complete');
 });
 
 app.all('/api/test/:restaurant', function(req,res){

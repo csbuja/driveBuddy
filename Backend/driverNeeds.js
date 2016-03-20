@@ -3,6 +3,7 @@ var _ = require('underscore');
 var calcDistance = require('./calcDistance.js');
 
 var MAX_RADIUS = 40000;
+var db = require('./db');
 
 module.exports = {
 	filterGasFeed: function (data, lat, lon){
@@ -93,6 +94,25 @@ module.exports = {
 			self.getStations(lat, lng, radius, res);
 		}
 	},
+	
+	check_add: function (term) {
+		console.log('check and add');
+		db.query('SELECT restaurant_id from restaurant where restaurant_id = ?', term.restaurant_id, function(err, result) {
+			if (err){
+				throw err
+			}else{
+				if(result.length == 0){
+					console.log(term);
+					db.query('INSERT INTO survey SET ?', term,function(err, result) {
+						if (err) throw err;
+					});
+				}
+				console.log('insert the restuarant ');
+			}
+		});
+	},
+	
+	
 
 	encodeFoodType:function(categories){
 		var foodtype =[ 'afghani','african','andalusian','arabian','argentine','armenian','asianfusion','asturian',
