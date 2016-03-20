@@ -30,32 +30,36 @@ var MapContainer = React.createClass({
 
     render: function() {
         return (
-            <GoogleMap 
-                /*markers={[
-                    {
-                        id: 'marker-100',
-                        latitude: 42.277790,
-                        longitude: -83.742705
-                    },
-                    {
-                        id: 'marker-200',
-                        latitude: 42.277743,
-                        longitude: -83.742705
-                    },
-                ]}*/
-                style={styles.map}
-                cameraPosition={{auto: true, zoom: 15}}
-                showsUserLocation={true}
-            />
+            <View style={styles.container}>
+                <GoogleMap 
+                    /*markers={[
+                        {
+                            id: 'marker-100',
+                            latitude: 42.277790,
+                            longitude: -83.742705
+                        },
+                        {
+                            id: 'marker-200',
+                            latitude: 42.277743,
+                            longitude: -83.742705
+                        },
+                    ]}*/
+                    style={styles.map}
+                    cameraPosition={{auto: true, zoom: 15}}
+                    showsUserLocation={true}
+                />
+            </View>
         );
     },
 });
 
 var styles = StyleSheet.create({
+    container: {
+        alignItems: 'center',
+    },
     map: {
         height: 250,
         width: 250,
-        margin: 62,
         borderWidth: 1,
         borderColor: '#000000',
     },
