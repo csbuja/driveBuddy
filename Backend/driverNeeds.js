@@ -114,8 +114,5 @@ module.exports = {
 		'swedish','swissfood','syrian','tabernas','taiwanese','tapas',
 		'tapasmallplates','tex-mex','thai','tradamerican','traditional_swedish','trattorie','turkish',
 		'ukrainian','uzbek','vegan','vegetarian','venison','vietnamese','wok','wraps','yugoslav']
-		for(var i = 0; i < categories.length; ++i){
-
-		}
 	}
 }

@@ -46,6 +46,51 @@ app.all('/api/user/:userid', function(req,res) {
 
 //insert restaurant info into restaurant table
 //insert user visted info into user_res table
+app.all('/api/survey', function(req,res){
+	for(var i = 0; i < (req.body.restaurants).length; ++ i){
+		var data = req.body.restaurants[i];
+		db.query('SELECT restaurant_id from restaurant where restaurant_id = ?', data.id, function(err, result) {
+			if (err){
+				throw err
+			}else{
+				if(result.length == 0){
+					var term = {
+						restaurant_id: data.id,
+						name: data.name,
+						rate: data.rating,
+						foodtype: (data.categories).toString()
+					};
+					db.query('INSERT INTO restaurant SET ?', term,function(err, result) {
+						if (err) throw err;
+					});
+				}
+				var post = {userid: res.body.userID, restaurant_id:data.id};
+				db.query('INSERT INTO user_res SET ?', post, function(err, result) {
+					if (err) throw err;
+				});
+			}
+		});
+	}
+});
+
+app.all('/api/test/:restaurant', function(req,res){
+	yelp.business(req.params.restaurant,
+	function(err, data){
+		if (err){
+			res.send(JSON.stringify([]));
+		}else{
+			console.log(data.review_count)
+			console.log(data.location.coordinate.longitude)
+			console.log(data.location.coordinate.latitude)
+
+			for(var i = 0; i < (data.reviews).length; ++i){
+				console.log(data.reviews[i]);
+			}
+		}
+	});
+
+});
+
 app.all('/api/fooddata/:restaurant/:userid', function(req, res){
 	db.query('SELECT restaurant_id from restaurant where restaurant_id = ?', req.params.restaurant, function(err, result) {
 		if (err){
@@ -91,6 +136,7 @@ app.all('/api/fooddata/:restaurant/:userid', function(req, res){
 
 //insert sensor data into sensordata table
 app.all('/api/sensordata/:lat/:lon/:status/:userid', function(req,res) {
+	//for speed maybe
 	var post = {userid: req.params.userid,lon:req.params.lon, lat:req.params.lat, status:req.params.status};
 	var query = db.query('INSERT INTO sensordata SET ?', post, function(err, result) {
 	if (err) throw err;
