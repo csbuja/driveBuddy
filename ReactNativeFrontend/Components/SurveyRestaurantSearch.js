@@ -19,6 +19,7 @@ var {
 var SurveyListView = React.createClass({
     propTypes: {
         onPress: PropTypes.func.isRequired,
+        showSearchResults: PropTypes.bool.isRequired,
     },
 
     componentDidMount: function() {
@@ -48,7 +49,7 @@ var SurveyListView = React.createClass({
                     onCancelButtonPress={this._onCancelButtonPress}
                     onChangeText={this._onTextChange}
                 />
-                <Overlay isVisible={this.state.showOptions}>
+                <Overlay isVisible={this.state.showOptions && this.props.showSearchResults}>
                     <View style={styles.overlay}>
                         <ListView
                             dataSource={this.state.dataSource}
