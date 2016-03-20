@@ -1,5 +1,6 @@
 // Module dependencies.
 var express = require('express');
+var bodyParser = require('body-parser');
 var driverNeeds = require('./driverNeeds');
 var calcDistance = require('./calcDistance')
 var request = require('request');
@@ -20,6 +21,11 @@ var db = require('./db');
 
 //starting server
 var app = express();
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
 
 function toMiles(km){
 	return km * 0.621371;
@@ -42,6 +48,10 @@ app.all('/api/user/:userid', function(req,res) {
 			}
 		}
 	});
+});
+
+app.post('/api/fooddata/', function(req, res) {
+    console.log(req.body)
 });
 
 //insert restaurant info into restaurant table
@@ -99,21 +109,21 @@ app.all('/api/sensordata/:lat/:lon/:status/:userid', function(req,res) {
 });
 
 
-/*
-app.get('/yelp/search/:lat/:lon/:name', (req, res) => {
-    var location = req.params.lat + ',' + req.params.lon;
+app.get('/api/search/:lat/:lon/:name', (req, res) => {
+    var lat = req.params.lat;
+    var lon = req.params.lon;
+    var location = lat + ',' + lon;
     var search = 'food+' + req.params.name;
     yelp.search({term: search, ll: location})
     .then((data) => {
         // need further error checking, succesful request but failed response
         // getYelpBusinesses data retrieval may need to be changed
-        res.send(JSON.stringify(driverNeeds.getYelpBusinesses(data)));
+        res.send(JSON.stringify(driverNeeds.getYelpBusinesses(data, lat, lon)));
     })
     .catch((error) => {
         // need further error checking, failed request
     });
 });
-*/
 
 //return the restaurant within radius = 40000
 app.get('/api/yelp/:lat/:lon',function (req, res) {

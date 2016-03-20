@@ -9,6 +9,7 @@
   "author": "driveBuddy",
   "license": "none",
   "dependencies": {
+    "body-parser": "^1.15.0",
     "events": "^1.0.2",
     "express": "^4.8.8",
     "mysql": "^2.10.2",
