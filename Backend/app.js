@@ -7,6 +7,7 @@ var request = require('request');
 var polyline = require('polyline');
 var pg = require('pg')
 var port = (process.env.PORT || 3000);
+var moment = require('moment');
 var _ = require('underscore');
 
 var Yelp = require('yelp');
@@ -31,6 +32,42 @@ function toMiles(km){
 	return km * 0.621371;
 }
 
+//list should be 2d array that contains restaurantID, lat, long in
+//each element. time1 and time2 will be timestamps formated per sql syntax
+function directionFilter(list, lat1, long1, time1, lat2, long2, time2){
+  var distance = calcDistance(lat1, long1, lat2, long2);
+  var time1Moment = moment(time1);
+  var time2Moment = moment(time2);
+  var secDiff = time2Moment.diff(time1Moment, 'seconds');
+  var secondsIn5Min = 60*5;
+  var speed = distance/secDiff;
+  var travelDistIn5Min = speed * secondsIn5Min;
+  var diffLat = lat2 - lat1;
+  var diffLong = long2 - long1;
+  var diffTo5MinRatio = secondsIn5Min / secDiff;
+  var futureDiffLat = diffTo5MinRatio * diffLat;
+  var futureDiffLong = diffTo5MinRatio * diffLong;
+  var futureLat = futureDiffLat + lat2;
+  var futureLong = futureDiffLong + long2;
+  var listLength = list.length;
+  var results = [];
+  
+  for (var i = 0; i < listLength; i++) {
+    var restLong = list[i][2];
+    var restLat = list[i][1];
+    var restID = list[i][0];
+    var restToFutureOriginDist = calcDistance(restLat, restLong, futureLat, futureLong);
+    var restToCurrentPosDist = calcDistance(restLat, restLong, lat2, long2);
+
+    //Uses pythagorean theorem to determine if the resturant is past the
+    //line perpindicular to the path of travel
+    if ((pow(restToFutureOriginDist, 2) + pow(restToCurrentPosDist, 2)) > pow(travelDistIn5Min, 2)) {
+      results.push(restID);
+    }
+  }
+  return results;
+}
+
 //insert the userid into user table
 app.all('/api/user/:userid', function(req,res) {
 	var post = {userid: req.params.userid};
@@ -53,10 +90,10 @@ app.all('/api/user/:userid', function(req,res) {
 //insert restaurant info into restaurant table
 //insert user visted info into user_res table
 app.all('/api/survey', function(req,res){
-	console.log('Start Initializing');	
+	console.log('Start Initializing');
 	console.log(req.body.userID);
 	for(var i = 0; i < (req.body.restaurants).length; ++i){
-		
+
 		var data = req.body.restaurants[i];
 		var term = {
 			userid: req.body.userID,
