@@ -4,13 +4,13 @@ from collections import Counter
 from scipy.sparse import csr_matrix
 # Prediction function from Lecture 15 IBFNN - Returns a ranking score!
 #Inputs: 
-#1. numpy vector Rui, size of number of rated items
-#2. numpy vector SIMij = similarity(i,j), size of number of rated items
+#1. numpy array Ruj, size of number of rated items
+#2. numpy array SIMij = similarity(i,j), size of number of rated items
 # 
 # Note:This includes the corner case if i==j because if we rated i high, then we have a high prediction score
 #
-def pred(Rui,SIMij):
-    return np.dot(Rui,SIMij)/( np.dot(SIMij,np.ones(SIMij.shape)) )
+def pred(Ruj,SIMij):
+    return np.dot(Ruj,SIMij)/( np.dot(SIMij,np.ones(SIMij.shape)) )
 
 #Similarity function from Lecture 15 for IBFNN
 #Inputs:
