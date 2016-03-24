@@ -49,5 +49,5 @@ def test_pred_user2restaurant2():
 	Ruj = np.array([3])
 	SIMij = np.array([sim(M,0,1)]) #just [-1] by Test Case 1
 
-	assert(pred(Ruj,SIMij)==3) #TODO : not right syntax, specifically I need to build a list of similarity calculations
+	assert(pred(Ruj,SIMij)==3)
 
