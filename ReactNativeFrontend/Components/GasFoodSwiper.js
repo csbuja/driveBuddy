@@ -18,48 +18,74 @@ var {
 var i = 0;
 
 var GasFoodSubSwiper = React.createClass({
-    getDirections: function(lat, lon) {
+
+    getInitialState: function() {
+        return {
+            option: this.props.options[0],
+        };
+    },
+
+    shouldComponentUpdate: function(nextProps, nextState) {
+        if (nextProps !== this.props) {
+            return true;
+        }
+        return false;
+    },
+
+    _onMomentumScrollEnd: function (e, swiperState, context) {
+        this.setState({option: this.props.options[swiperState.index]});
+    },
+
+    getDirections: function() {
         var saddr = this.props.latitude + ',' + this.props.longitude;
-        var daddr = lat + ',' + lon;
+        var daddr = this.state.option.lat + ',' + this.state.option.lon;
         var directionsmode = 'driving';
         var url = 'comgooglemaps://?saddr=' + saddr + '&daddr=' + daddr + '&directionsmode=' + directionsmode;
         Linking.openURL(url).catch(err => console.error('An error occurred', err));
     },
     render: function(){
         var TouchableElement = TouchableHighlight;
+        var isFood = false;
+        if (this.props.title === 'Food') {
+            isFood = true;
+        }
         if (Platform.OS === 'android') {
             TouchableElement = TouchableNativeFeedback;
         }
-        return(<Swiper
-                    height={114}
-                    showsButtons={true}
-                    showsPagination={false}
-                    width={300}>
-                    {this.props.options.map((place) => {
-                        return (
-                            <View
-                                key={i++}
-                                style={[styles.col, styles.placeView]}>
-                                <View style={styles.row}>
-                                    <Image style={styles.image} source={{uri: place.image}}/>
-                                    <View style={styles.col}>
-                                        <Text style={styles.name}>{place.name}</Text>
-                                        {place.price && <Text>{place.price}</Text>}
-                                        <Text>{"More than " + place.distance + " miles"}</Text>
-                                        {place.rating && <Text>{place.rating + " Stars"}</Text>}
+        return(<View style={styles.container}>
+                    <Swiper onMomentumScrollEnd={this._onMomentumScrollEnd}
+                        height={90}
+                        showsButtons={true}
+                        showsPagination={false}
+                        width={300}>
+                        {this.props.options.map((place) => {
+                            return (
+                                <View
+                                    key={i++}
+                                    style={[styles.col, styles.placeView]}>
+                                    <View style={styles.row}>
+                                        {isFood && <Image style={styles.image} source={{uri: place.image}}/>}
+                                        <View style={styles.col}>
+                                            <Text style={styles.name}>{place.name}</Text>
+                                            {place.price && <Text style={styles.texts} numberOfLines={1}>{place.price}</Text>}
+                                            <Text style={styles.texts} numberOfLines={1}>{"More than " + place.distance}</Text>
+                                            {place.rating && <Text style={styles.texts} numberOfLines={1}>{place.rating + " Stars"}</Text>}
+                                        </View>
                                     </View>
                                 </View>
-                                <TouchableElement
-                                    style={styles.button}
-                                    onPress={this.getDirections.bind(this, place.lat, place.lon)}>
-                                    <View>
-                                        <Text style={styles.buttonText}>Start Route Guidance</Text>
-                                    </View>
-                                </TouchableElement>
+                            );
+                        })}
+                    </Swiper>
+                    <View>
+                        <TouchableElement
+                            style={styles.button}
+                            onPress={this.getDirections}>
+                            <View>
+                                <Text style={styles.buttonText}>Start Route Guidance</Text>
                             </View>
-                        );
-                    })}
-                </Swiper>)
+                        </TouchableElement>
+                    </View>
+                </View>)
     }
 });
 
@@ -80,6 +106,7 @@ var GasFoodSwiper = React.createClass({
         if (morethanzerooptions){
             var show_swiper_or_error = <GasFoodSubSwiper 
                                             options={this.props.options}
+                                            title={this.props.title}
                                             latitude={this.props.latitude}
                                             longitude={this.props.longitude}/>;
         }
@@ -105,7 +132,7 @@ var styles = StyleSheet.create({
         borderStyle: 'solid',
         borderWidth: 1,
         flex: 1,
-        marginTop: 8,
+        marginBottom: 8,
         overflow: 'hidden',
         padding: 4,
     },
@@ -129,6 +156,10 @@ var styles = StyleSheet.create({
     },
     name: {
         fontSize: 16,
+        width: 120,
+    },
+    texts: {
+        width: 120,
     },
     placeView: {
         paddingLeft: 50,
