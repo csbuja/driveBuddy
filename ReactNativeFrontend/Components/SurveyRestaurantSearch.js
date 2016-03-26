@@ -18,13 +18,11 @@ var {
 } = React;
 
 var SurveyListView = React.createClass({
+    watchID: (null: ?number),
+
     propTypes: {
         onPress: PropTypes.func.isRequired,
         showSearchResults: PropTypes.bool.isRequired,
-    },
-
-    componentWillUnmount: function() {
-        this.setState({showOptions: false});
     },
 
     getInitialState: function() {
@@ -32,11 +30,42 @@ var SurveyListView = React.createClass({
 
         return {
             dataSource: ds.cloneWithRows([]),
-            options: [],
-            showOptions: false,
+            latitude: 0,
+            longitude: 0,
             locationText: '',
+            options: [],
             searchText: '',
+            showOptions: false,
         };
+    },
+
+    componentDidMount: function() {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                this.setState({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                });
+            },
+            (error) => console.log(error),
+            // if battery life become a concern disable high accuracy
+            // max age corresponds to using cached value within device, set to 5 min
+            // arbitrarily set timeout to 10 seconds
+            {enableHighAccuracy: true, timeout: 10 * 1000, maximumAge: 5 * 60 * 1000}
+        );
+
+        // updates when position changes
+        this.watchID = navigator.geolocation.watchPosition((position) => {
+            this.setState({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+            });
+        });
+    },
+
+    componentWillUnmount: function() {
+        this.setState({showOptions: false});
+        navigator.geolocation.clearWatch(this.watchID);
     },
 
     render: function() {
@@ -67,6 +96,10 @@ var SurveyListView = React.createClass({
     },
 
     _renderRow: function(info, sectionID, rowID, adjHighlighted) {
+        var rating = info.rating
+            ? <Text>{info.rating + " Stars"}</Text>
+            : null;
+
         return (
             <TouchableHighlight
                 key={rowID}
@@ -80,7 +113,7 @@ var SurveyListView = React.createClass({
                         <View style={styles.directionCol}>
                             <View style={styles.directionRow}>
                                 <Text style={styles.title}>{info.name}</Text>
-                                <Text>{info.rating + " Stars"}</Text>
+                                {rating}
                             </View>
                             <Text style={styles.address}>{info.address}</Text>
                         </View>
@@ -107,8 +140,10 @@ var SurveyListView = React.createClass({
             return;
         }
 
-        // TODO (urlauba): change url, lat, and lon
-        fetch('http://localhost:3000/api/search/42.27/-83.73/' + text + '/' + this.state.locationText)
+        // TODO (urlauba): change url
+        fetch('http://localhost:3000/api/search/'
+            + this.state.latitude + '/' + this.state.longitude + '/'
+            + text + '/' + this.state.locationText)
             .then((response) => response.text())
             .then((responseText) => {
                 var data = JSON.parse(responseText);

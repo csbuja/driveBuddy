@@ -19,6 +19,12 @@ var SurveyRestaurantCard = React.createClass({
     },
 
     render: function() {
+        var rating = this.props.info.rating
+            ? <Text style={styles.text}>
+                  {this.props.info.rating + " Stars"}
+              </Text>
+            : null;
+
         return (
             <View style={styles.mainView}>
                 <Image
@@ -30,9 +36,7 @@ var SurveyRestaurantCard = React.createClass({
                     <Text style={[styles.text, styles.name]}>
                         {this.props.info.name}
                     </Text>
-                    <Text style={styles.text}>
-                        {this.props.info.rating + " Stars"}
-                    </Text>
+                    {rating}
                     <Text style={styles.text}>
                         {this.props.info.address}
                     </Text>
