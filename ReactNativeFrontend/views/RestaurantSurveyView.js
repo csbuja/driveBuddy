@@ -8,6 +8,7 @@ var FBLoginTopBar = require('../Components/FBLoginTopBar.js')
 var liveView = require('./liveView');
 var SurveyRestaurantSearch = require('../Components/SurveyRestaurantSearch');
 var SurveySelectedRestaurantList = require('../Components/SurveySelectedRestaurantList');
+
 var {
     AsyncStorage,
     Image,
@@ -41,13 +42,13 @@ var RestaurantSurveyView = React.createClass({
         return (
             <View style={styles.mainView}>
                 <TouchableHighlight style={styles.circleButton} onPress={this.onBack}>
-                <View>
-                 <FBLoginTopBar navigator={this.props.navigator}/>
-                 </View>
-             </TouchableHighlight>
+                    <View>
+                        <FBLoginTopBar navigator={this.props.navigator}/>
+                    </View>
+                </TouchableHighlight>
                 <View style={styles.top}>
-                    <Text style={styles.title}>Search resturants you like</Text>
-                    <Text style={styles.subtitle}>Select at least 10</Text>
+                    <Text style={styles.title}>Search Favorite Restaurants</Text>
+                    <Text style={styles.subtitle}>Select 10</Text>
                 </View>
                 <View style={styles.bottom}>
                     <Image
@@ -135,7 +136,7 @@ var styles = StyleSheet.create({
         borderRadius: 500
     },
     bottom: {
-        flex: 0.8,
+        flex: 0.85,
         flexDirection: 'column',
     },
     button: {
@@ -169,7 +170,7 @@ var styles = StyleSheet.create({
         textAlign: 'center',
     },
     top: {
-        flex: 0.2,
+        flex: 0.15,
         flexDirection: 'column',
         justifyContent: 'center',
     },

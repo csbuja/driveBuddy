@@ -3,7 +3,7 @@
 var React = require('react-native');
 
 var Overlay = require('react-native-overlay');
-var SearchBar = require('react-native-search-bar');
+var SurveySearchBar = require('./SurveySearchBar');
 
 var {
     Image,
@@ -12,6 +12,7 @@ var {
     RecyclerViewBackedScrollView,
     StyleSheet,
     Text,
+    TextInput,
     TouchableHighlight,
     View,
 } = React;
@@ -20,10 +21,6 @@ var SurveyListView = React.createClass({
     propTypes: {
         onPress: PropTypes.func.isRequired,
         showSearchResults: PropTypes.bool.isRequired,
-    },
-
-    componentDidMount: function() {
-        this.refs.searchBar.focus();
     },
 
     componentWillUnmount: function() {
@@ -37,17 +34,19 @@ var SurveyListView = React.createClass({
             dataSource: ds.cloneWithRows([]),
             options: [],
             showOptions: false,
+            locationText: '',
+            searchText: '',
         };
     },
 
     render: function() {
         return (
             <View>
-                <SearchBar
-                    ref='searchBar'
-                    placeholder='Search'
-                    onCancelButtonPress={this._onCancelButtonPress}
-                    onChangeText={this._onTextChange}
+                <SurveySearchBar
+                    onLocationTextChange={this._onLocationTextChange}
+                    onSearchTextChange={this._onSearchTextChange}
+                    locationText={this.state.locationText}
+                    searchText={this.state.searchText}
                 />
                 <Overlay isVisible={this.state.showOptions && this.props.showSearchResults}>
                     <View style={styles.overlay}>
@@ -91,14 +90,25 @@ var SurveyListView = React.createClass({
         );
     },
 
-    _onTextChange: function(text) {
+    _onLocationTextChange: function(text) {
+        this.setState({locationText: text});
+        this._search();
+    },
+
+    _onSearchTextChange: function(text) {
+        this.setState({searchText: text});
+        this._search();
+    },
+
+    _search: function() {
+        var text = this.state.searchText;
         if (!text.length) {
             this._onCancelButtonPress();
             return;
         }
 
         // TODO (urlauba): change url, lat, and lon
-        fetch('http://localhost:3000/api/search/37.788022/-122.399797/' + text)
+        fetch('http://localhost:3000/api/search/42.27/-83.73/' + text + '/' + this.state.locationText)
             .then((response) => response.text())
             .then((responseText) => {
                 var data = JSON.parse(responseText);
@@ -140,7 +150,7 @@ var styles = StyleSheet.create({
         borderBottomWidth: 5,
         borderColor: '#3399ff',
         height: 150,
-        marginTop: 240, // TODO (urlauba): make dynamic, measure in NativeMethodsMixin?
+        marginTop: 203, // TODO (urlauba): make dynamic, measure in NativeMethodsMixin?
     },
     row: {
         backgroundColor: '#FFFFFF',

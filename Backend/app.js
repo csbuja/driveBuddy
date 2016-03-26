@@ -186,12 +186,23 @@ app.all('/api/sensordata/:lat/:lon/:status/:userid', function(req,res) {
 });
 
 
-app.get('/api/search/:lat/:lon/:name', (req, res) => {
+app.get('/api/search/:lat/:lon/:name/:location?', (req, res) => {
     var lat = req.params.lat;
     var lon = req.params.lon;
-    var location = lat + ',' + lon;
+    var location = req.params.location;
     var search = 'food+' + req.params.name;
-    yelp.search({term: search, ll: location})
+    var params = {
+        term: search,
+    };
+
+    if (location) {
+        params.location = location;
+    }
+    else {
+        params.ll = (lat + ',' + lon);
+    }
+
+    yelp.search(params)
     .then((data) => {
         // need further error checking, succesful request but failed response
         // getYelpBusinesses data retrieval may need to be changed
