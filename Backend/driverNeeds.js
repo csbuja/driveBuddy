@@ -20,8 +20,8 @@ module.exports = {
 				setOfStations.push({
 					name: data[i].station,
 					price: data[i].reg_price,
-					latitude: data[i].lat,
-					longitude: data[i].lng,
+					lat: data[i].lat,
+					lon: data[i].lng,
                     distance: distance,
 				});
 			}

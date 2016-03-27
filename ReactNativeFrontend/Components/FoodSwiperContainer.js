@@ -14,6 +14,7 @@ var FoodSwiperContainer = React.createClass({
     getInitialState: function() {
         return {
             options: [],
+            loading: false,
         };
     },
 
@@ -31,6 +32,7 @@ var FoodSwiperContainer = React.createClass({
                 latitude={this.props.latitude}
                 longitude={this.props.longitude}
                 options={this.state.options}
+                loading={this.state.loading}
                 style={this.props.style}
                 title={"Food"}
             />
@@ -39,17 +41,21 @@ var FoodSwiperContainer = React.createClass({
 
     _setOptions: function(lat, lon) {
         // TODO (urlauba): change url path
-        fetch('http://localhost:3000/api/yelp/' + lat + '/' + lon)
-            .then((response) => response.text())
-            .then((responseText) => {
-                var data = JSON.parse(responseText);
-                var options = Object.keys(data).map(function(k) { return data[k] });
-                this.setState({options: options});
-            })
-            .catch((error) => {
-                // TODO (urlauba): handle error state
-                console.log('error')
-            });
+        this.setState({loading: true});
+        if (lat != 0 || lon != 0) {
+            fetch('http://localhost:3000/api/yelp/' + lat + '/' + lon)
+                .then((response) => response.text())
+                .then((responseText) => {
+                    var data = JSON.parse(responseText);
+                    var options = Object.keys(data).map(function(k) { return data[k] });
+                    this.setState({options: options, loading: false});
+                })
+                .catch((error) => {
+                    // TODO (urlauba): handle error state
+                    console.log('error')
+                    this.setState({loading: false});
+                });
+        }
     },
 });
 
