@@ -19,7 +19,7 @@ var SurveySearchBar = React.createClass({
     },
 
     componentDidMount: function() {
-        this.refs.searchBar.focus();
+        //this.refs.searchBar.focus();
     },
 
     render: function() {
