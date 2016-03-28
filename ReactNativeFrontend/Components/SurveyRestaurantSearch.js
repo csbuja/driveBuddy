@@ -87,7 +87,7 @@ var SurveyListView = React.createClass({
                         borderBottomWidth: 5,
                         borderColor: '#3399ff',
                         height: listHeight,
-                        marginTop: 193,
+                        marginTop: 194,
                     }}>
                         <ListView
                             dataSource={this.state.dataSource}

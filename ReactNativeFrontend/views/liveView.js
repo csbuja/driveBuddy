@@ -65,7 +65,7 @@ var liveView = React.createClass({
         return (
             <View style={styles.liveView}>
                 <TouchableHighlight style={styles.circleButton} onPress={this.onBack}>
-                    <View>
+                    <View style={styles.container}>
                         <FBLoginTopBar
                             navigator={this.props.navigator}
                         />
@@ -90,6 +90,9 @@ var liveView = React.createClass({
 });
 
 var styles = StyleSheet.create({
+    container: {
+        alignItems: 'center',
+    },
     liveView: {
         backgroundColor:'#FFFFFF',
         paddingTop: 28, // temporary
