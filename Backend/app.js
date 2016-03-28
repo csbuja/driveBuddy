@@ -1,4 +1,5 @@
 // Module dependencies.
+var child_process = require('child_process');
 var express = require('express');
 var bodyParser = require('body-parser');
 var driverNeeds = require('./driverNeeds');
@@ -344,4 +345,10 @@ app.get('/googlemaps/:lat1/:lon1/:lat2/:lon2/:interval', function(req,res){
 
 */
 console.log('App running on port: ' + port);
+child_process.exec('echo "" >> ', function (err, data) {
+    child_process.exec('python PredictRatings.py', function (err, data) {
+    	console.log(data);
+	});
+});
+
 app.listen(port);
