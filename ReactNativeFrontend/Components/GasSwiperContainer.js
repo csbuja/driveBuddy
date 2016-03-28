@@ -7,50 +7,70 @@ var {PropTypes} = React;
 
 var GasSwiperContainer = React.createClass({
     propTypes: {
-        latitude: PropTypes.number.isRequired,
-        longitude: PropTypes.number.isRequired,
+        currentPosition: PropTypes.shape({
+            latitude: PropTypes.number,
+            longitude: PropTypes.number,
+        }).isRequired,
+        lastPosition: PropTypes.shape({
+            latitude: PropTypes.number,
+            longitude: PropTypes.number,
+        }).isRequired,
     },
 
     getInitialState: function() {
         return {
             options: [],
+            loading: false,
         };
     },
 
     componentWillReceiveProps: function(nextProps) {
-        this._setOptions(nextProps.latitude, nextProps.longitude);
+        this._setOptions(
+            nextProps.currentPosition,
+            nextProps.lastPosition
+        );
     },
 
     componentWillMount: function() {
-        this._setOptions(this.props.latitude, this.props.longitude);
+        this._setOptions(
+            this.props.currentPosition,
+            this.props.lastPosition
+        );
     },
 
     render: function() {
         return (
             <GasFoodSwiper
-                latitude={this.props.latitude}
-                longitude={this.props.longitude}
+                latitude={this.props.currentPosition.latitude}
+                longitude={this.props.currentPosition.longitude}
                 options={this.state.options}
+                loading={this.state.loading}
                 style={this.props.style}
                 title={"Gas"}
             />
         );
     },
 
-    _setOptions: function(lat, lon) {
-        // TODO (urlauba): change url path
-        fetch('http://localhost:3000/api/gas/' + lat + '/' + lon)
-            .then((response) => response.text())
-            .then((responseText) => {
-                var data = JSON.parse(responseText);
-                var options = Object.keys(data).map(function(k) { return data[k] });
+    _setOptions: function(currentPosition, lastPosition) {
+        var current = JSON.stringify(currentPosition);
+        var last = JSON.stringify(lastPosition);
 
-                this.setState({options: options});
-            })
-            .catch((error) => {
-                // TODO (urlauba): handle error state
-                console.log('error')
-            });
+        this.setState({loading: true});
+        if (currentPosition.latitude && currentPosition.longitude) {
+            // TODO (urlauba): change url path
+            fetch('http://localhost:3000/api/gas/' + current + '/' + last)
+                .then((response) => response.text())
+                .then((responseText) => {
+                    var data = JSON.parse(responseText);
+                    var options = Object.keys(data).map(function(k) { return data[k] });
+                    this.setState({options: options, loading: false});
+                })
+                .catch((error) => {
+                    // TODO (urlauba): handle error state
+                    console.log('error')
+                    this.setState({loading: false});
+                });
+        }
     },
 });
 

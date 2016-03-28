@@ -20,8 +20,8 @@ module.exports = {
 				setOfStations.push({
 					name: data[i].station,
 					price: data[i].reg_price,
-					latitude: data[i].lat,
-					longitude: data[i].lng,
+					lat: data[i].lat,
+					lon: data[i].lng,
                     distance: distance,
 				});
 			}
@@ -57,11 +57,14 @@ module.exports = {
 
     getYelpBusinesses: function(data, lat, lon) {
         var businesses = {};
-
         for(var i = 0; i< data.businesses.length; ++i){
 			var info = {}
 			info.rating = data.businesses[i].rating;
 			info.id = data.businesses[i].id;
+			info.categories = [];
+			for(var j = 0; j < data.businesses[i].categories.length; ++j){
+				info.categories.push(data.businesses[i].categories[j][1]);
+			}
 			info.address = data.businesses[i].location.address + ' ' + data.businesses[i].location.city + ', ' + data.businesses[i].location.state_code + ' ' +data.businesses[i].location.postal_code;
 			info.name = data.businesses[i].name;
 			info.lat = data.businesses[i].location.coordinate.latitude;
@@ -75,6 +78,35 @@ module.exports = {
         return businesses;
     },
 
+	re_rate: function(businesses, survey){
+		var count = {};
+		var max_count = survey.length + 1;
+		for(var i = 0; i < businesses.length; ++i){
+			count[i].id = businesses[i].id;
+			count[i].same = 1;
+			for(var j = 0; j < survey.length; ++j){
+				if(survey[j].id == businesses[i].id){
+					count[i].same = max_count;
+					break;
+				}
+				else{
+					var intersect = _.intersection(businesses[i].categories, survey[j].categories);
+					if(intersect.length){
+						count[i].same += 1;
+					}
+			
+				}
+				
+			}
+			if(count[i].same == max_count){
+				count[i].rating = 5;
+			}
+			else{
+				count[i].rating = businesses[i].rating * (count[i].same / max_count);
+			}
+		}
+		return count;
+	},
 	//note: the limit on yelp api calls is 25,000 per day
 	//if we go over this, contact api@yelp.com
 	getNeeds : function(res, type, lat, lng, yelp, foodFavs){
@@ -133,6 +165,7 @@ module.exports = {
 		'soulfood','soup','southern','spanish','srilankan','steak','sud_ouest','supperclubs','sushi','swabian',
 		'swedish','swissfood','syrian','tabernas','taiwanese','tapas',
 		'tapasmallplates','tex-mex','thai','tradamerican','traditional_swedish','trattorie','turkish',
-		'ukrainian','uzbek','vegan','vegetarian','venison','vietnamese','wok','wraps','yugoslav']
-	}
+		'ukrainian','uzbek','vegan','vegetarian','venison','vietnamese','wok','wraps','yugoslav'];
+	},
+	
 }

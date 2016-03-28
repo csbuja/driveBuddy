@@ -26,8 +26,14 @@ var liveView = React.createClass({
 
     getInitialState: function() {
         return {
-            latitude: 0,
-            longitude: 0,
+            currentPosition: {
+                latitude: null,
+                longitude: null,
+            },
+            lastPosition: {
+                latitude: null,
+                longitude: null,
+            },
         };
     },
 
@@ -35,8 +41,10 @@ var liveView = React.createClass({
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 this.setState({
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
+                    currentPosition: {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                    },
                 });
             },
             (error) => console.log(error),
@@ -48,9 +56,15 @@ var liveView = React.createClass({
 
         // updates when position changes
         this.watchID = navigator.geolocation.watchPosition((position) => {
-            this.setState({
+            var currentPosition = {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
+            };
+            var lastPosition = this.state.currentPosition;
+
+            this.setState({
+                currentPosition: currentPosition,
+                lastPosition: lastPosition,
             });
         });
     },
@@ -65,20 +79,20 @@ var liveView = React.createClass({
         return (
             <View style={styles.liveView}>
                 <TouchableHighlight style={styles.circleButton} onPress={this.onBack}>
-                    <View>
+                    <View style={styles.container}>
                         <FBLoginTopBar
                             navigator={this.props.navigator}
                         />
                     </View>
                 </TouchableHighlight>
                 <FoodSwiperContainer
-                    latitude={this.state.latitude}
-                    longitude={this.state.longitude}
+                    currentPosition={this.state.currentPosition}
+                    lastPosition={this.state.lastPosition}
                     style={styles.borderBottom}
                 />
                 <GasSwiperContainer
-                    latitude={this.state.latitude}
-                    longitude={this.state.longitude}
+                    currentPosition={this.state.currentPosition}
+                    lastPosition={this.state.lastPosition}
                     style={styles.borderBottom}
                 />
                 <MapContainer
@@ -90,6 +104,9 @@ var liveView = React.createClass({
 });
 
 var styles = StyleSheet.create({
+    container: {
+        alignItems: 'center',
+    },
     liveView: {
         backgroundColor:'#FFFFFF',
         paddingTop: 28, // temporary
