@@ -23,8 +23,8 @@ describe('driverNeeds', function(){
       			[{
 					name: 'Exon-Mobil',
 					price: '3.65', 
-					latitude: '45.492367', 
-					longitude: '-73'
+					lat: '45.492367', 
+					lon: '-73'
 				}]);
     })
   })

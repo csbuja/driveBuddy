@@ -36,13 +36,13 @@ var RestaurantSurveyView = React.createClass({
     render: function() {
         var selectedInfo = Object.keys(this.state.selected).map((k) => { return this.state.selected[k]; });
         var isNextDisabled = selectedInfo.length < 10 ? true : false;
-        var restaurant = (selectedInfo.length == 9) ? " Restuarant" : " Restaurants";
+        var restaurant = (selectedInfo.length == 9) ? " Restaurant" : " Restaurants";
         var nextButtonText = isNextDisabled ? "Select " +  (10 - selectedInfo.length) + restaurant : "Next";
 
         return (
             <View style={styles.mainView}>
                 <TouchableHighlight style={styles.circleButton} onPress={this.onBack}>
-                    <View>
+                    <View style={styles.container}>
                         <FBLoginTopBar navigator={this.props.navigator}/>
                     </View>
                 </TouchableHighlight>
@@ -136,7 +136,7 @@ var styles = StyleSheet.create({
         borderRadius: 500
     },
     bottom: {
-        flex: 0.85,
+        flex: 0.88,
         flexDirection: 'column',
     },
     button: {
@@ -146,6 +146,10 @@ var styles = StyleSheet.create({
         backgroundColor: '#3399ff',
         flex: 0.12,
         justifyContent: 'center',
+    },
+    container: {
+        alignItems: 'center',
+        paddingTop: 22,
     },
     mainView: {
         backgroundColor: '#FFFFFF',
@@ -170,7 +174,7 @@ var styles = StyleSheet.create({
         textAlign: 'center',
     },
     top: {
-        flex: 0.15,
+        flex: 0.12,
         flexDirection: 'column',
         justifyContent: 'center',
     },

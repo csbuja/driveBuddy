@@ -213,25 +213,42 @@ app.get('/api/search/:lat/:lon/:name/:location?', (req, res) => {
     });
 });
 
+// both currentPosition and lastPosition are objects with latitude and longitude
+// latitude and longitude may be null
 //return the restaurant within radius = 40000
-app.get('/api/yelp/:lat/:lon',function (req, res) {
-	var lat = req.params.lat;
-	var lon = req.params.lon;
+app.get('/api/yelp/:currentPosition/:lastPosition',function (req, res) {
+	var currentPosition = JSON.parse(req.params.currentPosition);
 	var radius = 40000; //max 40000 meters
-	yelp.search({term: "restaurants", ll: lat +',' + lon, radius_filter: radius},
+
+	yelp.search({
+            term: "restaurants",
+            ll: currentPosition.latitude +',' + currentPosition.longitude,
+            radius_filter: radius
+        },
 		function(err, data){
 			if (err) res.send(JSON.stringify([]));
-			else res.send(JSON.stringify(driverNeeds.getYelpBusinesses(data, lat, lon)));
+			else res.send(JSON.stringify(driverNeeds.getYelpBusinesses(
+                    data,
+                    currentPosition.latitude,
+                    currentPosition.longitude
+                 )));
 		}
 	);
 });
 
+// both currentPosition and lastPosition are objects with latitude and longitude
+// latitude and longitude may be null
 //return the gas station within radius = 25 miles
-app.get('/api/gas/:lat/:lon',function (req, res) {
-	var lat = req.params.lat;
-	var lon = req.params.lon;
+app.get('/api/gas/:currentPosition/:lastPosition',function (req, res) {
+    var currentPosition = JSON.parse(req.params.currentPosition);
 	var radius = 25;//rad || 15; //miles
-	driverNeeds.getStations(lat, lon, radius,res);
+
+	driverNeeds.getStations(
+        currentPosition.latitude,
+        currentPosition.longitude,
+        radius,
+        res
+    );
 });
 
 

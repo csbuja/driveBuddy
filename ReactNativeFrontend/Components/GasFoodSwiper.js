@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-
+var Spinner = require('react-native-gifted-spinner');
 var Swiper = require('react-native-swiper');
 var Linking = require('Linking');
 
@@ -56,6 +56,7 @@ var GasFoodSubSwiper = React.createClass({
                     <Swiper onMomentumScrollEnd={this._onMomentumScrollEnd}
                         height={90}
                         showsButtons={true}
+                        buttonWrapperStyle={styles.buttonWrapper}
                         showsPagination={false}
                         width={300}>
                         {this.props.options.map((place) => {
@@ -67,9 +68,9 @@ var GasFoodSubSwiper = React.createClass({
                                         {isFood && <Image style={styles.image} source={{uri: place.image}}/>}
                                         <View style={styles.col}>
                                             <Text style={styles.name}>{place.name}</Text>
-                                            {place.price && <Text style={styles.texts} numberOfLines={1}>{place.price}</Text>}
-                                            <Text style={styles.texts} numberOfLines={1}>{"More than " + place.distance}</Text>
-                                            {place.rating && <Text style={styles.texts} numberOfLines={1}>{place.rating + " Stars"}</Text>}
+                                            {place.price && <Text style={isFood && styles.texts} numberOfLines={1}>{place.price + " dollars"}</Text>}
+                                            <Text style={isFood && styles.texts} numberOfLines={1}>{"More than " + place.distance + " miles"}</Text>
+                                            {place.rating && <Text style={isFood && styles.texts} numberOfLines={1}>{place.rating + " Stars"}</Text>}
                                         </View>
                                     </View>
                                 </View>
@@ -102,6 +103,7 @@ var GasFoodSwiper = React.createClass({
 
     render: function() {
         var morethanzerooptions = this.props.options.length > 0;
+        var isLoading = this.props.loading;
         var show_swiper_or_error
         if (morethanzerooptions){
             var show_swiper_or_error = <GasFoodSubSwiper 
@@ -111,9 +113,15 @@ var GasFoodSwiper = React.createClass({
                                             longitude={this.props.longitude}/>;
         }
         else{
-            var show_swiper_or_error= (<View style={styles.no_options}>
-                <Text>{this.state.error_message}</Text>
-                </View>)
+            if (isLoading == true) {
+                var show_swiper_or_error= (<View style={styles.no_options}>
+                    <Spinner />
+                    </View>)
+            } else {
+                var show_swiper_or_error= (<View style={styles.no_options}>
+                    <Text>{this.state.error_message}</Text>
+                    </View>)
+            }
         }
 
         return (
@@ -138,6 +146,9 @@ var styles = StyleSheet.create({
     },
     buttonText: {
         textAlign: 'center',
+    },
+    buttonWrapper: {
+        paddingHorizontal: 0,
     },
     col: {
         flexDirection: 'column',
