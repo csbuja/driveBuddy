@@ -3,6 +3,7 @@ drop table if exists user_res;
 drop table if exists restaurant;
 drop table if exists user;
 drop table if exists survey;
+drop table if exists rate;
 create table user(
 	userid int not null primary key
 );
@@ -17,6 +18,14 @@ create table survey(
 	primary key (userid, restaurant_id),
 	foreign key (userid) references user(userid)
 );
+
+create table rate(
+	userid int not null,
+	restaurant_id varchar(255) not null,
+	rate int,
+	primary key (userid, restaurant_id),
+	foreign key (userid) references user(userid)
+)
 
 create table restaurant(
 	restaurant_id varchar(255) not null  primary key,
