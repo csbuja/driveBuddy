@@ -60,6 +60,7 @@ var RestaurantSurveyView = React.createClass({
                         />
                         <SurveySelectedRestaurantList
                             onRestaurantRemove={this._onRestaurantRemove}
+                            onRestaurantSelectRating={this._onRestaurantSelectRating}
                             restaurantInfo={selectedInfo}
                         />
                     </Image>
@@ -76,16 +77,21 @@ var RestaurantSurveyView = React.createClass({
         );
     },
 
-    _onRestaurantSelect: function(info) {
-        var selected = this.state.selected;
-        selected[info.id] = info;
-        this.setState({selected: selected});
-    },
-
     _onRestaurantRemove: function(id) {
         var selected = this.state.selected;
         delete selected[id];
         this.setState({selected: selected});
+    },
+
+    _onRestaurantSelect: function(info) {
+        var selected = this.state.selected;
+        info.rating = 5;
+        selected[info.id] = info;
+        this.setState({selected: selected});
+    },
+
+    _onRestaurantSelectRating: function(id, rating) {
+        this.state.selected[id].rating = rating;
     },
 
     _onNextPress: function() {

@@ -1,7 +1,8 @@
 'use strict';
 
-var React = require('react-native');
 var Icon = require('react-native-vector-icons/FontAwesome');
+var React = require('react-native');
+var StarRating = require('react-native-star-rating').default;
 var SurveyRestaurantCard = require('./SurveyRestaurantCard');
 
 var {
@@ -14,17 +15,12 @@ var {
 
 var SurveyRestaurantCard = React.createClass({
     propTypes: {
-        onRestaurantRemove: PropTypes.func.isRequired,
         info: PropTypes.object.isRequired,
+        onRestaurantRemove: PropTypes.func.isRequired,
+        onRestaurantSelectRating: PropTypes.func.isRequired,
     },
 
     render: function() {
-        var rating = this.props.info.rating
-            ? <Text style={styles.text}>
-                  {this.props.info.rating + " Stars"}
-              </Text>
-            : null;
-
         return (
             <View style={styles.mainView}>
                 <Image
@@ -33,19 +29,28 @@ var SurveyRestaurantCard = React.createClass({
                     source={{uri: this.props.info.image}}
                 />
                 <View style={styles.infoSec}>
-                    <Text style={[styles.text, styles.name]}>
-                        {this.props.info.name}
-                    </Text>
-                    {rating}
-                    <Text style={styles.text}>
-                        {this.props.info.address}
-                    </Text>
+                    <View>
+                        <Text
+                            numberOfLines={1}
+                            style={styles.name}>
+                            {this.props.info.name}
+                        </Text>
+                        <Text numberOfLines={1}>
+                            {this.props.info.address}
+                        </Text>
+                    </View>
+                    <StarRating
+                        rating={this.props.info.rating}
+                        selectedStar={this._onSelectRating}
+                        starColor={'#FF3366'}
+                        starSize={25}
+                    />
                 </View>
                 <Icon
                     style={styles.closeButton}
                     name="close"
                     size={20}
-                    color="#0080ff"
+                    color={'#CCCCCC'}
                     onPress={this._onRemovePress}
                 />
             </View>
@@ -54,6 +59,10 @@ var SurveyRestaurantCard = React.createClass({
 
     _onRemovePress: function() {
         this.props.onRestaurantRemove(this.props.info.id);
+    },
+
+    _onSelectRating: function(rating) {
+        this.props.onRestaurantSelectRating(this.props.info.id, rating);
     },
 });
 
@@ -76,14 +85,9 @@ var styles = StyleSheet.create({
     infoSec: {
         flex: 0.92,
         flexDirection: 'column',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
+        height: 80,
+        justifyContent: 'space-around',
         marginLeft: 12,
-    },
-    text: {
-        flex: 1,
-        flexWrap: 'wrap',
-        marginBottom: 5,
     },
     thumbnail: {
         height: 100,
@@ -92,9 +96,7 @@ var styles = StyleSheet.create({
     name: {
         fontSize: 16,
         fontWeight: 'bold',
-        marginBottom: 10,
-        marginTop: 10,
-    }
+    },
 });
 
 module.exports = SurveyRestaurantCard;

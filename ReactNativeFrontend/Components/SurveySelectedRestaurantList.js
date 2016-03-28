@@ -16,6 +16,7 @@ var {
 var SurveySelectedRestaurantList = React.createClass({
     propTypes: {
         onRestaurantRemove: PropTypes.func.isRequired,
+        onRestaurantSelectRating: PropTypes.func.isRequired,
         restaurantInfo: PropTypes.array.isRequired,
     },
 
@@ -54,6 +55,7 @@ var SurveySelectedRestaurantList = React.createClass({
                 key={rowID}
                 style={styles.listItem}>
                 <SurveyRestaurantCard
+                    onRestaurantSelectRating={this.props.onRestaurantSelectRating}
                     onRestaurantRemove={this.props.onRestaurantRemove}
                     info={info}
                 />
