@@ -98,6 +98,22 @@ app.all('/api/user/:userid', function(req,res) {
 app.all('/api/survey', function(req,res){
 	console.log('Start Initializing');
 	console.log(req.body.userID);
+	var post = {userid: req.body.userID};
+	var query = db.query('SELECT userid from user where userid = ?', req.params.userid, function(err, result) {
+		if (err){
+			throw err
+		}else{
+			if(result.length == 0){restaurant
+				var query2 = db.query('INSERT INTO user SET ?', post, function(err, result) {
+					if (err) throw err;
+				});
+				res.send('Registered');
+			}else{
+				res.send('Alreay exists');
+			}
+		}
+	});
+
 	for(var i = 0; i < (req.body.restaurants).length; ++i){
 
 		var data = req.body.restaurants[i];
@@ -120,13 +136,8 @@ app.all('/api/test/:restaurant', function(req,res){
 		if (err){
 			res.send(JSON.stringify([]));
 		}else{
-			console.log(data.review_count)
-			console.log(data.location.coordinate.longitude)
-			console.log(data.location.coordinate.latitude)
-
-			for(var i = 0; i < (data.reviews).length; ++i){
-				console.log(data.reviews[i]);
-			}
+			var a = ["gastropubs","pubs"];
+			var b = ["pubs"];
 		}
 	});
 
@@ -185,6 +196,18 @@ app.all('/api/sensordata/:lat/:lon/:status/:userid', function(req,res) {
 	res.send('Data sent');
 });
 
+app.get('/api/yelp/:lat/:lon',function (req, res) {
+	var lat = req.params.lat;
+	var lon = req.params.lon;
+	var radius = 40000; //max 40000 meters
+	yelp.search({term: "restaurants", ll: lat +',' + lon, radius_filter: radius},
+		function(err, data){
+			if (err) res.send(JSON.stringify([]));
+			else res.send(JSON.stringify(driverNeeds.getYelpBusinesses(data, 'food')));
+		}
+	);
+});
+	
 
 app.get('/api/search/:lat/:lon/:name/:location?', (req, res) => {
     var lat = req.params.lat;
