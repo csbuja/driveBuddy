@@ -30,6 +30,7 @@ var SurveyListView = React.createClass({
 
         return {
             dataSource: ds.cloneWithRows([]),
+            numberOptions: 0,
             latitude: 0,
             longitude: 0,
             locationText: '',
@@ -69,6 +70,9 @@ var SurveyListView = React.createClass({
     },
 
     render: function() {
+        var rowHeight = 54;
+        var rowsToShow = Math.min(this.state.numberOptions,3);
+        var listHeight = rowHeight * rowsToShow;
         return (
             <View>
                 <SurveySearchBar
@@ -78,7 +82,13 @@ var SurveyListView = React.createClass({
                     searchText={this.state.searchText}
                 />
                 <Overlay isVisible={this.state.showOptions && this.props.showSearchResults}>
-                    <View style={styles.overlay}>
+                    <View style={{
+                        backgroundColor: '#333333',
+                        borderBottomWidth: 5,
+                        borderColor: '#3399ff',
+                        height: listHeight,
+                        marginTop: 193,
+                    }}>
                         <ListView
                             dataSource={this.state.dataSource}
                             renderRow={this._renderRow}
@@ -153,6 +163,7 @@ var SurveyListView = React.createClass({
                 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
                 this.setState({
                     dataSource: ds.cloneWithRows(data),
+                    numberOptions: arr.length,
                     showOptions: true,
                 });
             })
@@ -179,13 +190,6 @@ var styles = StyleSheet.create({
     },
     directionRow: {
         flexDirection: 'row',
-    },
-    overlay: {
-        backgroundColor: '#333333',
-        borderBottomWidth: 5,
-        borderColor: '#3399ff',
-        height: 150,
-        marginTop: 203, // TODO (urlauba): make dynamic, measure in NativeMethodsMixin?
     },
     row: {
         backgroundColor: '#FFFFFF',
