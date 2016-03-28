@@ -131,6 +131,33 @@ app.all('/api/survey', function(req,res){
 	console.log('Initialization Complete');
 });
 
+app.all('/api/rate/:userid/:restaurant/:rate', function(req,res){
+	var term = {
+		userid: req.params.userid,
+		restaurant_id: req.params.restaurant,
+		rate: req.params.rate
+	};
+	var dup = {
+		rate: req.params.rate
+	};
+	db.query('INSERT INTO rate SET ? ON DUPLICATE KEY UPDATE rate=VALUES(rate)', term, function(err, result) {
+		if (err) throw err;
+		else res.send(JSON.stringify('Data sent'));
+	});
+
+});
+
+app.all('/api/get_rate/:userid/:restaurant', function (req,res) {
+	var query = 'select * from rate where userid =' + req.params.userid +' or userid in (select R1.userid from rate R1, rate R2 where R1.restaurant_id= \"' + req.params.restaurant + '\" and R2.restaurant_id in (select restaurant_id from rate where userid = ' + req.params.userid + ') and R1.userid = R2.userid)';
+	console.log(query);
+	db.query(query, function (err,result) {
+		if (err) throw err;
+		else{
+			res.send(JSON.stringify(result));
+		};
+	});
+});
+
 app.all('/api/test/:restaurant', function(req,res){
 	yelp.business(req.params.restaurant,
 	function(err, data){
