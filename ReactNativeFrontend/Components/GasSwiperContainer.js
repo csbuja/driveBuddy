@@ -56,7 +56,7 @@ var GasSwiperContainer = React.createClass({
         var last = JSON.stringify(lastPosition);
 
         this.setState({loading: true});
-        if (lat != 0 || lon != 0) {
+        if (currentPosition.latitude != 0 || currentPosition.longitude != 0) {
             // TODO (urlauba): change url path
             fetch('http://localhost:3000/api/gas/' + current + '/' + last)
                 .then((response) => response.text())
