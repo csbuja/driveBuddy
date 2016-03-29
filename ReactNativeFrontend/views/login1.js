@@ -36,10 +36,29 @@ var Login1 = React.createClass({
             this.props.navigator.popToTop();
   },
 
-  onPressLogin : function() {
-      this.props.navigator.push({
+  onPressLogin : function(userID) {
+      var surveyView = {
           name: 'RestaurantSurveyView',
           component: RestaurantSurveyView,
+      };
+      var liveView = {
+          name: 'liveView',
+          component: liveView,
+      };
+      fetch('http://localhost:3000/api/check/survey/' + userID)
+      .then((response) => response.text())
+      .then((responseText) => {
+        if (responseText == 'Existing survey') {
+          this.props.navigator.push(liveView);
+        }
+        else {
+          this.props.navigator.push(surveyView);
+        }
+      })
+      .catch((error) => {
+      // TODO (urlauba): handle error state
+        console.log('error getting response for existence of survey');
+        this.props.navigator.push(surveyView);
       });
       this.props.navigator.popToTop();
   },
@@ -47,7 +66,7 @@ var Login1 = React.createClass({
   setUserID: function(userID, callback) {
       AsyncStorage.setItem('userID', '' + userID + '')
           .then(function() {
-              callback();
+              callback(userID);
           })
           .catch(function(error) {
               console.log('error saving userID to disc' + error)

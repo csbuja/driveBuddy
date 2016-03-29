@@ -96,6 +96,20 @@ app.all('/api/user/:userid', function(req,res) {
 	});
 });
 
+app.all('/api/check/survey/:userid', function(req, res){
+	db.query('SELECT * from survey where userid = ?', req.params.userid, function(err, result) {
+		if (err){
+			throw err
+		}else{
+			if(result.length == 0){
+				res.send('No survey');
+			}else{
+				res.send('Existing survey');
+			}
+		}
+	});
+});
+
 //insert restaurant info into restaurant table
 //insert user visted info into user_res table
 app.all('/api/survey', function(req,res){
@@ -393,6 +407,5 @@ app.get('/googlemaps/:lat1/:lon1/:lat2/:lon2/:interval', function(req,res){
 
 */
 console.log('App running on port: ' + port);
-
 
 app.listen(port);
