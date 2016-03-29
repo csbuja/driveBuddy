@@ -1,5 +1,6 @@
 'use strict';
 
+var Icon = require('react-native-vector-icons/FontAwesome');
 var React = require('react-native');
 var Spinner = require('react-native-gifted-spinner');
 var Swiper = require('react-native-swiper');
@@ -13,12 +14,11 @@ var {
     View,
     Platform,
     TouchableHighlight,
-    TouchableNativeFeedback 
+    TouchableNativeFeedback
 } = React;
 var i = 0;
 
 var GasFoodSubSwiper = React.createClass({
-
     getInitialState: function() {
         return {
             option: this.props.options[0],
@@ -52,41 +52,57 @@ var GasFoodSubSwiper = React.createClass({
         if (Platform.OS === 'android') {
             TouchableElement = TouchableNativeFeedback;
         }
-        return(<View style={styles.container}>
-                    <Swiper onMomentumScrollEnd={this._onMomentumScrollEnd}
-                        height={90}
-                        showsButtons={true}
-                        buttonWrapperStyle={styles.buttonWrapper}
-                        showsPagination={false}
-                        width={300}>
-                        {this.props.options.map((place) => {
-                            return (
-                                <View
-                                    key={i++}
-                                    style={[styles.col, styles.placeView]}>
-                                    <View style={styles.row}>
-                                        {isFood && <Image style={styles.image} source={{uri: place.image}}/>}
-                                        <View style={styles.col}>
-                                            <Text style={styles.name}>{place.name}</Text>
-                                            {place.price && <Text style={isFood && styles.texts} numberOfLines={1}>{place.price + " dollars"}</Text>}
-                                            <Text style={isFood && styles.texts} numberOfLines={1}>{"More than " + place.distance + " miles"}</Text>
-                                            {place.rating && <Text style={isFood && styles.texts} numberOfLines={1}>{place.rating + " Stars"}</Text>}
-                                        </View>
+        return (
+            <View style={styles.container}>
+                <Swiper onMomentumScrollEnd={this._onMomentumScrollEnd}
+                    height={90}
+                    showsButtons={true}
+                    buttonWrapperStyle={styles.buttonWrapper}
+                    showsPagination={false}
+                    nextButton={
+                        <Icon
+                            name={'chevron-right'}
+                            size={20}
+                            color={'#CCCCCC'}
+                        />
+                    }
+                    prevButton={
+                        <Icon
+                            name={'chevron-left'}
+                            size={20}
+                            color={'#CCCCCC'}
+                        />
+                    }
+                    width={300}>
+                    {this.props.options.map((place) => {
+                        return (
+                            <View
+                                key={i++}
+                                style={[styles.col, styles.placeView]}>
+                                <View style={styles.row}>
+                                    {isFood && <Image style={styles.image} source={{uri: place.image}}/>}
+                                    <View style={styles.col}>
+                                        <Text style={styles.name}>{place.name}</Text>
+                                        {place.price && <Text style={isFood && styles.texts} numberOfLines={1}>{place.price + " dollars"}</Text>}
+                                        <Text style={isFood && styles.texts} numberOfLines={1}>{"More than " + place.distance + " miles"}</Text>
+                                        {place.rating && <Text style={isFood && styles.texts} numberOfLines={1}>{place.rating + " Stars"}</Text>}
                                     </View>
                                 </View>
-                            );
-                        })}
-                    </Swiper>
-                    <View>
-                        <TouchableElement
-                            style={styles.button}
-                            onPress={this.getDirections}>
-                            <View>
-                                <Text style={styles.buttonText}>Start Route Guidance</Text>
                             </View>
-                        </TouchableElement>
-                    </View>
-                </View>)
+                        );
+                    })}
+                </Swiper>
+                <View>
+                    <TouchableElement
+                        style={styles.button}
+                        onPress={this.getDirections}>
+                        <View>
+                            <Text style={styles.buttonText}>Start Route Guidance</Text>
+                        </View>
+                    </TouchableElement>
+                </View>
+            </View>
+        );
     }
 });
 
@@ -106,7 +122,7 @@ var GasFoodSwiper = React.createClass({
         var isLoading = this.props.loading;
         var show_swiper_or_error
         if (morethanzerooptions){
-            var show_swiper_or_error = <GasFoodSubSwiper 
+            var show_swiper_or_error = <GasFoodSubSwiper
                                             options={this.props.options}
                                             title={this.props.title}
                                             latitude={this.props.latitude}
@@ -134,17 +150,19 @@ var GasFoodSwiper = React.createClass({
 
 var styles = StyleSheet.create({
     button: {
-        backgroundColor: '#80ff80',
-        borderColor: '#00cc00',
+        backgroundColor: '#6BCDFD',
+        borderColor: '#6BCDFD',
         borderRadius: 2,
         borderStyle: 'solid',
         borderWidth: 1,
         flex: 1,
         marginBottom: 8,
         overflow: 'hidden',
-        padding: 4,
+        padding: 8,
     },
     buttonText: {
+        color: '#FFFFFF',
+        fontWeight: 'bold',
         textAlign: 'center',
     },
     buttonWrapper: {
@@ -179,6 +197,9 @@ var styles = StyleSheet.create({
     },
     row: {
         flexDirection: 'row',
+    },
+    swiperButton: {
+        color: '#CCCCCC',
     },
     title: {
         fontSize: 16,

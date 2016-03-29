@@ -38,7 +38,7 @@ var SurveySearchBar = React.createClass({
                         onChangeText={this.props.onSearchTextChange}
                         placeholder='Search Restaurants Near'
                         ref="searchBar"
-                        selectionColor={'#3399FF'}
+                        selectionColor={'#6BCDFD'}
                         style={styles.textInput}
                         value={this.props.searchText}
                     />
@@ -49,7 +49,7 @@ var SurveySearchBar = React.createClass({
                         clearButtonMode={'always'}
                         onChangeText={this.props.onLocationTextChange}
                         placeholder='Current Location'
-                        selectionColor={'#3399FF'}
+                        selectionColor={'#6BCDFD'}
                         style={styles.textInput}
                         value={this.props.locationText}
                     />
@@ -63,7 +63,7 @@ var styles = StyleSheet.create({
     container: {
         alignItems: 'center',
         backgroundColor: '#CCCCCC',
-        borderColor: '#3399FF',
+        borderColor: '#6BCDFD',
         borderTopWidth: 2,
         flexDirection: 'row',
         height: 40,

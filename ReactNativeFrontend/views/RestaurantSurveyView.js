@@ -149,7 +149,7 @@ var styles = StyleSheet.create({
         color: "#FFFFFF",
     },
     buttonContainer: {
-        backgroundColor: '#3399ff',
+        backgroundColor: '#6BCDFD',
         flex: 0.12,
         justifyContent: 'center',
     },

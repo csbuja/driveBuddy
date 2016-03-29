@@ -85,7 +85,7 @@ var SurveyListView = React.createClass({
                     <View style={{
                         backgroundColor: '#333333',
                         borderBottomWidth: 5,
-                        borderColor: '#3399ff',
+                        borderColor: '#6BCDFD',
                         height: listHeight,
                         marginTop: 202,
                     }}>
@@ -196,7 +196,7 @@ var styles = StyleSheet.create({
         padding: 10,
     },
     separator: {
-        backgroundColor: '#3399ff',
+        backgroundColor: '#6BCDFD',
         height: 1,
     },
     thumbnail: {
