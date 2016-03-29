@@ -22,6 +22,11 @@ var mockLocation = {
 }
 
 var MapContainer = React.createClass({
+    propTypes: {
+        foodOptions: PropTypes.array,
+        gasOptions: PropTypes.array,
+    },
+
     componentDidMount: function() {
 
         // make API call and set state accordingly
@@ -29,25 +34,26 @@ var MapContainer = React.createClass({
     },
 
     render: function() {
+        var markersOptions = {};
+
+        var numberOfGasMarkers = this.props.gasOptions.length;
+        for (var i = 0; i < numberOfGasMarkers; i++) {
+            var place = this.props.gasOptions[i];
+            markersOptions[String(place.name)] = {id: place.name, latitude: place.lat, longitude: place.lon};
+        }
+
+        var numberOfFoodMarkers = this.props.foodOptions.length;
+        for (var i = 0; i < numberOfFoodMarkers; i++) {
+            var place = this.props.foodOptions[i];
+            markersOptions[String(place.name)] = {id: place.name, latitude: place.lat, longitude: place.lon};
+        }
+
         return (
             <View style={styles.container}>
                 <GoogleMap 
-                    markersSet={
-                        {
-                            marker1: {
-                                id: 'marker-100',
-                                latitude: 42.277790,
-                                longitude: -83.742705
-                            },
-                            marker2: {
-                                id: 'marker-200',
-                                latitude: 42.277,
-                                longitude: -83.742
-                            }
-                        }
-                    }
+                    markersSet={markersOptions}
                     style={styles.map}
-                    cameraPosition={{auto: true, zoom: 15}}
+                    cameraPosition={{auto: true, zoom: 13}}
                     showsUserLocation={true}
                 />
             </View>

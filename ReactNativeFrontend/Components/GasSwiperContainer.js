@@ -15,12 +15,14 @@ var GasSwiperContainer = React.createClass({
             latitude: PropTypes.number,
             longitude: PropTypes.number,
         }).isRequired,
+        onSetOptions: React.PropTypes.func,
     },
 
     getInitialState: function() {
         return {
             options: [],
             loading: false,
+            transferredUp: false,
         };
     },
 
@@ -57,13 +59,17 @@ var GasSwiperContainer = React.createClass({
 
         this.setState({loading: true});
         if (currentPosition.latitude && currentPosition.longitude) {
+            var transferredUp = this.state.transferredUp;
             // TODO (urlauba): change url path
             fetch('http://localhost:3000/api/gas/' + current + '/' + last)
                 .then((response) => response.text())
                 .then((responseText) => {
                     var data = JSON.parse(responseText);
                     var options = Object.keys(data).map(function(k) { return data[k] });
-                    this.setState({options: options, loading: false});
+                    this.setState({options: options, transferredUp: !transferredUp, loading: false});
+                    if (transferredUp == false) {
+                        this.props.onSetOptions(options);
+                    }
                 })
                 .catch((error) => {
                     // TODO (urlauba): handle error state

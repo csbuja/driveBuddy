@@ -34,6 +34,8 @@ var liveView = React.createClass({
                 latitude: null,
                 longitude: null,
             },
+            foodOptions: [],
+            gasOptions: [],
         };
     },
 
@@ -75,7 +77,6 @@ var liveView = React.createClass({
 
     render: function(){
         var toLoginBack = this.toLoginBack;
-
         return (
             <View style={styles.liveView}>
                 <TouchableHighlight style={styles.circleButton} onPress={this.onBack}>
@@ -88,19 +89,32 @@ var liveView = React.createClass({
                 <FoodSwiperContainer
                     currentPosition={this.state.currentPosition}
                     lastPosition={this.state.lastPosition}
+                    onSetOptions={this._onSetFoodOptions}
                     style={styles.borderBottom}
                 />
                 <GasSwiperContainer
                     currentPosition={this.state.currentPosition}
                     lastPosition={this.state.lastPosition}
+                    onSetOptions={this._onSetGasOptions}
                     style={styles.borderBottom}
                 />
                 <MapContainer
                     style={styles.borderBottom}
+                    foodOptions={this.state.foodOptions}
+                    gasOptions={this.state.gasOptions}
                 />
             </View>
         );
+    },
+
+    _onSetFoodOptions: function(options) {
+        this.setState({foodOptions: options});
+    },
+
+    _onSetGasOptions: function(options) {
+        this.setState({gasOptions: options});
     }
+
 });
 
 var styles = StyleSheet.create({
