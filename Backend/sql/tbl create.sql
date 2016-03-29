@@ -1,3 +1,4 @@
+use eecs498
 drop table if exists sensordata;
 drop table if exists user_res;
 drop table if exists restaurant;
@@ -22,7 +23,7 @@ create table survey(
 create table rate(
 	userid int not null,
 	restaurant_id varchar(255) not null,
-	rate int,
+	rate double,
 	primary key (userid, restaurant_id),
 	foreign key (userid) references user(userid)
 )

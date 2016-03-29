@@ -120,7 +120,7 @@ app.all('/api/survey', function(req,res){
 		if (err){
 			throw err
 		}else{
-			if(result.length == 0){restaurant
+			if(result.length == 0){
 				var query2 = db.query('INSERT INTO user SET ?', post, function(err, result) {
 					if (err) throw err;
 				});
@@ -158,7 +158,7 @@ app.all('/api/rate/:userid/:restaurant/:rate', function(req,res){
 	};
 	db.query('INSERT INTO rate SET ? ON DUPLICATE KEY UPDATE rate=VALUES(rate)', term, function(err, result) {
 		if (err) throw err;
-		else res.send(JSON.stringify('Data sent'));
+		else res.send('Data sent');
 	});
 
 });
@@ -189,18 +189,18 @@ app.all('/api/get_rate/:userid', function (req,res) {
 	makeQueries().then(function(result){
 		//result will be a JSON string
 		res.send((result));
+
 	});
 
 });
 
 app.all('/api/test/:restaurant', function(req,res){
-	yelp.business(req.params.restaurant,
-	function(err, data){
+	var name = req.params.restaurant
+	yelp.search({radius_filter: 40000, location: "Ann Arbor", term: name},function(err, data){
 		if (err){
 			res.send(JSON.stringify([]));
 		}else{
-			var a = ["gastropubs","pubs"];
-			var b = ["pubs"];
+			res.send(driverNeeds.getYelpBusinesses(data, 'food'));
 		}
 	});
 
