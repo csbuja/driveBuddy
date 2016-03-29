@@ -138,19 +138,19 @@ app.all('/api/get_rate/:userid', function (req,res) {
 	var makeQueries = function (){
 		var deferred = Q.defer();
 		for(var i = 0; i < req.body.restaurants.length; ++i){
-			
+
 			/*
 			db.query('select * from rate where userid = ' + req.params.userid +' restaurant_id = ' + req.body.restaurants[i]),
 			function(err, result){
 				if (err) throw err;
 				else{
 					if (result.length != 0){
-						
+
 					}
 				}
 			});
 			*/
-			
+
 			var query = 'select * from rate where userid =' + req.params.userid +' or userid in (select R1.userid from rate R1, rate R2 where R1.restaurant_id= \"' + req.body.restaurants[i] + '\" and R2.restaurant_id in (select restaurant_id from rate where userid = ' + req.params.userid + ') and R1.userid = R2.userid)';
 			db.query(query, function (err,result) {
 				if (err) throw err;
@@ -162,7 +162,7 @@ app.all('/api/get_rate/:userid', function (req,res) {
 					    	child_process.exec('rm ' + filename, function () {});
 							if (i ==req.body.restaurants.length -1) deferred.resolve(predicted_CF_results);
 						});
-					}); 
+					});
 				};
 			});
 		}
@@ -242,18 +242,6 @@ app.all('/api/sensordata/:lat/:lon/:status/:userid', function(req,res) {
 	res.send('Data sent');
 });
 
-app.get('/api/yelp/:lat/:lon',function (req, res) {
-	var lat = req.params.lat;
-	var lon = req.params.lon;
-	var radius = 40000; //max 40000 meters
-	yelp.search({term: "restaurants", ll: lat +',' + lon, radius_filter: radius},
-		function(err, data){
-			if (err) res.send(JSON.stringify([]));
-			else res.send(JSON.stringify(driverNeeds.getYelpBusinesses(data, 'food')));
-		}
-	);
-});
-	
 
 app.get('/api/search/:lat/:lon/:name/:location?', (req, res) => {
     var lat = req.params.lat;

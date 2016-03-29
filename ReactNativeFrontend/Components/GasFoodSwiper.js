@@ -18,6 +18,22 @@ var {
 } = React;
 var i = 0;
 
+var NextPrevButton = React.createClass({
+    PropTypes: {
+        name: PropTypes.string.isRequired,
+    },
+
+    render: function() {
+        return (
+            <Icon
+                name={this.props.name}
+                size={20}
+                color={'#CCCCCC'}
+            />
+        );
+    }
+});
+
 var GasFoodSubSwiper = React.createClass({
     getInitialState: function() {
         return {
@@ -52,47 +68,42 @@ var GasFoodSubSwiper = React.createClass({
         if (Platform.OS === 'android') {
             TouchableElement = TouchableNativeFeedback;
         }
+        var swiperWidth = 320;
+        var itemWidth = swiperWidth - 90;
+
         return (
             <View style={styles.container}>
                 <Swiper onMomentumScrollEnd={this._onMomentumScrollEnd}
-                    height={90}
+                    height={110}
+                    nextButton={<NextPrevButton name={'chevron-right'} />}
+                    prevButton={<NextPrevButton name={'chevron-left'} />}
                     showsButtons={true}
-                    buttonWrapperStyle={styles.buttonWrapper}
                     showsPagination={false}
-                    nextButton={
-                        <Icon
-                            name={'chevron-right'}
-                            size={20}
-                            color={'#CCCCCC'}
-                        />
-                    }
-                    prevButton={
-                        <Icon
-                            name={'chevron-left'}
-                            size={20}
-                            color={'#CCCCCC'}
-                        />
-                    }
-                    width={300}>
+                    style={[
+                        styles.swiper,
+                        {width: itemWidth}
+                    ]}
+                    width={swiperWidth}>
                     {this.props.options.map((place) => {
                         return (
                             <View
                                 key={i++}
-                                style={[styles.col, styles.placeView]}>
-                                <View style={styles.row}>
-                                    {isFood && <Image style={styles.image} source={{uri: place.image}}/>}
-                                    <View style={styles.col}>
-                                        <Text style={styles.name}>{place.name}</Text>
-                                        {place.price && <Text style={isFood && styles.texts} numberOfLines={1}>{place.price + " dollars"}</Text>}
-                                        <Text style={isFood && styles.texts} numberOfLines={1}>{"More than " + place.distance + " miles"}</Text>
-                                        {place.rating && <Text style={isFood && styles.texts} numberOfLines={1}>{place.rating + " Stars"}</Text>}
-                                    </View>
+                                style={[
+                                    styles.placeContainer,
+                                    {width: itemWidth}
+                                ]}>
+                                {isFood && <Image style={styles.image} source={{uri: place.image}}/>}
+                                <View style={styles.col}>
+                                    <Text style={styles.name}>{place.name}</Text>
+                                    {place.price && <Text style={isFood && styles.texts} numberOfLines={1}>{place.price + " dollars"}</Text>}
+                                    <Text style={isFood && styles.texts} numberOfLines={1}>{"More than " + place.distance + " miles"}</Text>
+                                    {place.rating && <Text style={isFood && styles.texts} numberOfLines={1}>{place.rating + " Stars"}</Text>}
                                 </View>
                             </View>
                         );
                     })}
                 </Swiper>
-                <View>
+                <View style={{width: itemWidth}}>
                     <TouchableElement
                         style={styles.button}
                         onPress={this.getDirections}>
@@ -165,9 +176,6 @@ var styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
     },
-    buttonWrapper: {
-        paddingHorizontal: 0,
-    },
     col: {
         flexDirection: 'column',
     },
@@ -179,24 +187,28 @@ var styles = StyleSheet.create({
         width:300
     },
     image: {
-        height: 60,
-        marginRight: 28,
-        width: 60,
+        height: 100,
+        width: 100,
     },
     name: {
         fontSize: 16,
+        fontWeight: 'bold',
         width: 120,
     },
     texts: {
         width: 120,
     },
-    placeView: {
-        paddingLeft: 50,
-        paddingRight: 50,
-        paddingTop: 8,
+    placeContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
     },
     row: {
         flexDirection: 'row',
+    },
+    swiper: {
+        alignSelf: 'center',
     },
     swiperButton: {
         color: '#CCCCCC',
