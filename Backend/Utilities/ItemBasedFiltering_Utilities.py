@@ -10,7 +10,9 @@ from scipy.sparse import csr_matrix
 # Note:This includes the corner case if i==j because if we rated i high, then we have a high prediction score
 #
 def pred(Ruj,SIMij):
-    return np.dot(Ruj,SIMij)/( np.dot(SIMij,np.ones(SIMij.shape)) )
+    if len(Ruj) == 0:
+        return float("-inf")
+    return float(np.dot(Ruj,SIMij)/( np.dot(SIMij,np.ones(SIMij.shape)) ))
 
 #Similarity function from Lecture 15 for IBFNN
 #Inputs:

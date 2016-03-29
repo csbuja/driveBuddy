@@ -1,4 +1,5 @@
 // Module dependencies.
+var child_process = require('child_process');
 var express = require('express');
 var bodyParser = require('body-parser');
 var driverNeeds = require('./driverNeeds');
@@ -9,6 +10,8 @@ var pg = require('pg')
 var port = (process.env.PORT || 3000);
 var moment = require('moment');
 var _ = require('underscore');
+var fs = require('fs');
+var Q = require('q')
 
 var Yelp = require('yelp');
 var yelp = new Yelp({
@@ -128,6 +131,52 @@ app.all('/api/survey', function(req,res){
 		driverNeeds.check_add(term);
 	}
 	console.log('Initialization Complete');
+});
+
+app.all('/api/rate/:userid/:restaurant/:rate', function(req,res){
+	var term = {
+		userid: req.params.userid,
+		restaurant_id: req.params.restaurant,
+		rate: req.params.rate
+	};
+	var dup = {
+		rate: req.params.rate
+	};
+	db.query('INSERT INTO rate SET ? ON DUPLICATE KEY UPDATE rate=VALUES(rate)', term, function(err, result) {
+		if (err) throw err;
+		else res.send(JSON.stringify('Data sent'));
+	});
+
+});
+
+app.all('/api/get_rate/:userid', function (req,res) {
+
+	var makeQueries = function (){
+		var deferred = Q.defer();
+		for(var i = 0; i < req.body.restaurants.length; ++i){
+			var query = 'select * from rate where userid =' + req.params.userid +' or userid in (select R1.userid from rate R1, rate R2 where R1.restaurant_id= \"' + req.body.restaurants[i] + '\" and R2.restaurant_id in (select restaurant_id from rate where userid = ' + req.params.userid + ') and R1.userid = R2.userid)';
+			db.query(query, function (err,result) {
+				if (err) throw err;
+				else{
+					var filename = "./CF_Glue/" +Date.now().toString() + "-"+req.params.userid + "-" + req.body.restaurants[i] + ".txt"
+					fs.writeFile(filename, "Hey there!", function(err) {
+					    child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
+					    	predicted_CF_results =  (data);
+					    	child_process.exec('rm ' + filename, function () {});
+							if (i ==req.body.restaurants.length -1) deferred.resolve(predicted_CF_results);
+						});
+					}); 
+				};
+			});
+		}
+		return deferred.promise;
+	}
+
+	makeQueries().then(function(result){
+		//result will be a JSON string
+		res.send((result));
+	});
+
 });
 
 app.all('/api/test/:restaurant', function(req,res){
@@ -344,4 +393,6 @@ app.get('/googlemaps/:lat1/:lon1/:lat2/:lon2/:interval', function(req,res){
 
 */
 console.log('App running on port: ' + port);
+
+
 app.listen(port);
