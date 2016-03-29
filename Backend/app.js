@@ -168,6 +168,19 @@ app.all('/api/get_rate/:userid', function (req,res) {
 	var makeQueries = function (){
 		var deferred = Q.defer();
 		for(var i = 0; i < req.body.restaurants.length; ++i){
+			
+			/*
+			db.query('select * from rate where userid = ' + req.params.userid +' restaurant_id = ' + req.body.restaurants[i]),
+			function(err, result){
+				if (err) throw err;
+				else{
+					if (result.length != 0){
+						
+					}
+				}
+			});
+			*/
+			
 			var query = 'select * from rate where userid =' + req.params.userid +' or userid in (select R1.userid from rate R1, rate R2 where R1.restaurant_id= \"' + req.body.restaurants[i] + '\" and R2.restaurant_id in (select restaurant_id from rate where userid = ' + req.params.userid + ') and R1.userid = R2.userid)';
 			db.query(query, function (err,result) {
 				if (err) throw err;
