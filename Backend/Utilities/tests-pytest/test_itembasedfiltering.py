@@ -51,3 +51,20 @@ def test_pred_user2restaurant2():
 
 	assert(pred(Ruj,SIMij)==3)
 
+#Test Case 5
+def test_mse_1():
+	predicted = np.array([1.0,2.0,3.0,3.0,2.0]) 
+	ground_truth = np.array([2.0]*3 + [4.0]*2)
+	#1/5 * (1 + 0 + 1+1+4) == 7/5
+	assert(MSE(ground_truth,predicted)>=float(7)/5) #floating point math error
+	assert(MSE(ground_truth,predicted)<=float(8)/5)
+
+#Test Case 6
+def test_mse_2():
+	#the average predictor
+	ground_truth = np.array([1.0]*3+[5.0]*2)
+	predicted = np.array([3.0]*5)
+	
+	assert(MSE(ground_truth,predicted)==4)
+
+

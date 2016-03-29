@@ -61,9 +61,8 @@ def sim(R,i,j):
     
     return float(np.dot(Ri-RAbar,Rj-RAbar))/ (float(np.sqrt(np.dot(Ri-RAbar,Ri-RAbar) )) * float(np.sqrt(np.dot(Rj-RAbar,Rj-RAbar))))
 
+##ground_truth - np array of float
+##predicted - np array of float
+def MSE(ground_truth,predicted):
+    return (1/float(len(ground_truth)))*np.dot(ground_truth - predicted,ground_truth - predicted)
 
-# M = csr_matrix((2,2))
-# M[0,0] = 2.0
-# M[0,1] = 5.0
-# M[1,0] = 3.0 
-# print sim(M,0,0)
