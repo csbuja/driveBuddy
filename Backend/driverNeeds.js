@@ -128,13 +128,12 @@ module.exports = {
 	},
 	
 	check_add: function (term) {
-		console.log('check and add');
+		//console.log('check and add');
 		db.query('SELECT restaurant_id from restaurant where restaurant_id = ?', term.restaurant_id, function(err, result) {
 			if (err){
 				throw err
 			}else{
 				if(result.length == 0){
-					console.log(term);
 					db.query('INSERT INTO survey SET ?', term,function(err, result) {
 						if (err) throw err;
 					});
@@ -142,6 +141,21 @@ module.exports = {
 				console.log('insert the restuarant ');
 			}
 		});
+	},
+	
+	register: function(result, post){
+		console.log('check userid');
+		if(result.length == 0){
+			console.log(result.length);
+			db.query('INSERT INTO user SET ?', post, function(err, result) {
+				if (err) throw err;
+				else console.log('Registered');
+			});
+		}else{
+			console.log("Alreay exists");
+			
+		}
+
 	},
 	
 	

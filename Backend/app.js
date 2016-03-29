@@ -77,24 +77,7 @@ function directionFilter(list, lat1, long1, time1, lat2, long2, time2, range,
   return results;
 }
 
-//insert the userid into user table
-app.all('/api/user/:userid', function(req,res) {
-	var post = {userid: req.params.userid};
-	var query = db.query('SELECT userid from user where userid = ?', req.params.userid, function(err, result) {
-		if (err){
-			throw err
-		}else{
-			if(result.length == 0){restaurant
-				var query2 = db.query('INSERT INTO user SET ?', post, function(err, result) {
-					if (err) throw err;
-				});
-				res.send('Registered');
-			}else{
-				res.send('Alreay exists');
-			}
-		}
-	});
-});
+
 
 app.all('/api/check/survey/:userid', function(req, res){
 	db.query('SELECT * from survey where userid = ?', req.params.userid, function(err, result) {
@@ -110,27 +93,15 @@ app.all('/api/check/survey/:userid', function(req, res){
 	});
 });
 
-//insert restaurant info into restaurant table
-//insert user visted info into user_res table
+
 app.all('/api/survey', function(req,res){
 	console.log('Start Initializing');
-	console.log(req.body.userID);
 	var post = {userid: req.body.userID};
-	var query = db.query('SELECT userid from user where userid = ?', req.params.userid, function(err, result) {
-		if (err){
-			throw err
-		}else{
-			if(result.length == 0){
-				var query2 = db.query('INSERT INTO user SET ?', post, function(err, result) {
-					if (err) throw err;
-				});
-				res.send('Registered');
-			}else{
-				res.send('Alreay exists');
-			}
-		}
+	db.query('INSERT INTO user SET ?', post, function(err, result) {
+		if (err) throw err;
+		else console.log('Registered');
 	});
-
+	
 	for(var i = 0; i < (req.body.restaurants).length; ++i){
 
 		var data = req.body.restaurants[i];
@@ -139,9 +110,8 @@ app.all('/api/survey', function(req,res){
 			restaurant_id: data.id,
 			name: data.name,
 			rate: data.rating,
-			foodtype: ""//current empty
+			foodtype: (data.categories).toString()
 		};
-		console.log(i);
 		driverNeeds.check_add(term);
 	}
 	console.log('Initialization Complete');
