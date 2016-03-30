@@ -214,7 +214,8 @@ var styles = StyleSheet.create({
         color: '#CCCCCC',
     },
     title: {
-        fontSize: 16,
+        color: '#404040',
+        fontSize: 24,
         fontWeight: 'bold',
     },
 });

@@ -134,10 +134,10 @@ var styles = StyleSheet.create({
     },
     borderBottom: {
         borderBottomWidth: 2,
-        borderColor: '#000000',
+        borderColor: '#CCCCCC',
         marginBottom: 10,
-        marginLeft: 80,
-        marginRight: 80,
+        marginLeft: 60,
+        marginRight: 60,
     },
     wrapper: {
         flex: 1,
