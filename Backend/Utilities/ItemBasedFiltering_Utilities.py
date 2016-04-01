@@ -11,7 +11,7 @@ from scipy.sparse import csr_matrix
 #
 def pred(Ruj,SIMij):
     if len(Ruj) == 0:
-        return float("-inf")
+        return float(3)
     return float(np.dot(Ruj,SIMij)/( np.dot(SIMij,np.ones(SIMij.shape)) ))
 
 #Similarity function from Lecture 15 for IBFNN
