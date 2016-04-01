@@ -64,7 +64,7 @@ if __name__ == "__main__":
 
         matrix_index = transform_index_to_matrix_index(sample_index,my_data)
         sample_value = my_data[matrix_index[0],matrix_index[1]]
-        if sample_value != np.nan:
+        if ~(np.isnan(sample_value )):
             my_data[matrix_index[0],matrix_index[1]] = np.nan #write over it in my_data
             rowstr  = str(matrix_index[0]) +',' + str(matrix_index[1])
             file2.write(rowstr + '\n')
