@@ -5,6 +5,16 @@ import sys
 #modifies: nothing
 def transform_index_to_matrix_index(i,mat):
     return ( int(i)/mat.shape[1], int(i) % mat.shape[1])
+def writeMatrixToFile(my_data,filestream):
+    i=0
+    while i < my_data.shape[0]:
+        for j in range(my_data.shape[1]):
+            if ~(np.isnan(my_data[i,j])) :
+                filestream.write(str(my_data[i,j]))
+            if not (j == (my_data.shape[1]-1)):
+                filestream.write(',')
+        filestream.write('\n')
+        i+=1
 
 
 if __name__ == "__main__":
@@ -29,13 +39,12 @@ if __name__ == "__main__":
     firstrowstr = ''
     i=0
     while True:
-        firstrowstr += ',U'
+        firstrowstr += 'U'
         i+=1
         firstrowstr += str(i)
         if i == NUMBER_OF_USERS:
             break
         firstrowstr +=','
-    firstrowstr = firstrowstr[1:]
     file1.write(firstrowstr +'\n')
     file2.write('x,y\n') #what to test
     file3.write('x,y,value\n') # ground truth
@@ -47,7 +56,6 @@ if __name__ == "__main__":
     NUMBER_TESTDATA = number_of_nonnans - NUMBER_TRAINDATA
     SAMPLE_INDICES = np.random.choice(my_data.shape[0]*my_data.shape[1], size=(my_data.shape[0]*my_data.shape[1]), replace=False, p=None) #same without replacement
     removed_trainingdata_count= 0
-    
     #write the ground truth and the test matrix
     i = 0
     while removed_trainingdata_count < NUMBER_TESTDATA:
@@ -68,15 +76,7 @@ if __name__ == "__main__":
         
 
     #write the training matrix to the file
-    i=0
-    while i < my_data.shape[0]:
-        for j in range(my_data.shape[1]):
-            if my_data[i,j] != np.nan:
-                file1.write(str(my_data[i,j]))
-            if not (j == (my_data.shape[1]-1)):
-                file1.write(',')
-        file1.write('\n')
-        i+=1
+    writeMatrixToFile(my_data,file1)
 
     file1.close()
     file2.close()
