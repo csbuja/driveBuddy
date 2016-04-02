@@ -101,7 +101,7 @@ app.all('/api/survey', function(req,res){
 		if (err) throw err;
 		else console.log('Registered');
 	});
-	
+
 	for(var i = 0; i < (req.body.restaurants).length; ++i){
 
 		var data = req.body.restaurants[i];
