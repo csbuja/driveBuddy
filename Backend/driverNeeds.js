@@ -167,7 +167,7 @@ module.exports = {
 			else{
 				if (result.length != 0){
 					data = result[0].rate;
-					return [1, data];
+					deferred.resolve([1, data]);
 				}
 				else{
 					var query_sub = 'select distinct userid from rate where userid =' + userid +' or userid in (select R1.userid from rate R1, rate R2 where R1.restaurant_id= \"' + restaurant_id + '\" and R2.restaurant_id in (select restaurant_id from rate where userid = ' + userid + ') and R1.userid = R2.userid) order by userid';
@@ -230,7 +230,7 @@ module.exports = {
 									if (err) {
 									   throw err;
 									 } else {
-									   return [0, filename];
+									   deferred.resolve([0, filename]);
 									 }
 								});
 							}
@@ -239,7 +239,7 @@ module.exports = {
 				}
 			}
 		});
-
+		return deferred.promise
 	},
 
 	encodeFoodType:function(categories){
