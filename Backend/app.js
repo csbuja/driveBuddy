@@ -30,7 +30,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
-driverNeeds.write_file(1, 'rich-j-c-korean-restaurant-ann-arbor-2');
+driverNeeds.write_file(1, 'rich-j-c-korean-restaurant-ann-arbor-2').then(function(data){console.log(data)});
+
 
 function toMiles(km){
 	return km * 0.621371;

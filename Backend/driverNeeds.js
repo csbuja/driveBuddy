@@ -230,9 +230,10 @@ module.exports = {
 									if (err) {
 									   throw err;
 									 } else {
-									   deferred.resolve([0, filename]);
+									   
 									 }
 								});
+								deferred.resolve([0, filename]);
 							}
 						});
 					});
