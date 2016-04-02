@@ -6,6 +6,6 @@ with open('data.csv', 'rb') as csvfile:
 		if first == 0:
 			first = 1
 		else:
-			for i in range(1,4):
+			for i in range(1,6):
 				if row[i] != "":
 					print "insert into rate values(" + str(i) +",'" + row[0] + "'," + row[i] + ');'

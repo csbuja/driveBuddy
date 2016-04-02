@@ -1,10 +1,11 @@
 var request = require('request');
 var _ = require('underscore');
+var fs = require("fs");
 var calcDistance = require('./calcDistance.js');
 
 var MAX_RADIUS = 40000;
 var db = require('./db');
-
+var Q = require('Q')
 module.exports = {
 	filterGasFeed: function (data, lat, lon){
 		var setOfStations = [];
@@ -158,7 +159,88 @@ module.exports = {
 
 	},
 	
-	
+	write_file: function(userid, restaurant_id){
+		var deferred = Q.defer();
+		db.query('select * from rate where userid = ' + userid +' and restaurant_id = \"' + restaurant_id + '\"',
+		function(err, result){
+			if (err) throw err;
+			else{
+				if (result.length != 0){
+					data = result[0].rate;
+					return [1, data];
+				}
+				else{
+					var query_sub = 'select distinct userid from rate where userid =' + userid +' or userid in (select R1.userid from rate R1, rate R2 where R1.restaurant_id= \"' + restaurant_id + '\" and R2.restaurant_id in (select restaurant_id from rate where userid = ' + userid + ') and R1.userid = R2.userid) order by userid';
+					db.query(query_sub, function(err, result_sub){
+						var query = 'select * from rate where userid =' + userid +' or userid in (select R1.userid from rate R1, rate R2 where R1.restaurant_id= \"' + restaurant_id + '\" and R2.restaurant_id in (select restaurant_id from rate where userid = ' + userid + ') and R1.userid = R2.userid) order by restaurant_id, userid';
+						db.query(query, function (err,result) {
+							if (err) throw err;
+							else{
+								var name = result[0].restaurant_id;
+								var count = 0;
+								var j = 0;
+								var data = "";
+								var find = 0;
+								if(name == restaurant_id){
+									find = 1;
+								}
+								for(var i = 0; i < result.length; ++i){
+									if(result[i].restaurant_id == name){
+										while(result[i].userid != result_sub[j].userid){
+											data = data + ',';
+											j ++;
+										}
+										data = data + result[i].rate + ",";
+										j++;
+									}
+									else{
+										name = result[i].restaurant_id;
+										while (j <result_sub.length){
+											data = data + ",";
+											j = j + 1;
+										}
+										data = data + '\n';
+										if(name != restaurant_id && find == 0){
+											count += 1;
+										}
+										if(name == restaurant_id){
+											count += 1;
+											find = 1;
+										}
+										j = 0;
+										while(result[i].userid != result_sub[j].userid){
+											data = data + ',';
+											j ++;
+										}
+										data = data + result[i].rate + ",";
+										j++;
+										
+									}
+								}
+								var i = 0;
+								while(i < result_sub.length){
+									if(result_sub[i].userid == userid){
+										data = i + ',' + count + '\n' + data;
+										break;
+									}
+									i ++;
+								}
+								var filename = "./tmp/" +Date.now().toString() + "-"+userid + "-" + restaurant_id + ".txt";
+								fs.writeFile(filename, data, function(err){
+									if (err) {
+									   throw err;
+									 } else {
+									   return [0, filename];
+									 }
+								});
+							}
+						});
+					});
+				}
+			}
+		});
+
+	},
 
 	encodeFoodType:function(categories){
 		var foodtype =[ 'afghani','african','andalusian','arabian','argentine','armenian','asianfusion','asturian',
