@@ -67,4 +67,12 @@ def test_mse_2():
 	
 	assert(MSE(ground_truth,predicted)==4)
 
+#Test Case 7
+def test_pred_usability_wrapper_user2restaurant2():
+	#note that this is the same test case as test case 4 but with the wrapper
+	M = csr_matrix((2,2))
+	M[0,0] = 2.0
+	M[0,1] = 5.0
+	M[1,0] = 3.0
+	assert(pred_usability_wrapper(M,1,1)==3)
 

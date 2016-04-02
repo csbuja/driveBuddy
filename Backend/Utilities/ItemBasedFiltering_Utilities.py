@@ -14,6 +14,7 @@ def pred(Ruj,SIMij):
         return float(3)
     return float(np.dot(Ruj,SIMij)/( np.dot(SIMij,np.ones(SIMij.shape)) ))
 
+
 #Similarity function from Lecture 15 for IBFNN
 #Inputs:
 #1. R - a scipy.CSR sparse np matrix - rows are users - columns (i and j for restaurants)
@@ -28,7 +29,7 @@ def sim(R,i,j):
     meanvalues = R.sum(1)
     number_of_non_zeros_per_row = np.zeros(R.sum(1).shape)
 
-    nonzero = R.nonzero()
+    nonzero = R.nonzero() #TODO, for optimization, move this out and call it once
     for val in nonzero[0]:
         number_of_non_zeros_per_row[val][0] +=1
 
@@ -66,3 +67,15 @@ def sim(R,i,j):
 def MSE(ground_truth,predicted):
     return (1/float(len(ground_truth)))*np.dot(ground_truth - predicted,ground_truth - predicted)
 
+#makes calling pred more natural - as it is done in the math
+def pred_usability_wrapper(R,user_index,restaurant_index):
+    Ruj = []
+    SIMij = []
+    row = R[user_index,:].nonzero()[1]
+    for val in row:
+        if val != restaurant_index: 
+            Ruj.append(R[user_index,val])
+            SIMij.append(sim(R,restaurant_index,val))
+    Ruj = np.array(Ruj)
+    SIMij = np.array(SIMij)
+    return pred(Ruj,SIMij)
