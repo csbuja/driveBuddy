@@ -134,7 +134,7 @@ app.all('/api/rate/:userid/:restaurant/:rate', function(req,res){
 
 });
 
-app.all('/api/get_rate/:userid', function (req,res) {
+app.all('/api/get_rate/:userid', function (req,res) { //TODO - spencer and jing
 
 	var makeQueries = function (){
 		var deferred = Q.defer();
