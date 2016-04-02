@@ -30,7 +30,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
-driverNeeds.write_file(1, 'rich-j-c-korean-restaurant-ann-arbor-2').then(function(data){console.log(data)});
 
 
 function toMiles(km){
@@ -139,33 +138,21 @@ app.all('/api/get_rate/:userid', function (req,res) { //TODO - spencer and jing
 
 	var makeQueries = function (){
 		var deferred = Q.defer();
+		var results = [];
 		for(var i = 0; i < req.body.restaurants.length; ++i){
-
-			/*
-			db.query('select * from rate where userid = ' + req.params.userid +' restaurant_id = ' + req.body.restaurants[i]),
-			function(err, result){
-				if (err) throw err;
-				else{
-					if (result.length != 0){
-
-					}
+			driverNeeds.write_file(req.params.userid, req.body.restaurants[i])
+			.then(function(data){
+				if (data[0]){
+					results.push(data[1]);
 				}
-			});
-			*/
-
-			var query = 'select * from rate where userid =' + req.params.userid +' or userid in (select R1.userid from rate R1, rate R2 where R1.restaurant_id= \"' + req.body.restaurants[i] + '\" and R2.restaurant_id in (select restaurant_id from rate where userid = ' + req.params.userid + ') and R1.userid = R2.userid)';
-			db.query(query, function (err,result) {
-				if (err) throw err;
 				else{
-					var filename = "./CF_Glue/" +Date.now().toString() + "-"+req.params.userid + "-" + req.body.restaurants[i] + ".txt"
-					fs.writeFile(filename, "Hey there!", function(err) {
-					    child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
-					    	predicted_CF_results =  (data);
-					    	child_process.exec('rm ' + filename, function () {});
-							if (i ==req.body.restaurants.length -1) deferred.resolve(predicted_CF_results);
-						});
+					filename = data[1]
+					child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
+			    		results.push(data);
+			    		// child_process.exec('rm ' + filename, function () {});					
 					});
-				};
+				}
+				if (i ==req.body.restaurants.length -1) deferred.resolve(results);
 			});
 		}
 		return deferred.promise;
