@@ -60,6 +60,9 @@ def sim(R,i,j):
     Ri = np.array(Ri).T[0]
     Rj = np.array(Rj).T[0]
     
+    if len(Ri) == 0 and len(Rj) == 0:
+        return 0
+        
     return float(np.dot(Ri-RAbar,Rj-RAbar))/ (float(np.sqrt(np.dot(Ri-RAbar,Ri-RAbar) )) * float(np.sqrt(np.dot(Rj-RAbar,Rj-RAbar))))
 
 ##ground_truth - np array of float

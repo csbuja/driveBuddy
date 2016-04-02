@@ -34,5 +34,5 @@ if len(sys.argv) == 2:
                 j+=1
             i +=1
 
-    R = csr_matrix(R)
+    R = csr_matrix(R).T
     print pred_usability_wrapper(R,user_index,restaurant_index)
