@@ -21,8 +21,8 @@ if __name__ == "__main__":
     RANDOM_SEED = 2
     from numpy import genfromtxt
     filename_data = 'recommenderdata.csv'
-    trainingdatafile = filename_data[:-3] +'_trainingdata' + '.csv' #output a csv
-    testdatafile = filename_data[:-3] +'_testdata' + '.csv' #output x,y pairs,  0 indexing the matrix row
+    trainingdatafile = filename_data[:-4] +'_trainingdata' + '.csv' #output a csv
+    testdatafile = filename_data[:-4] +'_testdata' + '.csv' #output x,y pairs,  0 indexing the matrix row
     ground_truth_testfile = 'ground_truth.csv' #output x,y,true value
 
     file1 = open('../Datasets/'+trainingdatafile, 'w')
