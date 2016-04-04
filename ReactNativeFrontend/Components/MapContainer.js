@@ -36,16 +36,17 @@ var MapContainer = React.createClass({
     render: function() {
         var markersOptions = {};
 
+        var gasicon = 'https://cdn3.iconfinder.com/data/icons/map/500/gasstation-512.png';
         var numberOfGasMarkers = this.props.gasOptions.length;
         for (var i = 0; i < numberOfGasMarkers; i++) {
             var place = this.props.gasOptions[i];
-            markersOptions[String(place.name)] = {id: place.name, latitude: place.lat, longitude: place.lon};
+            markersOptions[String(place.name)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: gasicon, scale: 10.0}};
         }
 
         var numberOfFoodMarkers = this.props.foodOptions.length;
         for (var i = 0; i < numberOfFoodMarkers; i++) {
             var place = this.props.foodOptions[i];
-            markersOptions[String(place.name)] = {id: place.name, latitude: place.lat, longitude: place.lon};
+            markersOptions[String(place.name)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: place.image, scale: 3.0}};
         }
 
         return (
