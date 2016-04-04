@@ -5,7 +5,7 @@ var calcDistance = require('./calcDistance.js');
 
 var MAX_RADIUS = 40000;
 var db = require('./db');
-var Q = require('Q')
+var Q = require('q')
 module.exports = {
 	filterGasFeed: function (data, lat, lon){
 		var setOfStations = [];
@@ -95,9 +95,9 @@ module.exports = {
 					if(intersect.length){
 						count[i].same += 1;
 					}
-			
+
 				}
-				
+
 			}
 			if(count[i].same == max_count){
 				count[i].rating = 5;
@@ -127,7 +127,7 @@ module.exports = {
 			self.getStations(lat, lng, radius, res);
 		}
 	},
-	
+
 	check_add: function (term) {
 		//console.log('check and add');
 		db.query('SELECT restaurant_id from restaurant where restaurant_id = ?', term.restaurant_id, function(err, result) {
@@ -143,7 +143,7 @@ module.exports = {
 			}
 		});
 	},
-	
+
 	register: function(result, post){
 		console.log('check userid');
 		if(result.length == 0){
@@ -154,11 +154,11 @@ module.exports = {
 			});
 		}else{
 			console.log("Alreay exists");
-			
+
 		}
 
 	},
-	
+
 	write_file: function(userid, restaurant_id){
 		var deferred = Q.defer();
 		db.query('select * from rate where userid = ' + userid +' and restaurant_id = \"' + restaurant_id + '\"',
@@ -214,7 +214,7 @@ module.exports = {
 										}
 										data = data + result[i].rate + ",";
 										j++;
-										
+
 									}
 								}
 								var i = 0;
@@ -230,7 +230,7 @@ module.exports = {
 									if (err) {
 									   throw err;
 									 } else {
-									   
+
 									 }
 								});
 								deferred.resolve([0, filename]);
@@ -264,5 +264,5 @@ module.exports = {
 		'tapasmallplates','tex-mex','thai','tradamerican','traditional_swedish','trattorie','turkish',
 		'ukrainian','uzbek','vegan','vegetarian','venison','vietnamese','wok','wraps','yugoslav'];
 	},
-	
+
 }
