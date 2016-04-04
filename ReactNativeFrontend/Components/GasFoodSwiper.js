@@ -125,7 +125,7 @@ var GasFoodSwiper = React.createClass({
     },
 
     getInitialState: function(){
-        return {error_message:  "Holyshit no options bro"}
+        return {error_message:  "Sorry, no options right now!"}
     },
 
     render: function() {
@@ -142,7 +142,7 @@ var GasFoodSwiper = React.createClass({
         else{
             if (isLoading == true) {
                 var show_swiper_or_error= (<View style={styles.no_options}>
-                    <Spinner />
+                    <Spinner size={'large'} style={styles.spinner}/>
                     </View>)
             } else {
                 var show_swiper_or_error= (<View style={styles.no_options}>
@@ -184,7 +184,10 @@ var styles = StyleSheet.create({
     },
     no_options: {
         height:110,
-        width:300
+        width:300,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     image: {
         height: 100,
@@ -209,6 +212,9 @@ var styles = StyleSheet.create({
     },
     swiper: {
         alignSelf: 'center',
+    },
+    spinner: {
+        alignSelf:'center',
     },
     swiperButton: {
         color: '#CCCCCC',
