@@ -27,10 +27,15 @@ var FoodSwiperContainer = React.createClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
-        this._setOptions(
-            nextProps.currentPosition,
-            nextProps.lastPosition
-        );
+        // option refresh set in componentWillMount but initially
+        // currentPosition is null, this refreshes once when no longer null
+        if (!this.props.currentPosition.latitude
+            && !this.props.currentPosition.latitude
+            && nextProps.currentPosition.latitude
+            && nextProps.currentPosition.longitude
+        ) {
+            this._setOptions(nextProps.currentPosition, nextProps.lastPosition);
+        }
     },
 
     componentWillMount: function() {
