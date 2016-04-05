@@ -107,10 +107,10 @@ module.exports = {
 			else{
 				rating = rating * (same / max_count);
 			}
-			count.push({key:businesses[i].id, value: rating});
+			count.push({id:businesses[i].id, rating: rating});
 		}
 		count.sort(function(a, b) {
-			return (a.value - b.value) < 0;
+			return (a.rating - b.rating) < 0;
 		});
 		return count;
 	},
