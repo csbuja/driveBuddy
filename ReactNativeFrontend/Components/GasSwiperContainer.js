@@ -2,10 +2,13 @@
 
 var GasFoodSwiper = require('./GasFoodSwiper');
 var React = require('react-native');
+var TimerMixin = require('react-native-timer-mixin');
 
 var {PropTypes} = React;
 
 var GasSwiperContainer = React.createClass({
+    mixins: [TimerMixin],
+
     propTypes: {
         currentPosition: PropTypes.shape({
             latitude: PropTypes.number,
@@ -30,7 +33,7 @@ var GasSwiperContainer = React.createClass({
         // option refresh set in componentWillMount but initially
         // currentPosition is null, this refreshes once when no longer null
         if (!this.props.currentPosition.latitude
-            && !this.props.currentPosition.latitude
+            && !this.props.currentPosition.longitude
             && nextProps.currentPosition.latitude
             && nextProps.currentPosition.longitude
         ) {
@@ -42,6 +45,13 @@ var GasSwiperContainer = React.createClass({
         this._setOptions(
             this.props.currentPosition,
             this.props.lastPosition
+        );
+
+        this.setInterval(
+            this._setOptions(
+                this.props.currentPosition,
+                this.props.lastPosition
+            ), 5 * 60 * 1000 // 5 minutes
         );
     },
 
