@@ -81,32 +81,37 @@ module.exports = {
     },
 
 	re_rate: function(businesses, survey){
-		var count = {};
+		var count = [];
 		var max_count = survey.length + 1;
 		for(var i = 0; i < businesses.length; ++i){
-			count[i].id = businesses[i].id;
-			count[i].same = 1;
+			var same = 1;
+			var rating = businesses[i].rating;
 			for(var j = 0; j < survey.length; ++j){
-				if(survey[j].id == businesses[i].id){
-					count[i].same = max_count;
+				if(survey[j].restaurant_id == businesses[i].id){
+					same = max_count;
 					break;
 				}
 				else{
-					var intersect = _.intersection(businesses[i].categories, survey[j].categories);
+					var str = survey[j].foodtype;
+					var intersect = _.intersection(businesses[i].categories, str.split(','));
 					if(intersect.length){
-						count[i].same += 1;
+						same += 1;
 					}
 
 				}
 
 			}
-			if(count[i].same == max_count){
-				count[i].rating = 5;
+			if(same == max_count){
+				rating = 5;
 			}
 			else{
-				count[i].rating = businesses[i].rating * (count[i].same / max_count);
+				rating = rating * (same / max_count);
 			}
+			count.push({key:businesses[i].id, value: rating});
 		}
+		count.sort(function(a, b) {
+			return (a.value - b.value) < 0;
+		});
 		return count;
 	},
 	//note: the limit on yelp api calls is 25,000 per day
