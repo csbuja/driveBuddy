@@ -1,4 +1,5 @@
 var request = require('request');
+var child_process = require('child_process');
 var _ = require('underscore');
 var fs = require("fs");
 var calcDistance = require('./calcDistance.js');
@@ -167,7 +168,9 @@ module.exports = {
 			else{
 				if (result.length != 0){
 					data = result[0].rate;
-					deferred.resolve([1, data]);
+					var dict = {};
+					dict[restaurant_id] = data;
+					deferred.resolve(dict);
 				}
 				else{
 					var query_sub = 'select distinct userid from rate where userid =' + userid +' or userid in (select R1.userid from rate R1, rate R2 where R1.restaurant_id= \"' + restaurant_id + '\" and R2.restaurant_id in (select restaurant_id from rate where userid = ' + userid + ') and R1.userid = R2.userid) order by userid';
@@ -233,7 +236,12 @@ module.exports = {
 
 									 }
 								});
-								deferred.resolve([0, filename]);
+								var dict = {};
+								child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
+									dict[restaurant_id] = parseFloat(data);
+									child_process.exec('rm ' + filename, function () {});
+									deferred.resolve(dict);
+								})
 							}
 						});
 					});
