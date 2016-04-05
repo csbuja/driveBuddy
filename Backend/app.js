@@ -31,7 +31,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+//simple test
+/*
+driverNeeds.write_file(1, 'angs-korean-restaurant-ann-arbor-2')
+.then(function(data){
+	if (data[0]){
+		consol.log(data[1]);
+	}
+	else{
+		filename = data[1]
+		child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
+				console.log(data);
+				child_process.exec('rm ' + filename, function () {});					
+		});
+		
+	}
+});
 
+*/
 function toMiles(km){
 	return km * 0.621371;
 }
@@ -135,32 +152,22 @@ app.all('/api/rate/:userid/:restaurant/:rate', function(req,res){
 });
 
 app.all('/api/get_rate/:userid', function (req,res) { //TODO - spencer and jing
-
+	var results = [];
 	var makeQueries = function (){
 		var deferred = Q.defer();
-		var results = [];
-		for(var i = 0; i < req.body.restaurants.length; ++i){
+		for(var i = 0; i < req.body.restaurants.length; i++){
 			driverNeeds.write_file(req.params.userid, req.body.restaurants[i])
 			.then(function(data){
-				if (data[0]){
-					results.push(data[1]);
-				}
-				else{
-					filename = data[1]
-					child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
-			    		results.push(data);
-			    		// child_process.exec('rm ' + filename, function () {});					
-					});
-				}
-				if (i ==req.body.restaurants.length -1) deferred.resolve(results);
+				results.push(data);
+				if (results.length == req.body.restaurants.length) deferred.resolve(results);
 			});
 		}
 		return deferred.promise;
 	}
-
-	makeQueries().then(function(result){
+	makeQueries().then(function(results){
 		//result will be a JSON string
-		res.send((result));
+		res.send(JSON.stringify(results));
+
 
 	});
 

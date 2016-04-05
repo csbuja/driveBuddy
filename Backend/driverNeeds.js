@@ -1,11 +1,12 @@
 var request = require('request');
+var child_process = require('child_process');
 var _ = require('underscore');
 var fs = require("fs");
 var calcDistance = require('./calcDistance.js');
 
 var MAX_RADIUS = 40000;
 var db = require('./db');
-var Q = require('Q')
+var Q = require('q')
 module.exports = {
 	filterGasFeed: function (data, lat, lon){
 		var setOfStations = [];
@@ -95,9 +96,9 @@ module.exports = {
 					if(intersect.length){
 						count[i].same += 1;
 					}
-			
+
 				}
-				
+
 			}
 			if(count[i].same == max_count){
 				count[i].rating = 5;
@@ -127,7 +128,7 @@ module.exports = {
 			self.getStations(lat, lng, radius, res);
 		}
 	},
-	
+
 	check_add: function (term) {
 		//console.log('check and add');
 		db.query('SELECT restaurant_id from restaurant where restaurant_id = ?', term.restaurant_id, function(err, result) {
@@ -143,7 +144,7 @@ module.exports = {
 			}
 		});
 	},
-	
+
 	register: function(result, post){
 		console.log('check userid');
 		if(result.length == 0){
@@ -154,11 +155,11 @@ module.exports = {
 			});
 		}else{
 			console.log("Alreay exists");
-			
+
 		}
 
 	},
-	
+
 	write_file: function(userid, restaurant_id){
 		var deferred = Q.defer();
 		db.query('select * from rate where userid = ' + userid +' and restaurant_id = \"' + restaurant_id + '\"',
@@ -167,7 +168,9 @@ module.exports = {
 			else{
 				if (result.length != 0){
 					data = result[0].rate;
-					deferred.resolve([1, data]);
+					var dict = {};
+					dict[restaurant_id] = data;
+					deferred.resolve(dict);
 				}
 				else{
 					var query_sub = 'select distinct userid from rate where userid =' + userid +' or userid in (select R1.userid from rate R1, rate R2 where R1.restaurant_id= \"' + restaurant_id + '\" and R2.restaurant_id in (select restaurant_id from rate where userid = ' + userid + ') and R1.userid = R2.userid) order by userid';
@@ -214,7 +217,7 @@ module.exports = {
 										}
 										data = data + result[i].rate + ",";
 										j++;
-										
+
 									}
 								}
 								var i = 0;
@@ -230,10 +233,15 @@ module.exports = {
 									if (err) {
 									   throw err;
 									 } else {
-									   
+
 									 }
 								});
-								deferred.resolve([0, filename]);
+								var dict = {};
+								child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
+									dict[restaurant_id] = parseFloat(data);
+									child_process.exec('rm ' + filename, function () {});
+									deferred.resolve(dict);
+								})
 							}
 						});
 					});
@@ -264,5 +272,5 @@ module.exports = {
 		'tapasmallplates','tex-mex','thai','tradamerican','traditional_swedish','trattorie','turkish',
 		'ukrainian','uzbek','vegan','vegetarian','venison','vietnamese','wok','wraps','yugoslav'];
 	},
-	
+
 }
