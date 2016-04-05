@@ -6,11 +6,11 @@ drop table if exists user;
 drop table if exists survey;
 drop table if exists rate;
 create table user(
-	userid int not null primary key
+	userid varchar(255) not null primary key
 );
 
 create table survey(
-	userid int not null,
+	userid varchar(255) not null,
 	restaurant_id varchar(255) not null,
 	name varchar(255),
 	foodtype varchar(255) not null,
@@ -21,12 +21,12 @@ create table survey(
 );
 
 create table rate(
-	userid int not null,
+	userid varchar(255) not null,
 	restaurant_id varchar(255) not null,
 	rate double,
 	primary key (userid, restaurant_id),
 	foreign key (userid) references user(userid)
-)
+);
 
 create table restaurant(
 	restaurant_id varchar(255) not null  primary key,
@@ -37,7 +37,7 @@ create table restaurant(
 );
 
 create table user_res(
-	userid int not null,
+	userid varchar(255) not null,
 	restaurant_id varchar(255) not null,
 	time timestamp DEFAULT CURRENT_TIMESTAMP,
 	primary key (userid, time),
@@ -46,7 +46,7 @@ create table user_res(
 );
 
 create table sensordata(
-	userid int not null,
+	userid varchar(255) not null,
 	lon double,
 	lat double,
 	status int,
