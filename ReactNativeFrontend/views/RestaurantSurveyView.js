@@ -97,7 +97,7 @@ var RestaurantSurveyView = React.createClass({
     _onNextPress: function() {
         // TODO (urlauba): Problems if userID retrieval fails
         var selectedInfo = Object.keys(this.state.selected).map((k) => { return this.state.selected[k]; });
-        fetch('http://localhost:3000/api/survey', {
+        fetch('http://73.161.192.135:3000/api/survey', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

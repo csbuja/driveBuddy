@@ -151,7 +151,7 @@ var SurveyListView = React.createClass({
         }
 
         // TODO (urlauba): change url
-        fetch('http://localhost:3000/api/search/'
+        fetch('http://73.161.192.135:3000/api/search/'
             + this.state.latitude + '/' + this.state.longitude + '/'
             + text + '/' + this.state.locationText)
             .then((response) => response.text())

@@ -45,7 +45,7 @@ var Login1 = React.createClass({
           name: 'liveView',
           component: liveView,
       };
-      fetch('http://localhost:3000/api/check/survey/' + userID)
+      fetch('http://73.161.192.135:3000/api/check/survey/' + userID)
       .then((response) => response.text())
       .then((responseText) => {
         if (responseText == 'Existing survey') {
