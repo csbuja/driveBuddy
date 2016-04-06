@@ -61,7 +61,6 @@ module.exports = {
         var businesses = {};
         for(var i = 0; i< data.businesses.length; ++i){
 			var info = {}
-			info.rating = data.businesses[i].rating;
 			info.id = data.businesses[i].id;
 			info.categories = [];
 			for(var j = 0; j < data.businesses[i].categories.length; ++j){
@@ -81,32 +80,37 @@ module.exports = {
     },
 
 	re_rate: function(businesses, survey){
-		var count = {};
+		var count = [];
 		var max_count = survey.length + 1;
 		for(var i = 0; i < businesses.length; ++i){
-			count[i].id = businesses[i].id;
-			count[i].same = 1;
+			var same = 1;
+			var rating = businesses[i].rating;
 			for(var j = 0; j < survey.length; ++j){
-				if(survey[j].id == businesses[i].id){
-					count[i].same = max_count;
+				if(survey[j].restaurant_id == businesses[i].id){
+					same = max_count;
 					break;
 				}
 				else{
-					var intersect = _.intersection(businesses[i].categories, survey[j].categories);
+					var str = survey[j].foodtype;
+					var intersect = _.intersection(businesses[i].categories, str.split(','));
 					if(intersect.length){
-						count[i].same += 1;
+						same += 1;
 					}
 
 				}
 
 			}
-			if(count[i].same == max_count){
-				count[i].rating = 5;
+			if(same == max_count){
+				rating = 5;
 			}
 			else{
-				count[i].rating = businesses[i].rating * (count[i].same / max_count);
+				rating = rating * (same / max_count);
 			}
+			count.push({id:businesses[i].id, rating: rating});
 		}
+		count.sort(function(a, b) {
+			return (a.rating - b.rating) < 0;
+		});
 		return count;
 	},
 	//note: the limit on yelp api calls is 25,000 per day
