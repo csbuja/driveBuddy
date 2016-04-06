@@ -61,7 +61,6 @@ module.exports = {
         var businesses = {};
         for(var i = 0; i< data.businesses.length; ++i){
 			var info = {}
-			info.rating = data.businesses[i].rating;
 			info.id = data.businesses[i].id;
 			info.categories = [];
 			for(var j = 0; j < data.businesses[i].categories.length; ++j){

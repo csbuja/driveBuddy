@@ -17,6 +17,7 @@ var {
 } = React;
 
 var RestaurantSurveyView= require('./RestaurantSurveyView');
+var liveView = require('./liveView');
 
 var FBLogin = require('react-native-facebook-login');
 //var FBLoginMock = require('./facebook/FBLoginMock.js');
@@ -41,15 +42,15 @@ var Login1 = React.createClass({
           name: 'RestaurantSurveyView',
           component: RestaurantSurveyView,
       };
-      var liveView = {
+      var live = {
           name: 'liveView',
           component: liveView,
       };
-      fetch('http://localhost:3000/api/check/survey/' + userID)
+      fetch('http://73.161.192.135:3000/api/check/survey/' + userID)
       .then((response) => response.text())
       .then((responseText) => {
         if (responseText == 'Existing survey') {
-          this.props.navigator.push(liveView);
+          this.props.navigator.push(live);
         }
         else {
           this.props.navigator.push(surveyView);

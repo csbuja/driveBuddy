@@ -106,10 +106,6 @@ var SurveyListView = React.createClass({
     },
 
     _renderRow: function(info, sectionID, rowID, adjHighlighted) {
-        var rating = info.rating
-            ? <Text>{info.rating + " Stars"}</Text>
-            : null;
-
         return (
             <TouchableHighlight
                 key={rowID}
@@ -123,7 +119,6 @@ var SurveyListView = React.createClass({
                         <View style={styles.directionCol}>
                             <View style={styles.directionRow}>
                                 <Text style={styles.title}>{info.name}</Text>
-                                {rating}
                             </View>
                             <Text style={styles.address}>{info.address}</Text>
                         </View>
@@ -151,7 +146,7 @@ var SurveyListView = React.createClass({
         }
 
         // TODO (urlauba): change url
-        fetch('http://localhost:3000/api/search/'
+        fetch('http://73.161.192.135:3000/api/search/'
             + this.state.latitude + '/' + this.state.longitude + '/'
             + text + '/' + this.state.locationText)
             .then((response) => response.text())

@@ -2,10 +2,13 @@
 
 var GasFoodSwiper = require('./GasFoodSwiper');
 var React = require('react-native');
+var TimerMixin = require('react-native-timer-mixin');
 
 var {PropTypes} = React;
 
 var FoodSwiperContainer = React.createClass({
+    mixins: [TimerMixin],
+
     propTypes: {
         currentPosition: PropTypes.shape({
             latitude: PropTypes.number,
@@ -27,16 +30,28 @@ var FoodSwiperContainer = React.createClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
-        this._setOptions(
-            nextProps.currentPosition,
-            nextProps.lastPosition
-        );
+        // option refresh set in componentWillMount but initially
+        // currentPosition is null, this refreshes once when no longer null
+        if (!this.props.currentPosition.latitude
+            && !this.props.currentPosition.longitude
+            && nextProps.currentPosition.latitude
+            && nextProps.currentPosition.longitude
+        ) {
+            this._setOptions(nextProps.currentPosition, nextProps.lastPosition);
+        }
     },
 
     componentWillMount: function() {
         this._setOptions(
             this.props.currentPosition,
             this.props.lastPosition
+        );
+
+        this.setInterval(
+            this._setOptions(
+                this.props.currentPosition,
+                this.props.lastPosition
+            ), 5 * 60 * 1000 // 5 minutes
         );
     },
 
@@ -61,7 +76,7 @@ var FoodSwiperContainer = React.createClass({
         if (currentPosition.latitude && currentPosition.longitude) {
             var transferredUp = this.state.transferredUp;
             // TODO (urlauba): change url path
-            fetch('http://localhost:3000/api/yelp/' + current + '/' + last)
+            fetch('http://73.161.192.135:3000/api/yelp/' + current + '/' + last)
                 .then((response) => response.text())
                 .then((responseText) => {
                     var data = JSON.parse(responseText);
