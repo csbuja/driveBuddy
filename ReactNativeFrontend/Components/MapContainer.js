@@ -25,6 +25,8 @@ var MapContainer = React.createClass({
     propTypes: {
         foodOptions: PropTypes.array,
         gasOptions: PropTypes.array,
+        foodIndex: PropTypes.number,
+        gasIndex: PropTypes.number,
     },
 
     componentDidMount: function() {
@@ -40,13 +42,21 @@ var MapContainer = React.createClass({
         var numberOfGasMarkers = this.props.gasOptions.length;
         for (var i = 0; i < numberOfGasMarkers; i++) {
             var place = this.props.gasOptions[i];
-            markersOptions[String(place.name)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: gasicon, scale: 10.0}};
+            if (i == this.props.gasIndex) {
+                markersOptions[String(place.name)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: gasicon, scale: 10.0}, active: true};
+            } else {
+                markersOptions[String(place.name)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: gasicon, scale: 10.0}};
+            }
         }
 
         var numberOfFoodMarkers = this.props.foodOptions.length;
         for (var i = 0; i < numberOfFoodMarkers; i++) {
             var place = this.props.foodOptions[i];
-            markersOptions[String(place.name)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: place.image, scale: 3.0}};
+            if (i == this.props.foodIndex) {
+                markersOptions[String(place.name)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: place.image, scale: 3.0}, active: true};
+            } else {
+                markersOptions[String(place.name)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: place.image, scale: 3.0}};
+            }
         }
 
         return (

@@ -35,21 +35,35 @@ var NextPrevButton = React.createClass({
 });
 
 var GasFoodSubSwiper = React.createClass({
+    propTypes: {
+        onSwipe: React.PropTypes.func,
+        foodIndex: React.PropTypes.number,
+        gasIndex: React.PropTypes.number,
+    },
+
     getInitialState: function() {
         return {
             option: this.props.options[0],
+            foodIndex: 0,
+            gasIndex: 0,
         };
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
         if (nextProps !== this.props) {
-            return true;
+            if (nextProps.foodIndex === this.state.foodIndex && nextProps.gasIndex === this.state.gasIndex) {
+                return true;
+            } else {
+                this.setState({foodIndex: nextProps.foodIndex, gasIndex: nextProps.gasIndex});
+            }
         }
         return false;
     },
 
     _onMomentumScrollEnd: function (e, swiperState, context) {
-        this.setState({option: this.props.options[swiperState.index]});
+        var index = swiperState.index;
+        this.setState({option: this.props.options[index]});
+        this.props.onSwipe(index);
     },
 
     getDirections: function() {
@@ -122,6 +136,9 @@ var GasFoodSwiper = React.createClass({
         title: PropTypes.string.isRequired,
         latitude: PropTypes.number,
         longitude: PropTypes.number,
+        onSwipe: React.PropTypes.func,
+        foodIndex: React.PropTypes.number,
+        gasIndex: React.PropTypes.number,
     },
 
     getInitialState: function(){
@@ -137,7 +154,10 @@ var GasFoodSwiper = React.createClass({
                                             options={this.props.options}
                                             title={this.props.title}
                                             latitude={this.props.latitude}
-                                            longitude={this.props.longitude}/>;
+                                            longitude={this.props.longitude}
+                                            foodIndex={this.props.foodIndex}
+                                            gasIndex={this.props.gasIndex}
+                                            onSwipe={this.props.onSwipe}/>;
         }
         else{
             if (isLoading == true) {

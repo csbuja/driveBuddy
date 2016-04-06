@@ -36,6 +36,8 @@ var liveView = React.createClass({
             },
             foodOptions: [],
             gasOptions: [],
+            foodIndex: 0,
+            gasIndex: 0,
         };
     },
 
@@ -90,18 +92,26 @@ var liveView = React.createClass({
                     currentPosition={this.state.currentPosition}
                     lastPosition={this.state.lastPosition}
                     onSetOptions={this._onSetFoodOptions}
+                    onSwipe={this._onFoodSwipe}
+                    foodIndex={this.state.foodIndex}
+                    gasIndex={this.state.gasIndex}
                     style={styles.borderBottom}
                 />
                 <GasSwiperContainer
                     currentPosition={this.state.currentPosition}
                     lastPosition={this.state.lastPosition}
                     onSetOptions={this._onSetGasOptions}
+                    onSwipe={this._onGasSwipe}
+                    foodIndex={this.state.foodIndex}
+                    gasIndex={this.state.gasIndex}
                     style={styles.borderBottom}
                 />
                 <MapContainer
                     style={styles.borderBottom}
                     foodOptions={this.state.foodOptions}
                     gasOptions={this.state.gasOptions}
+                    foodIndex={this.state.foodIndex}
+                    gasIndex={this.state.gasIndex}
                 />
             </View>
         );
@@ -113,6 +123,14 @@ var liveView = React.createClass({
 
     _onSetGasOptions: function(options) {
         this.setState({gasOptions: options});
+    },
+
+    _onFoodSwipe: function(index) {
+        this.setState({foodIndex: index});
+    },
+
+    _onGasSwipe: function(index) {
+        this.setState({gasIndex: index});
     }
 
 });
