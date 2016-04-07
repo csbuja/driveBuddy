@@ -1,11 +1,10 @@
 'use strict';
 
-var React = require('react-native');
-
 var Button = require('react-native-button');
 var Dimensions = require('Dimensions');
-var FBLoginTopBar = require('../Components/FBLoginTopBar.js')
 var liveView = require('./liveView');
+var NavBar = require('../Components/NavBar');
+var React = require('react-native');
 var SurveyRestaurantSearch = require('../Components/SurveyRestaurantSearch');
 var SurveySelectedRestaurantList = require('../Components/SurveySelectedRestaurantList');
 
@@ -41,11 +40,9 @@ var RestaurantSurveyView = React.createClass({
 
         return (
             <View style={styles.mainView}>
-                <TouchableHighlight style={styles.circleButton} onPress={this.onBack}>
-                    <View style={styles.container}>
-                        <FBLoginTopBar navigator={this.props.navigator}/>
-                    </View>
-                </TouchableHighlight>
+                <NavBar
+                    navigator={this.props.navigator}
+                />
                 <View style={styles.top}>
                     <Text style={styles.title}>Search Favorite Restaurants</Text>
                     <Text style={styles.subtitle}>Select 10</Text>
@@ -134,13 +131,6 @@ var styles = StyleSheet.create({
         resizeMode: 'cover',
         width: width,
     },
-    circleButton: {
-        padding: 10,
-        borderWidth: 1,
-        borderColor: "#FFFFFF",
-        margin: 5,
-        borderRadius: 500
-    },
     bottom: {
         flex: 0.88,
         flexDirection: 'column',
@@ -152,10 +142,6 @@ var styles = StyleSheet.create({
         backgroundColor: '#6BCDFD',
         flex: 0.12,
         justifyContent: 'center',
-    },
-    container: {
-        alignItems: 'center',
-        paddingTop: 22,
     },
     mainView: {
         backgroundColor: '#FFFFFF',

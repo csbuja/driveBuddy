@@ -19,6 +19,9 @@ var FoodSwiperContainer = React.createClass({
             longitude: PropTypes.number,
         }).isRequired,
         onSetOptions: React.PropTypes.func,
+        onSwipe: React.PropTypes.func,
+        foodIndex: React.PropTypes.number,
+        gasIndex: React.PropTypes.number,
     },
 
     getInitialState: function() {
@@ -60,6 +63,9 @@ var FoodSwiperContainer = React.createClass({
             <GasFoodSwiper
                 latitude={this.props.currentPosition.latitude}
                 longitude={this.props.currentPosition.longitude}
+                onSwipe={this.props.onSwipe}
+                foodIndex={this.props.foodIndex}
+                gasIndex={this.props.gasIndex}
                 options={this.state.options}
                 loading={this.state.loading}
                 style={this.props.style}

@@ -17,8 +17,8 @@ var Yelp = require('yelp');
 var yelp = new Yelp({
   consumer_key: "T0VjCY0WkEUOuyC5U46qMw",
   consumer_secret: "LwzcaQMBcdE2cz-iv5M3KDxHwCk",
-  token: "QF86lSA004Z3R5mbKmXLGVFaUGfLSTET",
-  token_secret: "HedWTyztvJe_cuVgPL0IwqsHYjs"
+  token: "rFX5f23ObBPeznE6DQdkyb_8Y8UNXw0q",
+  token_secret: "5kBF1E8lkxcGwUATNyElljvhZBo"
 });
 var db = require('./db');
 
@@ -283,6 +283,28 @@ app.get('/api/search/:lat/:lon/:name/:location?', (req, res) => {
 app.get('/api/yelp/:currentPosition/:lastPosition',function (req, res) {
 	var currentPosition = JSON.parse(req.params.currentPosition);
 	var radius = 40000; //max 40000 meters
+
+	var results = [];
+	// var makeQueries = function (restaurants){
+	// 	var deferred = Q.defer();
+	// 	for(var i = 0; i < restaurants.length; i++){
+	// 		driverNeeds.write_file(req.params.userid, req.body.restaurants[i])
+	// 		.then(function(data){
+	// 			results.push(data);
+	// 			if (results.length == req.body.restaurants.length) deferred.resolve(results);
+	// 		});
+	// 	}
+	// 	return deferred.promise;
+	// }
+	// makeQueries(restaurants).then(function(results){
+	// 	//result will be a JSON string
+	// 	res.send(JSON.stringify(results));
+
+
+	// });
+
+
+	
 
 	yelp.search({
             term: "restaurants",

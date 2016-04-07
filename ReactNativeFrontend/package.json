@@ -11,6 +11,7 @@
     "react-native-facebook-login": "^1.0.3",
     "react-native-gifted-spinner": "0.0.3",
     "react-native-modal-picker": "0.0.13",
+    "react-native-navbar": "^1.4.2",
     "react-native-overlay": "^0.4.1",
     "react-native-search-bar": "^2.8.0",
     "react-native-star-rating": "^1.0.5",
