@@ -285,26 +285,21 @@ app.get('/api/yelp/:currentPosition/:lastPosition',function (req, res) {
 	var radius = 40000; //max 40000 meters
 
 	var results = [];
-	// var makeQueries = function (restaurants){
-	// 	var deferred = Q.defer();
-	// 	for(var i = 0; i < restaurants.length; i++){
-	// 		driverNeeds.write_file(req.params.userid, req.body.restaurants[i])
-	// 		.then(function(data){
-	// 			results.push(data);
-	// 			if (results.length == req.body.restaurants.length) deferred.resolve(results);
-	// 		});
-	// 	}
-	// 	return deferred.promise;
-	// }
-	// makeQueries(restaurants).then(function(results){
-	// 	//result will be a JSON string
-	// 	res.send(JSON.stringify(results));
-
-
-	// });
-
-
 	
+
+
+
+	var makeQueries = function (restaurants){
+		var deferred = Q.defer();
+		for(var i = 0; i < restaurants.length; i++){
+			driverNeeds.write_file(req.params.userid, req.body.restaurants[i])
+			.then(function(data){
+				results.push(data);
+				if (results.length == req.body.restaurants.length) deferred.resolve(results);
+			});
+		}
+		return deferred.promise;
+	}
 
 	yelp.search({
             term: "restaurants",
@@ -313,11 +308,14 @@ app.get('/api/yelp/:currentPosition/:lastPosition',function (req, res) {
         },
 		function(err, data){
 			if (err) res.send(JSON.stringify([]));
-			else res.send(JSON.stringify(driverNeeds.getYelpBusinesses(
-                    data,
-                    currentPosition.latitude,
-                    currentPosition.longitude
-                 )));
+			else {
+				
+					makeQueries(restaurants).then(function(results){
+					//result will be a JSON string
+					res.send(JSON.stringify(results));
+					});
+				}
+				
 		}
 	);
 });
