@@ -134,6 +134,15 @@ app.all('/api/survey', function(req,res){
 	}
 	console.log('Initialization Complete');
 });
+app.all('/api/rerate/:userid', function(req, res){
+
+	db.query('select restaurant_id,foodtype from survey where userid = ?', req.params.userid, function(err, survey){
+		if (err) throw err;
+		else{
+			console.log(driverNeeds.re_rate(req.body.businesses, survey));
+		}
+	});
+});
 
 app.all('/api/rate/:userid/:restaurant/:rate', function(req,res){
 	var term = {
