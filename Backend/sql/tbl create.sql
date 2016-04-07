@@ -17,7 +17,7 @@ create table survey(
 	cost int,
 	rate double not null,
 	primary key (userid, restaurant_id),
-	foreign key (userid) references user(userid)
+	foreign key (userid) references user(userid) on delete cascade
 );
 
 create table rate(
@@ -25,25 +25,9 @@ create table rate(
 	restaurant_id varchar(255) not null,
 	rate double,
 	primary key (userid, restaurant_id),
-	foreign key (userid) references user(userid)
+	foreign key (userid) references user(userid) on delete cascade
 );
 
-create table restaurant(
-	restaurant_id varchar(255) not null  primary key,
-	name varchar(255),
-	foodtype varchar(255) not null,
-	cost int,
-	rate double not null
-);
-
-create table user_res(
-	userid varchar(255) not null,
-	restaurant_id varchar(255) not null,
-	time timestamp DEFAULT CURRENT_TIMESTAMP,
-	primary key (userid, time),
-	foreign key (userid) references user(userid),
-	foreign key (restaurant_id) references restaurant(restaurant_id)
-);
 
 create table sensordata(
 	userid varchar(255) not null,
@@ -52,7 +36,7 @@ create table sensordata(
 	status int,
 	time timestamp DEFAULT CURRENT_TIMESTAMP,
 	primary key (userid, time),
-	foreign key (userid) references user(userid)
+	foreign key (userid) references user(userid) on delete cascade
 	
 );
 

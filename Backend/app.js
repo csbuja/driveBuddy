@@ -139,7 +139,7 @@ app.all('/api/rerate/:userid', function(req, res){
 	db.query('select restaurant_id,foodtype from survey where userid = ?', req.params.userid, function(err, survey){
 		if (err) throw err;
 		else{
-			console.log(driverNeeds.re_rate(req.body.businesses, survey));
+			res.send({"rate" :driverNeeds.re_rate(req.body.businesses, survey)});
 		}
 	});
 });
@@ -194,6 +194,8 @@ app.all('/api/test/:restaurant', function(req,res){
 
 });
 
+//TO DELETE ****
+/*
 app.all('/api/fooddata/:restaurant/:userid', function(req, res){
 	db.query('SELECT restaurant_id from restaurant where restaurant_id = ?', req.params.restaurant, function(err, result) {
 		if (err){
@@ -236,7 +238,7 @@ app.all('/api/fooddata/:restaurant/:userid', function(req, res){
 	res.send('Data sent');
 
 });
-
+*/
 //insert sensor data into sensordata table
 app.all('/api/sensordata/:lat/:lon/:status/:userid', function(req,res) {
 	//for speed maybe
@@ -317,6 +319,7 @@ app.get('/api/gas/:currentPosition/:lastPosition',function (req, res) {
 //use http://www.worldweatheronline.com/api/
 //5 query per second
 //250 query per day
+/*
 app.get('/api/weather/:lat/:lon',function (req, res) {
 	var API_KEY = "e189ac7eb58172bc86f984c5eadd2";
 	var lon = req.params.lon;
@@ -337,7 +340,7 @@ app.get('/api/weather/:lat/:lon',function (req, res) {
 	});
 
 });
-
+*/
 /*
 //the google maps api call is limited to 100,000 requests per day
 app.get('/googlemaps/:lat1/:lon1/:lat2/:lon2/:interval', function(req,res){
