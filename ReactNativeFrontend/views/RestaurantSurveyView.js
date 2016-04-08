@@ -23,7 +23,7 @@ var RestaurantSurveyView = React.createClass({
     getInitialState: function() {
         return {
             selected: {},
-            showSearchResults: true,
+            enableResults: true,
             userID: '',
         };
     },
@@ -53,7 +53,7 @@ var RestaurantSurveyView = React.createClass({
                         source={require('../Images/london.jpg')}>
                         <SurveyRestaurantSearch
                             onPress={this._onRestaurantSelect}
-                            showSearchResults={this.state.showSearchResults}
+                            enableResults={this.state.enableResults}
                         />
                         <SurveySelectedRestaurantList
                             onRestaurantRemove={this._onRestaurantRemove}
@@ -106,7 +106,7 @@ var RestaurantSurveyView = React.createClass({
             })
         });
 
-        this.setState({showSearchResults: false});
+        this.setState({enableResults: false});
         this.props.navigator.push({
             name: 'liveView',
             component: liveView,
