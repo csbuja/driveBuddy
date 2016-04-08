@@ -166,9 +166,12 @@ module.exports = {
 
 	write_file: function(userid, restaurant_id){
 		var deferred = Q.defer();
-		db.query('select * from rate where userid = ' + userid +' and restaurant_id = \"' + restaurant_id + '\"',
+		db.query('select * from rate where userid = ' + userid +' and restaurant_id = \'' + restaurant_id + '\'',
 		function(err, result){
-			if (err) throw err;
+			if (err) {
+				console.log(err);
+				throw err;
+			}
 			else{
 				if (result.length != 0){
 					data = result[0].rate;
