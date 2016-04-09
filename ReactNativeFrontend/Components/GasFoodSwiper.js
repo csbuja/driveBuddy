@@ -36,9 +36,14 @@ var NextPrevButton = React.createClass({
 
 var GasFoodSubSwiper = React.createClass({
     propTypes: {
-        onSwipe: React.PropTypes.func,
-        foodIndex: React.PropTypes.number,
-        gasIndex: React.PropTypes.number,
+        foodIndex: PropTypes.number,
+        gasIndex: PropTypes.number,
+        image: PropTypes.string,
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+        onSwipe: PropTypes.func.isRequired,
+        options: PropTypes.array.isRequired,
+        title: PropTypes.string.isRequired,
     },
 
     getInitialState: function() {
@@ -75,16 +80,13 @@ var GasFoodSubSwiper = React.createClass({
     },
     render: function(){
         var TouchableElement = TouchableHighlight;
-        var icon = 'https://cdn3.iconfinder.com/data/icons/map/500/gasstation-512.png';
-        if (this.props.title === 'Food') {
-            icon = place.image;
-        }
+
         if (Platform.OS === 'android') {
             TouchableElement = TouchableNativeFeedback;
         }
+
         var swiperWidth = 320;
         var itemWidth = swiperWidth - 90;
-
         return (
             <View style={styles.container}>
                 <Swiper onMomentumScrollEnd={this._onMomentumScrollEnd}
@@ -99,6 +101,8 @@ var GasFoodSubSwiper = React.createClass({
                     ]}
                     width={swiperWidth}>
                     {this.props.options.map((place) => {
+                        var source = this.props.image || {uri: place.image};
+
                         return (
                             <View
                                 key={i++}
@@ -106,11 +110,11 @@ var GasFoodSubSwiper = React.createClass({
                                     styles.placeContainer,
                                     {width: itemWidth}
                                 ]}>
-                                <Image style={styles.image} source={{uri: icon}}/>
+                                <Image style={styles.image} source={source}/>
                                 <View style={styles.col}>
                                     <Text style={styles.name}>{place.name}</Text>
                                     {place.price && <Text style={styles.texts} numberOfLines={1}>{place.price + " dollars"}</Text>}
-                                    <Text style={isFood && styles.texts} numberOfLines={1}>{place.distance + " miles"}</Text>
+                                    <Text style={styles.texts} numberOfLines={1}>{place.distance + " miles"}</Text>
                                     {place.rating && <Text style={styles.texts} numberOfLines={1}>{place.rating + " stars"}</Text>}
                                 </View>
                             </View>
@@ -148,24 +152,17 @@ var GasFoodSwiper = React.createClass({
     render: function() {
         var morethanzerooptions = this.props.options.length > 0;
         var isLoading = this.props.loading;
-        var show_swiper_or_error
+        var show_swiper_or_error;
         if (morethanzerooptions){
-            var show_swiper_or_error = <GasFoodSubSwiper
-                                            options={this.props.options}
-                                            title={this.props.title}
-                                            latitude={this.props.latitude}
-                                            longitude={this.props.longitude}
-                                            foodIndex={this.props.foodIndex}
-                                            gasIndex={this.props.gasIndex}
-                                            onSwipe={this.props.onSwipe}/>;
+            show_swiper_or_error = <GasFoodSubSwiper {...this.props} />;
         }
         else{
             if (isLoading == true) {
-                var show_swiper_or_error= (<View style={styles.no_options}>
+                show_swiper_or_error= (<View style={styles.no_options}>
                     <Spinner size={'large'} style={styles.spinner}/>
                     </View>)
             } else {
-                var show_swiper_or_error= (<View style={styles.no_options}>
+                show_swiper_or_error= (<View style={styles.no_options}>
                     <Text>{this.state.error_message}</Text>
                     </View>)
             }
