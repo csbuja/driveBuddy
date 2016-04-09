@@ -328,7 +328,7 @@ app.get('/api/yelp/:currentPosition/:lastPosition/:userid',function (req, res) {
 						return key;
 					});
 
-					console.log(restaurants);
+					
 					var userid = req.params.userid;
 					makeQueries(restaurants,userid).then(function(results){
 					//result will be a JSON string
