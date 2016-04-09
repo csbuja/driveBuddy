@@ -75,9 +75,9 @@ var GasFoodSubSwiper = React.createClass({
     },
     render: function(){
         var TouchableElement = TouchableHighlight;
-        var isFood = false;
+        var icon = 'https://cdn3.iconfinder.com/data/icons/map/500/gasstation-512.png';
         if (this.props.title === 'Food') {
-            isFood = true;
+            icon = place.image;
         }
         if (Platform.OS === 'android') {
             TouchableElement = TouchableNativeFeedback;
@@ -106,12 +106,12 @@ var GasFoodSubSwiper = React.createClass({
                                     styles.placeContainer,
                                     {width: itemWidth}
                                 ]}>
-                                {isFood && <Image style={styles.image} source={{uri: place.image}}/>}
+                                <Image style={styles.image} source={{uri: icon}}/>
                                 <View style={styles.col}>
                                     <Text style={styles.name}>{place.name}</Text>
-                                    {place.price && <Text style={isFood && styles.texts} numberOfLines={1}>{place.price + " dollars"}</Text>}
-                                    <Text style={isFood && styles.texts} numberOfLines={1}>{"More than " + place.distance + " miles"}</Text>
-                                    {place.rating && <Text style={isFood && styles.texts} numberOfLines={1}>{place.rating + " Stars"}</Text>}
+                                    {place.price && <Text style={styles.texts} numberOfLines={1}>{place.price + " dollars"}</Text>}
+                                    <Text style={isFood && styles.texts} numberOfLines={1}>{place.distance + " miles"}</Text>
+                                    {place.rating && <Text style={styles.texts} numberOfLines={1}>{place.rating + " stars"}</Text>}
                                 </View>
                             </View>
                         );
