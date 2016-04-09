@@ -63,7 +63,7 @@ def sim(R,i,j):
     if len(Ri) == 0 and len(Rj) == 0:
         return 0
         
-    return float(np.dot(Ri-RAbar,Rj-RAbar))/ (float(np.sqrt(np.dot(Ri-RAbar,Ri-RAbar) )) * float(np.sqrt(np.dot(Rj-RAbar,Rj-RAbar))))
+    return float(np.dot(Ri-RAbar,Rj-RAbar) +1)/ ((float(np.sqrt(np.dot(Ri-RAbar,Ri-RAbar) )) * float(np.sqrt(np.dot(Rj-RAbar,Rj-RAbar)))) +1) #added a +1 to not divide by 0
 
 ##ground_truth - np array of float
 ##predicted - np array of float

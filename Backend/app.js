@@ -283,29 +283,21 @@ app.get('/api/search/:lat/:lon/:name/:location?', (req, res) => {
 app.get('/api/yelp/:currentPosition/:lastPosition/:userid',function (req, res) {
 	var currentPosition = JSON.parse(req.params.currentPosition);
 	var radius = 40000; //max 40000 meters
-	var results = [];
-	
-
 
 
 	var makeQueries = function (restaurants,userid){
 		var deferred = Q.defer();
-		var results = [];
-		for(var i = 0; i < restaurants.length; ++i){
-			driverNeeds.write_file(userid, restaurants[i])
+		var results = {};
+		for(var i = 0; i < restaurants.length; i++){
+			driverNeeds.write_file(userid, restaurants[i],i)
 			.then(function(data){
-				console.log(data)
-				if (data[0]){
-					results.push(data[1]);
+				index = data[1];
+				data = data[0];
+				key = _.keys(data)[0]
+				results[key] = data[key];
+				if (index == (restaurants.length -1) ){ 
+					deferred.resolve(results);
 				}
-				else{
-					filename = data[1]
-					child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
-			    		results.push(data);
-			    		// child_process.exec('rm ' + filename, function () {});					
-					});
-				}
-				if (i ==req.body.restaurants.length -1) deferred.resolve(results);
 			});
 		}
 		return deferred.promise;
@@ -319,20 +311,22 @@ app.get('/api/yelp/:currentPosition/:lastPosition/:userid',function (req, res) {
 		function(err, data){
 			if (err) res.send(JSON.stringify([]));
 			else {
-					data = driverNeeds.getYelpBusinesses(
+					yelpdata = driverNeeds.getYelpBusinesses(
 	                    data,
 	                    currentPosition.latitude,
 	                    currentPosition.longitude
 	                );
-					restaurants = _.map(data,function(v,key){
+					restaurants = _.map(yelpdata,function(v,key){
 						return key;
 					});
 
-					
 					var userid = req.params.userid;
-					makeQueries(restaurants,userid).then(function(results){
+					makeQueries(restaurants,userid).then(function(CFscores){
 					//result will be a JSON string
-					res.send(JSON.stringify(results));
+						_.each(yelpdata, function(v,key){
+							yelpdata[key]['score'] = CFscores[key];
+						});
+						res.send(JSON.stringify(yelpdata));
 					});
 				}
 				

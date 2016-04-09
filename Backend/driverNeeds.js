@@ -164,7 +164,7 @@ module.exports = {
 
 	},
 
-	write_file: function(userid, restaurant_id){
+	write_file: function(userid, restaurant_id,index){
 		var deferred = Q.defer();
 		db.query('select * from rate where userid = ' + userid +' and restaurant_id = \'' + restaurant_id + '\'',
 		function(err, result){
@@ -247,7 +247,7 @@ module.exports = {
 								child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
 									dict[restaurant_id] = parseFloat(data);
 									child_process.exec('rm ' + filename, function () {});
-									deferred.resolve(dict);
+									deferred.resolve([dict,index]);
 								})
 							}
 						});
