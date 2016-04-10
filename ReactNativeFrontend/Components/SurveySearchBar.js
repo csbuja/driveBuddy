@@ -91,7 +91,6 @@ var SurveySearchBar = React.createClass({
         // due to time for API call, which is seen when typing quickly
         if (this.state.isSearching) {
             this.setState({isSearchBehind: true});
-            console.log('search behind')
             return;
         }
 
@@ -103,7 +102,6 @@ var SurveySearchBar = React.createClass({
             .then((response) => response.text())
             .then((responseText) => {
                 this.setState({isSearching: false});
-
                 this.props.setOptions(responseText, true);
 
                 // needed if user stops typing while API results are still
@@ -115,7 +113,7 @@ var SurveySearchBar = React.createClass({
             })
             .catch((error) => {
                 // TODO (urlauba): handle error state
-                console.log(error)
+                this.setState({isSearching: false, isSearchBehind: false});
             })
     },
 });

@@ -58,14 +58,20 @@ module.exports = {
 	},
 
     getYelpBusinesses: function(data, lat, lon) {
+        // Note: might be dangerous to call objects without checking if they exist
+        // for instance, categories is not guaranteed to be defined
         var businesses = {};
         for(var i = 0; i< data.businesses.length; ++i){
 			var info = {}
 			info.id = data.businesses[i].id;
 			info.categories = [];
-			for(var j = 0; j < data.businesses[i].categories.length; ++j){
-				info.categories.push(data.businesses[i].categories[j][1]);
-			}
+
+            if (data.businesses[i].categories) {
+			    for(var j = 0; j < data.businesses[i].categories.length; ++j){
+				    info.categories.push(data.businesses[i].categories[j][1]);
+			    }
+            }
+
 			info.address = data.businesses[i].location.address + ' ' + data.businesses[i].location.city + ', ' + data.businesses[i].location.state_code + ' ' +data.businesses[i].location.postal_code;
 			info.name = data.businesses[i].name;
 			info.lat = data.businesses[i].location.coordinate.latitude;
