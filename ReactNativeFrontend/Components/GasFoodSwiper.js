@@ -4,7 +4,6 @@ var Icon = require('react-native-vector-icons/FontAwesome');
 var React = require('react-native');
 var Spinner = require('react-native-gifted-spinner');
 var Swiper = require('react-native-swiper');
-var Linking = require('Linking');
 
 var {
     Image,
@@ -12,7 +11,6 @@ var {
     PropTypes,
     Text,
     View,
-    Platform,
     TouchableHighlight,
     TouchableNativeFeedback
 } = React;
@@ -36,111 +34,61 @@ var NextPrevButton = React.createClass({
 
 var GasFoodSubSwiper = React.createClass({
     propTypes: {
-        foodIndex: PropTypes.number,
-        gasIndex: PropTypes.number,
-        image: PropTypes.any,
-        latitude: PropTypes.number,
-        longitude: PropTypes.number,
         onSwipe: PropTypes.func.isRequired,
         options: PropTypes.array.isRequired,
+        placeContainerOffset: PropTypes.number.isRequired,
+        swiperWidth: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
-    },
-
-    getInitialState: function() {
-        return {
-            option: this.props.options[0],
-            foodIndex: 0,
-            gasIndex: 0,
-        };
-    },
-
-    shouldComponentUpdate: function(nextProps, nextState) {
-        if (nextProps !== this.props) {
-            if (nextProps.foodIndex === this.state.foodIndex && nextProps.gasIndex === this.state.gasIndex) {
-                return true;
-            } else {
-                this.setState({foodIndex: nextProps.foodIndex, gasIndex: nextProps.gasIndex});
-            }
-        }
-        return false;
     },
 
     _onMomentumScrollEnd: function (e, swiperState, context) {
         var index = swiperState.index;
-        this.setState({option: this.props.options[index]});
         this.props.onSwipe(index);
     },
 
-    getDirections: function() {
-        var saddr = this.props.latitude + ',' + this.props.longitude;
-        var daddr = this.state.option.lat + ',' + this.state.option.lon;
-        var directionsmode = 'driving';
-        var url = 'comgooglemaps://?saddr=' + saddr + '&daddr=' + daddr + '&directionsmode=' + directionsmode;
-        Linking.openURL(url).catch(err => console.error('An error occurred', err));
-    },
-
     render: function(){
-        var TouchableElement = TouchableHighlight;
-
-        if (Platform.OS === 'android') {
-            TouchableElement = TouchableNativeFeedback;
-        }
-
-        var swiperWidth = 320;
-        var placeContainerOffset = 90;
-
         return (
-            <View style={styles.container}>
-                <Swiper onMomentumScrollEnd={this._onMomentumScrollEnd}
-                    height={110}
-                    nextButton={<NextPrevButton name={'chevron-right'} />}
-                    prevButton={<NextPrevButton name={'chevron-left'} />}
-                    showsButtons={true}
-                    showsPagination={false}
-                    width={swiperWidth}>
-                    {this.props.options.map((place) => {
-                        var source = this.props.image || {uri: place.image};
-
-                        return (
-                            <View
-                                style={[styles.placeContainer, {
-                                    marginLeft: placeContainerOffset / 2,
-                                    marginRight: placeContainerOffset / 2,
-                                }]}
-                                key={i++}>
-                                <View style={styles.imageContainer}>
-                                    <Image style={styles.image} source={source}/>
-                                </View>
-                                <View style={styles.textContainer}>
-                                    <Text style={styles.name}>{place.name}</Text>
-                                    {place.price && <Text numberOfLines={1}>{"$" + place.price + " regular"}</Text>}
-                                    <Text numberOfLines={1}>{place.distance + " miles"}</Text>
-                                    {place.score && <Text numberOfLines={1}>{place.score + " stars"}</Text>}
-                                </View>
+            <Swiper
+                onMomentumScrollEnd={this._onMomentumScrollEnd}
+                height={110}
+                nextButton={<NextPrevButton name={'chevron-right'} />}
+                prevButton={<NextPrevButton name={'chevron-left'} />}
+                showsButtons={true}
+                showsPagination={false}
+                width={this.props.swiperWidth}>
+                {this.props.options.map((place) => {
+                    return (
+                        <View
+                            style={[styles.placeContainer, {
+                                marginLeft: this.props.placeContainerOffset / 2,
+                                marginRight: this.props.placeContainerOffset / 2,
+                            }]}
+                            key={i++}>
+                            <View style={styles.imageContainer}>
+                                <Image style={styles.image} source={{uri: place.image}}/>
                             </View>
-                        );
-                    })}
-                </Swiper>
-                <TouchableElement
-                    style={[styles.button, {
-                        width: swiperWidth - placeContainerOffset,
-                    }]}
-                    onPress={this.getDirections}>
-                        <Text style={styles.buttonText}>Start Route Guidance</Text>
-                </TouchableElement>
-            </View>
+                            <View style={styles.textContainer}>
+                                <Text style={styles.name}>{place.name}</Text>
+                                {place.price && <Text numberOfLines={1}>{"$" + place.price + " regular"}</Text>}
+                                <Text numberOfLines={1}>{place.distance + " miles"}</Text>
+                                {place.score && <Text numberOfLines={1}>{place.score + " stars"}</Text>}
+                            </View>
+                        </View>
+                    );
+                })}
+            </Swiper>
         );
     }
 });
 
 var GasFoodSwiper = React.createClass({
     propTypes: {
+        loading: PropTypes.bool.isRequired,
+        onSwipe: PropTypes.func,
+        options: PropTypes.array.isRequired,
+        placeContainerOffset: PropTypes.number.isRequired,
+        swiperWidth: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
-        latitude: PropTypes.number,
-        longitude: PropTypes.number,
-        onSwipe: React.PropTypes.func,
-        foodIndex: React.PropTypes.number,
-        gasIndex: React.PropTypes.number,
     },
 
     getInitialState: function(){
@@ -152,7 +100,14 @@ var GasFoodSwiper = React.createClass({
         var isLoading = this.props.loading;
         var show_swiper_or_error;
         if (morethanzerooptions){
-            show_swiper_or_error = <GasFoodSubSwiper {...this.props} />;
+            show_swiper_or_error =
+                <GasFoodSubSwiper
+                    onSwipe={this.props.onSwipe}
+                    options={this.props.options}
+                    placeContainerOffset={this.props.placeContainerOffset}
+                    swiperWidth={this.props.swiperWidth}
+                    title={this.props.title}
+                />;
         }
         else{
             if (isLoading == true) {
@@ -167,7 +122,7 @@ var GasFoodSwiper = React.createClass({
         }
 
         return (
-            <View style={[this.props.style, styles.container, styles.col]}>
+            <View style={[styles.container, styles.col]}>
                 <Text style={styles.title}>{this.props.title}</Text>{show_swiper_or_error}
             </View>
         );
@@ -175,27 +130,11 @@ var GasFoodSwiper = React.createClass({
 });
 
 var styles = StyleSheet.create({
-    button: {
-        backgroundColor: '#6BCDFD',
-        borderColor: '#6BCDFD',
-        borderRadius: 2,
-        borderStyle: 'solid',
-        borderWidth: 1,
-        flex: 1,
-        marginBottom: 8,
-        overflow: 'hidden',
-        padding: 8,
-    },
-    buttonText: {
-        color: '#FFFFFF',
-        fontWeight: 'bold',
-        textAlign: 'center',
+    container: {
+        alignItems: 'center',
     },
     col: {
         flexDirection: 'column',
-    },
-    container: {
-        alignItems: 'center',
     },
     no_options: {
         alignItems: 'center',

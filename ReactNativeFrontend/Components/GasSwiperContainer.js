@@ -1,6 +1,6 @@
 'use strict';
 
-var GasFoodSwiper = require('./GasFoodSwiper');
+var GasFoodSwiperContainer = require('./GasFoodSwiperContainer');
 var React = require('react-native');
 var TimerMixin = require('react-native-timer-mixin');
 
@@ -20,15 +20,14 @@ var GasSwiperContainer = React.createClass({
         }).isRequired,
         onSetOptions: React.PropTypes.func,
         onSwipe: React.PropTypes.func,
-        foodIndex: React.PropTypes.number,
-        gasIndex: React.PropTypes.number,
+        optionLatitude: PropTypes.string,
+        optionLongitude: PropTypes.string,
     },
 
     getInitialState: function() {
         return {
             options: [],
             loading: false,
-            transferredUp: false,
         };
     },
 
@@ -60,16 +59,14 @@ var GasSwiperContainer = React.createClass({
 
     render: function() {
         return (
-            <GasFoodSwiper
-                foodIndex={this.props.foodIndex}
-                gasIndex={this.props.gasIndex}
-                image={require('../Images/gasstation.png')}
+            <GasFoodSwiperContainer
                 latitude={this.props.currentPosition.latitude}
                 loading={this.state.loading}
                 longitude={this.props.currentPosition.longitude}
                 onSwipe={this.props.onSwipe}
+                optionLatitude={this.props.optionLatitude}
+                optionLongitude={this.props.optionLongitude}
                 options={this.state.options}
-                style={this.props.style}
                 title={"Gas"}
             />
         );
@@ -81,17 +78,18 @@ var GasSwiperContainer = React.createClass({
 
         this.setState({loading: true});
         if (currentPosition.latitude && currentPosition.longitude) {
-            var transferredUp = this.state.transferredUp;
             // TODO (urlauba): change url path
             fetch('http://73.161.192.135:3000/api/gas/' + current + '/' + last)
                 .then((response) => response.text())
                 .then((responseText) => {
                     var data = JSON.parse(responseText);
-                    var options = Object.keys(data).map(function(k) { return data[k] });
-                    this.setState({options: options, transferredUp: !transferredUp, loading: false});
-                    if (transferredUp == false) {
-                        this.props.onSetOptions(options);
-                    }
+                    var options = Object.keys(data).map(function(k) {
+                        var station = data[k];
+                        station.image = 'https://cdn3.iconfinder.com/data/icons/map/500/gasstation-512.png';
+                        return station;
+                    });
+                    this.setState({options: options, loading: false});
+                    this.props.onSetOptions(options);
                 })
                 .catch((error) => {
                     // TODO (urlauba): handle error state

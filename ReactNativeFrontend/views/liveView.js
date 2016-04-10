@@ -70,6 +70,23 @@ var liveView = React.createClass({
     },
 
     render: function(){
+        var foodOptionLatitude = null;
+        var foodOptionLongitude = null;
+        if (this.state.foodOptions.length) {
+            foodOptionLatitude = this.state.foodOptions[this.state.foodIndex].lat;
+            foodOptionLongitude = this.state.foodOptions[this.state.foodIndex].lon;
+        }
+
+        var gasOptionLatitude = null;
+        var gasOptionLongitude = null;
+        if (this.state.gasOptions.length) {
+            console.log('load');
+            console.log(this.state.gasOptions[this.state.gasIndex]);
+            gasOptionLatitude = this.state.gasOptions[this.state.gasIndex].lat;
+            gasOptionLongitude = this.state.gasOptions[this.state.gasIndex].lon;
+        }
+        console.log(gasOptionLatitude);
+
         return (
             <View style={styles.liveView}>
                 <NavBar
@@ -77,20 +94,24 @@ var liveView = React.createClass({
                 />
                 <FoodSwiperContainer
                     currentPosition={this.state.currentPosition}
+                    foodIndex={this.state.foodIndex}
+                    gasIndex={this.state.gasIndex}
                     lastPosition={this.state.lastPosition}
                     onSetOptions={this._onSetFoodOptions}
                     onSwipe={this._onFoodSwipe}
-                    foodIndex={this.state.foodIndex}
-                    gasIndex={this.state.gasIndex}
+                    optionLatitude={foodOptionLatitude}
+                    optionLongitude={foodOptionLongitude}
                     style={styles.borderBottom}
                 />
                 <GasSwiperContainer
                     currentPosition={this.state.currentPosition}
+                    foodIndex={this.state.foodIndex}
+                    gasIndex={this.state.gasIndex}
                     lastPosition={this.state.lastPosition}
                     onSetOptions={this._onSetGasOptions}
                     onSwipe={this._onGasSwipe}
-                    foodIndex={this.state.foodIndex}
-                    gasIndex={this.state.gasIndex}
+                    optionLatitude={gasOptionLatitude}
+                    optionLongitude={gasOptionLongitude}
                     style={styles.borderBottom}
                 />
                 <MapContainer
