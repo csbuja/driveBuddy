@@ -113,7 +113,7 @@ var GasFoodSubSwiper = React.createClass({
                                 </View>
                                 <View style={styles.textContainer}>
                                     <Text style={styles.name}>{place.name}</Text>
-                                    {place.price && <Text numberOfLines={1}>{place.price + " dollars"}</Text>}
+                                    {place.price && <Text numberOfLines={1}>{"$" + place.price + " regular"}</Text>}
                                     <Text numberOfLines={1}>{place.distance + " miles"}</Text>
                                     {place.score && <Text numberOfLines={1}>{place.score + " stars"}</Text>}
                                 </View>
