@@ -66,6 +66,8 @@ var FoodSwiperContainer = React.createClass({
     render: function() {
         return (
             <GasFoodSwiperContainer
+                hasNewOptions={this.state.hasNewOptions}
+                hasSetOptions={this._hasSetOptions}
                 latitude={this.props.currentPosition.latitude}
                 loading={this.state.loading}
                 longitude={this.props.currentPosition.longitude}
@@ -78,11 +80,15 @@ var FoodSwiperContainer = React.createClass({
         );
     },
 
+    _hasSetOptions: function() {
+        this.setState({hasNewOptions: false});
+    },
+
     _setOptions: function(currentPosition, lastPosition) {
         var current = JSON.stringify(currentPosition);
         var last = JSON.stringify(lastPosition);
 
-        this.setState({loading: true});
+        this.setState({loading: true, hasNewOptions: true});
         if (currentPosition.latitude && currentPosition.longitude) {
             // TODO (urlauba): change url path
             fetch('http://73.161.192.135:3000/api/yelp/'
@@ -96,9 +102,8 @@ var FoodSwiperContainer = React.createClass({
                 })
                 .catch((error) => {
                     // TODO (urlauba): handle error state
-                    console.log('error');
                     console.log(error)
-                    this.setState({loading: false});
+                    this.setState({loading: false, hasNewOptions: false});
                 });
         }
     },
