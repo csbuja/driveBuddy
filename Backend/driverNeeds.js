@@ -186,56 +186,7 @@ module.exports = {
 		}
 		return(rate);
 	},
-	/*
-	re_rate: function(businesses, survey){
-<<<<<<< HEAD
-		var count = {};
-		var max_count = survey.length + 1;
-		for(var i = 0; i < businesses.length; ++i){
-			var same = 1;
-			var rating = businesses[i].rating;
-=======
-		var count = [];
-		var max_count = survey.length + 1;
-		for(var i = 0; i < businesses.length; ++i){
-			var same = 1;
-			var rating = businesses[i].rating;
->>>>>>> 597f8a7971b6fd2f868995dfbba64bf341750da8
-			for(var j = 0; j < survey.length; ++j){
-				if(survey[j].restaurant_id == businesses[i].id){
-					same = max_count;
-					break;
-				}
-				else{
-					var str = survey[j].foodtype;
-					var intersect = _.intersection(businesses[i].categories, str.split(','));
-					if(intersect.length){
-						same += 1;
-					}
-
-				}
-
-			}
-			if(same == max_count){
-				rating = businesses[i].rating;
-			}
-			else{
-				rating = rating * (same / max_count);
-<<<<<<< HEAD
-			}
-			count[businesses[i].id]= rating;
-		}
-=======
-			}
-			count.push({id:businesses[i].id, rating: rating});
-		}
-		count.sort(function(a, b) {
-			return (a.rating - b.rating) < 0;
-		});
->>>>>>> 597f8a7971b6fd2f868995dfbba64bf341750da8
-		return count;
-	},
-	*/
+	
 	//note: the limit on yelp api calls is 25,000 per day
 	//if we go over this, contact api@yelp.com
 	getNeeds : function(res, type, lat, lng, yelp, foodFavs){
@@ -258,17 +209,11 @@ module.exports = {
 
 	check_add: function (term) {
 		//console.log('check and add');
-		db.query('SELECT restaurant_id from restaurant where restaurant_id = ?', term.restaurant_id, function(err, result) {
-			if (err){
-				throw err
-			}else{
-				if(result.length == 0){
-					db.query('INSERT INTO survey SET ?', term,function(err, result) {
-						if (err) throw err;
-					});
-				}
-				console.log('insert the restuarant ');
-			}
+		db.query('INSERT INTO survey SET ?', term,function(err, result) {
+			if (err) throw err;
+		});
+		db.query('INSERT INTO rate SET ?', term,function(err, result) {
+			if (err) throw err;
 		});
 	},
 

@@ -136,10 +136,12 @@ app.all('/api/survey', function(req,res){
 });
 app.all('/api/rerate/:userid', function(req, res){
 
-	db.query('select restaurant_id,foodtype from survey where userid = ?', req.params.userid, function(err, survey){
+	db.query('select * from survey where userid = ?', req.params.userid, function(err, survey){
 		if (err) throw err;
 		else{
-			res.send({"rate" :driverNeeds.re_rate(req.body.businesses, survey)});
+			res.send({"method1" :driverNeeds.rate_cosine(req.body.businesses, survey),
+			"method2":driverNeeds.rate_sim(req.body.businesses, survey),
+			"method3":driverNeeds.rate_weigh(req.body.businesses, survey) });
 		}
 	});
 });

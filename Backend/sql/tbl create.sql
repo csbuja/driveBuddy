@@ -13,8 +13,7 @@ create table survey(
 	userid varchar(255) not null,
 	restaurant_id varchar(255) not null,
 	name varchar(255),
-	foodtype varchar(255) not null,
-	cost int,
+	foodtype varchar(255),
 	rate double not null,
 	primary key (userid, restaurant_id),
 	foreign key (userid) references user(userid) on delete cascade
@@ -23,6 +22,8 @@ create table survey(
 create table rate(
 	userid varchar(255) not null,
 	restaurant_id varchar(255) not null,
+	name varchar(255),
+	foodtype varchar(255),
 	rate double,
 	primary key (userid, restaurant_id),
 	foreign key (userid) references user(userid) on delete cascade
