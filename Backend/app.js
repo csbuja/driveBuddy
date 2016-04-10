@@ -136,7 +136,7 @@ app.all('/api/survey', function(req,res){
 });
 app.all('/api/rerate/:userid', function(req, res){
 
-	db.query('select * from survey where userid = ?', req.params.userid, function(err, survey){
+	db.query('select * from rate where userid = ?', req.params.userid, function(err, survey){
 		if (err) throw err;
 		else{
 			res.send({"method1" :driverNeeds.rate_cosine(req.body.businesses, survey),
