@@ -42,9 +42,9 @@ driverNeeds.write_file(1, 'angs-korean-restaurant-ann-arbor-2')
 		filename = data[1]
 		child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
 				console.log(data);
-				child_process.exec('rm ' + filename, function () {});					
+				child_process.exec('rm ' + filename, function () {});
 		});
-		
+
 	}
 });
 
@@ -119,7 +119,7 @@ app.all('/api/survey', function(req,res){
 		if (err) throw err;
 		else console.log('Registered');
 	});
-	
+
 	for(var i = 0; i < (req.body.restaurants).length; ++i){
 
 		var data = req.body.restaurants[i];
@@ -273,38 +273,34 @@ app.get('/api/search/:lat/:lon/:name/:location?', (req, res) => {
         res.send(JSON.stringify(driverNeeds.getYelpBusinesses(data, lat, lon)));
     })
     .catch((error) => {
-        // need further error checking, failed request
+        res.status(500).send(error);
     });
 });
 
 // both currentPosition and lastPosition are objects with latitude and longitude
 // latitude and longitude may be null
 //return the restaurant within radius = 40000
-app.get('/api/yelp/:currentPosition/:lastPosition',function (req, res) {
+app.get('/api/yelp/:currentPosition/:lastPosition/:userid',function (req, res) {
 	var currentPosition = JSON.parse(req.params.currentPosition);
 	var radius = 40000; //max 40000 meters
 
-	var results = [];
-	// var makeQueries = function (restaurants){
-	// 	var deferred = Q.defer();
-	// 	for(var i = 0; i < restaurants.length; i++){
-	// 		driverNeeds.write_file(req.params.userid, req.body.restaurants[i])
-	// 		.then(function(data){
-	// 			results.push(data);
-	// 			if (results.length == req.body.restaurants.length) deferred.resolve(results);
-	// 		});
-	// 	}
-	// 	return deferred.promise;
-	// }
-	// makeQueries(restaurants).then(function(results){
-	// 	//result will be a JSON string
-	// 	res.send(JSON.stringify(results));
-
-
-	// });
-
-
-	
+	var makeQueries = function (restaurants,userid){
+		var deferred = Q.defer();
+		var results = {};
+		for(var i = 0; i < restaurants.length; i++){
+			driverNeeds.write_file(userid, restaurants[i],i)
+			.then(function(data){
+				index = data[1];
+				data = data[0];
+				key = _.keys(data)[0]
+				results[key] = data[key];
+				if (index == (restaurants.length -1) ){
+					deferred.resolve(results);
+				}
+			});
+		}
+		return deferred.promise;
+	}
 
 	yelp.search({
             term: "restaurants",
@@ -313,11 +309,26 @@ app.get('/api/yelp/:currentPosition/:lastPosition',function (req, res) {
         },
 		function(err, data){
 			if (err) res.send(JSON.stringify([]));
-			else res.send(JSON.stringify(driverNeeds.getYelpBusinesses(
-                    data,
-                    currentPosition.latitude,
-                    currentPosition.longitude
-                 )));
+			else {
+					yelpdata = driverNeeds.getYelpBusinesses(
+	                    data,
+	                    currentPosition.latitude,
+	                    currentPosition.longitude
+	                );
+					restaurants = _.map(yelpdata,function(v,key){
+						return key;
+					});
+
+					var userid = req.params.userid;
+					makeQueries(restaurants,userid).then(function(CFscores){
+					//result will be a JSON string
+						_.each(yelpdata, function(v,key){
+							yelpdata[key]['score'] = CFscores[key];
+						});
+						res.send(JSON.stringify(yelpdata));
+					});
+				}
+
 		}
 	);
 });

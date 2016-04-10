@@ -58,14 +58,20 @@ module.exports = {
 	},
 
     getYelpBusinesses: function(data, lat, lon) {
+        // Note: might be dangerous to call objects without checking if they exist
+        // for instance, categories is not guaranteed to be defined
         var businesses = {};
         for(var i = 0; i< data.businesses.length; ++i){
 			var info = {}
 			info.id = data.businesses[i].id;
 			info.categories = [];
-			for(var j = 0; j < data.businesses[i].categories.length; ++j){
-				info.categories.push(data.businesses[i].categories[j][1]);
-			}
+
+            if (data.businesses[i].categories) {
+			    for(var j = 0; j < data.businesses[i].categories.length; ++j){
+				    info.categories.push(data.businesses[i].categories[j][1]);
+			    }
+            }
+
 			info.address = data.businesses[i].location.address + ' ' + data.businesses[i].location.city + ', ' + data.businesses[i].location.state_code + ' ' +data.businesses[i].location.postal_code;
 			info.name = data.businesses[i].name;
 			info.lat = data.businesses[i].location.coordinate.latitude;
@@ -182,11 +188,19 @@ module.exports = {
 	},
 	/*
 	re_rate: function(businesses, survey){
+<<<<<<< HEAD
 		var count = {};
 		var max_count = survey.length + 1;
 		for(var i = 0; i < businesses.length; ++i){
 			var same = 1;
 			var rating = businesses[i].rating;
+=======
+		var count = [];
+		var max_count = survey.length + 1;
+		for(var i = 0; i < businesses.length; ++i){
+			var same = 1;
+			var rating = businesses[i].rating;
+>>>>>>> 597f8a7971b6fd2f868995dfbba64bf341750da8
 			for(var j = 0; j < survey.length; ++j){
 				if(survey[j].restaurant_id == businesses[i].id){
 					same = max_count;
@@ -207,9 +221,18 @@ module.exports = {
 			}
 			else{
 				rating = rating * (same / max_count);
+<<<<<<< HEAD
 			}
 			count[businesses[i].id]= rating;
 		}
+=======
+			}
+			count.push({id:businesses[i].id, rating: rating});
+		}
+		count.sort(function(a, b) {
+			return (a.rating - b.rating) < 0;
+		});
+>>>>>>> 597f8a7971b6fd2f868995dfbba64bf341750da8
 		return count;
 	},
 	*/
@@ -264,11 +287,14 @@ module.exports = {
 
 	},
 
-	write_file: function(userid, restaurant_id){
+	write_file: function(userid, restaurant_id,index){
 		var deferred = Q.defer();
-		db.query('select * from rate where userid = ' + userid +' and restaurant_id = \"' + restaurant_id + '\"',
+		db.query('select * from rate where userid = ' + userid +' and restaurant_id = \'' + restaurant_id + '\'',
 		function(err, result){
-			if (err) throw err;
+			if (err) {
+				console.log(err);
+				throw err;
+			}
 			else{
 				if (result.length != 0){
 					data = result[0].rate;
@@ -344,7 +370,7 @@ module.exports = {
 								child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
 									dict[restaurant_id] = parseFloat(data);
 									child_process.exec('rm ' + filename, function () {});
-									deferred.resolve(dict);
+									deferred.resolve([dict,index]);
 								})
 							}
 						});

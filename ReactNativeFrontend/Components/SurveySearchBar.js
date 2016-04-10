@@ -1,7 +1,7 @@
 'use strict';
 
-var React = require('react-native');
 var Icon = require('react-native-vector-icons/FontAwesome');
+var React = require('react-native');
 
 var {
     PropTypes,
@@ -12,14 +12,22 @@ var {
 
 var SurveySearchBar = React.createClass({
     propTypes: {
-        onLocationTextChange: PropTypes.func.isRequired,
-        onSearchTextChange: PropTypes.func.isRequired,
-        locationText: PropTypes.string.isRequired,
-        searchText: PropTypes.string.isRequired,
+        latitude: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
+        setOptions: PropTypes.func.isRequired,
     },
 
     componentDidMount: function() {
         //this.refs.searchBar.focus();
+    },
+
+    getInitialState: function() {
+        return {
+            isSearchBehind: false,
+            isSearching: false,
+            locationText: '',
+            searchText: '',
+        };
     },
 
     render: function() {
@@ -35,27 +43,78 @@ var SurveySearchBar = React.createClass({
                     />
                     <TextInput
                         clearButtonMode={'always'}
-                        onChangeText={this.props.onSearchTextChange}
+                        onChangeText={this._onSearchTextChange}
                         placeholder='Search Restaurants Near'
                         ref="searchBar"
                         selectionColor={'#6BCDFD'}
                         style={styles.textInput}
-                        value={this.props.searchText}
+                        value={this.state.searchText}
                     />
                 </View>
                 <View
                     style={[styles.textInputContainer, styles.locationContainer]}>
                     <TextInput
                         clearButtonMode={'always'}
-                        onChangeText={this.props.onLocationTextChange}
+                        onChangeText={this._onLocationTextChange}
                         placeholder='Current Location'
                         selectionColor={'#6BCDFD'}
                         style={styles.textInput}
-                        value={this.props.locationText}
+                        value={this.state.locationText}
                     />
                 </View>
             </View>
         );
+    },
+
+    _onLocationTextChange: function(text) {
+        // order matters
+        // otherwise can search old location text after it has been cleared
+        this.setState({locationText: text});
+        this._search(this.state.searchText);
+    },
+
+    _onSearchTextChange: function(text) {
+        this._search(text);
+        this.setState({searchText: text});
+    },
+
+    _search: function(text) {
+        // reset options and avoid API call that will fail
+        if (!text.length) {
+            this.props.setOptions('{}', false);
+            return;
+        }
+
+        // don't allow searching while still waiting results
+        // avoids textInput from getting ahead of js _search
+        // otherwise event stack would be way off from user perspective
+        // due to time for API call, which is seen when typing quickly
+        if (this.state.isSearching) {
+            this.setState({isSearchBehind: true});
+            return;
+        }
+
+        // TODO (urlauba): change url
+        this.setState({isSearching: true});
+        fetch('http://73.161.192.135:3000/api/search/'
+            + this.props.latitude + '/' + this.props.longitude + '/'
+            + text + '/' + this.state.locationText)
+            .then((response) => response.text())
+            .then((responseText) => {
+                this.setState({isSearching: false});
+                this.props.setOptions(responseText, true);
+
+                // needed if user stops typing while API results are still
+                // being retrieved, so last text typed agrees with results
+                if (this.state.isSearchBehind) {
+                    this.setState({isSearchBehind: false});
+                    this._search(this.state.searchText);
+                }
+            })
+            .catch((error) => {
+                // TODO (urlauba): handle error state
+                this.setState({isSearching: false, isSearchBehind: false});
+            })
     },
 });
 

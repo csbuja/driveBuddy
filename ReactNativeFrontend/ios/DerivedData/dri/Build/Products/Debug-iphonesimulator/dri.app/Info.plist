@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>BuildMachineOSBuild</key>
-	<string>14F1021</string>
+	<string>15E65</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -42,15 +42,15 @@
 	<key>DTPlatformName</key>
 	<string>iphonesimulator</string>
 	<key>DTPlatformVersion</key>
-	<string>9.0</string>
+	<string>9.3</string>
 	<key>DTSDKBuild</key>
-	<string>13A340</string>
+	<string>13E230</string>
 	<key>DTSDKName</key>
-	<string>iphonesimulator9.0</string>
+	<string>iphonesimulator9.3</string>
 	<key>DTXcode</key>
-	<string>0700</string>
+	<string>0730</string>
 	<key>DTXcodeBuild</key>
-	<string>7A220</string>
+	<string>7D175</string>
 	<key>FacebookAppID</key>
 	<string>1086653268053781</string>
 	<key>FacebookDisplayName</key>
@@ -76,7 +76,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>SERVER_IP</key>
-	<string>10.165.12.181</string>
+	<string>35.2.199.17</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>FontAwesome.ttf</string>

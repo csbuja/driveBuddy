@@ -36,9 +36,14 @@ var NextPrevButton = React.createClass({
 
 var GasFoodSubSwiper = React.createClass({
     propTypes: {
-        onSwipe: React.PropTypes.func,
-        foodIndex: React.PropTypes.number,
-        gasIndex: React.PropTypes.number,
+        foodIndex: PropTypes.number,
+        gasIndex: PropTypes.number,
+        image: PropTypes.any,
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+        onSwipe: PropTypes.func.isRequired,
+        options: PropTypes.array.isRequired,
+        title: PropTypes.string.isRequired,
     },
 
     getInitialState: function() {
@@ -73,17 +78,16 @@ var GasFoodSubSwiper = React.createClass({
         var url = 'comgooglemaps://?saddr=' + saddr + '&daddr=' + daddr + '&directionsmode=' + directionsmode;
         Linking.openURL(url).catch(err => console.error('An error occurred', err));
     },
+
     render: function(){
         var TouchableElement = TouchableHighlight;
-        var isFood = false;
-        if (this.props.title === 'Food') {
-            isFood = true;
-        }
+
         if (Platform.OS === 'android') {
             TouchableElement = TouchableNativeFeedback;
         }
+
         var swiperWidth = 320;
-        var itemWidth = swiperWidth - 90;
+        var placeContainerOffset = 90;
 
         return (
             <View style={styles.container}>
@@ -93,39 +97,37 @@ var GasFoodSubSwiper = React.createClass({
                     prevButton={<NextPrevButton name={'chevron-left'} />}
                     showsButtons={true}
                     showsPagination={false}
-                    style={[
-                        styles.swiper,
-                        {width: itemWidth}
-                    ]}
                     width={swiperWidth}>
                     {this.props.options.map((place) => {
+                        var source = this.props.image || {uri: place.image};
+
                         return (
                             <View
-                                key={i++}
-                                style={[
-                                    styles.placeContainer,
-                                    {width: itemWidth}
-                                ]}>
-                                {isFood && <Image style={styles.image} source={{uri: place.image}}/>}
-                                <View style={styles.col}>
+                                style={[styles.placeContainer, {
+                                    marginLeft: placeContainerOffset / 2,
+                                    marginRight: placeContainerOffset / 2,
+                                }]}
+                                key={i++}>
+                                <View style={styles.imageContainer}>
+                                    <Image style={styles.image} source={source}/>
+                                </View>
+                                <View style={styles.textContainer}>
                                     <Text style={styles.name}>{place.name}</Text>
-                                    {place.price && <Text style={isFood && styles.texts} numberOfLines={1}>{place.price + " dollars"}</Text>}
-                                    <Text style={isFood && styles.texts} numberOfLines={1}>{"More than " + place.distance + " miles"}</Text>
-                                    {place.rating && <Text style={isFood && styles.texts} numberOfLines={1}>{place.rating + " Stars"}</Text>}
+                                    {place.price && <Text numberOfLines={1}>{"$" + place.price + " regular"}</Text>}
+                                    <Text numberOfLines={1}>{place.distance + " miles"}</Text>
+                                    {place.score && <Text numberOfLines={1}>{place.score + " stars"}</Text>}
                                 </View>
                             </View>
                         );
                     })}
                 </Swiper>
-                <View style={{width: itemWidth}}>
-                    <TouchableElement
-                        style={styles.button}
-                        onPress={this.getDirections}>
-                        <View>
-                            <Text style={styles.buttonText}>Start Route Guidance</Text>
-                        </View>
-                    </TouchableElement>
-                </View>
+                <TouchableElement
+                    style={[styles.button, {
+                        width: swiperWidth - placeContainerOffset,
+                    }]}
+                    onPress={this.getDirections}>
+                        <Text style={styles.buttonText}>Start Route Guidance</Text>
+                </TouchableElement>
             </View>
         );
     }
@@ -148,24 +150,17 @@ var GasFoodSwiper = React.createClass({
     render: function() {
         var morethanzerooptions = this.props.options.length > 0;
         var isLoading = this.props.loading;
-        var show_swiper_or_error
+        var show_swiper_or_error;
         if (morethanzerooptions){
-            var show_swiper_or_error = <GasFoodSubSwiper
-                                            options={this.props.options}
-                                            title={this.props.title}
-                                            latitude={this.props.latitude}
-                                            longitude={this.props.longitude}
-                                            foodIndex={this.props.foodIndex}
-                                            gasIndex={this.props.gasIndex}
-                                            onSwipe={this.props.onSwipe}/>;
+            show_swiper_or_error = <GasFoodSubSwiper {...this.props} />;
         }
         else{
             if (isLoading == true) {
-                var show_swiper_or_error= (<View style={styles.no_options}>
+                show_swiper_or_error= (<View style={styles.no_options}>
                     <Spinner size={'large'} style={styles.spinner}/>
                     </View>)
             } else {
-                var show_swiper_or_error= (<View style={styles.no_options}>
+                show_swiper_or_error= (<View style={styles.no_options}>
                     <Text>{this.state.error_message}</Text>
                     </View>)
             }
@@ -203,11 +198,15 @@ var styles = StyleSheet.create({
         alignItems: 'center',
     },
     no_options: {
-        height:110,
-        width:300,
-        flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
+        flex: 1,
+        height:110,
+        justifyContent: 'center',
+        width:300,
+    },
+    imageContainer: {
+        flex: 1,
+        flexDirection: 'column',
     },
     image: {
         height: 100,
@@ -216,28 +215,25 @@ var styles = StyleSheet.create({
     name: {
         fontSize: 16,
         fontWeight: 'bold',
-        width: 120,
-    },
-    texts: {
-        width: 120,
     },
     placeContainer: {
         flex: 1,
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     row: {
         flexDirection: 'row',
-    },
-    swiper: {
-        alignSelf: 'center',
     },
     spinner: {
         alignSelf:'center',
     },
     swiperButton: {
         color: '#CCCCCC',
+    },
+    textContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
     },
     title: {
         color: '#404040',

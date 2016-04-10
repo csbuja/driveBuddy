@@ -61,13 +61,14 @@ var GasSwiperContainer = React.createClass({
     render: function() {
         return (
             <GasFoodSwiper
-                latitude={this.props.currentPosition.latitude}
-                longitude={this.props.currentPosition.longitude}
-                onSwipe={this.props.onSwipe}
                 foodIndex={this.props.foodIndex}
                 gasIndex={this.props.gasIndex}
-                options={this.state.options}
+                image={require('../Images/gasstation.png')}
+                latitude={this.props.currentPosition.latitude}
                 loading={this.state.loading}
+                longitude={this.props.currentPosition.longitude}
+                onSwipe={this.props.onSwipe}
+                options={this.state.options}
                 style={this.props.style}
                 title={"Gas"}
             />

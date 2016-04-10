@@ -10,6 +10,7 @@ dependencies: \
   ../node_modules/react-native/React/Base/RCTFrameUpdate.h \
   ../node_modules/react-native/React/Base/RCTInvalidating.h \
   ../node_modules/react-native/React/Base/RCTJavaScriptExecutor.h \
+  /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/ios/../node_modules/react-native-facebook-login/FacebookSDK/FBSDKCoreKit.framework/Modules/module.modulemap \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/ios/../node_modules/react-native-facebook-login/FacebookSDK/FBSDKCoreKit.framework/Headers/FBSDKGraphRequestDataAttachment.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/ios/../node_modules/react-native-facebook-login/FacebookSDK/FBSDKCoreKit.framework/Headers/FBSDKGraphErrorRecoveryProcessor.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/ios/../node_modules/react-native-facebook-login/FacebookSDK/FBSDKCoreKit.framework/Headers/FBSDKAppLinkResolver.h \
@@ -30,12 +31,11 @@ dependencies: \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/ios/../node_modules/react-native-facebook-login/FacebookSDK/FBSDKCoreKit.framework/Headers/FBSDKCopying.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/ios/../node_modules/react-native-facebook-login/FacebookSDK/FBSDKCoreKit.framework/Headers/FBSDKAccessToken.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/ios/../node_modules/react-native-facebook-login/FacebookSDK/FBSDKCoreKit.framework/Headers/FBSDKCoreKit.h \
-  /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/ios/../node_modules/react-native-facebook-login/FacebookSDK/FBSDKCoreKit.framework/Modules/module.modulemap \
+  /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/ios/../node_modules/react-native-facebook-login/FacebookSDK/FBSDKLoginKit.framework/Modules/module.modulemap \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/ios/../node_modules/react-native-facebook-login/FacebookSDK/FBSDKLoginKit.framework/Headers/FBSDKLoginTooltipView.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/ios/../node_modules/react-native-facebook-login/FacebookSDK/FBSDKLoginKit.framework/Headers/FBSDKLoginManagerLoginResult.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/ios/../node_modules/react-native-facebook-login/FacebookSDK/FBSDKLoginKit.framework/Headers/FBSDKLoginConstants.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/ios/../node_modules/react-native-facebook-login/FacebookSDK/FBSDKLoginKit.framework/Headers/FBSDKTooltipView.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/ios/../node_modules/react-native-facebook-login/FacebookSDK/FBSDKLoginKit.framework/Headers/FBSDKLoginManager.h \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/ios/../node_modules/react-native-facebook-login/FacebookSDK/FBSDKLoginKit.framework/Headers/FBSDKLoginButton.h \
-  /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/ios/../node_modules/react-native-facebook-login/FacebookSDK/FBSDKLoginKit.framework/Headers/FBSDKLoginKit.h \
-  /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/ios/../node_modules/react-native-facebook-login/FacebookSDK/FBSDKLoginKit.framework/Modules/module.modulemap
+  /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/ios/../node_modules/react-native-facebook-login/FacebookSDK/FBSDKLoginKit.framework/Headers/FBSDKLoginKit.h
