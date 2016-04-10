@@ -146,14 +146,16 @@ app.all('/api/rerate/:userid', function(req, res){
 	});
 });
 
-app.all('/api/rate/:userid/:restaurant/:rate', function(req,res){
+app.all('/api/rate/:userid/', function(req,res){
 	var term = {
 		userid: req.params.userid,
-		restaurant_id: req.params.restaurant,
-		rate: req.params.rate
+		restaurant_id: req.body.id,
+		name: req.body.name,
+		rate: req.body.rating,
+		foodtype: (req.body.categories).toString()
 	};
 	var dup = {
-		rate: req.params.rate
+		rate: req.body.rate
 	};
 	db.query('INSERT INTO rate SET ? ON DUPLICATE KEY UPDATE rate=VALUES(rate)', term, function(err, result) {
 		if (err) throw err;

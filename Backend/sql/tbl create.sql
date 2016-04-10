@@ -24,7 +24,7 @@ create table rate(
 	restaurant_id varchar(255) not null,
 	name varchar(255),
 	foodtype varchar(255),
-	rate double,
+	rate double not null,
 	primary key (userid, restaurant_id),
 	foreign key (userid) references user(userid) on delete cascade
 );
