@@ -254,7 +254,6 @@ module.exports = {
 						db.query(query, function (err,result) {
 							if (err) throw err;
 							else{
-console.log(result)	;							
 var name = result[0].restaurant_id;
 								var count = 0;
 								var j = 0;
@@ -309,11 +308,11 @@ var name = result[0].restaurant_id;
 									if (!err) {
 										var dict = {};
 										child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
-											console.log(data);									
 											dict[restaurant_id] = parseFloat(data);
-											//child_process.exec('rm ' + filename, function () {});
+											child_process.exec('rm ' + filename, function () {});
 											deferred.resolve([dict,index]);});
 										 } else {
+											console.log(err);
 											throw err;
 									}
 								});
