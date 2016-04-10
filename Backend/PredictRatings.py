@@ -13,7 +13,6 @@ if len(sys.argv) == 2:
         num_lines = 0
 
         for line in f:
-            print line
             if num_lines == 0:
                 user_restaurant = line.split(',')
                 user_index = int(user_restaurant[0])
