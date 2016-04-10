@@ -4,7 +4,10 @@ var GasFoodSwiperContainer = require('./GasFoodSwiperContainer');
 var React = require('react-native');
 var TimerMixin = require('react-native-timer-mixin');
 
-var {PropTypes} = React;
+var {
+    AsyncStorage,
+    PropTypes
+} = React;
 
 var FoodSwiperContainer = React.createClass({
     mixins: [TimerMixin],
@@ -28,6 +31,7 @@ var FoodSwiperContainer = React.createClass({
         return {
             options: [],
             loading: false,
+            userID: '',
         };
     },
 
@@ -44,6 +48,8 @@ var FoodSwiperContainer = React.createClass({
     },
 
     componentWillMount: function() {
+        this._getUserID();
+
         this._setOptions(
             this.props.currentPosition,
             this.props.lastPosition
@@ -79,7 +85,8 @@ var FoodSwiperContainer = React.createClass({
         this.setState({loading: true});
         if (currentPosition.latitude && currentPosition.longitude) {
             // TODO (urlauba): change url path
-            fetch('http://73.161.192.135:3000/api/yelp/' + current + '/' + last)
+            fetch('http://73.161.192.135:3000/api/yelp/'
+                + current + '/' + last + '/' + this.state.userID)
                 .then((response) => response.text())
                 .then((responseText) => {
                     var data = JSON.parse(responseText);
@@ -89,10 +96,21 @@ var FoodSwiperContainer = React.createClass({
                 })
                 .catch((error) => {
                     // TODO (urlauba): handle error state
-                    console.log('error')
+                    console.log('error');
+                    console.log(error)
                     this.setState({loading: false});
                 });
         }
+    },
+
+    _getUserID: function() {
+        AsyncStorage.getItem('userID')
+            .then(function(userID) {
+                this.setState({userID: userID});
+            }.bind(this))
+            .catch(function(error) {
+                console.log('error retrieving userID from disc' + error);
+            });
     },
 });
 
