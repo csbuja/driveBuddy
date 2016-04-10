@@ -38,7 +38,7 @@ var GasFoodSubSwiper = React.createClass({
     propTypes: {
         foodIndex: PropTypes.number,
         gasIndex: PropTypes.number,
-        image: PropTypes.string,
+        image: PropTypes.any,
         latitude: PropTypes.number,
         longitude: PropTypes.number,
         onSwipe: PropTypes.func.isRequired,
@@ -78,6 +78,7 @@ var GasFoodSubSwiper = React.createClass({
         var url = 'comgooglemaps://?saddr=' + saddr + '&daddr=' + daddr + '&directionsmode=' + directionsmode;
         Linking.openURL(url).catch(err => console.error('An error occurred', err));
     },
+
     render: function(){
         var TouchableElement = TouchableHighlight;
 
@@ -86,7 +87,8 @@ var GasFoodSubSwiper = React.createClass({
         }
 
         var swiperWidth = 320;
-        var itemWidth = swiperWidth - 90;
+        var placeContainerOffset = 90;
+
         return (
             <View style={styles.container}>
                 <Swiper onMomentumScrollEnd={this._onMomentumScrollEnd}
@@ -95,41 +97,37 @@ var GasFoodSubSwiper = React.createClass({
                     prevButton={<NextPrevButton name={'chevron-left'} />}
                     showsButtons={true}
                     showsPagination={false}
-                    style={[
-                        styles.swiper,
-                        {width: itemWidth}
-                    ]}
                     width={swiperWidth}>
                     {this.props.options.map((place) => {
                         var source = this.props.image || {uri: place.image};
 
                         return (
                             <View
-                                key={i++}
-                                style={[
-                                    styles.placeContainer,
-                                    {width: itemWidth}
-                                ]}>
-                                <Image style={styles.image} source={source}/>
-                                <View style={styles.col}>
+                                style={[styles.placeContainer, {
+                                    marginLeft: placeContainerOffset / 2,
+                                    marginRight: placeContainerOffset / 2,
+                                }]}
+                                key={i++}>
+                                <View style={styles.imageContainer}>
+                                    <Image style={styles.image} source={source}/>
+                                </View>
+                                <View style={styles.textContainer}>
                                     <Text style={styles.name}>{place.name}</Text>
-                                    {place.price && <Text style={styles.texts} numberOfLines={1}>{place.price + " dollars"}</Text>}
-                                    <Text style={styles.texts} numberOfLines={1}>{place.distance + " miles"}</Text>
-                                    {place.rating && <Text style={styles.texts} numberOfLines={1}>{place.rating + " stars"}</Text>}
+                                    {place.price && <Text numberOfLines={1}>{place.price + " dollars"}</Text>}
+                                    <Text numberOfLines={1}>{place.distance + " miles"}</Text>
+                                    {place.score && <Text numberOfLines={1}>{place.score + " stars"}</Text>}
                                 </View>
                             </View>
                         );
                     })}
                 </Swiper>
-                <View style={{width: itemWidth}}>
-                    <TouchableElement
-                        style={styles.button}
-                        onPress={this.getDirections}>
-                        <View>
-                            <Text style={styles.buttonText}>Start Route Guidance</Text>
-                        </View>
-                    </TouchableElement>
-                </View>
+                <TouchableElement
+                    style={[styles.button, {
+                        width: swiperWidth - placeContainerOffset,
+                    }]}
+                    onPress={this.getDirections}>
+                        <Text style={styles.buttonText}>Start Route Guidance</Text>
+                </TouchableElement>
             </View>
         );
     }
@@ -200,11 +198,15 @@ var styles = StyleSheet.create({
         alignItems: 'center',
     },
     no_options: {
-        height:110,
-        width:300,
-        flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
+        flex: 1,
+        height:110,
+        justifyContent: 'center',
+        width:300,
+    },
+    imageContainer: {
+        flex: 1,
+        flexDirection: 'column',
     },
     image: {
         height: 100,
@@ -213,28 +215,25 @@ var styles = StyleSheet.create({
     name: {
         fontSize: 16,
         fontWeight: 'bold',
-        width: 120,
-    },
-    texts: {
-        width: 120,
     },
     placeContainer: {
         flex: 1,
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     row: {
         flexDirection: 'row',
-    },
-    swiper: {
-        alignSelf: 'center',
     },
     spinner: {
         alignSelf:'center',
     },
     swiperButton: {
         color: '#CCCCCC',
+    },
+    textContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
     },
     title: {
         color: '#404040',
