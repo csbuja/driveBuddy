@@ -14,6 +14,8 @@ var {
 
 var GasFoodSwiperContainer = React.createClass({
     propTypes: {
+        hasNewOptions: PropTypes.bool.isRequired,
+        hasSetOptions: PropTypes.func.isRequired,
         latitude: PropTypes.number,
         loading: PropTypes.bool.isRequired,
         longitude: PropTypes.number,
@@ -31,6 +33,8 @@ var GasFoodSwiperContainer = React.createClass({
         return (
             <View style={styles.container}>
                 <GasFoodSwiper
+                    hasNewOptions={this.props.hasNewOptions}
+                    hasSetOptions={this.props.hasSetOptions}
                     loading={this.props.loading}
                     onSwipe={this.props.onSwipe}
                     options={this.props.options}

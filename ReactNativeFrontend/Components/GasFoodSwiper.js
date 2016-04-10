@@ -34,11 +34,21 @@ var NextPrevButton = React.createClass({
 
 var GasFoodSubSwiper = React.createClass({
     propTypes: {
+        hasNewOptions: PropTypes.bool.isRequired,
+        hasSetOptions: PropTypes.func.isRequired,
         onSwipe: PropTypes.func.isRequired,
         options: PropTypes.array.isRequired,
         placeContainerOffset: PropTypes.number.isRequired,
         swiperWidth: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
+    },
+
+    shouldComponentUpdate: function(nextProps, nextState) {
+        if (nextProps.hasNewOptions) {
+            this.props.hasSetOptions();
+            return true;
+        }
+        return false;
     },
 
     _onMomentumScrollEnd: function (e, swiperState, context) {
@@ -83,6 +93,8 @@ var GasFoodSubSwiper = React.createClass({
 
 var GasFoodSwiper = React.createClass({
     propTypes: {
+        hasNewOptions: PropTypes.bool.isRequired,
+        hasSetOptions: PropTypes.func.isRequired,
         loading: PropTypes.bool.isRequired,
         onSwipe: PropTypes.func,
         options: PropTypes.array.isRequired,
@@ -102,6 +114,8 @@ var GasFoodSwiper = React.createClass({
         if (morethanzerooptions){
             show_swiper_or_error =
                 <GasFoodSubSwiper
+                    hasNewOptions={this.props.hasNewOptions}
+                    hasSetOptions={this.props.hasSetOptions}
                     onSwipe={this.props.onSwipe}
                     options={this.props.options}
                     placeContainerOffset={this.props.placeContainerOffset}
