@@ -304,20 +304,18 @@ var name = result[0].restaurant_id;
 									}
 									i ++;
 								}
-console.log(data)
 								var filename = "./tmp/" +Date.now().toString() + "-"+userid + "-" + restaurant_id + ".txt";
 								fs.writeFile(filename, data, function(err){
 									if (!err) {
-								var dict = {};
-								child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
-console.log(data);									
-dict[restaurant_id] = parseFloat(data);
-									//child_process.exec('rm ' + filename, function () {});
-									deferred.resolve([dict,index]);
-								})
-									 } else {
-throw err;
-									 }
+										var dict = {};
+										child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
+											console.log(data);									
+											dict[restaurant_id] = parseFloat(data);
+											//child_process.exec('rm ' + filename, function () {});
+											deferred.resolve([dict,index]);});
+										 } else {
+											throw err;
+									}
 								});
 							}
 						});
