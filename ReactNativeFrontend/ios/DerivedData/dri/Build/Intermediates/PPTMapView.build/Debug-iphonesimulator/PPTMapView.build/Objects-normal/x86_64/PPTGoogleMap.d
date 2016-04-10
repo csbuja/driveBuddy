@@ -1,6 +1,7 @@
 dependencies: \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/@pod-point/react-native-maps/ios/PPTGoogleMap.m \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/@pod-point/react-native-maps/ios/PPTGoogleMap.h \
+  ../ios_modules/GoogleMaps-1.10.4/Frameworks/GoogleMaps.framework/Modules/module.modulemap \
   ../ios_modules/GoogleMaps-1.10.4/Frameworks/GoogleMaps.framework/Headers/GMSURLTileLayer.h \
   ../ios_modules/GoogleMaps-1.10.4/Frameworks/GoogleMaps.framework/Headers/GMSTileLayer.h \
   ../ios_modules/GoogleMaps-1.10.4/Frameworks/GoogleMaps.framework/Headers/GMSSyncTileLayer.h \
@@ -50,7 +51,6 @@ dependencies: \
   ../ios_modules/GoogleMaps-1.10.4/Frameworks/GoogleMaps.framework/Headers/GMSMapView.h \
   ../ios_modules/GoogleMaps-1.10.4/Frameworks/GoogleMaps.framework/Headers/GMSAddress.h \
   ../ios_modules/GoogleMaps-1.10.4/Frameworks/GoogleMaps.framework/Headers/GoogleMaps.h \
-  ../ios_modules/GoogleMaps-1.10.4/Frameworks/GoogleMaps.framework/Modules/module.modulemap \
   ../../../react-native/React/Base/RCTConvert.h \
   ../../../react-native/React/Layout/Layout.h \
   ../../../react-native/React/Views/RCTAnimationType.h \

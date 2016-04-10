@@ -1,5 +1,6 @@
 dependencies: \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/@pod-point/react-native-maps/ios/PPTGoogleMapProvider.m \
+  ../ios_modules/GoogleMaps-1.10.4/Frameworks/GoogleMaps.framework/Modules/module.modulemap \
   ../ios_modules/GoogleMaps-1.10.4/Frameworks/GoogleMaps.framework/Headers/GMSURLTileLayer.h \
   ../ios_modules/GoogleMaps-1.10.4/Frameworks/GoogleMaps.framework/Headers/GMSTileLayer.h \
   ../ios_modules/GoogleMaps-1.10.4/Frameworks/GoogleMaps.framework/Headers/GMSSyncTileLayer.h \
@@ -49,5 +50,4 @@ dependencies: \
   ../ios_modules/GoogleMaps-1.10.4/Frameworks/GoogleMaps.framework/Headers/GMSMapView.h \
   ../ios_modules/GoogleMaps-1.10.4/Frameworks/GoogleMaps.framework/Headers/GMSAddress.h \
   ../ios_modules/GoogleMaps-1.10.4/Frameworks/GoogleMaps.framework/Headers/GoogleMaps.h \
-  ../ios_modules/GoogleMaps-1.10.4/Frameworks/GoogleMaps.framework/Modules/module.modulemap \
   /Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/@pod-point/react-native-maps/ios/PPTGoogleMapProvider.h
