@@ -78,9 +78,111 @@ module.exports = {
 
         return businesses;
     },
+	get_sum:function(list){
+		var sum = 0;
+		for(var i = 0; i < list.length; i ++){
+			sum += list[i];
+		}
+		return sum;
+	},
+	
+	get_cos:function(list1, list2){
+		var numerator = _.intersection(list1, list2);
+		numerator = numerator.length;
+		var denominator = Math.sqrt(list1.length) * Math.sqrt(list2.length);
+		return (numerator / denominator);
+	},
+	get_sim:function(list1, list2){
+		var numerator = _.intersection(list1, list2);
+		var denomiator = _.union(list1, list2);
+		return (numerator.length/denomiator.length);
+	},
+	rate_sim:function(businesses, survey){
+		var food = [];
+		var rate = {};
+		for(var i = 0; i < survey.length; i ++){
+			var str = survey[i].foodtype;
+			food.push(str.split(','));
+		}
+		for(var i = 0; i < businesses.length; i++){
+			var weight_rate = 0;
+			var sum = 0;
+			for(var j = 0; j < survey.length; j++){
+				var temp = this.get_sim(food[j], businesses[i].categories);
+				weight_rate = weight_rate + survey[j].rate * temp;
+				sum = sum + temp;
+			}
+			if(sum == 0){
+				rate[businesses[i].id] = 0;
+			}
+			else{
+				rate[businesses[i].id] = weight_rate/sum;
+			}
+		}
+		return(rate);		
+	},
+	
+	rate_cosine: function(businesses, survey){
+		var food = [];
+		var rate = {};
+		for(var i = 0; i < survey.length; i ++){
+			var str = survey[i].foodtype;
+			food.push(str.split(','));
+		}		
+		for(var i = 0; i < businesses.length; i++){
+			var weight_rate = 0;
+			var sum = 0;
+			for(var j = 0; j < survey.length; j++){
+				var temp = this.get_cos(food[j], businesses[i].categories);
+				weight_rate = weight_rate + survey[j].rate * temp;
+				sum = sum + temp;
+			}
+			if(sum == 0){
+				rate[businesses[i].id] = 0;
+			}
+			else{
+				rate[businesses[i].id] = weight_rate/sum;
+			}
+		}
+		return(rate);
+	},
 
+	rate_weigh:function(businesses, survey){
+		var food = {};
+		var rate = {};
+		for(var i = 0; i < survey.length; i ++){
+			var str = survey[i].foodtype;
+			var temp = str.split(',');
+			for(var j = 0; j < temp.length; j ++){
+				if(temp[j] in food){
+					food[temp[j]].push(survey[i].rate);
+				}
+				else{
+					food[temp[j]] = [survey[i].rate];
+				}
+			}
+		}
+		for(var i = 0; i < businesses.length; i++){
+			var sum = 0;
+			var count = 0;
+			for(var j = 0; j < businesses[i].categories.length; j ++){
+				if(businesses[i].categories[j] in food){
+					sum = sum + this.get_sum(food[businesses[i].categories[j]]);
+					count = count + food[businesses[i].categories[j]].length;
+				}
+			}
+			if(count){
+				rate[businesses[i].id] = sum/count;
+			}
+			else{
+				rate[businesses[i].id] =0;
+			}
+		}
+		return(rate);
+	},
+	/*
 	re_rate: function(businesses, survey){
-		var count = [];
+		var count = {};
 		var max_count = survey.length + 1;
 		for(var i = 0; i < businesses.length; ++i){
 			var same = 1;
@@ -101,18 +203,16 @@ module.exports = {
 
 			}
 			if(same == max_count){
-				rating = 5;
+				rating = businesses[i].rating;
 			}
 			else{
 				rating = rating * (same / max_count);
 			}
-			count.push({id:businesses[i].id, rating: rating});
+			count[businesses[i].id]= rating;
 		}
-		count.sort(function(a, b) {
-			return (a.rating - b.rating) < 0;
-		});
 		return count;
 	},
+	*/
 	//note: the limit on yelp api calls is 25,000 per day
 	//if we go over this, contact api@yelp.com
 	getNeeds : function(res, type, lat, lng, yelp, foodFavs){
