@@ -242,8 +242,8 @@ module.exports = {
 
 	write_file: function(userid, restaurant_id,index){
 		var deferred = Q.defer();
-		userid = userid.toString("utf8");
-		restaurant_id = restaurant_id.toString("utf8");
+		userid = userid.toString("ISO-8859-1");
+		restaurant_id = restaurant_id.toString("ISO-8859-1");
 		db.query('select * from rate where userid = \'' + userid +'\' and restaurant_id = \'' + restaurant_id + '\'',
 		function(err, result){
 			if (err) {
