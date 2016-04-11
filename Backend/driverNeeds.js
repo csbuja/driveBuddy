@@ -243,7 +243,7 @@ module.exports = {
 	write_file: function(userid, restaurant_id,index){
 		var deferred = Q.defer();
 		userid = userid.toString();
-		restaurant_id = userid.toString();
+		restaurant_id = restaurant_id.toString();
 		db.query('select * from rate where userid = \'' + userid +'\' and restaurant_id = \'' + restaurant_id + '\'',
 		function(err, result){
 			if (err) {
