@@ -202,7 +202,7 @@ app.all('/api/test/', function(req,res){
 			}
 		});
 	}
-	
+
 
 });
 
@@ -335,7 +335,7 @@ app.get('/api/yelp/:currentPosition/:lastPosition/:userid',function (req, res) {
 					makeQueries(restaurants,userid).then(function(CFscores){
 					//result will be a JSON string
 						_.each(yelpdata, function(v,key){
-							yelpdata[key]['score'] = CFscores[key];
+							yelpdata[key]['score'] = CFscores[key].toFixed(1);
 						});
 						res.send(JSON.stringify(yelpdata));
 					});
