@@ -6,7 +6,15 @@ var calcDistance = require('./calcDistance.js');
 
 var MAX_RADIUS = 40000;
 var db = require('./db');
-var Q = require('q')
+var Q = require('q');
+var Yelp = require('yelp');
+var yelp = new Yelp({
+	consumer_key: "T0VjCY0WkEUOuyC5U46qMw",
+	consumer_secret: "LwzcaQMBcdE2cz-iv5M3KDxHwCk",
+	token: "rFX5f23ObBPeznE6DQdkyb_8Y8UNXw0q",
+	token_secret: "5kBF1E8lkxcGwUATNyElljvhZBo"
+});
+
 module.exports = {
 	filterGasFeed: function (data, lat, lon){
 		var setOfStations = [];
@@ -254,7 +262,6 @@ module.exports = {
 						db.query(query, function (err,result) {
 							if (err) throw err;
 							else{
-console.log(result)	;							
 var name = result[0].restaurant_id;
 								var count = 0;
 								var j = 0;
@@ -309,11 +316,11 @@ var name = result[0].restaurant_id;
 									if (!err) {
 										var dict = {};
 										child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
-											console.log(data);									
 											dict[restaurant_id] = parseFloat(data);
-											//child_process.exec('rm ' + filename, function () {});
+											child_process.exec('rm ' + filename, function () {});
 											deferred.resolve([dict,index]);});
 										 } else {
+											console.log(err);
 											throw err;
 									}
 								});
@@ -347,5 +354,7 @@ var name = result[0].restaurant_id;
 		'tapasmallplates','tex-mex','thai','tradamerican','traditional_swedish','trattorie','turkish',
 		'ukrainian','uzbek','vegan','vegetarian','venison','vietnamese','wok','wraps','yugoslav'];
 	},
+	
+
 
 }

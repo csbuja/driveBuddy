@@ -36,6 +36,7 @@ var MapContainer = React.createClass({
     },
 
     render: function() {
+        var j = 0;
         var markersOptions = {};
 
         var gasicon = 'https://cdn3.iconfinder.com/data/icons/map/500/gasstation-512.png';
@@ -43,9 +44,10 @@ var MapContainer = React.createClass({
         for (var i = 0; i < numberOfGasMarkers; i++) {
             var place = this.props.gasOptions[i];
             if (i == this.props.gasIndex) {
-                markersOptions[String(place.name)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: gasicon, scale: 10.0}, active: true};
+                console.log('PLACE')
+                markersOptions[String(j++)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: gasicon, scale: 10.0}, active: true};
             } else {
-                markersOptions[String(place.name)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: gasicon, scale: 10.0}};
+                markersOptions[String(j++)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: gasicon, scale: 10.0}};
             }
         }
 
@@ -53,15 +55,15 @@ var MapContainer = React.createClass({
         for (var i = 0; i < numberOfFoodMarkers; i++) {
             var place = this.props.foodOptions[i];
             if (i == this.props.foodIndex) {
-                markersOptions[String(place.name)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: place.image, scale: 3.0}, active: true};
+                markersOptions[String(j++)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: place.image, scale: 3.0}, active: true};
             } else {
-                markersOptions[String(place.name)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: place.image, scale: 3.0}};
+                markersOptions[String(j++)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: place.image, scale: 3.0}};
             }
         }
 
         return (
             <View style={styles.container}>
-                <GoogleMap 
+                <GoogleMap
                     markersSet={markersOptions}
                     style={styles.map}
                     cameraPosition={{auto: true, zoom: 13}}
