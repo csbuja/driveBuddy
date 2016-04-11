@@ -1,6 +1,5 @@
 'use strict';
 
-var Icon = require('react-native-vector-icons/FontAwesome');
 var React = require('react-native');
 var Spinner = require('react-native-gifted-spinner');
 var Swiper = require('react-native-swiper');
@@ -14,23 +13,6 @@ var {
     TouchableHighlight,
     TouchableNativeFeedback
 } = React;
-var i = 0;
-
-var NextPrevButton = React.createClass({
-    PropTypes: {
-        name: PropTypes.string.isRequired,
-    },
-
-    render: function() {
-        return (
-            <Icon
-                name={this.props.name}
-                size={20}
-                color={'#CCCCCC'}
-            />
-        );
-    }
-});
 
 var GasFoodSubSwiper = React.createClass({
     propTypes: {
@@ -61,8 +43,8 @@ var GasFoodSubSwiper = React.createClass({
             <Swiper
                 onMomentumScrollEnd={this._onMomentumScrollEnd}
                 height={110}
-                nextButton={<NextPrevButton name={'chevron-right'} />}
-                prevButton={<NextPrevButton name={'chevron-left'} />}
+                nextButton={<Text style={styles.swiperButton}>›</Text>}
+                prevButton={<Text style={styles.swiperButton}>‹</Text>}
                 showsButtons={true}
                 showsPagination={false}
                 width={this.props.swiperWidth}>
@@ -181,7 +163,9 @@ var styles = StyleSheet.create({
         alignSelf:'center',
     },
     swiperButton: {
-        color: '#CCCCCC',
+        fontSize: 50,
+        color: '#cccccc',
+        fontFamily: 'Arial'
     },
     textContainer: {
         flex: 1,
