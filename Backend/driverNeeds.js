@@ -262,7 +262,7 @@ module.exports = {
 						db.query(query, function (err,result) {
 							if (err) throw err;
 							else{
-								var name = result[0].restaurant_id;
+var name = result[0].restaurant_id;
 								var count = 0;
 								var j = 0;
 								var data = "";
@@ -313,18 +313,17 @@ module.exports = {
 								}
 								var filename = "./tmp/" +Date.now().toString() + "-"+userid + "-" + restaurant_id + ".txt";
 								fs.writeFile(filename, data, function(err){
-									if (err) {
-									   throw err;
-									 } else {
-
-									 }
+									if (!err) {
+										var dict = {};
+										child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
+											dict[restaurant_id] = parseFloat(data);
+											child_process.exec('rm ' + filename, function () {});
+											deferred.resolve([dict,index]);});
+										 } else {
+											console.log(err);
+											throw err;
+									}
 								});
-								var dict = {};
-								child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
-									dict[restaurant_id] = parseFloat(data);
-									child_process.exec('rm ' + filename, function () {});
-									deferred.resolve([dict,index]);
-								})
 							}
 						});
 					});
