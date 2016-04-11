@@ -1,0 +1,11 @@
+0,2,5,korean
+4,4,3.5,coffee,vegetarian,sandwiches
+6,3,2,pizza
+7,4,2.5,pizza
+8,4,3,pizza,tradamerican,bars
+12,2,4,korean,bbq
+15,1,5,italian,pizza
+15,2,4.5,italian,pizza
+18,2,2,sandwiches
+24,4,5,hotdogs,mexican
+33,3,3.5,bars,irish
