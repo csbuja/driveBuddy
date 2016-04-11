@@ -97,6 +97,7 @@ var FoodSwiperContainer = React.createClass({
                 .then((responseText) => {
                     var data = JSON.parse(responseText);
                     var options = Object.keys(data).map(function(k) { return data[k] });
+                    options.sort((a, b) => { return (a.score < b.score) ? 1 : ((b.score < a.score) ? -1 : 0); });
                     this.setState({options: options, loading: false});
                     this.props.onSetOptions(options);
                 })
