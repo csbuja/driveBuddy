@@ -242,7 +242,7 @@ module.exports = {
 
 	write_file: function(userid, restaurant_id,index){
 		var deferred = Q.defer();
-		db.query('select * from rate where userid = ' + userid +' and restaurant_id = \'' + restaurant_id + '\'',
+		db.query('select * from rate where userid = \'' + userid +'\' and restaurant_id = \'' + restaurant_id + '\'',
 		function(err, result){
 			if (err) {
 				console.log(err);
@@ -256,9 +256,9 @@ module.exports = {
 					deferred.resolve(dict);
 				}
 				else{
-					var query_sub = 'select distinct userid from rate where userid =' + userid +' or userid in (select R1.userid from rate R1, rate R2 where R1.restaurant_id= \"' + restaurant_id + '\" and R2.restaurant_id in (select restaurant_id from rate where userid = ' + userid + ') and R1.userid = R2.userid) order by userid';
+					var query_sub = 'select distinct userid from rate where userid =\'' + userid +'\' or userid in (select R1.userid from rate R1, rate R2 where R1.restaurant_id= \"' + restaurant_id + '\" and R2.restaurant_id in (select restaurant_id from rate where userid = \'' + userid + '\') and R1.userid = R2.userid) order by userid';
 					db.query(query_sub, function(err, result_sub){
-						var query = 'select * from rate where userid =' + userid +' or userid in (select R1.userid from rate R1, rate R2 where R1.restaurant_id= \"' + restaurant_id + '\" and R2.restaurant_id in (select restaurant_id from rate where userid = ' + userid + ') and R1.userid = R2.userid) order by restaurant_id, userid';
+						var query = 'select * from rate where userid =\'' + userid +'\' or userid in (select R1.userid from rate R1, rate R2 where R1.restaurant_id= \"' + restaurant_id + '\" and R2.restaurant_id in (select restaurant_id from rate where userid = \'' + userid + '\') and R1.userid = R2.userid) order by restaurant_id, userid';
 						db.query(query, function (err,result) {
 							if (err) throw err;
 							else{
