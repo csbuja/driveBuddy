@@ -6,7 +6,15 @@ var calcDistance = require('./calcDistance.js');
 
 var MAX_RADIUS = 40000;
 var db = require('./db');
-var Q = require('q')
+var Q = require('q');
+var Yelp = require('yelp');
+var yelp = new Yelp({
+	consumer_key: "T0VjCY0WkEUOuyC5U46qMw",
+	consumer_secret: "LwzcaQMBcdE2cz-iv5M3KDxHwCk",
+	token: "rFX5f23ObBPeznE6DQdkyb_8Y8UNXw0q",
+	token_secret: "5kBF1E8lkxcGwUATNyElljvhZBo"
+});
+
 module.exports = {
 	filterGasFeed: function (data, lat, lon){
 		var setOfStations = [];
@@ -347,5 +355,7 @@ module.exports = {
 		'tapasmallplates','tex-mex','thai','tradamerican','traditional_swedish','trattorie','turkish',
 		'ukrainian','uzbek','vegan','vegetarian','venison','vietnamese','wok','wraps','yugoslav'];
 	},
+	
+
 
 }

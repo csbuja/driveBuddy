@@ -186,15 +186,23 @@ app.all('/api/get_rate/:userid', function (req,res) { //TODO - spencer and jing
 
 });
 
-app.all('/api/test/:restaurant', function(req,res){
-	var name = req.params.restaurant
-	yelp.search({radius_filter: 40000, location: "Ann Arbor", term: name},function(err, data){
-		if (err){
-			res.send(JSON.stringify([]));
-		}else{
-			res.send(driverNeeds.getYelpBusinesses(data, 'food'));
-		}
-	});
+app.all('/api/test/', function(req,res){
+	var b = req.body.id;
+	var tmp = [];
+	for(var i = 0; i < b.length; ++i){
+		yelp.business(b[i],function(err, data){
+			if (err){
+				res.send("not");
+			}else{
+				var info = [];
+				for(var j = 0; j < data.categories.length; j++){
+					info.push(data.categories[j][1]);
+				}
+				console.log("\'" + data.id.toString()+"\':\'" + info.toString() + "\',");
+			}
+		});
+	}
+	
 
 });
 
