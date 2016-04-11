@@ -35,7 +35,7 @@ var SurveyRestaurantResults = React.createClass({
                     borderBottomWidth: 5,
                     borderColor: '#6BCDFD',
                     height: listHeight,
-                    marginTop: 202,
+                    marginTop: 176,
                 }}>
                     <ListView
                         dataSource={dataSource}
