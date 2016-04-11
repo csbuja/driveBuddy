@@ -13,7 +13,7 @@ def generate_whole(filename1, filename2):
 				first = 1
 			else:
 			#for i in range(1, len(row) - 1):
-				print >> f, '\n'.join(str for str in [str(i)+ ',' + str(a) + ',' + row[a] + ',' + row[len(row)-1] 
+				print >> f, '\n'.join(str for str in [str(i)+ ',' + str(a) + ',' + row[a] + ',\"' + row[len(row)-1] +'\"'
 				for a in range(1, len(row) - 1) if row[a] != ''])
 				i += 1
 	f.close()
