@@ -28,16 +28,23 @@ def similarity_func(F1,F2,rate_j,simtype):
 
 #Fj is array of array of string, Fi is array of string, rate_j is array of float
 def rate_i(Fj,Fi,rates,simtype):
-	numerator =  0.0
-	denomenator = 0.0
+	rate = []
 	if (simtype == 'cos_sim' or simtype == 'jaccard_sim') and len(rates) == len(Fj) :
-		i=0
-		for val in Fj:
-			simvalue = similarity_func(val,Fi,i,simtype)
-			numerator += (simvalue*rates[i])
-			denomenator+=simvalue
-			i+=1
-		return numerator/denomenator #floats
+		for item in Fi:
+			i=0
+			numerator =  0.0
+			denomenator = 0.0
+			for val in Fj:
+				simvalue = similarity_func(val,item,i,simtype)
+				numerator += (simvalue*rates[i])
+				denomenator+=simvalue
+				i+=1
+			if(denomenator):
+		 		rate.append(numerator/denomenator)
+			else:
+				rate.append(0)
+		return rate
+		#floats
 	else:
 		raise ValueError('Wrong simtype or bad lengths of Fj and rates')
 
