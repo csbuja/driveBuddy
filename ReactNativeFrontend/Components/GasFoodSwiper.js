@@ -13,6 +13,7 @@ var {
     TouchableHighlight,
     TouchableNativeFeedback
 } = React;
+var i = 0;
 
 var GasFoodSubSwiper = React.createClass({
     propTypes: {
