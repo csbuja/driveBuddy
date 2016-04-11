@@ -23,8 +23,8 @@ module.exports = {
 			console.log('ERROR FILTERING GASFEED');
 			return setOfStations;
 		}
-
-		for (var i = 0; i < data.length; i++){
+		data.sort((a,b)=>{return (a.reg_price > b.reg_price)?1: ((b.reg_price > a.reg_price)?-1:0);});
+		for (var i = 0; (i < data.length && i < 15); i++){
             var distance = calcDistance(data[i].lat, data[i].lng, lat, lon);
 			if(data[i].reg_price !== "N/A" && distance <= 25) {
 				setOfStations.push({
