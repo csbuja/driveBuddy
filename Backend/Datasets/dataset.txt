@@ -1,3 +1,4 @@
+Res,User,Rate,FoodType
 0,2,5,"korean"
 0,4,3,"korean"
 0,5,3,"korean"
