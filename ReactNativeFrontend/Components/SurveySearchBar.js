@@ -137,6 +137,7 @@ var SurveySearchBar = React.createClass({
             .catch((error) => {
                 this.props.setOptions('{}', false);
                 this.setState({isSearching: false, isSearchBehind: false});
+                this._search(this.state.searchText);
             })
     },
 });
