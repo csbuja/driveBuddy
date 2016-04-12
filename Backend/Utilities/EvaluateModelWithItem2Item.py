@@ -98,7 +98,8 @@ if __name__ == "__main__":
             restaurant_index = testData_xy[i,1]
             predicted[i] = pred_usability_wrapper(trainingData,user_index,restaurant_index)
             i+=1
-        seq = np.arange(0,1,0.05)
+        seq = np.arange(0,1.05,0.05)
+        print seq
         MSE1 = [MSE(ground_truth, [ a * predicted[i] + (1 - a) * estimate1[i] for i in range(len(ground_truth))]) for a in seq]
         MSE2 = [MSE(ground_truth, [ a * predicted[i] + (1 - a) * estimate2[i] for i in range(len(ground_truth))]) for a in seq]
         idx1 = MSE1.index(min(MSE1))
