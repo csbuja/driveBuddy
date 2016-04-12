@@ -2,7 +2,7 @@ import numpy as np
 from scipy.sparse import lil_matrix,csr_matrix
 from ItemBasedFiltering_Utilities import *
 
-def importDataFromCSV(ground_truth_filename,trainingdata_filename):
+def importDataFromCSV(ground_truth_filename,trainingdata_filename,itemtoitemdataset):
     trainingData= None
     testData = None
     shape_0_training=0
@@ -23,6 +23,11 @@ def importDataFromCSV(ground_truth_filename,trainingdata_filename):
             if i > 0:
                 shape_0_testing +=1
             i+=1
+    foodtypes = []
+    with open(itemtoitemdataset) as f:
+        for line in f
+            restaurant = line.strip('\n').split('|')
+            foodtypes.append(restaurant[1].split(','))
 
     trainingData = lil_matrix((shape_0_training,shape_1_training))
     testData_xy = lil_matrix((shape_0_testing,shape_1_testing-1)).todense()
@@ -56,14 +61,15 @@ def importDataFromCSV(ground_truth_filename,trainingdata_filename):
                         testData_values[i-1,0] = float(val)
                     j+=1
             i+=1
-    return (trainingData,testData_xy,testData_values)
+    assert(len(foodtypes)==shape_0_training)
+    return (trainingData,testData_xy,testData_values,foodtypes)
 
 
 
 
 
 if __name__ == "__main__":
-        trainingData,testData_xy,testData_values = importDataFromCSV('../Datasets/ground_truth.csv','../Datasets/recommenderdata_trainingdata.csv')
+        trainingData,testData_xy,testData_values,foodtypes = importDataFromCSV('../Datasets/ground_truth.csv','../Datasets/recommenderdata_trainingdata.csv','../Datasets/itemtoitemdataset.txt')
         trainingData = csr_matrix(trainingData)
         #print testData_values
         ground_truth = np.array(testData_values.T)[0]
@@ -77,6 +83,7 @@ if __name__ == "__main__":
             i+=1
 
         print 'MSE value: ' + str(MSE(ground_truth,predicted))
+
 
 
 
