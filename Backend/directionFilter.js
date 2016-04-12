@@ -3,12 +3,25 @@ var moment = require('moment');
 var calcDistance = require('./calcDistance');
 
 
+function toDegrees (angle) {
+  var preAngle = angle * (180 / Math.PI);
+  if (preAngle < 0) {
+    preAngle = preAngle + 360;
+  }
+  else if (preAngle > 360) {
+    preAngle = preAngle - 360;
+  }
+  return preAngle;
+}
+
 function calcBearing(lat1, long1, lat2, long2) {
-  var y = math.sin(lat2-lat1) * math.cos(long2);
-  var x = math.cos(long1)*math.sin(long2) -
-        math.sin(long1)*math.cos(long2)*math.cos(lat2-lat1);
-  var bearing = math.atan2(y, x).toDegrees();
-  return bearing;
+  var Δψ = math.log(math.tan(math.PI/4+lat2/2)/math.tan(math.PI/4+lat1/2));
+  var Δλ = long2-long1;
+
+  // if dLon over 180° take shorter rhumb line across the anti-meridian:
+  if (math.abs(Δλ) > math.PI) Δλ = Δλ>0 ? -(2*math.PI-Δλ) : (2*math.PI+Δλ);
+
+  var brng = toDegrees(math.atan2(Δλ, Δψ));
 }
 
 //list should be 2d array that contains restaurantID, lat, long in
@@ -34,25 +47,43 @@ var directionFilter = function(list, lat1, long1, time1, lat2, long2, time2, ran
       var results = [];
       var trackSlopeRatioPerp = -diffLat/diffLong;
       var trackSlopeRatio = diffLong/diffLat;
+      console.log("Current Lat: " + lat2);
+      console.log("Current Long: " + long2);
       console.log("Origin Lat: " + futureLat);
       console.log("Origin Long: " + futureLong);
+      var bearingToFuture = calcBearing(lat2, long2, futureLat, futureLong);
+      var bearingToPast = 0;
+      if (bearingToFuture > 180) {
+        bearingToPast = bearingToFuture - 180;
+      }
+      else {
+        bearingToPast = bearingToFuture + 180;
+      }
+      console.log("Bearing to Future: " + bearingToFuture);
+      console.log("Bearing to Past: " + bearingToPast);
+      var bearingOne = bearingToFuture - 90;
+      var bearingTwo = bearingToFuture + 90;
+      if (bearingTwo > 360) {
+        bearingTwo = bearingTwo - 360;
+      }
+      if (bearingOne < 0) {
+        bearingOne = bearingOne + 360;
+      }
+
       for (var i = 0; i < listLength; i++) {
         var restLong = list[i][2];
         var restLat = list[i][1];
         var restID = list[i][0];
-        var restDiffLat = restLat - futureLat;
-        var restDiffLong = restLong - futureLong;
-        var restSlopeRatio = restDiffLat/restDiffLong;
+
+
         var restToFutureOriginDist = calcDistance(restLat, restLong, futureLat,
           futureLong);
         var restToCurrentPosDist = calcDistance(restLat, restLong, lat2, long2);
 
-        //Uses pythagorean theorem to determine if the resturant is past the
-        //line perpindicular to the path of travel
         if (restToFutureOriginDist <= range) {
         	if (restToFutureOriginDist <= restToCurrentPosDist) {
             console.log("track slope: " + trackSlopeRatioPerp);
-            console.log("rest slope: " + restSlopeRatio);
+            //console.log("rest slope: " + restSlopeRatio);
             if (trackSlopeRatioPerp == Infinity || trackSlopeRatioPerp == -Infinity) {
               if (futureLat > lat2 && futureLong == long2) {
                 if (restLat >= futureLat) {
@@ -86,17 +117,6 @@ var directionFilter = function(list, lat1, long1, time1, lat2, long2, time2, ran
               else {
                 console.log("Infinity didn't catch");
               }
-            }
-            else if (trackSlopeRatioPerp < 0 && restSlopeRatio > trackSlopeRatioPerp) {
-                console.log("fifth: " + restID);
-		            results.push(restID);
-		        }
-            else if (trackSlopeRatioPerp > 0 && restSlopeRatio < trackSlopeRatioPerp) {
-                console.log("sixth: " + restID);
-                results.push(restID);
-            }
-            else {
-              console.log("yolo");
             }
         	}
         }

@@ -42,6 +42,7 @@ var RestaurantSurveyView = React.createClass({
             <View style={styles.mainView}>
                 <NavBar
                     navigator={this.props.navigator}
+                    onLogout={this._onLogout}
                 />
                 <View style={styles.top}>
                     <Text style={styles.title}>Search Favorite Restaurants</Text>
@@ -72,6 +73,10 @@ var RestaurantSurveyView = React.createClass({
                 </View>
             </View>
         );
+    },
+
+    _onLogout: function() {
+        this.setState({enableResults: false});
     },
 
     _onRestaurantRemove: function(id) {
