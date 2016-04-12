@@ -41,13 +41,12 @@ var StartRouteGuidanceButton = React.createClass({
         }
 
         return (
-            <View style={{ width: this.props.itemWidth }}>
-                <TouchableElement
-                    style={styles.button}
-                    onPress={this.getDirections}>
-                    <Text style={styles.buttonText}>Start Route Guidance</Text>
-                </TouchableElement>
-            </View>
+            <TouchableElement
+                underlayColor='#0387c9'
+                style={styles.button}
+                onPress={this.getDirections}>
+                <Text style={styles.buttonText}>Start Route Guidance</Text>
+            </TouchableElement>
         );
     },
 });
@@ -55,7 +54,7 @@ var StartRouteGuidanceButton = React.createClass({
 var styles = StyleSheet.create({
     button: {
         backgroundColor: '#6BCDFD',
-        borderColor: '#6BCDFD',
+        borderColor: '#fff',
         borderRadius: 2,
         borderStyle: 'solid',
         borderWidth: 1,
