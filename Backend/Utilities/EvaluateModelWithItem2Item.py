@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.sparse import lil_matrix,csr_matrix
 from ItemBasedFiltering_Utilities import *
+from ItemToItemUtilities import *
 
 def importDataFromCSV(ground_truth_filename,trainingdata_filename,itemtoitemdataset):
     trainingData= None
@@ -25,9 +26,13 @@ def importDataFromCSV(ground_truth_filename,trainingdata_filename,itemtoitemdata
             i+=1
     foodtypes = []
     with open(itemtoitemdataset) as f:
-        for line in f
-            restaurant = line.strip('\n').split('|')
-            foodtypes.append(restaurant[1].split(','))
+        i = 0
+        for line in f:
+            if (i == 0):
+                i = 1
+            else:    
+                restaurant = line.strip('\n').split('|')
+                foodtypes.append(restaurant[1].split(','))
 
     trainingData = lil_matrix((shape_0_training,shape_1_training))
     testData_xy = lil_matrix((shape_0_testing,shape_1_testing-1)).todense()
@@ -61,7 +66,6 @@ def importDataFromCSV(ground_truth_filename,trainingdata_filename,itemtoitemdata
                         testData_values[i-1,0] = float(val)
                     j+=1
             i+=1
-    assert(len(foodtypes)==shape_0_training)
     return (trainingData,testData_xy,testData_values,foodtypes)
 
 
@@ -69,10 +73,23 @@ def importDataFromCSV(ground_truth_filename,trainingdata_filename,itemtoitemdata
 
 
 if __name__ == "__main__":
-        trainingData,testData_xy,testData_values,foodtypes = importDataFromCSV('../Datasets/ground_truth.csv','../Datasets/recommenderdata_trainingdata.csv','../Datasets/itemtoitemdataset.txt')
+        trainingData,testData_xy,testData_values,foodtypes = importDataFromCSV('../Datasets/ground_truth.csv','../Datasets/recommenderdata_trainingdata.csv','../Datasets/item_item_dataset.csv')
         trainingData = csr_matrix(trainingData)
-        #print testData_values
+                
         ground_truth = np.array(testData_values.T)[0]
+        predicted = np.zeros(len(ground_truth))
+        #now make predictions!
+        user = []
+        rate = []
+        train_dense = trainingData.todense()
+        for i in range(train_dense.shape[1]):
+            user.append([foodtypes[a] for a in range(train_dense.shape[0]) if train_dense[a, i] > 0])
+            rate.append([train_dense[a,i] for a in range(train_dense.shape[0]) if train_dense[a, i] > 0])
+        sim_func1 = 'cos_sim'
+        sim_func2 = 'jaccard_sim'
+        estimate1 =  [rate_i(foodtypes[int(a[0,0])], user[int(a[0,1])], rate[int(a[0,1])], sim_func1) for a in testData_xy]
+        estimate2 = [rate_i(foodtypes[int(a[0,0])], user[int(a[0,1])], rate[int(a[0,1])], sim_func2) for a in testData_xy]
+        
         predicted = np.zeros(len(ground_truth))
         #now make predictions!
         i = 0
@@ -81,9 +98,12 @@ if __name__ == "__main__":
             restaurant_index = testData_xy[i,1]
             predicted[i] = pred_usability_wrapper(trainingData,user_index,restaurant_index)
             i+=1
+        seq = np.arange(0,1,0.05)
+        MSE1 = [MSE(ground_truth, [ a * predicted[i] + (1 - a) * estimate1[i] for i in range(len(ground_truth))]) for a in seq]
+        MSE2 = [MSE(ground_truth, [ a * predicted[i] + (1 - a) * estimate2[i] for i in range(len(ground_truth))]) for a in seq]
+        idx1 = MSE1.index(min(MSE1))
+        idx2 = MSE2.index(min(MSE2))
+        print 'MSE is minizing when alpha = ' + str(seq[idx1]) + ' using ' + sim_func1 + ' : MSE = ' + str(MSE1[idx1])
+        print 'MSE is minizing when alpha = ' + str(seq[idx2]) + ' using ' + sim_func2 + ' : MSE = ' + str(MSE2[idx2])
 
-        print 'MSE value: ' + str(MSE(ground_truth,predicted))
-
-
-
-
+        

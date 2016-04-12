@@ -65,8 +65,8 @@ def importDataFromCSV(ground_truth_filename,trainingdata_filename):
 if __name__ == "__main__":
         trainingData,testData_xy,testData_values = importDataFromCSV('../Datasets/ground_truth.csv','../Datasets/recommenderdata_trainingdata.csv')
         trainingData = csr_matrix(trainingData)
-        #print testData_values
         ground_truth = np.array(testData_values.T)[0]
+        #x:res_id y:user_id
         predicted = np.zeros(len(ground_truth))
         #now make predictions!
         i = 0
@@ -75,7 +75,6 @@ if __name__ == "__main__":
             restaurant_index = testData_xy[i,1]
             predicted[i] = pred_usability_wrapper(trainingData,user_index,restaurant_index)
             i+=1
-
         print 'MSE value: ' + str(MSE(ground_truth,predicted))
 
 
