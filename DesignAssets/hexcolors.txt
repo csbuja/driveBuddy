@@ -1,1 +1,3 @@
-#fff
+Salmon: #FF3366
+Light Blue: #6BCDFD
+Gray: #CCCCCC
