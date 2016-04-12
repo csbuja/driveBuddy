@@ -73,19 +73,16 @@ var liveView = React.createClass({
         var foodOptionLatitude = null;
         var foodOptionLongitude = null;
         if (this.state.foodOptions.length) {
-            foodOptionLatitude = this.state.foodOptions[this.state.foodIndex].lat;
-            foodOptionLongitude = this.state.foodOptions[this.state.foodIndex].lon;
+            foodOptionLatitude = parseFloat(this.state.foodOptions[this.state.foodIndex].lat);
+            foodOptionLongitude = parseFloat(this.state.foodOptions[this.state.foodIndex].lon);
         }
 
         var gasOptionLatitude = null;
         var gasOptionLongitude = null;
         if (this.state.gasOptions.length) {
-            console.log('load');
-            console.log(this.state.gasOptions[this.state.gasIndex]);
-            gasOptionLatitude = this.state.gasOptions[this.state.gasIndex].lat;
-            gasOptionLongitude = this.state.gasOptions[this.state.gasIndex].lon;
+            gasOptionLatitude = parseFloat(this.state.gasOptions[this.state.gasIndex].lat);
+            gasOptionLongitude = parseFloat(this.state.gasOptions[this.state.gasIndex].lon);
         }
-        console.log(gasOptionLatitude);
 
         return (
             <View style={styles.liveView}>

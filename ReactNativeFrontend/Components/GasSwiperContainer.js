@@ -20,8 +20,8 @@ var GasSwiperContainer = React.createClass({
         }).isRequired,
         onSetOptions: React.PropTypes.func,
         onSwipe: React.PropTypes.func,
-        optionLatitude: PropTypes.string,
-        optionLongitude: PropTypes.string,
+        optionLatitude: PropTypes.number,
+        optionLongitude: PropTypes.number,
     },
 
     getInitialState: function() {

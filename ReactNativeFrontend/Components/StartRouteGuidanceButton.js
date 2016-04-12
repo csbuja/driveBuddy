@@ -19,8 +19,8 @@ var StartRouteGuidanceButton = React.createClass({
         itemWidth: PropTypes.number.isRequired,
         latitude: PropTypes.number,
         longitude: PropTypes.number,
-        optionLatitude: PropTypes.string,
-        optionLongitude: PropTypes.string,
+        optionLatitude: PropTypes.number,
+        optionLongitude: PropTypes.number,
     },
 
     getDirections: function() {
@@ -43,7 +43,7 @@ var StartRouteGuidanceButton = React.createClass({
         return (
             <TouchableElement
                 underlayColor='#0387c9'
-                style={styles.button}
+                style={[styles.button, { width: this.props.itemWidth}]}
                 onPress={this.getDirections}>
                 <Text style={styles.buttonText}>Start Route Guidance</Text>
             </TouchableElement>
@@ -57,7 +57,7 @@ var styles = StyleSheet.create({
         borderColor: '#fff',
         borderRadius: 2,
         borderStyle: 'solid',
-        borderWidth: 1,
+        borderWidth: 2,
         flex: 1,
         marginBottom: 8,
         overflow: 'hidden',

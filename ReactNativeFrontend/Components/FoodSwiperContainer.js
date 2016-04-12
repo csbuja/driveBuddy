@@ -23,8 +23,8 @@ var FoodSwiperContainer = React.createClass({
         }).isRequired,
         onSwipe: PropTypes.func,
         onSetOptions: PropTypes.func,
-        optionLatitude: PropTypes.string,
-        optionLongitude: PropTypes.string,
+        optionLatitude: PropTypes.number,
+        optionLongitude: PropTypes.number,
     },
 
     getInitialState: function() {
