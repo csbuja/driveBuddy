@@ -26,6 +26,8 @@ var SurveyRestaurantSearch = React.createClass({
         return (
             <View>
                 <SurveySearchBarContainer
+                    enableSearchResults={this._enableSearchResults}
+                    disableSearchResults={this._disableSearchResults}
                     setOptions={this._setOptions}
                 />
                 <SurveySearchResults
@@ -35,6 +37,14 @@ var SurveyRestaurantSearch = React.createClass({
                 />
             </View>
         );
+    },
+
+    _disableSearchResults: function() {
+        this.setState({enableResults: false});
+    },
+
+    _enableSearchResults: function() {
+        this.setState({enableResults: true});
     },
 
     _setOptions: function(responseText, enableResults) {

@@ -12,6 +12,8 @@ var {
 
 var SurveySearchBar = React.createClass({
     propTypes: {
+        disableSearchResults: PropTypes.func.isRequired,
+        enableSearchResults: PropTypes.func.isRequired,
         latitude: PropTypes.number.isRequired,
         longitude: PropTypes.number.isRequired,
         setOptions: PropTypes.func.isRequired,
@@ -36,16 +38,19 @@ var SurveySearchBar = React.createClass({
                 <View
                     style={[styles.textInputContainer, styles.searchContainer]}>
                     <Icon
-                        style={styles.searchIcon}
+                        color={'#B3B3B3'}
                         name="search"
                         size={15}
-                        color={'#B3B3B3'}
+                        style={styles.searchIcon}
                     />
                     <TextInput
                         clearButtonMode={'always'}
                         onChangeText={this._onSearchTextChange}
+                        onFocus={this._onKeyboardFocus}
+                        onKeyPress={this._onKeyboardEnter}
                         placeholder='Search Restaurants Near'
                         ref="searchBar"
+                        returnKeyType={'done'}
                         selectionColor={'#6BCDFD'}
                         style={styles.textInput}
                         value={this.state.searchText}
@@ -56,7 +61,11 @@ var SurveySearchBar = React.createClass({
                     <TextInput
                         clearButtonMode={'always'}
                         onChangeText={this._onLocationTextChange}
+                        onFocus={this._onKeyboardFocus}
+                        onKeyPress={this._onDone}
+                        onKeyPress={this._onKeyboardEnter}
                         placeholder='Current Location'
+                        returnKeyType={'done'}
                         selectionColor={'#6BCDFD'}
                         style={styles.textInput}
                         value={this.state.locationText}
@@ -64,6 +73,14 @@ var SurveySearchBar = React.createClass({
                 </View>
             </View>
         );
+    },
+
+    _onKeyboardFocus: function() {
+        this.state.searchText.length && this.props.enableSearchResults();
+    },
+
+    _onKeyboardEnter: function(e) {
+        (e.nativeEvent.key === 'Enter') && this.props.disableSearchResults();
     },
 
     _onLocationTextChange: function(text) {

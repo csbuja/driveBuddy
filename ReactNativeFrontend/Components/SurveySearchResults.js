@@ -39,6 +39,7 @@ var SurveyRestaurantResults = React.createClass({
                 }}>
                     <ListView
                         dataSource={dataSource}
+                        keyboardShouldPersistTaps={true}
                         renderRow={this._renderRow}
                         renderScrollComponent={
                             props => <RecyclerViewBackedScrollView {...props} />

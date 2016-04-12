@@ -12,6 +12,8 @@ var SurveySearchBarContainer = React.createClass({
     watchID: (null: ?number),
 
     propTypes: {
+        enableSearchResults: PropTypes.func.isRequired,
+        disableSearchResults: PropTypes.func.isRequired,
         setOptions: PropTypes.func.isRequired,
     },
 
