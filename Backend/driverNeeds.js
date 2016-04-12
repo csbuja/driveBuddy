@@ -240,7 +240,7 @@ module.exports = {
 
 	},
 
-	write_file: function(userid, restaurant_id,index){
+	write_file: function(userid, restaurant_id, index,rate){
 		var deferred = Q.defer();
 		db.query('select * from rate where userid = \'' + userid +'\' and restaurant_id = \'' + restaurant_id + '\'',
 		function(err, result){
@@ -253,16 +253,17 @@ module.exports = {
 					data = result[0].rate;
 					var dict = {};
 					dict[restaurant_id] = data;
-					deferred.resolve(dict);
+					deferred.resolve([dict,index]);
 				}
 				else{
 					var query_sub = 'select distinct userid from rate where userid =\'' + userid +'\' or userid in (select R1.userid from rate R1, rate R2 where R1.restaurant_id= \"' + restaurant_id + '\" and R2.restaurant_id in (select restaurant_id from rate where userid = \'' + userid + '\') and R1.userid = R2.userid) order by userid';
 					db.query(query_sub, function(err, result_sub){
+						
 						if(result_sub.length < 2){
-							var data = 3; //should be yelp rate
+							var data = rate; //should be yelp rate
 							var dict = {};
 							dict[restaurant_id] = data;
-							deferred.resolve(dict);
+							deferred.resolve([dict,index]);
 						}else{
 						//an else should be add here
 						var query = 'select * from rate where userid =\'' + userid +'\' or userid in (select R1.userid from rate R1, rate R2 where R1.restaurant_id= \"' + restaurant_id + '\" and R2.restaurant_id in (select restaurant_id from rate where userid = \'' + userid + '\') and R1.userid = R2.userid) order by restaurant_id, userid';
@@ -325,7 +326,7 @@ module.exports = {
 										child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
 											dict[restaurant_id] = parseFloat(data);
 											child_process.exec('rm ' + filename, function () {});
-											deferred.resolve([dict]);});
+											deferred.resolve([dict,index]);});
 										 } else {
 											console.log(err);
 											throw err;

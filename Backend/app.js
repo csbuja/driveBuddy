@@ -240,11 +240,11 @@ app.get('/api/yelp/:currentPosition/:lastPosition/:userid',function (req, res) {
 	var currentPosition = JSON.parse(req.params.currentPosition);
 	var radius = 40000; //max 40000 meters
 
-	var makeQueries = function (restaurants,userid){
+	var makeQueries = function (restaurants,userid,rates){
 		var deferred = Q.defer();
 		var results = {};
 		for(var i = 0; i < restaurants.length; i++){
-			driverNeeds.write_file(userid, restaurants[i],i)
+			driverNeeds.write_file(userid, restaurants[i],i,rates[i])  //rate is same length as restaurants, duh
 			.then(function(data){
 				index = data[1];
 				data = data[0];
@@ -271,12 +271,15 @@ app.get('/api/yelp/:currentPosition/:lastPosition/:userid',function (req, res) {
 	                    currentPosition.latitude,
 	                    currentPosition.longitude
 	                );
+
 					restaurants = _.map(yelpdata,function(v,key){
 						return key;
 					});
-
+					
+					rates = _.map(yelpdata,function(v,key){return v.rate});
+					
 					var userid = req.params.userid;
-					makeQueries(restaurants,userid).then(function(CFscores){
+					makeQueries(restaurants,userid,rates).then(function(CFscores){
 					//result will be a JSON string
 						_.each(yelpdata, function(v,key){
 							yelpdata[key]['score'] = CFscores[key].toFixed(1);
