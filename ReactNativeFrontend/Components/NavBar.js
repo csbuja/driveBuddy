@@ -12,6 +12,7 @@ var { FBLoginManager } = NativeModules;
 var NavBar = React.createClass({
     propTypes: {
         navigator: PropTypes.object.isRequired,
+        onLogout: PropTypes.func,
     },
 
     render: function() {
@@ -31,6 +32,7 @@ var NavBar = React.createClass({
     _logout: function() {
         FBLoginManager.logout((err, data) => {
             if (err) return;
+            this.props.onLogout && this.props.onLogout();
             this.props.navigator.popToTop();
         });
     },
