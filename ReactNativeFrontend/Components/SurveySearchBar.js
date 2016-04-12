@@ -67,8 +67,8 @@ var SurveySearchBar = React.createClass({
     },
 
     _onLocationTextChange: function(text) {
-        // order matters
-        // otherwise can search old location text after it has been cleared
+        // order matters, otherwise can search
+        // old location after it has been cleared
         this.setState({locationText: text});
         this._search(this.state.searchText);
     },
@@ -81,6 +81,8 @@ var SurveySearchBar = React.createClass({
     _search: function(text) {
         // reset options and avoid API call that will fail
         if (!text.length) {
+            // cancel search, needed if user hits cancel button
+            this.setState({isSearching: false});
             this.props.setOptions('{}', false);
             return;
         }
@@ -101,8 +103,12 @@ var SurveySearchBar = React.createClass({
             + text + '/' + this.state.locationText)
             .then((response) => response.text())
             .then((responseText) => {
+                // short circuit search
+                // don't use results if search field is cleared
+                if (this.state.isSearching)
+                    this.props.setOptions(responseText, true);
+
                 this.setState({isSearching: false});
-                this.props.setOptions(responseText, true);
 
                 // needed if user stops typing while API results are still
                 // being retrieved, so last text typed agrees with results
