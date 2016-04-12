@@ -32,23 +32,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //simple test
-/*
-driverNeeds.write_file(1, 'angs-korean-restaurant-ann-arbor-2')
-.then(function(data){
-	if (data[0]){
-		consol.log(data[1]);
-	}
-	else{
-		filename = data[1]
-		child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
-				console.log(data);
-				child_process.exec('rm ' + filename, function () {});
-		});
 
-	}
-});
 
-*/
+
 function toMiles(km){
 	return km * 0.621371;
 }

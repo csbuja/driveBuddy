@@ -85,8 +85,8 @@ module.exports = {
 			info.lat = data.businesses[i].location.coordinate.latitude;
 			info.lon = data.businesses[i].location.coordinate.longitude;
             info.image = data.businesses[i].image_url;
+			info.rate = data.businesses[i].rating;
             info.distance = calcDistance(lat, lon, info.lat, info.lon);
-
 			businesses[info.id] = info;
 		}
 
@@ -258,11 +258,18 @@ module.exports = {
 				else{
 					var query_sub = 'select distinct userid from rate where userid =\'' + userid +'\' or userid in (select R1.userid from rate R1, rate R2 where R1.restaurant_id= \"' + restaurant_id + '\" and R2.restaurant_id in (select restaurant_id from rate where userid = \'' + userid + '\') and R1.userid = R2.userid) order by userid';
 					db.query(query_sub, function(err, result_sub){
+						if(result_sub.length < 2){
+							var data = 3; //should be yelp rate
+							var dict = {};
+							dict[restaurant_id] = data;
+							deferred.resolve(dict);
+						}else{
+						//an else should be add here
 						var query = 'select * from rate where userid =\'' + userid +'\' or userid in (select R1.userid from rate R1, rate R2 where R1.restaurant_id= \"' + restaurant_id + '\" and R2.restaurant_id in (select restaurant_id from rate where userid = \'' + userid + '\') and R1.userid = R2.userid) order by restaurant_id, userid';
 						db.query(query, function (err,result) {
 							if (err) throw err;
 							else{
-var name = result[0].restaurant_id;
+								var name = result[0].restaurant_id;
 								var count = 0;
 								var j = 0;
 								var data = "";
@@ -318,7 +325,7 @@ var name = result[0].restaurant_id;
 										child_process.exec('python PredictRatings.py ' + filename, function (err, data) {
 											dict[restaurant_id] = parseFloat(data);
 											child_process.exec('rm ' + filename, function () {});
-											deferred.resolve([dict,index]);});
+											deferred.resolve([dict]);});
 										 } else {
 											console.log(err);
 											throw err;
@@ -326,6 +333,7 @@ var name = result[0].restaurant_id;
 								});
 							}
 						});
+						}
 					});
 				}
 			}
