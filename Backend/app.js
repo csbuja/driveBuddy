@@ -182,7 +182,8 @@ app.get('/api/search/:lat/:lon/:name/:location?', (req, res) => {
         res.send(JSON.stringify(driverNeeds.getYelpBusinesses(data, lat, lon)));
     })
     .catch((error) => {
-        res.status(500).send(error);
+        // 'error' is the actual error type recognized by fetch
+        res.status(500).send('error');
     });
 });
 
@@ -228,9 +229,9 @@ app.get('/api/yelp/:currentPosition/:lastPosition/:userid',function (req, res) {
 					restaurants = _.map(yelpdata,function(v,key){
 						return key;
 					});
-					
+
 					rates = _.map(yelpdata,function(v,key){return v.rate});
-					
+
 					var userid = req.params.userid;
 					makeQueries(restaurants,userid,rates).then(function(CFscores){
 					//result will be a JSON string

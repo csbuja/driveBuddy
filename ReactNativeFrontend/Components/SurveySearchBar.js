@@ -135,7 +135,7 @@ var SurveySearchBar = React.createClass({
                 }
             })
             .catch((error) => {
-                // TODO (urlauba): handle error state
+                this.props.setOptions('{}', false);
                 this.setState({isSearching: false, isSearchBehind: false});
             })
     },
