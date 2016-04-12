@@ -15779,6 +15779,58 @@ return className;}
 
 module.exports=joinClasses;
 });
+__d('react-native-navbar/styles.js',function(global, require, module, exports) {  'use strict';var NAV_BAR_HEIGHT=44;
+var STATUS_BAR_HEIGHT=20;
+
+module.exports={
+navBarContainer:{
+backgroundColor:'white'},
+
+statusBar:{
+height:STATUS_BAR_HEIGHT},
+
+navBar:{
+height:NAV_BAR_HEIGHT,
+flexDirection:'row',
+justifyContent:'space-between',
+alignItems:'stretch'},
+
+customTitle:{
+position:'absolute',
+left:0,
+right:0,
+bottom:7,
+alignItems:'center'},
+
+navBarButtonContainer:{
+flexDirection:'row',
+justifyContent:'center',
+alignItems:'stretch'},
+
+navBarButton:{
+flexDirection:'row',
+justifyContent:'center',
+alignItems:'center'},
+
+navBarButtonText:{
+fontSize:17,
+letterSpacing:0.5},
+
+navBarTitleContainer:{
+position:'absolute',
+left:0,
+right:0,
+top:0,
+bottom:0,
+justifyContent:'center',
+alignItems:'center'},
+
+navBarTitleText:{
+fontSize:17,
+letterSpacing:0.5,
+color:'#333',
+fontWeight:'500'}};
+});
 __d('lodash/_arrayPush.js',function(global, require, module, exports) {  function 
 
 
@@ -16402,61 +16454,7 @@ return nativeKeys(Object(object));}
 
 module.exports=baseKeys;
 });
-__d('react-native-navbar/styles.js',function(global, require, module, exports) {  'use strict';var NAV_BAR_HEIGHT=44;
-var STATUS_BAR_HEIGHT=20;
-
-module.exports={
-navBarContainer:{
-backgroundColor:'white'},
-
-statusBar:{
-height:STATUS_BAR_HEIGHT},
-
-navBar:{
-height:NAV_BAR_HEIGHT,
-flexDirection:'row',
-justifyContent:'space-between',
-alignItems:'stretch'},
-
-customTitle:{
-position:'absolute',
-left:0,
-right:0,
-bottom:7,
-alignItems:'center'},
-
-navBarButtonContainer:{
-flexDirection:'row',
-justifyContent:'center',
-alignItems:'stretch'},
-
-navBarButton:{
-flexDirection:'row',
-justifyContent:'center',
-alignItems:'center'},
-
-navBarButtonText:{
-fontSize:17,
-letterSpacing:0.5},
-
-navBarTitleContainer:{
-position:'absolute',
-left:0,
-right:0,
-top:0,
-bottom:0,
-justifyContent:'center',
-alignItems:'center'},
-
-navBarTitleText:{
-fontSize:17,
-letterSpacing:0.5,
-color:'#333',
-fontWeight:'500'}};
-});
 __d('react-native/Libraries/CustomComponents/NavigationExperimental/back_chevron.png',function(global, require, module, exports) {  module.exports = require("AssetRegistry").registerAsset({"__packager_asset":true,"fileSystemLocation":"/Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/Libraries/CustomComponents/NavigationExperimental","httpServerLocation":"/assets/node_modules/react-native/Libraries/CustomComponents/NavigationExperimental","width":26,"height":42,"scales":[1],"files":["/Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/node_modules/react-native/Libraries/CustomComponents/NavigationExperimental/back_chevron.png"],"hash":"ff62a71400a6f2c153edd030a2479ca7","name":"back_chevron","type":"png"});
-});
-__d('dri/Images/gasstation.png',function(global, require, module, exports) {  module.exports = require("AssetRegistry").registerAsset({"__packager_asset":true,"fileSystemLocation":"/Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/Images","httpServerLocation":"/assets/Images","width":512,"height":512,"scales":[1],"files":["/Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/Images/gasstation.png"],"hash":"c8f424a0e08fcc32c8c46293c36de0bc","name":"gasstation","type":"png"});
 });
 __d('dri/Images/london.jpg',function(global, require, module, exports) {  module.exports = require("AssetRegistry").registerAsset({"__packager_asset":true,"fileSystemLocation":"/Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/Images","httpServerLocation":"/assets/Images","width":1152,"height":720,"scales":[1],"files":["/Users/urlauba/Desktop/driveBuddy/ReactNativeFrontend/Images/london.jpg"],"hash":"2af6090ae1c01474c53e8e04f9dc8415","name":"london","type":"jpg"});
 });
@@ -16474,10 +16472,9 @@ React.AppRegistry;var Component=React.Component;var StyleSheet=React.StyleSheet;
 
 var LoginScreen=require('dri/views/login1.js');
 var noOptions=[];
-var Li=require('dri/views/liveView.js');
+
 var App=React.createClass({displayName:'App',
 render:function(){
-return React.createElement(Li,null);
 return (
 React.createElement(NavigatorIOS,{style:styles.wrapper,
 initialRoute:{component:LoginScreen,title:'LoginScreen',passProps:{}},
@@ -65334,270 +65331,75 @@ return coalescedChildren;}
 
 module.exports=coalesceNonElementChildren;
 });
-__d('dri/views/liveView.js',function(global, require, module, exports) {  'use strict';
+__d('dri/Components/GasFoodSwiperContainer.js',function(global, require, module, exports) {  'use strict';
 
-var FoodSwiperContainer=require('dri/Components/FoodSwiperContainer.js');
-var GasSwiperContainer=require('dri/Components/GasSwiperContainer.js');
-var MapContainer=require('dri/Components/MapContainer.js');
-var NavBar=require('dri/Components/NavBar.js');
-var React=require('react-native/Libraries/react-native/react-native.js');var 
+var GasFoodSwiper=require('dri/Components/GasFoodSwiper.js');
+var React=require('react-native/Libraries/react-native/react-native.js');
+var StartRouteGuidanceButton=require('dri/Components/StartRouteGuidanceButton.js');var 
 
 
-StyleSheet=
-
-
-
-React.StyleSheet;var Text=React.Text;var TouchableHighlight=React.TouchableHighlight;var View=React.View;
-
-var liveView=React.createClass({displayName:'liveView',
-watchID:null,
-
-getInitialState:function(){
-return {
-currentPosition:{
-latitude:null,
-longitude:null},
-
-lastPosition:{
-latitude:null,
-longitude:null},
-
-foodOptions:[],
-gasOptions:[],
-foodIndex:0,
-gasIndex:0};},
-
-
-
-componentDidMount:function(){var _this=this;
-navigator.geolocation.getCurrentPosition(
-function(position){
-_this.setState({
-currentPosition:{
-latitude:position.coords.latitude,
-longitude:position.coords.longitude}});},
-
-
-
-function(error){return console.log(error);},
-
-
-
-{enableHighAccuracy:true,timeout:10*1000,maximumAge:5*60*1000});
-
-
-
-this.watchID=navigator.geolocation.watchPosition(function(position){
-var currentPosition={
-latitude:position.coords.latitude,
-longitude:position.coords.longitude};
-
-var lastPosition=_this.state.currentPosition;
-
-_this.setState({
-currentPosition:currentPosition,
-lastPosition:lastPosition});});},
+PropTypes=
 
 
 
 
-componentWillUnmount:function(){
-navigator.geolocation.clearWatch(this.watchID);},
+React.PropTypes;var StyleSheet=React.StyleSheet;var Text=React.Text;var TouchableHighlight=React.TouchableHighlight;var View=React.View;
+
+var GasFoodSwiperContainer=React.createClass({displayName:'GasFoodSwiperContainer',
+propTypes:{
+hasNewOptions:PropTypes.bool.isRequired,
+hasSetOptions:PropTypes.func.isRequired,
+latitude:PropTypes.number,
+loading:PropTypes.bool.isRequired,
+longitude:PropTypes.number,
+onSwipe:PropTypes.func,
+optionLatitude:PropTypes.string,
+optionLongitude:PropTypes.string,
+options:PropTypes.array.isRequired,
+title:PropTypes.string.isRequired},
 
 
 render:function(){
+var swiperWidth=320;
+var placeContainerOffset=90;
+
 return (
-React.createElement(View,{style:styles.liveView},
-React.createElement(NavBar,{
-navigator:this.props.navigator}),
+React.createElement(View,{style:styles.container},
+React.createElement(GasFoodSwiper,{
+hasNewOptions:this.props.hasNewOptions,
+hasSetOptions:this.props.hasSetOptions,
+loading:this.props.loading,
+onSwipe:this.props.onSwipe,
+options:this.props.options,
+placeContainerOffset:placeContainerOffset,
+swiperWidth:swiperWidth,
+title:this.props.title}),
 
-React.createElement(FoodSwiperContainer,{
-currentPosition:this.state.currentPosition,
-lastPosition:this.state.lastPosition,
-onSetOptions:this._onSetFoodOptions,
-onSwipe:this._onFoodSwipe,
-foodIndex:this.state.foodIndex,
-gasIndex:this.state.gasIndex,
-style:styles.borderBottom}),
-
-React.createElement(GasSwiperContainer,{
-currentPosition:this.state.currentPosition,
-lastPosition:this.state.lastPosition,
-onSetOptions:this._onSetGasOptions,
-onSwipe:this._onGasSwipe,
-foodIndex:this.state.foodIndex,
-gasIndex:this.state.gasIndex,
-style:styles.borderBottom}),
-
-React.createElement(MapContainer,{
-style:styles.borderBottom,
-foodOptions:this.state.foodOptions,
-gasOptions:this.state.gasOptions,
-foodIndex:this.state.foodIndex,
-gasIndex:this.state.gasIndex})));},
+React.createElement(StartRouteGuidanceButton,{
+itemWidth:swiperWidth-placeContainerOffset,
+latitude:this.props.latitude,
+longitude:this.props.longitude,
+optionLatitude:this.props.optionLatitude,
+optionLongitude:this.props.optionLongitude})));}});
 
 
-
-
-
-_onSetFoodOptions:function(options){
-this.setState({foodOptions:options});},
-
-
-_onSetGasOptions:function(options){
-this.setState({gasOptions:options});},
-
-
-_onFoodSwipe:function(index){
-this.setState({foodIndex:index});},
-
-
-_onGasSwipe:function(index){
-this.setState({gasIndex:index});}});
 
 
 
 
 var styles=StyleSheet.create({
 container:{
-alignItems:'center'},
-
-liveView:{
-backgroundColor:'#FFFFFF'},
-
-circleButton:{
-padding:10,
-borderWidth:1,
-borderColor:"#FFFFFF",
-margin:5,
-borderRadius:500},
-
-borderBottom:{
-borderBottomWidth:2,
-borderColor:'#CCCCCC',
-marginBottom:10,
-marginLeft:60,
-marginRight:60},
-
-wrapper:{
-flex:1}});
+alignItems:'center'}});
 
 
 
-module.exports=liveView;
-});
-__d('dri/Components/FoodSwiperContainer.js',function(global, require, module, exports) {  'use strict';
-
-var GasFoodSwiper=require('dri/Components/GasFoodSwiper.js');
-var React=require('react-native/Libraries/react-native/react-native.js');
-var TimerMixin=require('react-native-timer-mixin/TimerMixin.js');var 
-
-PropTypes=React.PropTypes;
-
-var FoodSwiperContainer=React.createClass({displayName:'FoodSwiperContainer',
-mixins:[TimerMixin],
-
-propTypes:{
-currentPosition:PropTypes.shape({
-latitude:PropTypes.number,
-longitude:PropTypes.number}).
-isRequired,
-lastPosition:PropTypes.shape({
-latitude:PropTypes.number,
-longitude:PropTypes.number}).
-isRequired,
-onSetOptions:React.PropTypes.func,
-onSwipe:React.PropTypes.func,
-foodIndex:React.PropTypes.number,
-gasIndex:React.PropTypes.number},
-
-
-getInitialState:function(){
-return {
-options:[],
-loading:false,
-transferredUp:false};},
-
-
-
-componentWillReceiveProps:function(nextProps){
-
-
-if(!this.props.currentPosition.latitude&&
-!this.props.currentPosition.longitude&&
-nextProps.currentPosition.latitude&&
-nextProps.currentPosition.longitude)
-{
-this._setOptions(nextProps.currentPosition,nextProps.lastPosition);}},
-
-
-
-componentWillMount:function(){
-this._setOptions(
-this.props.currentPosition,
-this.props.lastPosition);
-
-
-this.setInterval(
-this._setOptions(
-this.props.currentPosition,
-this.props.lastPosition),
-5*60*1000);},
-
-
-
-render:function(){
-return (
-React.createElement(GasFoodSwiper,{
-latitude:this.props.currentPosition.latitude,
-longitude:this.props.currentPosition.longitude,
-onSwipe:this.props.onSwipe,
-foodIndex:this.props.foodIndex,
-gasIndex:this.props.gasIndex,
-options:this.state.options,
-loading:this.state.loading,
-style:this.props.style,
-title:"Food"}));},
-
-
-
-
-_setOptions:function(currentPosition,lastPosition){var _this=this;
-var current=JSON.stringify(currentPosition);
-var last=JSON.stringify(lastPosition);
-
-this.setState({loading:true});
-if(currentPosition.latitude&&currentPosition.longitude){
-var transferredUp=this.state.transferredUp;
-
-fetch('http://73.161.192.135:3000/api/yelp/'+current+'/'+last).
-then(function(response){return response.text();}).
-then(function(responseText){
-var data=JSON.parse(responseText);
-var options=Object.keys(data).map(function(k){return data[k];});
-_this.setState({options:options,transferredUp:!transferredUp,loading:false});
-if(transferredUp==false){
-_this.props.onSetOptions(options);}}).
-
-
-catch(function(error){
-
-console.log('error');
-_this.setState({loading:false});});}}});
-
-
-
-
-
-module.exports=FoodSwiperContainer;
+module.exports=GasFoodSwiperContainer;
 });
 __d('dri/Components/GasFoodSwiper.js',function(global, require, module, exports) {  'use strict';
 
-var Icon=require('react-native-vector-icons/FontAwesome.js');
 var React=require('react-native/Libraries/react-native/react-native.js');
 var Spinner=require('react-native-gifted-spinner/GiftedSpinner.js');
-var Swiper=require('react-native-swiper/dist/index.js');
-var Linking=require('Linking');var 
+var Swiper=require('react-native-swiper/dist/index.js');var 
 
 
 Image=
@@ -65607,119 +65409,62 @@ Image=
 
 
 
-
-React.Image;var StyleSheet=React.StyleSheet;var PropTypes=React.PropTypes;var Text=React.Text;var View=React.View;var Platform=React.Platform;var TouchableHighlight=React.TouchableHighlight;var TouchableNativeFeedback=React.TouchableNativeFeedback;
+React.Image;var StyleSheet=React.StyleSheet;var PropTypes=React.PropTypes;var Text=React.Text;var View=React.View;var TouchableHighlight=React.TouchableHighlight;var TouchableNativeFeedback=React.TouchableNativeFeedback;
 var i=0;
-
-var NextPrevButton=React.createClass({displayName:'NextPrevButton',
-PropTypes:{
-name:PropTypes.string.isRequired},
-
-
-render:function(){
-return (
-React.createElement(Icon,{
-name:this.props.name,
-size:20,
-color:'#CCCCCC'}));}});
-
-
-
-
 
 var GasFoodSubSwiper=React.createClass({displayName:'GasFoodSubSwiper',
 propTypes:{
-foodIndex:PropTypes.number,
-gasIndex:PropTypes.number,
-image:PropTypes.any,
-latitude:PropTypes.number,
-longitude:PropTypes.number,
+hasNewOptions:PropTypes.bool.isRequired,
+hasSetOptions:PropTypes.func.isRequired,
 onSwipe:PropTypes.func.isRequired,
 options:PropTypes.array.isRequired,
+placeContainerOffset:PropTypes.number.isRequired,
+swiperWidth:PropTypes.number.isRequired,
 title:PropTypes.string.isRequired},
 
 
-getInitialState:function(){
-return {
-option:this.props.options[0],
-foodIndex:0,
-gasIndex:0};},
-
-
-
 shouldComponentUpdate:function(nextProps,nextState){
-if(nextProps!==this.props){
-if(nextProps.foodIndex===this.state.foodIndex&&nextProps.gasIndex===this.state.gasIndex){
-return true;}else 
-{
-this.setState({foodIndex:nextProps.foodIndex,gasIndex:nextProps.gasIndex});}}
-
+if(nextProps.hasNewOptions){
+this.props.hasSetOptions();
+return true;}
 
 return false;},
 
 
 _onMomentumScrollEnd:function(e,swiperState,context){
 var index=swiperState.index;
-this.setState({option:this.props.options[index]});
 this.props.onSwipe(index);},
 
 
-getDirections:function(){
-var saddr=this.props.latitude+','+this.props.longitude;
-var daddr=this.state.option.lat+','+this.state.option.lon;
-var directionsmode='driving';
-var url='comgooglemaps://?saddr='+saddr+'&daddr='+daddr+'&directionsmode='+directionsmode;
-Linking.openURL(url).catch(function(err){return console.error('An error occurred',err);});},
-
-
 render:function(){var _this=this;
-var TouchableElement=TouchableHighlight;
-
-if(Platform.OS==='android'){
-TouchableElement=TouchableNativeFeedback;}
-
-
-var swiperWidth=320;
-var placeContainerOffset=90;
-
 return (
-React.createElement(View,{style:styles.container},
-React.createElement(Swiper,{onMomentumScrollEnd:this._onMomentumScrollEnd,
+React.createElement(Swiper,{
+onMomentumScrollEnd:this._onMomentumScrollEnd,
 height:110,
-nextButton:React.createElement(NextPrevButton,{name:'chevron-right'}),
-prevButton:React.createElement(NextPrevButton,{name:'chevron-left'}),
+nextButton:React.createElement(Text,{style:styles.swiperButton},'›'),
+prevButton:React.createElement(Text,{style:styles.swiperButton},'‹'),
 showsButtons:true,
 showsPagination:false,
-width:swiperWidth},
+width:this.props.swiperWidth},
 this.props.options.map(function(place){
-var source=_this.props.image||{uri:place.image};
-
 return (
 React.createElement(View,{
 style:[styles.placeContainer,{
-marginLeft:placeContainerOffset/2,
-marginRight:placeContainerOffset/2}],
+marginLeft:_this.props.placeContainerOffset/2,
+marginRight:_this.props.placeContainerOffset/2}],
 
 key:i++},
 React.createElement(View,{style:styles.imageContainer},
-React.createElement(Image,{style:styles.image,source:source})),
+React.createElement(Image,{style:styles.image,source:{uri:place.image}})),
 
 React.createElement(View,{style:styles.textContainer},
 React.createElement(Text,{style:styles.name},place.name),
 place.price&&React.createElement(Text,{numberOfLines:1},"$"+place.price+" regular"),
-React.createElement(Text,{numberOfLines:1},place.distance+" miles"),
-place.score&&React.createElement(Text,{numberOfLines:1},place.score+" stars"))));})),
+place.score&&React.createElement(Text,{numberOfLines:1},place.score+" stars"),
+React.createElement(Text,{numberOfLines:1},place.distance+" miles"))));})));}});
 
 
 
-
-
-React.createElement(TouchableElement,{
-style:[styles.button,{
-width:swiperWidth-placeContainerOffset}],
-
-onPress:this.getDirections},
-React.createElement(Text,{style:styles.buttonText},'Start Route Guidance'))));}});
 
 
 
@@ -65728,12 +65473,14 @@ React.createElement(Text,{style:styles.buttonText},'Start Route Guidance'))));}}
 
 var GasFoodSwiper=React.createClass({displayName:'GasFoodSwiper',
 propTypes:{
-title:PropTypes.string.isRequired,
-latitude:PropTypes.number,
-longitude:PropTypes.number,
-onSwipe:React.PropTypes.func,
-foodIndex:React.PropTypes.number,
-gasIndex:React.PropTypes.number},
+hasNewOptions:PropTypes.bool.isRequired,
+hasSetOptions:PropTypes.func.isRequired,
+loading:PropTypes.bool.isRequired,
+onSwipe:PropTypes.func,
+options:PropTypes.array.isRequired,
+placeContainerOffset:PropTypes.number.isRequired,
+swiperWidth:PropTypes.number.isRequired,
+title:PropTypes.string.isRequired},
 
 
 getInitialState:function(){
@@ -65745,7 +65492,16 @@ var morethanzerooptions=this.props.options.length>0;
 var isLoading=this.props.loading;
 var show_swiper_or_error;
 if(morethanzerooptions){
-show_swiper_or_error=React.createElement(GasFoodSubSwiper,this.props);}else 
+show_swiper_or_error=
+React.createElement(GasFoodSubSwiper,{
+hasNewOptions:this.props.hasNewOptions,
+hasSetOptions:this.props.hasSetOptions,
+onSwipe:this.props.onSwipe,
+options:this.props.options,
+placeContainerOffset:this.props.placeContainerOffset,
+swiperWidth:this.props.swiperWidth,
+title:this.props.title});}else 
+
 
 {
 if(isLoading==true){
@@ -65760,7 +65516,7 @@ React.createElement(Text,null,this.state.error_message));}}
 
 
 return (
-React.createElement(View,{style:[this.props.style,styles.container,styles.col]},
+React.createElement(View,{style:[styles.container,styles.col]},
 React.createElement(Text,{style:styles.title},this.props.title),show_swiper_or_error));}});
 
 
@@ -65768,27 +65524,11 @@ React.createElement(Text,{style:styles.title},this.props.title),show_swiper_or_e
 
 
 var styles=StyleSheet.create({
-button:{
-backgroundColor:'#6BCDFD',
-borderColor:'#6BCDFD',
-borderRadius:2,
-borderStyle:'solid',
-borderWidth:1,
-flex:1,
-marginBottom:8,
-overflow:'hidden',
-padding:8},
-
-buttonText:{
-color:'#FFFFFF',
-fontWeight:'bold',
-textAlign:'center'},
+container:{
+alignItems:'center'},
 
 col:{
 flexDirection:'column'},
-
-container:{
-alignItems:'center'},
 
 no_options:{
 alignItems:'center',
@@ -65821,7 +65561,9 @@ spinner:{
 alignSelf:'center'},
 
 swiperButton:{
-color:'#CCCCCC'},
+fontSize:50,
+color:'#cccccc',
+fontFamily:'Arial'},
 
 textContainer:{
 flex:1,
@@ -65836,6 +65578,1643 @@ fontWeight:'bold'}});
 
 
 module.exports=GasFoodSwiper;
+});
+__d('react-native-gifted-spinner/GiftedSpinner.js',function(global, require, module, exports) {  'use strict';
+
+var React=require('react-native/Libraries/react-native/react-native.js');var 
+
+
+View=
+
+
+
+React.View;var ActivityIndicatorIOS=React.ActivityIndicatorIOS;var ProgressBarAndroid=React.ProgressBarAndroid;var Platform=React.Platform;
+
+var GiftedSpinner=React.createClass({displayName:'GiftedSpinner',
+
+_getSpinner:function(){
+if(Platform.OS==='android'){
+return (
+React.createElement(ProgressBarAndroid,babelHelpers.extends({
+style:{
+height:20},
+
+styleAttr:'Inverse'},
+this.props)));}else 
+
+
+{
+return (
+React.createElement(ActivityIndicatorIOS,babelHelpers.extends({
+animating:true,
+size:'small'},
+this.props)));}},
+
+
+
+
+
+render:function(){
+return (
+React.createElement(View,null,
+this._getSpinner()));}});
+
+
+
+
+
+
+
+module.exports=GiftedSpinner;
+});
+__d('react-native-swiper/dist/index.js',function(global, require, module, exports) {  'use strict';
+
+var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};
+
+
+
+
+
+
+
+
+
+
+var _reactNative=require('react-native/Libraries/react-native/react-native.js');
+
+var _reactNative2=_interopRequireDefault(_reactNative);
+
+var _reactTimerMixin=require('react-timer-mixin/TimerMixin.js');
+
+var _reactTimerMixin2=_interopRequireDefault(_reactTimerMixin);
+
+function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
+
+var _Dimensions$get=_reactNative.Dimensions.get('window');
+
+var width=_Dimensions$get.width;
+var height=_Dimensions$get.height;
+
+
+
+
+
+
+var styles=_reactNative.StyleSheet.create({
+container:{
+backgroundColor:'transparent',
+position:'relative'},
+
+
+wrapper:{
+backgroundColor:'transparent'},
+
+
+slide:{
+backgroundColor:'transparent'},
+
+
+pagination_x:{
+position:'absolute',
+bottom:25,
+left:0,
+right:0,
+flexDirection:'row',
+flex:1,
+justifyContent:'center',
+alignItems:'center',
+backgroundColor:'transparent'},
+
+
+pagination_y:{
+position:'absolute',
+right:15,
+top:0,
+bottom:0,
+flexDirection:'column',
+flex:1,
+justifyContent:'center',
+alignItems:'center',
+backgroundColor:'transparent'},
+
+
+title:{
+height:30,
+justifyContent:'center',
+position:'absolute',
+paddingLeft:10,
+bottom:-30,
+left:0,
+flexWrap:'nowrap',
+width:250,
+backgroundColor:'transparent'},
+
+
+buttonWrapper:{
+backgroundColor:'transparent',
+flexDirection:'row',
+position:'absolute',
+top:0,
+left:0,
+flex:1,
+paddingHorizontal:10,
+paddingVertical:10,
+justifyContent:'space-between',
+alignItems:'center'},
+
+
+buttonText:{
+fontSize:50,
+color:'#007aff',
+fontFamily:'Arial'}});
+
+
+
+
+
+module.exports=_reactNative2.default.createClass({
+displayName:'exports',
+
+
+
+
+
+propTypes:{
+horizontal:_reactNative2.default.PropTypes.bool,
+children:_reactNative2.default.PropTypes.node.isRequired,
+style:_reactNative.View.propTypes.style,
+pagingEnabled:_reactNative2.default.PropTypes.bool,
+showsHorizontalScrollIndicator:_reactNative2.default.PropTypes.bool,
+showsVerticalScrollIndicator:_reactNative2.default.PropTypes.bool,
+bounces:_reactNative2.default.PropTypes.bool,
+scrollsToTop:_reactNative2.default.PropTypes.bool,
+removeClippedSubviews:_reactNative2.default.PropTypes.bool,
+automaticallyAdjustContentInsets:_reactNative2.default.PropTypes.bool,
+showsPagination:_reactNative2.default.PropTypes.bool,
+showsButtons:_reactNative2.default.PropTypes.bool,
+loop:_reactNative2.default.PropTypes.bool,
+autoplay:_reactNative2.default.PropTypes.bool,
+autoplayTimeout:_reactNative2.default.PropTypes.number,
+autoplayDirection:_reactNative2.default.PropTypes.bool,
+index:_reactNative2.default.PropTypes.number,
+renderPagination:_reactNative2.default.PropTypes.func},
+
+
+mixins:[_reactTimerMixin2.default],
+
+
+
+
+
+
+getDefaultProps:function getDefaultProps(){
+return {
+horizontal:true,
+pagingEnabled:true,
+showsHorizontalScrollIndicator:false,
+showsVerticalScrollIndicator:false,
+bounces:false,
+scrollsToTop:false,
+removeClippedSubviews:true,
+automaticallyAdjustContentInsets:false,
+showsPagination:true,
+showsButtons:false,
+loop:true,
+autoplay:false,
+autoplayTimeout:2.5,
+autoplayDirection:true,
+index:0};},
+
+
+
+
+
+
+
+getInitialState:function getInitialState(){
+return this.initState(this.props);},
+
+
+
+
+
+
+autoplayTimer:null,
+
+componentWillMount:function componentWillMount(){
+this.props=this.injectState(this.props);},
+
+componentWillReceiveProps:function componentWillReceiveProps(props){
+this.setState(this.initState(props));},
+
+componentDidMount:function componentDidMount(){
+this.autoplay();},
+
+initState:function initState(props){
+var initState={
+isScrolling:false,
+autoplayEnd:false};
+
+
+initState.total=props.children?props.children.length||1:0;
+initState.index=initState.total>1?Math.min(props.index,initState.total-1):0;
+
+
+initState.dir=props.horizontal==false?'y':'x';
+initState.width=props.width||width;
+initState.height=props.height||height;
+initState.offset={};
+
+if(initState.total>1){
+var setup=props.loop?1:initState.index;
+initState.offset[initState.dir]=initState.dir=='y'?initState.height*setup:initState.width*setup;}
+
+return initState;},
+
+
+
+
+
+autoplay:function autoplay(){
+var _this=this;
+
+if(!Array.isArray(this.props.children)||!this.props.autoplay||this.state.isScrolling||this.state.autoplayEnd)return;
+
+clearTimeout(this.autoplayTimer);
+
+this.autoplayTimer=this.setTimeout(function(){
+if(!_this.props.loop&&(_this.props.autoplayDirection?_this.state.index==_this.state.total-1:_this.state.index==0))return _this.setState({
+autoplayEnd:true});
+
+_this.scrollTo(_this.props.autoplayDirection?1:-1);},
+this.props.autoplayTimeout*1000);},
+
+
+
+
+
+
+onScrollBegin:function onScrollBegin(e){
+var _this2=this;
+
+
+this.setState({
+isScrolling:true});
+
+
+this.setTimeout(function(){
+_this2.props.onScrollBeginDrag&&_this2.props.onScrollBeginDrag(e,_this2.state,_this2);});},
+
+
+
+
+
+
+
+onScrollEnd:function onScrollEnd(e){
+var _this3=this;
+
+
+this.setState({
+isScrolling:false});
+
+
+this.updateIndex(e.nativeEvent.contentOffset,this.state.dir);
+
+
+
+this.setTimeout(function(){
+_this3.autoplay();
+
+
+_this3.props.onMomentumScrollEnd&&_this3.props.onMomentumScrollEnd(e,_this3.state,_this3);});},
+
+
+
+
+
+
+
+
+updateIndex:function updateIndex(offset,dir){
+
+var state=this.state;
+var index=state.index;
+var diff=offset[dir]-state.offset[dir];
+var step=dir=='x'?state.width:state.height;
+
+
+if(!diff)return;
+
+
+
+index=index+diff/step;
+
+if(this.props.loop){
+if(index<=-1){
+index=state.total-1;
+offset[dir]=step*state.total;}else 
+if(index>=state.total){
+index=0;
+offset[dir]=step;}}
+
+
+
+this.setState({
+index:index,
+offset:offset});},
+
+
+
+
+
+
+
+scrollTo:function scrollTo(index){
+if(this.state.isScrolling||this.state.total<2)return;
+var state=this.state;
+var diff=(this.props.loop?1:0)+index+this.state.index;
+var x=0;
+var y=0;
+if(state.dir=='x')x=diff*state.width;
+if(state.dir=='y')y=diff*state.height;
+this.refs.scrollView&&this.refs.scrollView.scrollTo(y,x);
+
+
+this.setState({
+isScrolling:true,
+autoplayEnd:false});},
+
+
+
+
+
+
+
+renderPagination:function renderPagination(){
+
+
+if(this.state.total<=1)return null;
+
+var dots=[];
+var ActiveDot=this.props.activeDot||_reactNative2.default.createElement(_reactNative.View,{style:{
+backgroundColor:'#007aff',
+width:8,
+height:8,
+borderRadius:4,
+marginLeft:3,
+marginRight:3,
+marginTop:3,
+marginBottom:3}});
+
+var Dot=this.props.dot||_reactNative2.default.createElement(_reactNative.View,{style:{
+backgroundColor:'rgba(0,0,0,.2)',
+width:8,
+height:8,
+borderRadius:4,
+marginLeft:3,
+marginRight:3,
+marginTop:3,
+marginBottom:3}});
+
+for(var i=0;i<this.state.total;i++){
+dots.push(i===this.state.index?_reactNative2.default.cloneElement(ActiveDot,{key:i}):_reactNative2.default.cloneElement(Dot,{key:i}));}
+
+
+return _reactNative2.default.createElement(
+_reactNative.View,
+{pointerEvents:'none',style:[styles['pagination_'+this.state.dir],this.props.paginationStyle]},
+dots);},
+
+
+renderTitle:function renderTitle(){
+var child=this.props.children[this.state.index];
+var title=child&&child.props.title;
+return title?_reactNative2.default.createElement(
+_reactNative.View,
+{style:styles.title},
+this.props.children[this.state.index].props.title):
+null;},
+
+renderNextButton:function renderNextButton(){
+var _this4=this;
+
+var button=undefined;
+
+if(this.props.loop||this.state.index!=this.state.total-1){
+button=this.props.nextButton||_reactNative2.default.createElement(
+_reactNative.Text,
+{style:styles.buttonText},
+'›');}
+
+
+
+return _reactNative2.default.createElement(
+_reactNative.TouchableOpacity,
+{onPress:function onPress(){
+return button!==null&&_this4.scrollTo.call(_this4,1);}},
+
+_reactNative2.default.createElement(
+_reactNative.View,
+null,
+button));},
+
+
+
+renderPrevButton:function renderPrevButton(){
+var _this5=this;
+
+var button=null;
+
+if(this.props.loop||this.state.index!=0){
+button=this.props.prevButton||_reactNative2.default.createElement(
+_reactNative.Text,
+{style:styles.buttonText},
+'‹');}
+
+
+
+return _reactNative2.default.createElement(
+_reactNative.TouchableOpacity,
+{onPress:function onPress(){
+return button!==null&&_this5.scrollTo.call(_this5,-1);}},
+
+_reactNative2.default.createElement(
+_reactNative.View,
+null,
+button));},
+
+
+
+renderButtons:function renderButtons(){
+return _reactNative2.default.createElement(
+_reactNative.View,
+{pointerEvents:'box-none',style:[styles.buttonWrapper,{width:this.state.width,height:this.state.height},this.props.buttonWrapperStyle]},
+this.renderPrevButton(),
+this.renderNextButton());},
+
+
+renderScrollView:function renderScrollView(pages){
+if(_reactNative.Platform.OS==='ios')return _reactNative2.default.createElement(
+_reactNative.ScrollView,
+_extends({ref:'scrollView'},
+this.props,{
+contentContainerStyle:[styles.wrapper,this.props.style],
+contentOffset:this.state.offset,
+onScrollBeginDrag:this.onScrollBegin,
+onMomentumScrollEnd:this.onScrollEnd}),
+pages);
+
+return _reactNative2.default.createElement(
+_reactNative.ViewPagerAndroid,
+{ref:'scrollView',
+style:{flex:1}},
+pages);},
+
+
+
+
+
+
+
+
+injectState:function injectState(props){
+var _this6=this;
+
+
+
+
+
+
+
+
+
+for(var prop in props){
+
+if(typeof props[prop]==='function'&&prop!=='onMomentumScrollEnd'&&prop!=='renderPagination'&&prop!=='onScrollBeginDrag'){
+(function(){
+var originResponder=props[prop];
+props[prop]=function(e){
+return originResponder(e,_this6.state,_this6);};})();}}
+
+
+
+
+
+return props;},
+
+
+
+
+
+
+render:function render(){
+var state=this.state;
+var props=this.props;
+var children=props.children;
+var index=state.index;
+var total=state.total;
+var loop=props.loop;
+var dir=state.dir;
+var key=0;
+
+var pages=[];
+var pageStyle=[{width:state.width,height:state.height},styles.slide];
+
+
+if(total>1){
+
+
+pages=Object.keys(children);
+if(loop){
+pages.unshift(total-1);
+pages.push(0);}
+
+
+pages=pages.map(function(page,i){
+return _reactNative2.default.createElement(
+_reactNative.View,
+{style:pageStyle,key:i},
+children[page]);});}else 
+
+
+pages=_reactNative2.default.createElement(
+_reactNative.View,
+{style:pageStyle},
+children);
+
+
+return _reactNative2.default.createElement(
+_reactNative.View,
+{style:[styles.container,{
+width:state.width,
+height:state.height}]},
+
+this.renderScrollView(pages),
+props.showsPagination&&(props.renderPagination?this.props.renderPagination(state.index,state.total,this):this.renderPagination()),
+this.renderTitle(),
+this.props.showsButtons&&this.renderButtons());}});
+});
+__d('dri/Components/StartRouteGuidanceButton.js',function(global, require, module, exports) {  'use strict';
+
+var React=require('react-native/Libraries/react-native/react-native.js');
+var Linking=require('Linking');var 
+
+
+Image=
+
+
+
+
+
+
+
+React.Image;var StyleSheet=React.StyleSheet;var Platform=React.Platform;var PropTypes=React.PropTypes;var Text=React.Text;var View=React.View;var TouchableHighlight=React.TouchableHighlight;var TouchableNativeFeedback=React.TouchableNativeFeedback;
+
+var StartRouteGuidanceButton=React.createClass({displayName:'StartRouteGuidanceButton',
+propTypes:{
+itemWidth:PropTypes.number.isRequired,
+latitude:PropTypes.number,
+longitude:PropTypes.number,
+optionLatitude:PropTypes.string,
+optionLongitude:PropTypes.string},
+
+
+getDirections:function(){
+var saddr=this.props.latitude+','+this.props.longitude;
+var daddr=this.props.optionLatitude+','+this.props.optionLongitude;
+var directionsmode='driving';
+var url='comgooglemaps://?saddr='+saddr+'&daddr='+daddr+'&directionsmode='+directionsmode;
+Linking.openURL(url).catch(function(err){return console.error('An error occurred',err);});},
+
+
+render:function(){
+if(!this.props.optionLatitude||!this.props.optionLongitude)return null;
+
+var TouchableElement=TouchableHighlight;
+
+if(Platform.OS==='android'){
+TouchableElement=TouchableNativeFeedback;}
+
+
+return (
+React.createElement(View,{style:{width:this.props.itemWidth}},
+React.createElement(TouchableElement,{
+style:styles.button,
+onPress:this.getDirections},
+React.createElement(Text,{style:styles.buttonText},'Start Route Guidance'))));}});
+
+
+
+
+
+
+var styles=StyleSheet.create({
+button:{
+backgroundColor:'#6BCDFD',
+borderColor:'#6BCDFD',
+borderRadius:2,
+borderStyle:'solid',
+borderWidth:1,
+flex:1,
+marginBottom:8,
+overflow:'hidden',
+padding:8},
+
+buttonText:{
+color:'#FFFFFF',
+fontWeight:'bold',
+textAlign:'center'}});
+
+
+
+module.exports=StartRouteGuidanceButton;
+});
+__d('react-native-timer-mixin/TimerMixin.js',function(global, require, module, exports) {  'use strict';
+
+
+
+
+
+
+
+
+
+
+var GLOBAL=typeof window==='undefined'?global:window;var _require=
+require('react-native/Libraries/react-native/react-native.js');var InteractionManager=_require.InteractionManager;
+
+var setter=function(_setter,_clearer,array){
+return function(callback,delta){
+var id=_setter(function(){
+_clearer.call(this,id);
+callback.apply(this,arguments);}.
+bind(this),delta);
+
+if(!this[array]){
+this[array]=[id];}else 
+{
+this[array].push(id);}
+
+return id;};};
+
+
+
+var clearer=function(_clearer,array){
+return function(id){
+if(this[array]){
+var index=this[array].indexOf(id);
+if(index!==-1){
+this[array].splice(index,1);}}
+
+
+_clearer(id);};};
+
+
+
+var _timeouts='TimerMixin_timeouts';
+var _clearTimeout=clearer(GLOBAL.clearTimeout,_timeouts);
+var _setTimeout=setter(GLOBAL.setTimeout,_clearTimeout,_timeouts);
+
+var _intervals='TimerMixin_intervals';
+var _clearInterval=clearer(GLOBAL.clearInterval,_intervals);
+var _setInterval=setter(GLOBAL.setInterval,function(){},_intervals);
+
+var _immediates='TimerMixin_immediates';
+var _clearImmediate=clearer(GLOBAL.clearImmediate,_immediates);
+var _setImmediate=setter(GLOBAL.setImmediate,_clearImmediate,_immediates);
+
+var _rafs='TimerMixin_rafs';
+var _cancelAnimationFrame=clearer(GLOBAL.cancelAnimationFrame,_rafs);
+var _requestAnimationFrame=setter(GLOBAL.requestAnimationFrame,_cancelAnimationFrame,_rafs);
+
+var _handles='TimerMixin_handles';
+var _clearInteractionHandle=clearer(InteractionManager.clearInteractionHandle,_rafs);
+var _createInteractionHandle=setter(InteractionManager.createInteractionHandle,_clearInteractionHandle,_rafs);
+
+var TimerMixin={
+componentWillMount:function(){
+this._mounted=true;},
+
+
+componentWillUnmount:function(){
+this._mounted=false;
+
+this[_timeouts]&&this[_timeouts].forEach(function(id){
+GLOBAL.clearTimeout(id);});
+
+this[_timeouts]=null;
+this[_intervals]&&this[_intervals].forEach(function(id){
+GLOBAL.clearInterval(id);});
+
+this[_intervals]=null;
+this[_immediates]&&this[_immediates].forEach(function(id){
+GLOBAL.clearImmediate(id);});
+
+this[_immediates]=null;
+this[_rafs]&&this[_rafs].forEach(function(id){
+GLOBAL.cancelAnimationFrame(id);});
+
+this[_rafs]=null;
+
+this[_handles]&&this[_handles].forEach(function(id){
+InteractionManager.clearInteractionHandle(id);});
+
+this[_handles]=null;},
+
+
+setTimeout:_setTimeout,
+clearTimeout:_clearTimeout,
+
+setInterval:_setInterval,
+clearInterval:_clearInterval,
+
+setImmediate:_setImmediate,
+clearImmediate:_clearImmediate,
+
+requestAnimationFrame:_requestAnimationFrame,
+cancelAnimationFrame:_cancelAnimationFrame,
+
+createInteractionHandle:_createInteractionHandle,
+clearInteractionHandle:_clearInteractionHandle,
+waitForInteractionsAsync:function(){
+var self=this;
+return new Promise(function(resolve,reject){
+InteractionManager.runAfterInteractions(function(){
+if(self._mounted){
+resolve();}else 
+{
+reject();}});});},
+
+
+
+
+runAfterInteractions:function(callback){
+var self=this;
+InteractionManager.runAfterInteractions(function(){
+if(self._mounted){
+callback();}});}};
+
+
+
+
+
+module.exports=TimerMixin;
+});
+__d('dri/Components/GasSwiperContainer.js',function(global, require, module, exports) {  'use strict';
+
+var GasFoodSwiperContainer=require('dri/Components/GasFoodSwiperContainer.js');
+var React=require('react-native/Libraries/react-native/react-native.js');
+var TimerMixin=require('react-native-timer-mixin/TimerMixin.js');var 
+
+PropTypes=React.PropTypes;
+
+var GasSwiperContainer=React.createClass({displayName:'GasSwiperContainer',
+mixins:[TimerMixin],
+
+propTypes:{
+currentPosition:PropTypes.shape({
+latitude:PropTypes.number,
+longitude:PropTypes.number}).
+isRequired,
+lastPosition:PropTypes.shape({
+latitude:PropTypes.number,
+longitude:PropTypes.number}).
+isRequired,
+onSetOptions:React.PropTypes.func,
+onSwipe:React.PropTypes.func,
+optionLatitude:PropTypes.string,
+optionLongitude:PropTypes.string},
+
+
+getInitialState:function(){
+return {
+options:[],
+loading:false,
+hasNewOptions:true};},
+
+
+
+componentWillReceiveProps:function(nextProps){
+
+
+if(!this.props.currentPosition.latitude&&
+!this.props.currentPosition.longitude&&
+nextProps.currentPosition.latitude&&
+nextProps.currentPosition.longitude)
+{
+this._setOptions(nextProps.currentPosition,nextProps.lastPosition);}},
+
+
+
+componentWillMount:function(){
+this._setOptions(
+this.props.currentPosition,
+this.props.lastPosition);
+
+
+this.setInterval(
+this._setOptions(
+this.props.currentPosition,
+this.props.lastPosition),
+5*60*1000);},
+
+
+
+render:function(){
+return (
+React.createElement(GasFoodSwiperContainer,{
+hasNewOptions:this.state.hasNewOptions,
+hasSetOptions:this._hasSetOptions,
+latitude:this.props.currentPosition.latitude,
+loading:this.state.loading,
+longitude:this.props.currentPosition.longitude,
+onSwipe:this.props.onSwipe,
+optionLatitude:this.props.optionLatitude,
+optionLongitude:this.props.optionLongitude,
+options:this.state.options,
+title:"Gas"}));},
+
+
+
+
+_hasSetOptions:function(){
+this.setState({hasNewOptions:false});},
+
+
+_setOptions:function(currentPosition,lastPosition){var _this=this;
+var current=JSON.stringify(currentPosition);
+var last=JSON.stringify(lastPosition);
+
+this.setState({loading:true,hasNewOptions:true});
+if(currentPosition.latitude&&currentPosition.longitude){
+
+fetch('http://73.161.192.135:3000/api/gas/'+current+'/'+last).
+then(function(response){return response.text();}).
+then(function(responseText){
+var data=JSON.parse(responseText);
+var options=Object.keys(data).map(function(k){
+var station=data[k];
+station.image='https://cdn3.iconfinder.com/data/icons/map/500/gasstation-512.png';
+return station;});
+
+_this.setState({options:options,loading:false});
+_this.props.onSetOptions(options);}).
+
+catch(function(error){
+
+console.log(error);
+_this.setState({loading:false,hasNewOptions:false});});}}});
+
+
+
+
+
+module.exports=GasSwiperContainer;
+});
+__d('@pod-point/react-native-maps/PPTGoogleMap.js',function(global, require, module, exports) {  'use strict';
+
+var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);
+var _resolveAssetSource=require('resolveAssetSource');var _resolveAssetSource2=babelHelpers.interopRequireDefault(_resolveAssetSource);var 
+
+MapView=function(_Component){babelHelpers.inherits(MapView,_Component);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function MapView(){babelHelpers.classCallCheck(this,MapView);var _this=babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(MapView).call(this));
+
+
+_this._onChange=_this._onChange.bind(_this);
+_this._markerMeta={};
+_this._markersForBridge=[];return _this;}babelHelpers.createClass(MapView,[{key:'_onChange',value:function _onChange(
+
+
+
+
+
+
+
+
+event){
+if(event.nativeEvent.target){
+delete event.nativeEvent.target;}
+
+
+switch(event.nativeEvent.event){
+case 'didTapMarker':
+case 'didBeginDraggingMarker':
+case 'didDragMarker':
+case 'didEndDraggingMarker':
+this._handleMarkerEvent(event);
+break;
+default:
+this.props[event.nativeEvent.event]&&this.props[event.nativeEvent.event](event.nativeEvent);
+break;}}},{key:'_handleMarkerEvent',value:function _handleMarkerEvent(
+
+
+
+
+
+
+
+
+
+event){
+if(!this.props[event.nativeEvent.event]){
+return;}
+
+
+event.nativeEvent.data.id=event.nativeEvent.data.publicId;
+
+delete event.nativeEvent.data.publicId;
+
+if(this._markerMeta[event.nativeEvent.data.id]){
+event.nativeEvent.data.meta=this._markerMeta[event.nativeEvent.data.id];}
+
+
+this.props[event.nativeEvent.event](event.nativeEvent);}},{key:'componentWillReceiveProps',value:function componentWillReceiveProps(
+
+
+
+
+
+
+
+nextProps){var _this2=this;
+if(!nextProps.markers){
+return;}
+
+
+this._markersForBridge=[];
+
+nextProps.markers.map(function(marker){
+_this2._markersForBridge.push({
+publicId:marker.id,
+latitude:marker.latitude,
+longitude:marker.longitude,
+icon:(0,_resolveAssetSource2.default)(marker.icon)});
+
+
+_this2._markerMeta[marker.id]=marker.meta||{};});}},{key:'render',value:function render()
+
+
+
+
+
+
+
+
+{
+return (
+_reactNative2.default.createElement(PPTGoogleMap,babelHelpers.extends({},this.props,{onChange:this._onChange,markers:this._markersForBridge})));}}]);return MapView;}(_reactNative.Component);
+
+
+
+
+MapView.propTypes={
+
+
+
+cameraPosition:_reactNative2.default.PropTypes.object,
+
+
+
+
+showsUserLocation:_reactNative2.default.PropTypes.bool,
+
+
+
+
+scrollGestures:_reactNative2.default.PropTypes.bool,
+
+
+
+
+zoomGestures:_reactNative2.default.PropTypes.bool,
+
+
+
+
+tiltGestures:_reactNative2.default.PropTypes.bool,
+
+
+
+
+rotateGestures:_reactNative2.default.PropTypes.bool,
+
+
+
+
+
+consumesGesturesInView:_reactNative2.default.PropTypes.bool,
+
+
+
+
+compassButton:_reactNative2.default.PropTypes.bool,
+
+
+
+
+myLocationButton:_reactNative2.default.PropTypes.bool,
+
+
+
+
+indoorPicker:_reactNative2.default.PropTypes.bool,
+
+
+
+
+allowScrollGesturesDuringRotateOrZoom:_reactNative2.default.PropTypes.bool,
+
+
+
+
+markersSet:_reactNative2.default.PropTypes.object,
+
+
+
+
+
+
+didChangeCameraPosition:_reactNative2.default.PropTypes.func,
+
+
+
+
+
+idleAtCameraPosition:_reactNative2.default.PropTypes.func,
+
+
+
+
+
+didTapAtCoordinate:_reactNative2.default.PropTypes.func,
+
+
+
+
+didLongPressAtCoordinate:_reactNative2.default.PropTypes.func,
+
+
+
+
+didTapMarker:_reactNative2.default.PropTypes.func,
+
+
+
+
+didTapOverlay:_reactNative2.default.PropTypes.func,
+
+
+
+
+didBeginDraggingMarker:_reactNative2.default.PropTypes.func,
+
+
+
+
+didEndDraggingMarker:_reactNative2.default.PropTypes.func,
+
+
+
+
+didDragMarker:_reactNative2.default.PropTypes.func,
+
+
+
+
+didTapMyLocationButtonForMapView:_reactNative2.default.PropTypes.func,
+
+
+
+
+renderToHardwareTextureAndroid:_reactNative2.default.PropTypes.bool,
+accessibilityLiveRegion:_reactNative2.default.PropTypes.string,
+accessibilityComponentType:_reactNative2.default.PropTypes.string,
+importantForAccessibility:_reactNative2.default.PropTypes.string,
+accessibilityLabel:_reactNative2.default.PropTypes.string,
+onLayout:_reactNative2.default.PropTypes.bool,
+testID:_reactNative2.default.PropTypes.string};
+
+
+var PPTGoogleMap=(0,_reactNative.requireNativeComponent)('PPTGoogleMap',MapView,{
+nativeOnly:{
+onChange:true}});
+
+
+
+module.exports=MapView;
+});
+__d('dri/Components/NavBar.js',function(global, require, module, exports) {  'use strict';
+
+var React=require('react-native/Libraries/react-native/react-native.js');
+var NavigationBar=require('react-native-navbar/index.js');var 
+
+
+NativeModules=
+
+React.NativeModules;var PropTypes=React.PropTypes;var 
+FBLoginManager=NativeModules.FBLoginManager;
+
+var NavBar=React.createClass({displayName:'NavBar',
+propTypes:{
+navigator:PropTypes.object.isRequired},
+
+
+render:function(){
+var leftButtonConfig={
+title:'Log out',
+handler:this._logout};
+
+
+return (
+React.createElement(NavigationBar,{
+leftButton:leftButtonConfig,
+statusBar:{}}));},
+
+
+
+
+_logout:function(){var _this=this;
+FBLoginManager.logout(function(err,data){
+if(err)return;
+_this.props.navigator.popToTop();});}});
+
+
+
+
+module.exports=NavBar;
+});
+__d('react-native-navbar/index.js',function(global, require, module, exports) {  'use strict';var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);
+
+
+
+
+
+
+
+
+
+var _NavbarButton=require('react-native-navbar/NavbarButton.js');var _NavbarButton2=babelHelpers.interopRequireDefault(_NavbarButton);
+var _styles=require('react-native-navbar/styles.js');var _styles2=babelHelpers.interopRequireDefault(_styles);var PixelRatio=_reactNative2.default.PixelRatio;var StatusBar=_reactNative2.default.StatusBar;var Component=_reactNative2.default.Component;var Text=_reactNative2.default.Text;var View=_reactNative2.default.View;var PropTypes=_reactNative2.default.PropTypes;var Platform=_reactNative2.default.Platform;
+
+var ButtonShape={
+title:PropTypes.string.isRequired,
+style:PropTypes.any,
+handler:PropTypes.func};
+
+
+var TitleShape={
+title:PropTypes.string.isRequired,
+tintColor:PropTypes.string};
+
+
+var StatusBarShape={
+style:PropTypes.oneOf(['light-content','default']),
+hidden:PropTypes.bool,
+tintColor:PropTypes.string,
+hideAnimation:PropTypes.oneOf(['fade','slide','none']),
+showAnimation:PropTypes.oneOf(['fade','slide','none'])};
+
+
+function customizeStatusBar(data){
+if(Platform.OS==='ios'){
+if(data.style){
+StatusBar.setBarStyle(data.style);}
+
+var animation=data.hidden?
+data.hideAnimation||NavigationBar.defaultProps.statusBar.hideAnimation:
+data.showAnimation||NavigationBar.defaultProps.statusBar.showAnimation;
+
+StatusBar.showHideTransition=animation;
+StatusBar.hidden=data.hidden;}}var 
+
+
+
+NavigationBar=function(_Component){babelHelpers.inherits(NavigationBar,_Component);function NavigationBar(){babelHelpers.classCallCheck(this,NavigationBar);return babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(NavigationBar).apply(this,arguments));}babelHelpers.createClass(NavigationBar,[{key:'componentDidMount',value:function componentDidMount()
+{
+customizeStatusBar(this.props.statusBar);}},{key:'componentWillReceiveProps',value:function componentWillReceiveProps(
+
+
+props){
+customizeStatusBar(this.props.statusBar);}},{key:'getButtonElement',value:function getButtonElement()
+
+
+{var data=arguments.length<=0||arguments[0]===undefined?{}:arguments[0];var style=arguments[1];
+return (
+_reactNative2.default.createElement(View,{style:_styles2.default.navBarButtonContainer},
+!!data.props?data:
+_reactNative2.default.createElement(_NavbarButton2.default,{
+title:data.title,
+style:[data.style,style],
+tintColor:data.tintColor,
+handler:data.handler})));}},{key:'getTitleElement',value:function getTitleElement(
+
+
+
+
+
+data){
+if(!!data.props){
+return _reactNative2.default.createElement(View,{style:_styles2.default.customTitle},data);}
+
+
+var colorStyle=data.tintColor?{color:data.tintColor}:null;
+
+return (
+_reactNative2.default.createElement(View,{style:_styles2.default.navBarTitleContainer},
+_reactNative2.default.createElement(Text,{
+style:[_styles2.default.navBarTitleText,colorStyle]},
+data.title)));}},{key:'render',value:function render()
+
+
+
+
+
+{
+var customTintColor=this.props.tintColor?
+{backgroundColor:this.props.tintColor}:null;
+
+var customStatusBarTintColor=this.props.statusBar.tintColor?
+{backgroundColor:this.props.statusBar.tintColor}:null;
+
+var statusBar=null;
+
+if(Platform.OS==='ios'){
+statusBar=!this.props.statusBar.hidden?
+_reactNative2.default.createElement(View,{style:[_styles2.default.statusBar,customStatusBarTintColor]}):null;}
+
+
+return (
+_reactNative2.default.createElement(View,{style:[_styles2.default.navBarContainer,customTintColor]},
+statusBar,
+_reactNative2.default.createElement(View,{style:[_styles2.default.navBar,this.props.style]},
+this.getTitleElement(this.props.title),
+this.getButtonElement(this.props.leftButton,{marginLeft:8}),
+this.getButtonElement(this.props.rightButton,{marginRight:8}))));}}]);return NavigationBar;}(Component);NavigationBar.
+
+
+
+
+
+propTypes={
+tintColor:PropTypes.string,
+statusBar:PropTypes.shape(StatusBarShape),
+leftButton:PropTypes.oneOfType([
+PropTypes.shape(ButtonShape),
+PropTypes.element]),
+
+rightButton:PropTypes.oneOfType([
+PropTypes.shape(ButtonShape),
+PropTypes.element]),
+
+title:PropTypes.oneOfType([
+PropTypes.shape(TitleShape),
+PropTypes.element])};NavigationBar.
+
+
+
+defaultProps={
+statusBar:{
+style:'default',
+hidden:false,
+hideAnimation:'slide',
+showAnimation:'slide'},
+
+title:{
+title:''}};
+
+
+
+module.exports=NavigationBar;
+});
+__d('react-native-navbar/NavbarButton.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);
+
+
+
+
+
+
+
+var _styles=require('react-native-navbar/styles.js');var _styles2=babelHelpers.interopRequireDefault(_styles);var Text=_reactNative2.default.Text;var TouchableOpacity=_reactNative2.default.TouchableOpacity;var Component=_reactNative2.default.Component;var View=_reactNative2.default.View;var PropTypes=_reactNative2.default.PropTypes;var 
+
+NavbarButton=function(_Component){babelHelpers.inherits(NavbarButton,_Component);function NavbarButton(){babelHelpers.classCallCheck(this,NavbarButton);return babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(NavbarButton).apply(this,arguments));}babelHelpers.createClass(NavbarButton,[{key:'render',value:function render()
+{var _props=
+this.props;var style=_props.style;var tintColor=_props.tintColor;var margin=_props.margin;var title=_props.title;var handler=_props.handler;
+
+return (
+_reactNative2.default.createElement(TouchableOpacity,{style:_styles2.default.navBarButton,onPress:handler},
+_reactNative2.default.createElement(View,{style:style},
+_reactNative2.default.createElement(Text,{style:[_styles2.default.navBarButtonText,{color:tintColor}]},title))));}}]);return NavbarButton;}(Component);NavbarButton.
+
+
+
+
+
+propTypes={
+style:PropTypes.oneOfType([
+PropTypes.object,
+PropTypes.array]),
+
+tintColor:PropTypes.string,
+title:PropTypes.string,
+handler:PropTypes.func};NavbarButton.
+
+
+defaultProps={
+style:{},
+title:'',
+tintColor:'#0076FF',
+onPress:function(){return {};}};exports.default=NavbarButton;
+});
+__d('dri/Components/SurveyRestaurantSearch.js',function(global, require, module, exports) {  'use strict';
+
+var React=require('react-native/Libraries/react-native/react-native.js');
+var SurveySearchBarContainer=require('dri/Components/SurveySearchBarContainer.js');
+var SurveySearchResults=require('dri/Components/SurveySearchResults.js');var 
+
+
+PropTypes=
+
+React.PropTypes;var View=React.View;
+
+var SurveyRestaurantSearch=React.createClass({displayName:'SurveyRestaurantSearch',
+propTypes:{
+enableResults:PropTypes.bool.isRequired,
+onPress:PropTypes.func.isRequired},
+
+
+getInitialState:function(){
+return {
+data:{},
+enableResults:false};},
+
+
+
+render:function(){
+return (
+React.createElement(View,null,
+React.createElement(SurveySearchBarContainer,{
+setOptions:this._setOptions}),
+
+React.createElement(SurveySearchResults,{
+data:this.state.data,
+enableResults:this.state.enableResults&&this.props.enableResults,
+onPress:this.props.onPress})));},
+
+
+
+
+
+_setOptions:function(responseText,enableResults){
+var data=JSON.parse(responseText);
+this.setState({
+data:data,
+enableResults:enableResults});}});
+
+
+
+
+module.exports=SurveyRestaurantSearch;
+});
+__d('dri/Components/SurveySearchBarContainer.js',function(global, require, module, exports) {  'use strict';
+
+var React=require('react-native/Libraries/react-native/react-native.js');
+var SurveySearchBar=require('dri/Components/SurveySearchBar.js');var 
+
+
+PropTypes=
+
+React.PropTypes;var View=React.View;
+
+var SurveySearchBarContainer=React.createClass({displayName:'SurveySearchBarContainer',
+watchID:null,
+
+propTypes:{
+setOptions:PropTypes.func.isRequired},
+
+
+getInitialState:function(){
+return {
+latitude:0,
+longitude:0};},
+
+
+
+componentDidMount:function(){var _this=this;
+navigator.geolocation.getCurrentPosition(
+function(position){
+_this.setState({
+latitude:position.coords.latitude,
+longitude:position.coords.longitude});},
+
+
+function(error){return console.log(error);},
+
+
+
+{enableHighAccuracy:true,timeout:10*1000,maximumAge:5*60*1000});
+
+
+
+this.watchID=navigator.geolocation.watchPosition(function(position){
+_this.setState({
+latitude:position.coords.latitude,
+longitude:position.coords.longitude});});},
+
+
+
+
+componentWillUnmount:function(){
+navigator.geolocation.clearWatch(this.watchID);},
+
+
+render:function(){
+return (
+React.createElement(SurveySearchBar,babelHelpers.extends({},
+this.props,{
+latitude:this.state.latitude,
+longitude:this.state.longitude})));}});
+
+
+
+
+
+module.exports=SurveySearchBarContainer;
+});
+__d('dri/Components/SurveySearchBar.js',function(global, require, module, exports) {  'use strict';
+
+var Icon=require('react-native-vector-icons/FontAwesome.js');
+var React=require('react-native/Libraries/react-native/react-native.js');var 
+
+
+PropTypes=
+
+
+
+React.PropTypes;var StyleSheet=React.StyleSheet;var TextInput=React.TextInput;var View=React.View;
+
+var SurveySearchBar=React.createClass({displayName:'SurveySearchBar',
+propTypes:{
+latitude:PropTypes.number.isRequired,
+longitude:PropTypes.number.isRequired,
+setOptions:PropTypes.func.isRequired},
+
+
+componentDidMount:function(){},
+
+
+
+getInitialState:function(){
+return {
+isSearchBehind:false,
+isSearching:false,
+locationText:'',
+searchText:''};},
+
+
+
+render:function(){
+return (
+React.createElement(View,{style:styles.container},
+React.createElement(View,{
+style:[styles.textInputContainer,styles.searchContainer]},
+React.createElement(Icon,{
+style:styles.searchIcon,
+name:'search',
+size:15,
+color:'#B3B3B3'}),
+
+React.createElement(TextInput,{
+clearButtonMode:'always',
+onChangeText:this._onSearchTextChange,
+placeholder:'Search Restaurants Near',
+ref:'searchBar',
+selectionColor:'#6BCDFD',
+style:styles.textInput,
+value:this.state.searchText})),
+
+
+React.createElement(View,{
+style:[styles.textInputContainer,styles.locationContainer]},
+React.createElement(TextInput,{
+clearButtonMode:'always',
+onChangeText:this._onLocationTextChange,
+placeholder:'Current Location',
+selectionColor:'#6BCDFD',
+style:styles.textInput,
+value:this.state.locationText}))));},
+
+
+
+
+
+
+_onLocationTextChange:function(text){
+
+
+this.setState({locationText:text});
+this._search(this.state.searchText);},
+
+
+_onSearchTextChange:function(text){
+this._search(text);
+this.setState({searchText:text});},
+
+
+_search:function(text){var _this=this;
+
+if(!text.length){
+this.props.setOptions('{}',false);
+return;}
+
+
+
+
+
+
+if(this.state.isSearching){
+this.setState({isSearchBehind:true});
+return;}
+
+
+
+this.setState({isSearching:true});
+fetch('http://73.161.192.135:3000/api/search/'+
+this.props.latitude+'/'+this.props.longitude+'/'+
+text+'/'+this.state.locationText).
+then(function(response){return response.text();}).
+then(function(responseText){
+_this.setState({isSearching:false});
+_this.props.setOptions(responseText,true);
+
+
+
+if(_this.state.isSearchBehind){
+_this.setState({isSearchBehind:false});
+_this._search(_this.state.searchText);}}).
+
+
+catch(function(error){
+
+_this.setState({isSearching:false,isSearchBehind:false});});}});
+
+
+
+
+var styles=StyleSheet.create({
+container:{
+alignItems:'center',
+backgroundColor:'#CCCCCC',
+borderColor:'#6BCDFD',
+borderTopWidth:2,
+flexDirection:'row',
+height:40},
+
+searchContainer:{
+flex:0.6},
+
+searchIcon:{
+marginLeft:6},
+
+locationContainer:{
+flex:0.4},
+
+textInput:{
+flex:1,
+fontSize:14,
+height:28,
+marginLeft:4},
+
+textInputContainer:{
+alignItems:'center',
+backgroundColor:'#FFFFFF',
+borderRadius:5,
+flexDirection:'row',
+marginLeft:8,
+marginRight:8}});
+
+
+
+module.exports=SurveySearchBar;
 });
 __d('react-native-vector-icons/FontAwesome.js',function(global, require, module, exports) {  'use strict';
 
@@ -69177,1547 +70556,6 @@ isLength(value.length)&&!!typedArrayTags[objectToString.call(value)];}
 
 module.exports=isTypedArray;
 });
-__d('react-native-gifted-spinner/GiftedSpinner.js',function(global, require, module, exports) {  'use strict';
-
-var React=require('react-native/Libraries/react-native/react-native.js');var 
-
-
-View=
-
-
-
-React.View;var ActivityIndicatorIOS=React.ActivityIndicatorIOS;var ProgressBarAndroid=React.ProgressBarAndroid;var Platform=React.Platform;
-
-var GiftedSpinner=React.createClass({displayName:'GiftedSpinner',
-
-_getSpinner:function(){
-if(Platform.OS==='android'){
-return (
-React.createElement(ProgressBarAndroid,babelHelpers.extends({
-style:{
-height:20},
-
-styleAttr:'Inverse'},
-this.props)));}else 
-
-
-{
-return (
-React.createElement(ActivityIndicatorIOS,babelHelpers.extends({
-animating:true,
-size:'small'},
-this.props)));}},
-
-
-
-
-
-render:function(){
-return (
-React.createElement(View,null,
-this._getSpinner()));}});
-
-
-
-
-
-
-
-module.exports=GiftedSpinner;
-});
-__d('react-native-swiper/dist/index.js',function(global, require, module, exports) {  'use strict';
-
-var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};
-
-
-
-
-
-
-
-
-
-
-var _reactNative=require('react-native/Libraries/react-native/react-native.js');
-
-var _reactNative2=_interopRequireDefault(_reactNative);
-
-var _reactTimerMixin=require('react-timer-mixin/TimerMixin.js');
-
-var _reactTimerMixin2=_interopRequireDefault(_reactTimerMixin);
-
-function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
-
-var _Dimensions$get=_reactNative.Dimensions.get('window');
-
-var width=_Dimensions$get.width;
-var height=_Dimensions$get.height;
-
-
-
-
-
-
-var styles=_reactNative.StyleSheet.create({
-container:{
-backgroundColor:'transparent',
-position:'relative'},
-
-
-wrapper:{
-backgroundColor:'transparent'},
-
-
-slide:{
-backgroundColor:'transparent'},
-
-
-pagination_x:{
-position:'absolute',
-bottom:25,
-left:0,
-right:0,
-flexDirection:'row',
-flex:1,
-justifyContent:'center',
-alignItems:'center',
-backgroundColor:'transparent'},
-
-
-pagination_y:{
-position:'absolute',
-right:15,
-top:0,
-bottom:0,
-flexDirection:'column',
-flex:1,
-justifyContent:'center',
-alignItems:'center',
-backgroundColor:'transparent'},
-
-
-title:{
-height:30,
-justifyContent:'center',
-position:'absolute',
-paddingLeft:10,
-bottom:-30,
-left:0,
-flexWrap:'nowrap',
-width:250,
-backgroundColor:'transparent'},
-
-
-buttonWrapper:{
-backgroundColor:'transparent',
-flexDirection:'row',
-position:'absolute',
-top:0,
-left:0,
-flex:1,
-paddingHorizontal:10,
-paddingVertical:10,
-justifyContent:'space-between',
-alignItems:'center'},
-
-
-buttonText:{
-fontSize:50,
-color:'#007aff',
-fontFamily:'Arial'}});
-
-
-
-
-
-module.exports=_reactNative2.default.createClass({
-displayName:'exports',
-
-
-
-
-
-propTypes:{
-horizontal:_reactNative2.default.PropTypes.bool,
-children:_reactNative2.default.PropTypes.node.isRequired,
-style:_reactNative.View.propTypes.style,
-pagingEnabled:_reactNative2.default.PropTypes.bool,
-showsHorizontalScrollIndicator:_reactNative2.default.PropTypes.bool,
-showsVerticalScrollIndicator:_reactNative2.default.PropTypes.bool,
-bounces:_reactNative2.default.PropTypes.bool,
-scrollsToTop:_reactNative2.default.PropTypes.bool,
-removeClippedSubviews:_reactNative2.default.PropTypes.bool,
-automaticallyAdjustContentInsets:_reactNative2.default.PropTypes.bool,
-showsPagination:_reactNative2.default.PropTypes.bool,
-showsButtons:_reactNative2.default.PropTypes.bool,
-loop:_reactNative2.default.PropTypes.bool,
-autoplay:_reactNative2.default.PropTypes.bool,
-autoplayTimeout:_reactNative2.default.PropTypes.number,
-autoplayDirection:_reactNative2.default.PropTypes.bool,
-index:_reactNative2.default.PropTypes.number,
-renderPagination:_reactNative2.default.PropTypes.func},
-
-
-mixins:[_reactTimerMixin2.default],
-
-
-
-
-
-
-getDefaultProps:function getDefaultProps(){
-return {
-horizontal:true,
-pagingEnabled:true,
-showsHorizontalScrollIndicator:false,
-showsVerticalScrollIndicator:false,
-bounces:false,
-scrollsToTop:false,
-removeClippedSubviews:true,
-automaticallyAdjustContentInsets:false,
-showsPagination:true,
-showsButtons:false,
-loop:true,
-autoplay:false,
-autoplayTimeout:2.5,
-autoplayDirection:true,
-index:0};},
-
-
-
-
-
-
-
-getInitialState:function getInitialState(){
-return this.initState(this.props);},
-
-
-
-
-
-
-autoplayTimer:null,
-
-componentWillMount:function componentWillMount(){
-this.props=this.injectState(this.props);},
-
-componentWillReceiveProps:function componentWillReceiveProps(props){
-this.setState(this.initState(props));},
-
-componentDidMount:function componentDidMount(){
-this.autoplay();},
-
-initState:function initState(props){
-var initState={
-isScrolling:false,
-autoplayEnd:false};
-
-
-initState.total=props.children?props.children.length||1:0;
-initState.index=initState.total>1?Math.min(props.index,initState.total-1):0;
-
-
-initState.dir=props.horizontal==false?'y':'x';
-initState.width=props.width||width;
-initState.height=props.height||height;
-initState.offset={};
-
-if(initState.total>1){
-var setup=props.loop?1:initState.index;
-initState.offset[initState.dir]=initState.dir=='y'?initState.height*setup:initState.width*setup;}
-
-return initState;},
-
-
-
-
-
-autoplay:function autoplay(){
-var _this=this;
-
-if(!Array.isArray(this.props.children)||!this.props.autoplay||this.state.isScrolling||this.state.autoplayEnd)return;
-
-clearTimeout(this.autoplayTimer);
-
-this.autoplayTimer=this.setTimeout(function(){
-if(!_this.props.loop&&(_this.props.autoplayDirection?_this.state.index==_this.state.total-1:_this.state.index==0))return _this.setState({
-autoplayEnd:true});
-
-_this.scrollTo(_this.props.autoplayDirection?1:-1);},
-this.props.autoplayTimeout*1000);},
-
-
-
-
-
-
-onScrollBegin:function onScrollBegin(e){
-var _this2=this;
-
-
-this.setState({
-isScrolling:true});
-
-
-this.setTimeout(function(){
-_this2.props.onScrollBeginDrag&&_this2.props.onScrollBeginDrag(e,_this2.state,_this2);});},
-
-
-
-
-
-
-
-onScrollEnd:function onScrollEnd(e){
-var _this3=this;
-
-
-this.setState({
-isScrolling:false});
-
-
-this.updateIndex(e.nativeEvent.contentOffset,this.state.dir);
-
-
-
-this.setTimeout(function(){
-_this3.autoplay();
-
-
-_this3.props.onMomentumScrollEnd&&_this3.props.onMomentumScrollEnd(e,_this3.state,_this3);});},
-
-
-
-
-
-
-
-
-updateIndex:function updateIndex(offset,dir){
-
-var state=this.state;
-var index=state.index;
-var diff=offset[dir]-state.offset[dir];
-var step=dir=='x'?state.width:state.height;
-
-
-if(!diff)return;
-
-
-
-index=index+diff/step;
-
-if(this.props.loop){
-if(index<=-1){
-index=state.total-1;
-offset[dir]=step*state.total;}else 
-if(index>=state.total){
-index=0;
-offset[dir]=step;}}
-
-
-
-this.setState({
-index:index,
-offset:offset});},
-
-
-
-
-
-
-
-scrollTo:function scrollTo(index){
-if(this.state.isScrolling||this.state.total<2)return;
-var state=this.state;
-var diff=(this.props.loop?1:0)+index+this.state.index;
-var x=0;
-var y=0;
-if(state.dir=='x')x=diff*state.width;
-if(state.dir=='y')y=diff*state.height;
-this.refs.scrollView&&this.refs.scrollView.scrollTo(y,x);
-
-
-this.setState({
-isScrolling:true,
-autoplayEnd:false});},
-
-
-
-
-
-
-
-renderPagination:function renderPagination(){
-
-
-if(this.state.total<=1)return null;
-
-var dots=[];
-var ActiveDot=this.props.activeDot||_reactNative2.default.createElement(_reactNative.View,{style:{
-backgroundColor:'#007aff',
-width:8,
-height:8,
-borderRadius:4,
-marginLeft:3,
-marginRight:3,
-marginTop:3,
-marginBottom:3}});
-
-var Dot=this.props.dot||_reactNative2.default.createElement(_reactNative.View,{style:{
-backgroundColor:'rgba(0,0,0,.2)',
-width:8,
-height:8,
-borderRadius:4,
-marginLeft:3,
-marginRight:3,
-marginTop:3,
-marginBottom:3}});
-
-for(var i=0;i<this.state.total;i++){
-dots.push(i===this.state.index?_reactNative2.default.cloneElement(ActiveDot,{key:i}):_reactNative2.default.cloneElement(Dot,{key:i}));}
-
-
-return _reactNative2.default.createElement(
-_reactNative.View,
-{pointerEvents:'none',style:[styles['pagination_'+this.state.dir],this.props.paginationStyle]},
-dots);},
-
-
-renderTitle:function renderTitle(){
-var child=this.props.children[this.state.index];
-var title=child&&child.props.title;
-return title?_reactNative2.default.createElement(
-_reactNative.View,
-{style:styles.title},
-this.props.children[this.state.index].props.title):
-null;},
-
-renderNextButton:function renderNextButton(){
-var _this4=this;
-
-var button=undefined;
-
-if(this.props.loop||this.state.index!=this.state.total-1){
-button=this.props.nextButton||_reactNative2.default.createElement(
-_reactNative.Text,
-{style:styles.buttonText},
-'›');}
-
-
-
-return _reactNative2.default.createElement(
-_reactNative.TouchableOpacity,
-{onPress:function onPress(){
-return button!==null&&_this4.scrollTo.call(_this4,1);}},
-
-_reactNative2.default.createElement(
-_reactNative.View,
-null,
-button));},
-
-
-
-renderPrevButton:function renderPrevButton(){
-var _this5=this;
-
-var button=null;
-
-if(this.props.loop||this.state.index!=0){
-button=this.props.prevButton||_reactNative2.default.createElement(
-_reactNative.Text,
-{style:styles.buttonText},
-'‹');}
-
-
-
-return _reactNative2.default.createElement(
-_reactNative.TouchableOpacity,
-{onPress:function onPress(){
-return button!==null&&_this5.scrollTo.call(_this5,-1);}},
-
-_reactNative2.default.createElement(
-_reactNative.View,
-null,
-button));},
-
-
-
-renderButtons:function renderButtons(){
-return _reactNative2.default.createElement(
-_reactNative.View,
-{pointerEvents:'box-none',style:[styles.buttonWrapper,{width:this.state.width,height:this.state.height},this.props.buttonWrapperStyle]},
-this.renderPrevButton(),
-this.renderNextButton());},
-
-
-renderScrollView:function renderScrollView(pages){
-if(_reactNative.Platform.OS==='ios')return _reactNative2.default.createElement(
-_reactNative.ScrollView,
-_extends({ref:'scrollView'},
-this.props,{
-contentContainerStyle:[styles.wrapper,this.props.style],
-contentOffset:this.state.offset,
-onScrollBeginDrag:this.onScrollBegin,
-onMomentumScrollEnd:this.onScrollEnd}),
-pages);
-
-return _reactNative2.default.createElement(
-_reactNative.ViewPagerAndroid,
-{ref:'scrollView',
-style:{flex:1}},
-pages);},
-
-
-
-
-
-
-
-
-injectState:function injectState(props){
-var _this6=this;
-
-
-
-
-
-
-
-
-
-for(var prop in props){
-
-if(typeof props[prop]==='function'&&prop!=='onMomentumScrollEnd'&&prop!=='renderPagination'&&prop!=='onScrollBeginDrag'){
-(function(){
-var originResponder=props[prop];
-props[prop]=function(e){
-return originResponder(e,_this6.state,_this6);};})();}}
-
-
-
-
-
-return props;},
-
-
-
-
-
-
-render:function render(){
-var state=this.state;
-var props=this.props;
-var children=props.children;
-var index=state.index;
-var total=state.total;
-var loop=props.loop;
-var dir=state.dir;
-var key=0;
-
-var pages=[];
-var pageStyle=[{width:state.width,height:state.height},styles.slide];
-
-
-if(total>1){
-
-
-pages=Object.keys(children);
-if(loop){
-pages.unshift(total-1);
-pages.push(0);}
-
-
-pages=pages.map(function(page,i){
-return _reactNative2.default.createElement(
-_reactNative.View,
-{style:pageStyle,key:i},
-children[page]);});}else 
-
-
-pages=_reactNative2.default.createElement(
-_reactNative.View,
-{style:pageStyle},
-children);
-
-
-return _reactNative2.default.createElement(
-_reactNative.View,
-{style:[styles.container,{
-width:state.width,
-height:state.height}]},
-
-this.renderScrollView(pages),
-props.showsPagination&&(props.renderPagination?this.props.renderPagination(state.index,state.total,this):this.renderPagination()),
-this.renderTitle(),
-this.props.showsButtons&&this.renderButtons());}});
-});
-__d('react-native-timer-mixin/TimerMixin.js',function(global, require, module, exports) {  'use strict';
-
-
-
-
-
-
-
-
-
-
-var GLOBAL=typeof window==='undefined'?global:window;var _require=
-require('react-native/Libraries/react-native/react-native.js');var InteractionManager=_require.InteractionManager;
-
-var setter=function(_setter,_clearer,array){
-return function(callback,delta){
-var id=_setter(function(){
-_clearer.call(this,id);
-callback.apply(this,arguments);}.
-bind(this),delta);
-
-if(!this[array]){
-this[array]=[id];}else 
-{
-this[array].push(id);}
-
-return id;};};
-
-
-
-var clearer=function(_clearer,array){
-return function(id){
-if(this[array]){
-var index=this[array].indexOf(id);
-if(index!==-1){
-this[array].splice(index,1);}}
-
-
-_clearer(id);};};
-
-
-
-var _timeouts='TimerMixin_timeouts';
-var _clearTimeout=clearer(GLOBAL.clearTimeout,_timeouts);
-var _setTimeout=setter(GLOBAL.setTimeout,_clearTimeout,_timeouts);
-
-var _intervals='TimerMixin_intervals';
-var _clearInterval=clearer(GLOBAL.clearInterval,_intervals);
-var _setInterval=setter(GLOBAL.setInterval,function(){},_intervals);
-
-var _immediates='TimerMixin_immediates';
-var _clearImmediate=clearer(GLOBAL.clearImmediate,_immediates);
-var _setImmediate=setter(GLOBAL.setImmediate,_clearImmediate,_immediates);
-
-var _rafs='TimerMixin_rafs';
-var _cancelAnimationFrame=clearer(GLOBAL.cancelAnimationFrame,_rafs);
-var _requestAnimationFrame=setter(GLOBAL.requestAnimationFrame,_cancelAnimationFrame,_rafs);
-
-var _handles='TimerMixin_handles';
-var _clearInteractionHandle=clearer(InteractionManager.clearInteractionHandle,_rafs);
-var _createInteractionHandle=setter(InteractionManager.createInteractionHandle,_clearInteractionHandle,_rafs);
-
-var TimerMixin={
-componentWillMount:function(){
-this._mounted=true;},
-
-
-componentWillUnmount:function(){
-this._mounted=false;
-
-this[_timeouts]&&this[_timeouts].forEach(function(id){
-GLOBAL.clearTimeout(id);});
-
-this[_timeouts]=null;
-this[_intervals]&&this[_intervals].forEach(function(id){
-GLOBAL.clearInterval(id);});
-
-this[_intervals]=null;
-this[_immediates]&&this[_immediates].forEach(function(id){
-GLOBAL.clearImmediate(id);});
-
-this[_immediates]=null;
-this[_rafs]&&this[_rafs].forEach(function(id){
-GLOBAL.cancelAnimationFrame(id);});
-
-this[_rafs]=null;
-
-this[_handles]&&this[_handles].forEach(function(id){
-InteractionManager.clearInteractionHandle(id);});
-
-this[_handles]=null;},
-
-
-setTimeout:_setTimeout,
-clearTimeout:_clearTimeout,
-
-setInterval:_setInterval,
-clearInterval:_clearInterval,
-
-setImmediate:_setImmediate,
-clearImmediate:_clearImmediate,
-
-requestAnimationFrame:_requestAnimationFrame,
-cancelAnimationFrame:_cancelAnimationFrame,
-
-createInteractionHandle:_createInteractionHandle,
-clearInteractionHandle:_clearInteractionHandle,
-waitForInteractionsAsync:function(){
-var self=this;
-return new Promise(function(resolve,reject){
-InteractionManager.runAfterInteractions(function(){
-if(self._mounted){
-resolve();}else 
-{
-reject();}});});},
-
-
-
-
-runAfterInteractions:function(callback){
-var self=this;
-InteractionManager.runAfterInteractions(function(){
-if(self._mounted){
-callback();}});}};
-
-
-
-
-
-module.exports=TimerMixin;
-});
-__d('dri/Components/MapContainer.js',function(global, require, module, exports) {  'use strict';
-
-var GoogleMap=require('@pod-point/react-native-maps/PPTGoogleMap.js');
-var React=require('react-native/Libraries/react-native/react-native.js');var 
-
-
-Image=
-
-
-
-
-React.Image;var StyleSheet=React.StyleSheet;var PropTypes=React.PropTypes;var Text=React.Text;var View=React.View;
-
-var mockLocation={
-latitude:'42.291404',
-longitude:'-83.717274',
-zoom:15,
-size:{
-width:250,
-height:250}};
-
-
-
-var MapContainer=React.createClass({displayName:'MapContainer',
-propTypes:{
-foodOptions:PropTypes.array,
-gasOptions:PropTypes.array,
-foodIndex:PropTypes.number,
-gasIndex:PropTypes.number},
-
-
-componentDidMount:function(){},
-
-
-
-
-
-render:function(){
-var markersOptions={};
-
-var gasicon='https://cdn3.iconfinder.com/data/icons/map/500/gasstation-512.png';
-var numberOfGasMarkers=this.props.gasOptions.length;
-for(var i=0;i<numberOfGasMarkers;i++){
-var place=this.props.gasOptions[i];
-if(i==this.props.gasIndex){
-markersOptions[String(place.name)]={id:place.name,latitude:place.lat,longitude:place.lon,icon:{uri:gasicon,scale:10.0},active:true};}else 
-{
-markersOptions[String(place.name)]={id:place.name,latitude:place.lat,longitude:place.lon,icon:{uri:gasicon,scale:10.0}};}}
-
-
-
-var numberOfFoodMarkers=this.props.foodOptions.length;
-for(var i=0;i<numberOfFoodMarkers;i++){
-var place=this.props.foodOptions[i];
-if(i==this.props.foodIndex){
-markersOptions[String(place.name)]={id:place.name,latitude:place.lat,longitude:place.lon,icon:{uri:place.image,scale:3.0},active:true};}else 
-{
-markersOptions[String(place.name)]={id:place.name,latitude:place.lat,longitude:place.lon,icon:{uri:place.image,scale:3.0}};}}
-
-
-
-return (
-React.createElement(View,{style:styles.container},
-React.createElement(GoogleMap,{
-markersSet:markersOptions,
-style:styles.map,
-cameraPosition:{auto:true,zoom:13},
-showsUserLocation:true})));}});
-
-
-
-
-
-
-var styles=StyleSheet.create({
-container:{
-alignItems:'center'},
-
-map:{
-height:250,
-width:250,
-borderWidth:1,
-borderColor:'#000000'}});
-
-
-
-module.exports=MapContainer;
-});
-__d('@pod-point/react-native-maps/PPTGoogleMap.js',function(global, require, module, exports) {  'use strict';
-
-var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);
-var _resolveAssetSource=require('resolveAssetSource');var _resolveAssetSource2=babelHelpers.interopRequireDefault(_resolveAssetSource);var 
-
-MapView=function(_Component){babelHelpers.inherits(MapView,_Component);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function MapView(){babelHelpers.classCallCheck(this,MapView);var _this=babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(MapView).call(this));
-
-
-_this._onChange=_this._onChange.bind(_this);
-_this._markerMeta={};
-_this._markersForBridge=[];return _this;}babelHelpers.createClass(MapView,[{key:'_onChange',value:function _onChange(
-
-
-
-
-
-
-
-
-event){
-if(event.nativeEvent.target){
-delete event.nativeEvent.target;}
-
-
-switch(event.nativeEvent.event){
-case 'didTapMarker':
-case 'didBeginDraggingMarker':
-case 'didDragMarker':
-case 'didEndDraggingMarker':
-this._handleMarkerEvent(event);
-break;
-default:
-this.props[event.nativeEvent.event]&&this.props[event.nativeEvent.event](event.nativeEvent);
-break;}}},{key:'_handleMarkerEvent',value:function _handleMarkerEvent(
-
-
-
-
-
-
-
-
-
-event){
-if(!this.props[event.nativeEvent.event]){
-return;}
-
-
-event.nativeEvent.data.id=event.nativeEvent.data.publicId;
-
-delete event.nativeEvent.data.publicId;
-
-if(this._markerMeta[event.nativeEvent.data.id]){
-event.nativeEvent.data.meta=this._markerMeta[event.nativeEvent.data.id];}
-
-
-this.props[event.nativeEvent.event](event.nativeEvent);}},{key:'componentWillReceiveProps',value:function componentWillReceiveProps(
-
-
-
-
-
-
-
-nextProps){var _this2=this;
-if(!nextProps.markers){
-return;}
-
-
-this._markersForBridge=[];
-
-nextProps.markers.map(function(marker){
-_this2._markersForBridge.push({
-publicId:marker.id,
-latitude:marker.latitude,
-longitude:marker.longitude,
-icon:(0,_resolveAssetSource2.default)(marker.icon)});
-
-
-_this2._markerMeta[marker.id]=marker.meta||{};});}},{key:'render',value:function render()
-
-
-
-
-
-
-
-
-{
-return (
-_reactNative2.default.createElement(PPTGoogleMap,babelHelpers.extends({},this.props,{onChange:this._onChange,markers:this._markersForBridge})));}}]);return MapView;}(_reactNative.Component);
-
-
-
-
-MapView.propTypes={
-
-
-
-cameraPosition:_reactNative2.default.PropTypes.object,
-
-
-
-
-showsUserLocation:_reactNative2.default.PropTypes.bool,
-
-
-
-
-scrollGestures:_reactNative2.default.PropTypes.bool,
-
-
-
-
-zoomGestures:_reactNative2.default.PropTypes.bool,
-
-
-
-
-tiltGestures:_reactNative2.default.PropTypes.bool,
-
-
-
-
-rotateGestures:_reactNative2.default.PropTypes.bool,
-
-
-
-
-
-consumesGesturesInView:_reactNative2.default.PropTypes.bool,
-
-
-
-
-compassButton:_reactNative2.default.PropTypes.bool,
-
-
-
-
-myLocationButton:_reactNative2.default.PropTypes.bool,
-
-
-
-
-indoorPicker:_reactNative2.default.PropTypes.bool,
-
-
-
-
-allowScrollGesturesDuringRotateOrZoom:_reactNative2.default.PropTypes.bool,
-
-
-
-
-markersSet:_reactNative2.default.PropTypes.object,
-
-
-
-
-
-
-didChangeCameraPosition:_reactNative2.default.PropTypes.func,
-
-
-
-
-
-idleAtCameraPosition:_reactNative2.default.PropTypes.func,
-
-
-
-
-
-didTapAtCoordinate:_reactNative2.default.PropTypes.func,
-
-
-
-
-didLongPressAtCoordinate:_reactNative2.default.PropTypes.func,
-
-
-
-
-didTapMarker:_reactNative2.default.PropTypes.func,
-
-
-
-
-didTapOverlay:_reactNative2.default.PropTypes.func,
-
-
-
-
-didBeginDraggingMarker:_reactNative2.default.PropTypes.func,
-
-
-
-
-didEndDraggingMarker:_reactNative2.default.PropTypes.func,
-
-
-
-
-didDragMarker:_reactNative2.default.PropTypes.func,
-
-
-
-
-didTapMyLocationButtonForMapView:_reactNative2.default.PropTypes.func,
-
-
-
-
-renderToHardwareTextureAndroid:_reactNative2.default.PropTypes.bool,
-accessibilityLiveRegion:_reactNative2.default.PropTypes.string,
-accessibilityComponentType:_reactNative2.default.PropTypes.string,
-importantForAccessibility:_reactNative2.default.PropTypes.string,
-accessibilityLabel:_reactNative2.default.PropTypes.string,
-onLayout:_reactNative2.default.PropTypes.bool,
-testID:_reactNative2.default.PropTypes.string};
-
-
-var PPTGoogleMap=(0,_reactNative.requireNativeComponent)('PPTGoogleMap',MapView,{
-nativeOnly:{
-onChange:true}});
-
-
-
-module.exports=MapView;
-});
-__d('dri/Components/NavBar.js',function(global, require, module, exports) {  'use strict';
-
-var React=require('react-native/Libraries/react-native/react-native.js');
-var NavigationBar=require('react-native-navbar/index.js');var 
-
-
-NativeModules=
-
-React.NativeModules;var PropTypes=React.PropTypes;var 
-FBLoginManager=NativeModules.FBLoginManager;
-
-var NavBar=React.createClass({displayName:'NavBar',
-propTypes:{
-navigator:PropTypes.object.isRequired},
-
-
-render:function(){
-var leftButtonConfig={
-title:'Log out',
-handler:this._logout};
-
-
-return (
-React.createElement(NavigationBar,{
-leftButton:leftButtonConfig,
-statusBar:{}}));},
-
-
-
-
-_logout:function(){var _this=this;
-FBLoginManager.logout(function(err,data){
-if(err)return;
-_this.props.navigator.popToTop();});}});
-
-
-
-
-module.exports=NavBar;
-});
-__d('react-native-navbar/index.js',function(global, require, module, exports) {  'use strict';var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);
-
-
-
-
-
-
-
-
-
-var _NavbarButton=require('react-native-navbar/NavbarButton.js');var _NavbarButton2=babelHelpers.interopRequireDefault(_NavbarButton);
-var _styles=require('react-native-navbar/styles.js');var _styles2=babelHelpers.interopRequireDefault(_styles);var PixelRatio=_reactNative2.default.PixelRatio;var StatusBar=_reactNative2.default.StatusBar;var Component=_reactNative2.default.Component;var Text=_reactNative2.default.Text;var View=_reactNative2.default.View;var PropTypes=_reactNative2.default.PropTypes;var Platform=_reactNative2.default.Platform;
-
-var ButtonShape={
-title:PropTypes.string.isRequired,
-style:PropTypes.any,
-handler:PropTypes.func};
-
-
-var TitleShape={
-title:PropTypes.string.isRequired,
-tintColor:PropTypes.string};
-
-
-var StatusBarShape={
-style:PropTypes.oneOf(['light-content','default']),
-hidden:PropTypes.bool,
-tintColor:PropTypes.string,
-hideAnimation:PropTypes.oneOf(['fade','slide','none']),
-showAnimation:PropTypes.oneOf(['fade','slide','none'])};
-
-
-function customizeStatusBar(data){
-if(Platform.OS==='ios'){
-if(data.style){
-StatusBar.setBarStyle(data.style);}
-
-var animation=data.hidden?
-data.hideAnimation||NavigationBar.defaultProps.statusBar.hideAnimation:
-data.showAnimation||NavigationBar.defaultProps.statusBar.showAnimation;
-
-StatusBar.showHideTransition=animation;
-StatusBar.hidden=data.hidden;}}var 
-
-
-
-NavigationBar=function(_Component){babelHelpers.inherits(NavigationBar,_Component);function NavigationBar(){babelHelpers.classCallCheck(this,NavigationBar);return babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(NavigationBar).apply(this,arguments));}babelHelpers.createClass(NavigationBar,[{key:'componentDidMount',value:function componentDidMount()
-{
-customizeStatusBar(this.props.statusBar);}},{key:'componentWillReceiveProps',value:function componentWillReceiveProps(
-
-
-props){
-customizeStatusBar(this.props.statusBar);}},{key:'getButtonElement',value:function getButtonElement()
-
-
-{var data=arguments.length<=0||arguments[0]===undefined?{}:arguments[0];var style=arguments[1];
-return (
-_reactNative2.default.createElement(View,{style:_styles2.default.navBarButtonContainer},
-!!data.props?data:
-_reactNative2.default.createElement(_NavbarButton2.default,{
-title:data.title,
-style:[data.style,style],
-tintColor:data.tintColor,
-handler:data.handler})));}},{key:'getTitleElement',value:function getTitleElement(
-
-
-
-
-
-data){
-if(!!data.props){
-return _reactNative2.default.createElement(View,{style:_styles2.default.customTitle},data);}
-
-
-var colorStyle=data.tintColor?{color:data.tintColor}:null;
-
-return (
-_reactNative2.default.createElement(View,{style:_styles2.default.navBarTitleContainer},
-_reactNative2.default.createElement(Text,{
-style:[_styles2.default.navBarTitleText,colorStyle]},
-data.title)));}},{key:'render',value:function render()
-
-
-
-
-
-{
-var customTintColor=this.props.tintColor?
-{backgroundColor:this.props.tintColor}:null;
-
-var customStatusBarTintColor=this.props.statusBar.tintColor?
-{backgroundColor:this.props.statusBar.tintColor}:null;
-
-var statusBar=null;
-
-if(Platform.OS==='ios'){
-statusBar=!this.props.statusBar.hidden?
-_reactNative2.default.createElement(View,{style:[_styles2.default.statusBar,customStatusBarTintColor]}):null;}
-
-
-return (
-_reactNative2.default.createElement(View,{style:[_styles2.default.navBarContainer,customTintColor]},
-statusBar,
-_reactNative2.default.createElement(View,{style:[_styles2.default.navBar,this.props.style]},
-this.getTitleElement(this.props.title),
-this.getButtonElement(this.props.leftButton,{marginLeft:8}),
-this.getButtonElement(this.props.rightButton,{marginRight:8}))));}}]);return NavigationBar;}(Component);NavigationBar.
-
-
-
-
-
-propTypes={
-tintColor:PropTypes.string,
-statusBar:PropTypes.shape(StatusBarShape),
-leftButton:PropTypes.oneOfType([
-PropTypes.shape(ButtonShape),
-PropTypes.element]),
-
-rightButton:PropTypes.oneOfType([
-PropTypes.shape(ButtonShape),
-PropTypes.element]),
-
-title:PropTypes.oneOfType([
-PropTypes.shape(TitleShape),
-PropTypes.element])};NavigationBar.
-
-
-
-defaultProps={
-statusBar:{
-style:'default',
-hidden:false,
-hideAnimation:'slide',
-showAnimation:'slide'},
-
-title:{
-title:''}};
-
-
-
-module.exports=NavigationBar;
-});
-__d('react-native-navbar/NavbarButton.js',function(global, require, module, exports) {  'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);
-
-
-
-
-
-
-
-var _styles=require('react-native-navbar/styles.js');var _styles2=babelHelpers.interopRequireDefault(_styles);var Text=_reactNative2.default.Text;var TouchableOpacity=_reactNative2.default.TouchableOpacity;var Component=_reactNative2.default.Component;var View=_reactNative2.default.View;var PropTypes=_reactNative2.default.PropTypes;var 
-
-NavbarButton=function(_Component){babelHelpers.inherits(NavbarButton,_Component);function NavbarButton(){babelHelpers.classCallCheck(this,NavbarButton);return babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(NavbarButton).apply(this,arguments));}babelHelpers.createClass(NavbarButton,[{key:'render',value:function render()
-{var _props=
-this.props;var style=_props.style;var tintColor=_props.tintColor;var margin=_props.margin;var title=_props.title;var handler=_props.handler;
-
-return (
-_reactNative2.default.createElement(TouchableOpacity,{style:_styles2.default.navBarButton,onPress:handler},
-_reactNative2.default.createElement(View,{style:style},
-_reactNative2.default.createElement(Text,{style:[_styles2.default.navBarButtonText,{color:tintColor}]},title))));}}]);return NavbarButton;}(Component);NavbarButton.
-
-
-
-
-
-propTypes={
-style:PropTypes.oneOfType([
-PropTypes.object,
-PropTypes.array]),
-
-tintColor:PropTypes.string,
-title:PropTypes.string,
-handler:PropTypes.func};NavbarButton.
-
-
-defaultProps={
-style:{},
-title:'',
-tintColor:'#0076FF',
-onPress:function(){return {};}};exports.default=NavbarButton;
-});
-__d('dri/Components/SurveyRestaurantSearch.js',function(global, require, module, exports) {  'use strict';
-
-var React=require('react-native/Libraries/react-native/react-native.js');
-var SurveySearchBarContainer=require('dri/Components/SurveySearchBarContainer.js');
-var SurveySearchResults=require('dri/Components/SurveySearchResults.js');var 
-
-
-PropTypes=
-
-React.PropTypes;var View=React.View;
-
-var SurveyRestaurantSearch=React.createClass({displayName:'SurveyRestaurantSearch',
-propTypes:{
-enableResults:PropTypes.bool.isRequired,
-onPress:PropTypes.func.isRequired},
-
-
-getInitialState:function(){
-return {
-data:{},
-enableResults:false};},
-
-
-
-render:function(){
-return (
-React.createElement(View,null,
-React.createElement(SurveySearchBarContainer,{
-setOptions:this._setOptions}),
-
-React.createElement(SurveySearchResults,{
-data:this.state.data,
-enableResults:this.state.enableResults&&this.props.enableResults,
-onPress:this.props.onPress})));},
-
-
-
-
-
-_setOptions:function(responseText,enableResults){
-var data=JSON.parse(responseText);
-this.setState({
-data:data,
-enableResults:enableResults});}});
-
-
-
-
-module.exports=SurveyRestaurantSearch;
-});
-__d('dri/Components/SurveySearchBarContainer.js',function(global, require, module, exports) {  'use strict';
-
-var React=require('react-native/Libraries/react-native/react-native.js');
-var SurveySearchBar=require('dri/Components/SurveySearchBar.js');var 
-
-
-PropTypes=
-
-React.PropTypes;var View=React.View;
-
-var SurveySearchBarContainer=React.createClass({displayName:'SurveySearchBarContainer',
-watchID:null,
-
-propTypes:{
-setOptions:PropTypes.func.isRequired},
-
-
-getInitialState:function(){
-return {
-latitude:0,
-longitude:0};},
-
-
-
-componentDidMount:function(){var _this=this;
-navigator.geolocation.getCurrentPosition(
-function(position){
-_this.setState({
-latitude:position.coords.latitude,
-longitude:position.coords.longitude});},
-
-
-function(error){return console.log(error);},
-
-
-
-{enableHighAccuracy:true,timeout:10*1000,maximumAge:5*60*1000});
-
-
-
-this.watchID=navigator.geolocation.watchPosition(function(position){
-_this.setState({
-latitude:position.coords.latitude,
-longitude:position.coords.longitude});});},
-
-
-
-
-componentWillUnmount:function(){
-navigator.geolocation.clearWatch(this.watchID);},
-
-
-render:function(){
-return (
-React.createElement(SurveySearchBar,babelHelpers.extends({},
-this.props,{
-latitude:this.state.latitude,
-longitude:this.state.longitude})));}});
-
-
-
-
-
-module.exports=SurveySearchBarContainer;
-});
-__d('dri/Components/SurveySearchBar.js',function(global, require, module, exports) {  'use strict';
-
-var Icon=require('react-native-vector-icons/FontAwesome.js');
-var React=require('react-native/Libraries/react-native/react-native.js');var 
-
-
-PropTypes=
-
-
-
-React.PropTypes;var StyleSheet=React.StyleSheet;var TextInput=React.TextInput;var View=React.View;
-
-var SurveySearchBar=React.createClass({displayName:'SurveySearchBar',
-propTypes:{
-latitude:PropTypes.number.isRequired,
-longitude:PropTypes.number.isRequired,
-setOptions:PropTypes.func.isRequired},
-
-
-componentDidMount:function(){},
-
-
-
-getInitialState:function(){
-return {
-isSearchBehind:false,
-isSearching:false,
-locationText:'',
-searchText:''};},
-
-
-
-render:function(){
-return (
-React.createElement(View,{style:styles.container},
-React.createElement(View,{
-style:[styles.textInputContainer,styles.searchContainer]},
-React.createElement(Icon,{
-style:styles.searchIcon,
-name:'search',
-size:15,
-color:'#B3B3B3'}),
-
-React.createElement(TextInput,{
-clearButtonMode:'always',
-onChangeText:this._onSearchTextChange,
-placeholder:'Search Restaurants Near',
-ref:'searchBar',
-selectionColor:'#6BCDFD',
-style:styles.textInput,
-value:this.state.searchText})),
-
-
-React.createElement(View,{
-style:[styles.textInputContainer,styles.locationContainer]},
-React.createElement(TextInput,{
-clearButtonMode:'always',
-onChangeText:this._onLocationTextChange,
-placeholder:'Current Location',
-selectionColor:'#6BCDFD',
-style:styles.textInput,
-value:this.state.locationText}))));},
-
-
-
-
-
-
-_onLocationTextChange:function(text){
-
-
-this.setState({locationText:text});
-this._search(this.state.searchText);},
-
-
-_onSearchTextChange:function(text){
-this._search(text);
-this.setState({searchText:text});},
-
-
-_search:function(text){var _this=this;
-
-if(!text.length){
-this.props.setOptions('{}',false);
-return;}
-
-
-
-
-
-
-if(this.state.isSearching){
-this.setState({isSearchBehind:true});
-console.log('search behind');
-return;}
-
-
-
-this.setState({isSearching:true});
-fetch('http://73.161.192.135:3000/api/search/'+
-this.props.latitude+'/'+this.props.longitude+'/'+
-text+'/'+this.state.locationText).
-then(function(response){return response.text();}).
-then(function(responseText){
-_this.setState({isSearching:false});
-
-_this.props.setOptions(responseText,true);
-
-
-
-if(_this.state.isSearchBehind){
-_this.setState({isSearchBehind:false});
-_this._search(_this.state.searchText);}}).
-
-
-catch(function(error){
-
-console.log(error);});}});
-
-
-
-
-var styles=StyleSheet.create({
-container:{
-alignItems:'center',
-backgroundColor:'#CCCCCC',
-borderColor:'#6BCDFD',
-borderTopWidth:2,
-flexDirection:'row',
-height:40},
-
-searchContainer:{
-flex:0.6},
-
-searchIcon:{
-marginLeft:6},
-
-locationContainer:{
-flex:0.4},
-
-textInput:{
-flex:1,
-fontSize:14,
-height:28,
-marginLeft:4},
-
-textInputContainer:{
-alignItems:'center',
-backgroundColor:'#FFFFFF',
-borderRadius:5,
-flexDirection:'row',
-marginLeft:8,
-marginRight:8}});
-
-
-
-module.exports=SurveySearchBar;
-});
 __d('dri/Components/SurveySearchResults.js',function(global, require, module, exports) {  'use strict';
 
 var Overlay=require('react-native-overlay/Overlay.ios.js');
@@ -70755,7 +70593,7 @@ backgroundColor:'#333333',
 borderBottomWidth:5,
 borderColor:'#6BCDFD',
 height:listHeight,
-marginTop:202}},
+marginTop:176}},
 
 React.createElement(ListView,{
 dataSource:dataSource,
@@ -74491,15 +74329,18 @@ justifyContent:'center'}});
 
 module.exports=RestaurantSurveyView;
 });
-__d('dri/Components/GasSwiperContainer.js',function(global, require, module, exports) {  'use strict';
+__d('dri/Components/FoodSwiperContainer.js',function(global, require, module, exports) {  'use strict';
 
-var GasFoodSwiper=require('dri/Components/GasFoodSwiper.js');
+var GasFoodSwiperContainer=require('dri/Components/GasFoodSwiperContainer.js');
 var React=require('react-native/Libraries/react-native/react-native.js');
 var TimerMixin=require('react-native-timer-mixin/TimerMixin.js');var 
 
-PropTypes=React.PropTypes;
 
-var GasSwiperContainer=React.createClass({displayName:'GasSwiperContainer',
+AsyncStorage=
+
+React.AsyncStorage;var PropTypes=React.PropTypes;
+
+var FoodSwiperContainer=React.createClass({displayName:'FoodSwiperContainer',
 mixins:[TimerMixin],
 
 propTypes:{
@@ -74511,17 +74352,17 @@ lastPosition:PropTypes.shape({
 latitude:PropTypes.number,
 longitude:PropTypes.number}).
 isRequired,
-onSetOptions:React.PropTypes.func,
-onSwipe:React.PropTypes.func,
-foodIndex:React.PropTypes.number,
-gasIndex:React.PropTypes.number},
+onSwipe:PropTypes.func,
+onSetOptions:PropTypes.func,
+optionLatitude:PropTypes.string,
+optionLongitude:PropTypes.string},
 
 
 getInitialState:function(){
 return {
 options:[],
 loading:false,
-transferredUp:false};},
+userID:''};},
 
 
 
@@ -74538,6 +74379,8 @@ this._setOptions(nextProps.currentPosition,nextProps.lastPosition);}},
 
 
 componentWillMount:function(){
+this._getUserID();
+
 this._setOptions(
 this.props.currentPosition,
 this.props.lastPosition);
@@ -74553,50 +74396,326 @@ this.props.lastPosition),
 
 render:function(){
 return (
-React.createElement(GasFoodSwiper,{
-foodIndex:this.props.foodIndex,
-gasIndex:this.props.gasIndex,
-image:require('dri/Images/gasstation.png'),
+React.createElement(GasFoodSwiperContainer,{
+hasNewOptions:this.state.hasNewOptions,
+hasSetOptions:this._hasSetOptions,
 latitude:this.props.currentPosition.latitude,
 loading:this.state.loading,
 longitude:this.props.currentPosition.longitude,
 onSwipe:this.props.onSwipe,
+optionLatitude:this.props.optionLatitude,
+optionLongitude:this.props.optionLongitude,
 options:this.state.options,
-style:this.props.style,
-title:"Gas"}));},
+title:"Food"}));},
 
 
+
+
+_hasSetOptions:function(){
+this.setState({hasNewOptions:false});},
 
 
 _setOptions:function(currentPosition,lastPosition){var _this=this;
 var current=JSON.stringify(currentPosition);
 var last=JSON.stringify(lastPosition);
 
-this.setState({loading:true});
+this.setState({loading:true,hasNewOptions:true});
 if(currentPosition.latitude&&currentPosition.longitude){
-var transferredUp=this.state.transferredUp;
 
-fetch('http://73.161.192.135:3000/api/gas/'+current+'/'+last).
+fetch('http://73.161.192.135:3000/api/yelp/'+
+current+'/'+last+'/'+this.state.userID).
 then(function(response){return response.text();}).
 then(function(responseText){
 var data=JSON.parse(responseText);
 var options=Object.keys(data).map(function(k){return data[k];});
-_this.setState({options:options,transferredUp:!transferredUp,loading:false});
-if(transferredUp==false){
-_this.props.onSetOptions(options);}}).
-
+options.sort(function(a,b){return a.score<b.score?1:b.score<a.score?-1:0;});
+_this.setState({options:options,loading:false});
+_this.props.onSetOptions(options);}).
 
 catch(function(error){
 
-console.log('error');
-_this.setState({loading:false});});}}});
+console.log(error);
+_this.setState({loading:false,hasNewOptions:false});});}},
+
+
+
+
+_getUserID:function(){
+AsyncStorage.getItem('userID').
+then(function(userID){
+this.setState({userID:userID});}.
+bind(this)).
+catch(function(error){
+console.log('error retrieving userID from disc'+error);});}});
+
+
+
+
+module.exports=FoodSwiperContainer;
+});
+__d('dri/Components/MapContainer.js',function(global, require, module, exports) {  'use strict';
+
+var GoogleMap=require('@pod-point/react-native-maps/PPTGoogleMap.js');
+var React=require('react-native/Libraries/react-native/react-native.js');var 
+
+
+Image=
+
+
+
+
+React.Image;var StyleSheet=React.StyleSheet;var PropTypes=React.PropTypes;var Text=React.Text;var View=React.View;
+
+var mockLocation={
+latitude:'42.291404',
+longitude:'-83.717274',
+zoom:15,
+size:{
+width:250,
+height:250}};
+
+
+
+var MapContainer=React.createClass({displayName:'MapContainer',
+propTypes:{
+foodOptions:PropTypes.array,
+gasOptions:PropTypes.array,
+foodIndex:PropTypes.number,
+gasIndex:PropTypes.number},
+
+
+componentDidMount:function(){},
 
 
 
 
 
-module.exports=GasSwiperContainer;
+render:function(){
+var j=0;
+var markersOptions={};
+
+var gasicon='https://cdn3.iconfinder.com/data/icons/map/500/gasstation-512.png';
+var numberOfGasMarkers=this.props.gasOptions.length;
+for(var i=0;i<numberOfGasMarkers;i++){
+var place=this.props.gasOptions[i];
+if(i==this.props.gasIndex){
+console.log('PLACE');
+markersOptions[String(j++)]={id:place.name,latitude:place.lat,longitude:place.lon,icon:{uri:gasicon,scale:10.0},active:true};}else 
+{
+markersOptions[String(j++)]={id:place.name,latitude:place.lat,longitude:place.lon,icon:{uri:gasicon,scale:10.0}};}}
+
+
+
+var numberOfFoodMarkers=this.props.foodOptions.length;
+for(var i=0;i<numberOfFoodMarkers;i++){
+var place=this.props.foodOptions[i];
+if(i==this.props.foodIndex){
+markersOptions[String(j++)]={id:place.name,latitude:place.lat,longitude:place.lon,icon:{uri:place.image,scale:3.0},active:true};}else 
+{
+markersOptions[String(j++)]={id:place.name,latitude:place.lat,longitude:place.lon,icon:{uri:place.image,scale:3.0}};}}
+
+
+
+return (
+React.createElement(View,{style:styles.container},
+React.createElement(GoogleMap,{
+markersSet:markersOptions,
+style:styles.map,
+cameraPosition:{auto:true,zoom:13},
+showsUserLocation:true})));}});
+
+
+
+
+
+
+var styles=StyleSheet.create({
+container:{
+alignItems:'center'},
+
+map:{
+height:250,
+width:250,
+borderWidth:1,
+borderColor:'#000000'}});
+
+
+
+module.exports=MapContainer;
+});
+__d('dri/views/liveView.js',function(global, require, module, exports) {  'use strict';
+
+var FoodSwiperContainer=require('dri/Components/FoodSwiperContainer.js');
+var GasSwiperContainer=require('dri/Components/GasSwiperContainer.js');
+var MapContainer=require('dri/Components/MapContainer.js');
+var NavBar=require('dri/Components/NavBar.js');
+var React=require('react-native/Libraries/react-native/react-native.js');var 
+
+
+StyleSheet=
+
+
+
+React.StyleSheet;var Text=React.Text;var TouchableHighlight=React.TouchableHighlight;var View=React.View;
+
+var liveView=React.createClass({displayName:'liveView',
+watchID:null,
+
+getInitialState:function(){
+return {
+currentPosition:{
+latitude:null,
+longitude:null},
+
+lastPosition:{
+latitude:null,
+longitude:null},
+
+foodOptions:[],
+gasOptions:[],
+foodIndex:0,
+gasIndex:0};},
+
+
+
+componentDidMount:function(){var _this=this;
+navigator.geolocation.getCurrentPosition(
+function(position){
+_this.setState({
+currentPosition:{
+latitude:position.coords.latitude,
+longitude:position.coords.longitude}});},
+
+
+
+function(error){return console.log(error);},
+
+
+
+{enableHighAccuracy:true,timeout:10*1000,maximumAge:5*60*1000});
+
+
+
+this.watchID=navigator.geolocation.watchPosition(function(position){
+var currentPosition={
+latitude:position.coords.latitude,
+longitude:position.coords.longitude};
+
+var lastPosition=_this.state.currentPosition;
+
+_this.setState({
+currentPosition:currentPosition,
+lastPosition:lastPosition});});},
+
+
+
+
+componentWillUnmount:function(){
+navigator.geolocation.clearWatch(this.watchID);},
+
+
+render:function(){
+var foodOptionLatitude=null;
+var foodOptionLongitude=null;
+if(this.state.foodOptions.length){
+foodOptionLatitude=this.state.foodOptions[this.state.foodIndex].lat;
+foodOptionLongitude=this.state.foodOptions[this.state.foodIndex].lon;}
+
+
+var gasOptionLatitude=null;
+var gasOptionLongitude=null;
+if(this.state.gasOptions.length){
+console.log('load');
+console.log(this.state.gasOptions[this.state.gasIndex]);
+gasOptionLatitude=this.state.gasOptions[this.state.gasIndex].lat;
+gasOptionLongitude=this.state.gasOptions[this.state.gasIndex].lon;}
+
+console.log(gasOptionLatitude);
+
+return (
+React.createElement(View,{style:styles.liveView},
+React.createElement(NavBar,{
+navigator:this.props.navigator}),
+
+React.createElement(FoodSwiperContainer,{
+currentPosition:this.state.currentPosition,
+foodIndex:this.state.foodIndex,
+gasIndex:this.state.gasIndex,
+lastPosition:this.state.lastPosition,
+onSetOptions:this._onSetFoodOptions,
+onSwipe:this._onFoodSwipe,
+optionLatitude:foodOptionLatitude,
+optionLongitude:foodOptionLongitude,
+style:styles.borderBottom}),
+
+React.createElement(GasSwiperContainer,{
+currentPosition:this.state.currentPosition,
+foodIndex:this.state.foodIndex,
+gasIndex:this.state.gasIndex,
+lastPosition:this.state.lastPosition,
+onSetOptions:this._onSetGasOptions,
+onSwipe:this._onGasSwipe,
+optionLatitude:gasOptionLatitude,
+optionLongitude:gasOptionLongitude,
+style:styles.borderBottom}),
+
+React.createElement(MapContainer,{
+style:styles.borderBottom,
+foodOptions:this.state.foodOptions,
+gasOptions:this.state.gasOptions,
+foodIndex:this.state.foodIndex,
+gasIndex:this.state.gasIndex})));},
+
+
+
+
+
+_onSetFoodOptions:function(options){
+this.setState({foodOptions:options});},
+
+
+_onSetGasOptions:function(options){
+this.setState({gasOptions:options});},
+
+
+_onFoodSwipe:function(index){
+this.setState({foodIndex:index});},
+
+
+_onGasSwipe:function(index){
+this.setState({gasIndex:index});}});
+
+
+
+
+var styles=StyleSheet.create({
+container:{
+alignItems:'center'},
+
+liveView:{
+backgroundColor:'#FFFFFF'},
+
+circleButton:{
+padding:10,
+borderWidth:1,
+borderColor:"#FFFFFF",
+margin:5,
+borderRadius:500},
+
+borderBottom:{
+borderBottomWidth:2,
+borderColor:'#CCCCCC',
+marginBottom:10,
+marginLeft:60,
+marginRight:60},
+
+wrapper:{
+flex:1}});
+
+
+
+module.exports=liveView;
 });
 ;require("InitializeJavaScriptAppEngine");
 ;require("dri/index.ios.js");
-__SSTOKENSTRING = "@generated SignedSource<<4c8974b33019bacc00a1e7a08a12d433>>";
+__SSTOKENSTRING = "@generated SignedSource<<d89fc17f11ec7a5b5e65d6d2d9745bc3>>";
