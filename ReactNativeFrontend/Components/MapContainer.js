@@ -45,9 +45,9 @@ var MapContainer = React.createClass({
             var place = this.props.gasOptions[i];
             if (i == this.props.gasIndex) {
                 console.log('PLACE')
-                markersOptions[String(j++)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: gasicon, scale: 10.0}, active: true};
+                markersOptions[String(j++)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: gasicon, scale: 11.0}, active: true};
             } else {
-                markersOptions[String(j++)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: gasicon, scale: 10.0}};
+                markersOptions[String(j++)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: gasicon, scale: 11.0}};
             }
         }
 
@@ -66,7 +66,6 @@ var MapContainer = React.createClass({
                 <GoogleMap
                     markersSet={markersOptions}
                     style={styles.map}
-                    cameraPosition={{auto: true, zoom: 13}}
                     showsUserLocation={true}
                 />
             </View>
