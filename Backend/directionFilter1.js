@@ -40,15 +40,11 @@ var directionFilter = function(list, lat1, long1, time1, lat2, long2, time2, ran
         var restLong = list[i][2];
         var restLat = list[i][1];
         var restID = list[i][0];
-        var restDiffLat = restLat - futureLat;
-        var restDiffLong = restLong - futureLong;
-        var restSlopeRatio = restDiffLat/restDiffLong;
+
         var restToFutureOriginDist = calcDistance(restLat, restLong, futureLat,
           futureLong);
         var restToCurrentPosDist = calcDistance(restLat, restLong, lat2, long2);
 
-        //Uses pythagorean theorem to determine if the resturant is past the
-        //line perpindicular to the path of travel
         if (restToFutureOriginDist <= range) {
         	if (restToFutureOriginDist <= restToCurrentPosDist) {
             console.log("track slope: " + trackSlopeRatioPerp);

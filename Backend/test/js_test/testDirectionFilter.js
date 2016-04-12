@@ -1,6 +1,7 @@
 var filter = require('../../directionFilter');
 var assert = require("assert");
 
+//direction of travel is purely north
 var pastLat = 42.234188;
 var pastLong = -83.732124;
 var curLat = 42.279594;
