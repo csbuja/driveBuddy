@@ -12,7 +12,8 @@ def cos_sim(F1,F2,rate_j):
 
 #method 2
 def jaccard_sim(F1,F2,rate_j):
-	return float(len([f for f in F1 if f in F2]))/(len(F1) + len(F2))
+	temp = len([f for f in F1 if f in F2])
+	return float(temp)/(len(F1) + len(F2) - temp)
 
 def similarity_func(F1,F2,rate_j,simtype):
 	if simtype == 'cos_sim':

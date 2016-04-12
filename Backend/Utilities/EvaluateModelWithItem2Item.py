@@ -103,7 +103,9 @@ if __name__ == "__main__":
         MSE2 = [MSE(ground_truth, [ a * predicted[i] + (1 - a) * estimate2[i] for i in range(len(ground_truth))]) for a in seq]
         idx1 = MSE1.index(min(MSE1))
         idx2 = MSE2.index(min(MSE2))
+        print MSE1
         print 'MSE is minizing when alpha = ' + str(seq[idx1]) + ' using ' + sim_func1 + ' : MSE = ' + str(MSE1[idx1])
+        print MSE2
         print 'MSE is minizing when alpha = ' + str(seq[idx2]) + ' using ' + sim_func2 + ' : MSE = ' + str(MSE2[idx2])
 
         
