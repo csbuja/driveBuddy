@@ -1,5 +1,7 @@
 'use strict';
 var React = require('react-native');
+var { FBLogin, FBLoginManager } = require('react-native-facebook-login');
+
 var Dimensions = require('Dimensions');
 var windowSize = Dimensions.get('window');
 
@@ -13,15 +15,12 @@ var {
   TextInput,
   TouchableHighlight,
   Image,
-  NativeModules
 } = React;
 
 var RestaurantSurveyView= require('./RestaurantSurveyView');
 var liveView = require('./liveView');
 
-var FBLogin = require('react-native-facebook-login');
 //var FBLoginMock = require('./facebook/FBLoginMock.js');
-var { FBLoginManager } = NativeModules;
 
 var FB_PHOTO_WIDTH = 200;
 
