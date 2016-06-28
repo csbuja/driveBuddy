@@ -53,8 +53,9 @@ var RestaurantSurveyView = React.createClass({
                         style={styles.background}
                         source={require('../Images/london.jpg')}>
                         <SurveyRestaurantSearch
-                            onPress={this._onRestaurantSelect}
                             enableResults={this.state.enableResults}
+                            onPress={this._onRestaurantSelect}
+                            selected={this.state.selected}
                         />
                         <SurveySelectedRestaurantList
                             onRestaurantRemove={this._onRestaurantRemove}
@@ -87,8 +88,14 @@ var RestaurantSurveyView = React.createClass({
 
     _onRestaurantSelect: function(info) {
         var selected = this.state.selected;
-        info.rating = 5;
-        selected[info.id] = info;
+
+        if (info.id in selected) {
+            delete selected[info.id];
+        } else {
+            info.rating = 5;
+            selected[info.id] = info;
+        }
+
         this.setState({selected: selected});
     },
 
@@ -99,7 +106,7 @@ var RestaurantSurveyView = React.createClass({
     _onNextPress: function() {
         // TODO (urlauba): Problems if userID retrieval fails
         var selectedInfo = Object.keys(this.state.selected).map((k) => { return this.state.selected[k]; });
-        fetch('http://73.161.192.135:3000/api/survey', {
+        fetch('http://localhost:3000/api/survey', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

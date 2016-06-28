@@ -13,6 +13,7 @@ var SurveyRestaurantSearch = React.createClass({
     propTypes: {
         enableResults: PropTypes.bool.isRequired,
         onPress: PropTypes.func.isRequired,
+        selected: PropTypes.object.isRequired,
     },
 
     getInitialState: function() {
@@ -31,6 +32,7 @@ var SurveyRestaurantSearch = React.createClass({
                     setOptions={this._setOptions}
                 />
                 <SurveySearchResults
+                    {...this.props}
                     data={this.state.data}
                     enableResults={this.state.enableResults && this.props.enableResults}
                     onPress={this.props.onPress}

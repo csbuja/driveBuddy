@@ -20,6 +20,7 @@ var SurveyRestaurantResults = React.createClass({
         data: PropTypes.any.isRequired,
         enableResults: PropTypes.bool.isRequired,
         onPress: PropTypes.func.isRequired,
+        selected: PropTypes.object.isRequired,
     },
 
     render: function() {
@@ -54,11 +55,15 @@ var SurveyRestaurantResults = React.createClass({
     },
 
     _renderRow: function(info, sectionID, rowID, adjHighlighted) {
+	var highlight = (info.id in this.props.selected)
+	    ? styles.highlight
+            : {};
+
         return (
             <TouchableHighlight
                 key={rowID}
                 onPress={() => this.props.onPress(info)}>
-                <View style={styles.row}>
+                <View style={[styles.row, highlight]}>
                     <View style={styles.directionRow}>
                         <Image
                             style={styles.thumbnail}
@@ -86,6 +91,9 @@ var styles = StyleSheet.create({
     },
     directionRow: {
         flexDirection: 'row',
+    },
+    highlight: {
+        backgroundColor: '#6BCDFD',
     },
     row: {
         backgroundColor: '#FFFFFF',

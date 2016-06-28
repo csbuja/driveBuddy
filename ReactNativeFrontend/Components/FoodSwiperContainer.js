@@ -91,7 +91,7 @@ var FoodSwiperContainer = React.createClass({
         this.setState({loading: true, hasNewOptions: true});
         if (currentPosition.latitude && currentPosition.longitude) {
             // TODO (urlauba): change url path
-            fetch('http://73.161.192.135:3000/api/yelp/'
+            fetch('http://localhost:3000/api/yelp/'
                 + current + '/' + last + '/' + this.state.userID)
                 .then((response) => response.text())
                 .then((responseText) => {
