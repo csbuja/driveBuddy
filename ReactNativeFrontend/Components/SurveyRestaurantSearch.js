@@ -2,7 +2,7 @@
 
 var React = require('react-native');
 var SurveySearchBarContainer = require('./SurveySearchBarContainer');
-var SurveySearchResults = require('./SurveySearchResults');
+var SurveySearchResultsContainer = require('./SurveySearchResultsContainer');
 
 var {
     PropTypes,
@@ -31,7 +31,7 @@ var SurveyRestaurantSearch = React.createClass({
                     disableSearchResults={this._disableSearchResults}
                     setOptions={this._setOptions}
                 />
-                <SurveySearchResults
+                <SurveySearchResultsContainer
                     {...this.props}
                     data={this.state.data}
                     enableResults={this.state.enableResults && this.props.enableResults}

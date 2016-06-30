@@ -1,6 +1,5 @@
 'use strict';
 
-var Overlay = require('react-native-overlay');
 var React = require('react-native');
 var SurveySearchBar = require('./SurveySearchBar');
 
@@ -18,45 +17,36 @@ var {
 var SurveyRestaurantResults = React.createClass({
     propTypes: {
         data: PropTypes.any.isRequired,
-        enableResults: PropTypes.bool.isRequired,
+        height: PropTypes.number.isRequired,
+        onLayout: PropTypes.func,
         onPress: PropTypes.func.isRequired,
         selected: PropTypes.object.isRequired,
     },
 
     render: function() {
-        var listHeight = 54 * Math.min(Object.keys(this.props.data).length, 3);
         var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         var dataSource = ds.cloneWithRows(this.props.data);
 
         return (
-            <Overlay
-                isVisible={this.props.enableResults}>
-                <View style={{
-                    backgroundColor: '#333333',
-                    borderBottomWidth: 5,
-                    borderColor: '#6BCDFD',
-                    height: listHeight,
-                    marginTop: 176,
-                }}>
-                    <ListView
-                        dataSource={dataSource}
-                        keyboardShouldPersistTaps={true}
-                        renderRow={this._renderRow}
-                        renderScrollComponent={
-                            props => <RecyclerViewBackedScrollView {...props} />
-                        }
-                        renderSeparator={(secID, rowID, adjHighlighted) =>
-                            <View key={rowID} style={styles.separator} />
-                        }
-                    />
-                </View>
-            </Overlay>
+            <ListView
+                dataSource={dataSource}
+                keyboardShouldPersistTaps={true}
+                onLayout={this.props.onLayout}
+                renderRow={this._renderRow}
+                renderScrollComponent={
+                    props => <RecyclerViewBackedScrollView {...props} />
+                }
+                renderSeparator={(secID, rowID, adjHighlighted) =>
+                    <View key={rowID} style={styles.separator} />
+                }
+                style={[styles.list, { height: this.props.height }]}
+            />
         );
     },
 
     _renderRow: function(info, sectionID, rowID, adjHighlighted) {
-	var highlight = (info.id in this.props.selected)
-	    ? styles.highlight
+        var highlight = (info.id in this.props.selected)
+            ? styles.highlight
             : {};
 
         return (
@@ -94,6 +84,10 @@ var styles = StyleSheet.create({
     },
     highlight: {
         backgroundColor: '#6BCDFD',
+    },
+    list: {
+        backgroundColor: '#333333',
+        borderColor: '#6BCDFD',
     },
     row: {
         backgroundColor: '#FFFFFF',
