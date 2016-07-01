@@ -4,6 +4,7 @@ var React = require('react-native');
 var Linking = require('Linking');
 
 var {
+    Dimensions,
     Image,
     StyleSheet,
     Platform,
@@ -13,6 +14,8 @@ var {
     TouchableHighlight,
     TouchableNativeFeedback
 } = React;
+
+var { height } = Dimensions.get('window');
 
 var StartRouteGuidanceButton = React.createClass({
     propTypes: {
@@ -54,17 +57,14 @@ var StartRouteGuidanceButton = React.createClass({
 var styles = StyleSheet.create({
     button: {
         backgroundColor: '#6BCDFD',
-        borderColor: '#fff',
-        borderRadius: 2,
-        borderStyle: 'solid',
-        borderWidth: 2,
-        flex: 1,
-        marginBottom: 8,
+        borderRadius: 4,
+        height: Math.min(height * .075, 44),
+        justifyContent: 'center',
         overflow: 'hidden',
-        padding: 8,
     },
     buttonText: {
         color: '#FFFFFF',
+        fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'center',
     },

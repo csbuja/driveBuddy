@@ -25,6 +25,7 @@ var NavBar = React.createClass({
             <NavigationBar
                 leftButton={leftButtonConfig}
                 statusBar={{}} // suppress module bug
+                style={this.props.style}
             />
         );
     },

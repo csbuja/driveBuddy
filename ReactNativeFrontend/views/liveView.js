@@ -7,11 +7,14 @@ var NavBar = require('../Components/NavBar');
 var React = require('react-native');
 
 var {
+    Dimensions,
     StyleSheet,
     Text,
     TouchableHighlight,
     View,
 } = React;
+
+var { width } = Dimensions.get('window');
 
 var liveView = React.createClass({
     watchID: (null: ?number),
@@ -88,6 +91,7 @@ var liveView = React.createClass({
             <View style={styles.liveView}>
                 <NavBar
                     navigator={this.props.navigator}
+                    style={styles.navbar}
                 />
                 <FoodSwiperContainer
                     currentPosition={this.state.currentPosition}
@@ -98,8 +102,9 @@ var liveView = React.createClass({
                     onSwipe={this._onFoodSwipe}
                     optionLatitude={foodOptionLatitude}
                     optionLongitude={foodOptionLongitude}
-                    style={styles.borderBottom}
+                    style={styles.swiper}
                 />
+                <View style={styles.separator} />
                 <GasSwiperContainer
                     currentPosition={this.state.currentPosition}
                     foodIndex={this.state.foodIndex}
@@ -109,14 +114,15 @@ var liveView = React.createClass({
                     onSwipe={this._onGasSwipe}
                     optionLatitude={gasOptionLatitude}
                     optionLongitude={gasOptionLongitude}
-                    style={styles.borderBottom}
+                    style={styles.swiper}
                 />
+                <View style={styles.separator} />
                 <MapContainer
-                    style={styles.borderBottom}
-                    foodOptions={this.state.foodOptions}
-                    gasOptions={this.state.gasOptions}
                     foodIndex={this.state.foodIndex}
+                    foodOptions={this.state.foodOptions}
                     gasIndex={this.state.gasIndex}
+                    gasOptions={this.state.gasOptions}
+                    style={styles.map}
                 />
             </View>
         );
@@ -141,25 +147,26 @@ var liveView = React.createClass({
 });
 
 var styles = StyleSheet.create({
-    container: {
-        alignItems: 'center',
-    },
     liveView: {
         backgroundColor:'#FFFFFF',
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
     },
-    circleButton: {
-        padding: 10,
-        borderWidth: 1,
-        borderColor: "#FFFFFF",
-        margin: 5,
-        borderRadius: 500
+    map: {
+        flex: 1.5,
     },
-    borderBottom: {
-        borderBottomWidth: 2,
-        borderColor: '#CCCCCC',
-        marginBottom: 10,
-        marginLeft: 60,
-        marginRight: 60,
+    navbar: {
+        position: 'absolute',
+    },
+    separator: {
+        alignSelf: 'center',
+        backgroundColor: '#CCCCCC',
+        height: 2,
+        width: width * .85, // needs to match MapContainer
+    },
+    swiper: {
+        flex: 1,
     },
     wrapper: {
         flex: 1,

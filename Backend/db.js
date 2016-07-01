@@ -6,8 +6,7 @@ var mysql = require("mysql");
 var con = mysql.createConnection({
 	host     : 'localhost',
 	user     : 'root',
-	password : '123456',
-	socketPath  : '/var/run/mysqld/mysqld.sock', // use mysqladmin variables | grep sock to get the socket path
+	socketPath  : '/tmp/mysql.sock', // use mysqladmin variables | grep sock to get the socket path
 	database: 'eecs498',
 
 });

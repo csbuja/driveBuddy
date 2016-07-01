@@ -31,7 +31,7 @@ var GasFoodSwiperContainer = React.createClass({
         var placeContainerOffset = 90;
 
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, this.props.style]}>
                 <GasFoodSwiper
                     hasNewOptions={this.props.hasNewOptions}
                     hasSetOptions={this.props.hasSetOptions}
@@ -57,6 +57,7 @@ var GasFoodSwiperContainer = React.createClass({
 var styles = StyleSheet.create({
     container: {
         alignItems: 'center',
+        justifyContent: 'center',
     },
 });
 

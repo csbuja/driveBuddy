@@ -18,7 +18,6 @@ var SurveyRestaurantResults = React.createClass({
     propTypes: {
         data: PropTypes.any.isRequired,
         height: PropTypes.number.isRequired,
-        onLayout: PropTypes.func,
         onPress: PropTypes.func.isRequired,
         selected: PropTypes.object.isRequired,
     },
@@ -31,7 +30,6 @@ var SurveyRestaurantResults = React.createClass({
             <ListView
                 dataSource={dataSource}
                 keyboardShouldPersistTaps={true}
-                onLayout={this.props.onLayout}
                 renderRow={this._renderRow}
                 renderScrollComponent={
                     props => <RecyclerViewBackedScrollView {...props} />

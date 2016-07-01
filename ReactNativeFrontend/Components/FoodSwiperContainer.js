@@ -66,6 +66,7 @@ var FoodSwiperContainer = React.createClass({
     render: function() {
         return (
             <GasFoodSwiperContainer
+                {...this.props}
                 hasNewOptions={this.state.hasNewOptions}
                 hasSetOptions={this._hasSetOptions}
                 latitude={this.props.currentPosition.latitude}

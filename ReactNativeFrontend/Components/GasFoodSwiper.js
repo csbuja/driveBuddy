@@ -5,6 +5,7 @@ var Spinner = require('react-native-gifted-spinner');
 var Swiper = require('react-native-swiper');
 
 var {
+    Dimensions,
     Image,
     StyleSheet,
     PropTypes,
@@ -13,6 +14,9 @@ var {
     TouchableHighlight,
     TouchableNativeFeedback
 } = React;
+
+var { height } = Dimensions.get('window');
+
 var i = 0;
 
 var GasFoodSubSwiper = React.createClass({
@@ -40,16 +44,30 @@ var GasFoodSubSwiper = React.createClass({
     },
 
     render: function(){
+        var imageSize = height * .12;
+
         return (
             <Swiper
                 onMomentumScrollEnd={this._onMomentumScrollEnd}
-                height={110}
+                height={imageSize}
                 nextButton={<Text style={styles.swiperButton}>›</Text>}
                 prevButton={<Text style={styles.swiperButton}>‹</Text>}
                 showsButtons={true}
                 showsPagination={false}
                 width={this.props.swiperWidth}>
                 {this.props.options.map((place) => {
+                    var price = (
+                        <Text numberOfLines={1} style={styles.subText}>
+                            {"$" + place.price + " regular"}
+                        </Text>
+                    );
+
+                    var score = (
+                        <Text numberOfLines={1} style={styles.subText}>
+                            {place.score + " stars"}
+                        </Text>
+                    );
+
                     return (
                         <View
                             style={[styles.placeContainer, {
@@ -57,14 +75,15 @@ var GasFoodSubSwiper = React.createClass({
                                 marginRight: this.props.placeContainerOffset / 2,
                             }]}
                             key={i++}>
-                            <View style={styles.imageContainer}>
-                                <Image style={styles.image} source={{uri: place.image}}/>
-                            </View>
+                            <Image
+                                style={[styles.image, { height: imageSize, width: imageSize, }]}
+                                source={{uri: place.image}}
+                            />
                             <View style={styles.textContainer}>
                                 <Text style={styles.name}>{place.name}</Text>
-                                {place.price && <Text numberOfLines={1}>{"$" + place.price + " regular"}</Text>}
-                                {place.score && <Text numberOfLines={1}>{place.score + " stars"}</Text>}
-                                <Text numberOfLines={1}>{place.distance + " miles"}</Text>
+                                {place.price && price}
+                                {place.score && score}
+                                <Text numberOfLines={1} style={styles.subText}>{place.distance + " miles"}</Text>
                             </View>
                         </View>
                     );
@@ -91,36 +110,36 @@ var GasFoodSwiper = React.createClass({
     },
 
     render: function() {
-        var morethanzerooptions = this.props.options.length > 0;
-        var isLoading = this.props.loading;
-        var show_swiper_or_error;
-        if (morethanzerooptions){
-            show_swiper_or_error =
-                <GasFoodSubSwiper
-                    hasNewOptions={this.props.hasNewOptions}
-                    hasSetOptions={this.props.hasSetOptions}
-                    onSwipe={this.props.onSwipe}
-                    options={this.props.options}
-                    placeContainerOffset={this.props.placeContainerOffset}
-                    swiperWidth={this.props.swiperWidth}
-                    title={this.props.title}
-                />;
-        }
-        else{
-            if (isLoading == true) {
-                show_swiper_or_error= (<View style={styles.no_options}>
-                    <Spinner size={'large'} style={styles.spinner}/>
-                    </View>)
-            } else {
-                show_swiper_or_error= (<View style={styles.no_options}>
+        var content = (
+            <GasFoodSubSwiper
+                hasNewOptions={this.props.hasNewOptions}
+                hasSetOptions={this.props.hasSetOptions}
+                onSwipe={this.props.onSwipe}
+                options={this.props.options}
+                placeContainerOffset={this.props.placeContainerOffset}
+                swiperWidth={this.props.swiperWidth}
+                title={this.props.title}
+            />
+        );
+
+        if (this.props.loading) {
+            content = (
+                <View style={styles.spinnerContainer}>
+                    <Spinner size={'large'} />
+                </View>
+            );
+        } else if (!this.props.options.length) {
+            content = (
+                <View style={styles.spinnerContainer}>
                     <Text>{this.state.error_message}</Text>
-                    </View>)
-            }
+                </View>
+            );
         }
 
         return (
-            <View style={[styles.container, styles.col]}>
-                <Text style={styles.title}>{this.props.title}</Text>{show_swiper_or_error}
+            <View style={styles.container}>
+                <Text style={styles.title}>{this.props.title}</Text>
+                {content}
             </View>
         );
     },
@@ -129,47 +148,36 @@ var GasFoodSwiper = React.createClass({
 var styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-    },
-    col: {
-        flexDirection: 'column',
-    },
-    no_options: {
-        alignItems: 'center',
-        flex: 1,
-        height:110,
-        justifyContent: 'center',
-        width:300,
-    },
-    imageContainer: {
-        flex: 1,
-        flexDirection: 'column',
+        paddingBottom: 6
     },
     image: {
-        height: 100,
-        width: 100,
+        borderRadius: 5,
     },
     name: {
         fontSize: 16,
         fontWeight: 'bold',
     },
     placeContainer: {
+        alignItems: 'center',
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
-    row: {
-        flexDirection: 'row',
+    spinnerContainer: {
+        // match StartRouteGuidanceButton height + Swiper height
+        height: Math.min(height * .075, 44) + (height * .12),
+        justifyContent: 'center',
     },
-    spinner: {
-        alignSelf:'center',
+    subText: {
+        fontSize: 16,
     },
     swiperButton: {
-        fontSize: 50,
         color: '#cccccc',
-        fontFamily: 'Arial'
+        fontFamily: 'Arial',
+        fontSize: 50,
     },
     textContainer: {
-        flex: 1,
+        alignSelf: 'stretch',
         flexDirection: 'column',
         justifyContent: 'center',
     },

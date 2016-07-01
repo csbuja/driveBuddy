@@ -4,12 +4,15 @@ var GoogleMap = require('@pod-point/react-native-maps');
 var React = require('react-native');
 
 var {
+    Dimensions,
     Image,
     StyleSheet,
     PropTypes,
     Text,
     View
 } = React;
+
+var { height, width } = Dimensions.get('window');
 
 var mockLocation = {
   latitude: '42.291404',
@@ -62,7 +65,7 @@ var MapContainer = React.createClass({
         }
 
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, this.props.style]}>
                 <GoogleMap
                     markersSet={markersOptions}
                     style={styles.map}
@@ -76,12 +79,12 @@ var MapContainer = React.createClass({
 var styles = StyleSheet.create({
     container: {
         alignItems: 'center',
+        justifyContent: 'center',
     },
     map: {
-        height: 250,
-        width: 250,
-        borderWidth: 1,
-        borderColor: '#000000',
+        borderRadius: 5,
+        height: height * .365,
+        width: width * .85, // needs to match separator in liveView
     },
 });
 
