@@ -23,6 +23,7 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		59B907491C9A53A700E7F5D9 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B907481C9A539000E7F5D9 /* libRNVectorIcons.a */; };
 		59D9663F1CB9E9E1002D509F /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		59F3E8021D24AB53000D82F7 /* libRNKeyboardEvents.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59F3E8011D24AB3E000D82F7 /* libRNKeyboardEvents.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		DA5FDCB91C87E46D00D6D894 /* GoogleMapsApi.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA5FDCB81C87E46D00D6D894 /* GoogleMapsApi.plist */; };
 		DA5FDCCA1C87E4D600D6D894 /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5FDCBA1C87E4D600D6D894 /* libz.1.dylib */; };
@@ -128,6 +129,13 @@
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
 		};
+		59F3E8001D24AB3E000D82F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 59F3E7FC1D24AB3E000D82F7 /* RNKeyboardEvents.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F12AFB9B1ADAF8F800E0535D;
+			remoteInfo = RNKeyboardEvents;
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -193,6 +201,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = dri/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		59B907351C9A539000E7F5D9 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		59F3E7FC1D24AB3E000D82F7 /* RNKeyboardEvents.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNKeyboardEvents.xcodeproj; path = "../node_modules/react-native-keyboardevents/RNKeyboardEvents.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		DA5FDCB21C87E43D00D6D894 /* PPTMapView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PPTMapView.xcodeproj; path = "../node_modules/@pod-point/react-native-maps/ios/PPTMapView.xcodeproj"; sourceTree = "<group>"; };
@@ -241,6 +250,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59F3E8021D24AB53000D82F7 /* libRNKeyboardEvents.a in Frameworks */,
 				59B907491C9A53A700E7F5D9 /* libRNVectorIcons.a in Frameworks */,
 				DA5FDCD91C87E50100D6D894 /* libPPTMapView.a in Frameworks */,
 				DED8FA161C78030F00F84300 /* libRNOverlay.a in Frameworks */,
@@ -383,6 +393,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		59F3E7FD1D24AB3E000D82F7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				59F3E8011D24AB3E000D82F7 /* libRNKeyboardEvents.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -394,6 +412,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				59F3E7FC1D24AB3E000D82F7 /* RNKeyboardEvents.xcodeproj */,
 				59B907351C9A539000E7F5D9 /* RNVectorIcons.xcodeproj */,
 				DA5FDCB21C87E43D00D6D894 /* PPTMapView.xcodeproj */,
 				DA5FDCC91C87E4D600D6D894 /* Google Maps SDK */,
@@ -634,6 +653,10 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
+					ProductGroup = 59F3E7FD1D24AB3E000D82F7 /* Products */;
+					ProjectRef = 59F3E7FC1D24AB3E000D82F7 /* RNKeyboardEvents.xcodeproj */;
+				},
+				{
 					ProductGroup = DED8FA001C7802D400F84300 /* Products */;
 					ProjectRef = DED8F9FF1C7802D400F84300 /* RNOverlay.xcodeproj */;
 				},
@@ -716,6 +739,13 @@
 			fileType = archive.ar;
 			path = libRNVectorIcons.a;
 			remoteRef = 59B907471C9A539000E7F5D9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		59F3E8011D24AB3E000D82F7 /* libRNKeyboardEvents.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNKeyboardEvents.a;
+			remoteRef = 59F3E8001D24AB3E000D82F7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
