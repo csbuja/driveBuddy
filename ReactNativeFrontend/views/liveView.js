@@ -88,43 +88,41 @@ var liveView = React.createClass({
         }
 
         return (
-            <View style={styles.liveView}>
-                <NavBar
-                    navigator={this.props.navigator}
-                    style={styles.navbar}
-                />
-                <FoodSwiperContainer
-                    currentPosition={this.state.currentPosition}
-                    foodIndex={this.state.foodIndex}
-                    gasIndex={this.state.gasIndex}
-                    lastPosition={this.state.lastPosition}
-                    onSetOptions={this._onSetFoodOptions}
-                    onSwipe={this._onFoodSwipe}
-                    optionLatitude={foodOptionLatitude}
-                    optionLongitude={foodOptionLongitude}
-                    style={styles.swiper}
-                />
-                <View style={styles.separator} />
-                <GasSwiperContainer
-                    currentPosition={this.state.currentPosition}
-                    foodIndex={this.state.foodIndex}
-                    gasIndex={this.state.gasIndex}
-                    lastPosition={this.state.lastPosition}
-                    onSetOptions={this._onSetGasOptions}
-                    onSwipe={this._onGasSwipe}
-                    optionLatitude={gasOptionLatitude}
-                    optionLongitude={gasOptionLongitude}
-                    style={styles.swiper}
-                />
-                <View style={styles.separator} />
-                <MapContainer
-                    foodIndex={this.state.foodIndex}
-                    foodOptions={this.state.foodOptions}
-                    gasIndex={this.state.gasIndex}
-                    gasOptions={this.state.gasOptions}
-                    style={styles.map}
-                />
-            </View>
+        <View style={styles.liveView}>
+            <FoodSwiperContainer
+                currentPosition={this.state.currentPosition}
+                foodIndex={this.state.foodIndex}
+                gasIndex={this.state.gasIndex}
+                lastPosition={this.state.lastPosition}
+                onSetOptions={this._onSetFoodOptions}
+                onSwipe={this._onFoodSwipe}
+                optionLatitude={foodOptionLatitude}
+                optionLongitude={foodOptionLongitude}
+                navigator={this.props.navigator}
+                style={styles.swiper}
+            />
+            <View style={styles.separator} />
+            <GasSwiperContainer
+                currentPosition={this.state.currentPosition}
+                foodIndex={this.state.foodIndex}
+                gasIndex={this.state.gasIndex}
+                lastPosition={this.state.lastPosition}
+                onSetOptions={this._onSetGasOptions}
+                onSwipe={this._onGasSwipe}
+                optionLatitude={gasOptionLatitude}
+                optionLongitude={gasOptionLongitude}
+                style={styles.swiper}
+            />
+            <View style={styles.separator} />
+            <MapContainer
+                foodIndex={this.state.foodIndex}
+                foodOptions={this.state.foodOptions}
+                gasIndex={this.state.gasIndex}
+                gasOptions={this.state.gasOptions}
+                style={styles.map}
+            />
+            <View style={styles.separatorEmpty} />
+        </View>
         );
     },
 
@@ -148,16 +146,9 @@ var liveView = React.createClass({
 
 var styles = StyleSheet.create({
     liveView: {
-        backgroundColor:'#FFFFFF',
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'flex-start',
-    },
-    map: {
-        flex: 1.5,
-    },
-    navbar: {
-        position: 'absolute',
+        justifyContent: 'space-between',
     },
     separator: {
         alignSelf: 'center',
@@ -165,8 +156,8 @@ var styles = StyleSheet.create({
         height: 2,
         width: width * .85, // needs to match MapContainer
     },
-    swiper: {
-        flex: 1,
+    separatorEmpty: {
+        height: 2,
     },
     wrapper: {
         flex: 1,

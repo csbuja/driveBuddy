@@ -27,7 +27,6 @@ var GasFoodSubSwiper = React.createClass({
         options: PropTypes.array.isRequired,
         placeContainerOffset: PropTypes.number.isRequired,
         swiperWidth: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
@@ -102,7 +101,6 @@ var GasFoodSwiper = React.createClass({
         options: PropTypes.array.isRequired,
         placeContainerOffset: PropTypes.number.isRequired,
         swiperWidth: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
     },
 
     getInitialState: function(){
@@ -118,7 +116,6 @@ var GasFoodSwiper = React.createClass({
                 options={this.props.options}
                 placeContainerOffset={this.props.placeContainerOffset}
                 swiperWidth={this.props.swiperWidth}
-                title={this.props.title}
             />
         );
 
@@ -138,7 +135,6 @@ var GasFoodSwiper = React.createClass({
 
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>{this.props.title}</Text>
                 {content}
             </View>
         );
@@ -180,11 +176,6 @@ var styles = StyleSheet.create({
         alignSelf: 'stretch',
         flexDirection: 'column',
         justifyContent: 'center',
-    },
-    title: {
-        color: '#404040',
-        fontSize: 24,
-        fontWeight: 'bold',
     },
 });
 

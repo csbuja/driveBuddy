@@ -1,12 +1,15 @@
 'use strict';
 
 var GasFoodSwiperContainer = require('./GasFoodSwiperContainer');
+var NavBar = require('../Components/NavBar');
 var React = require('react-native');
 var TimerMixin = require('react-native-timer-mixin');
 
 var {
     AsyncStorage,
-    PropTypes
+    PropTypes,
+    Text,
+    View
 } = React;
 
 var FoodSwiperContainer = React.createClass({
@@ -25,6 +28,7 @@ var FoodSwiperContainer = React.createClass({
         onSetOptions: PropTypes.func,
         optionLatitude: PropTypes.number,
         optionLongitude: PropTypes.number,
+        navigator: PropTypes.object.isRequired,
     },
 
     getInitialState: function() {
@@ -65,19 +69,24 @@ var FoodSwiperContainer = React.createClass({
 
     render: function() {
         return (
-            <GasFoodSwiperContainer
-                {...this.props}
-                hasNewOptions={this.state.hasNewOptions}
-                hasSetOptions={this._hasSetOptions}
-                latitude={this.props.currentPosition.latitude}
-                loading={this.state.loading}
-                longitude={this.props.currentPosition.longitude}
-                onSwipe={this.props.onSwipe}
-                optionLatitude={this.props.optionLatitude}
-                optionLongitude={this.props.optionLongitude}
-                options={this.state.options}
-                title={"Food"}
-            />
+            <View>
+                <NavBar
+                    navigator={this.props.navigator}
+                    title={"Food"}
+                />
+                <GasFoodSwiperContainer
+                    {...this.props}
+                    hasNewOptions={this.state.hasNewOptions}
+                    hasSetOptions={this._hasSetOptions}
+                    latitude={this.props.currentPosition.latitude}
+                    loading={this.state.loading}
+                    longitude={this.props.currentPosition.longitude}
+                    onSwipe={this.props.onSwipe}
+                    optionLatitude={this.props.optionLatitude}
+                    optionLongitude={this.props.optionLongitude}
+                    options={this.state.options}
+                />
+            </View>
         );
     },
 

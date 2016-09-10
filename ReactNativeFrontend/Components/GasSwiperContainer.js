@@ -4,7 +4,7 @@ var GasFoodSwiperContainer = require('./GasFoodSwiperContainer');
 var React = require('react-native');
 var TimerMixin = require('react-native-timer-mixin');
 
-var {PropTypes} = React;
+var { PropTypes, StyleSheet, Text, View } = React;
 
 var GasSwiperContainer = React.createClass({
     mixins: [TimerMixin],
@@ -60,19 +60,21 @@ var GasSwiperContainer = React.createClass({
 
     render: function() {
         return (
-            <GasFoodSwiperContainer
-                {...this.props}
-                hasNewOptions={this.state.hasNewOptions}
-                hasSetOptions={this._hasSetOptions}
-                latitude={this.props.currentPosition.latitude}
-                loading={this.state.loading}
-                longitude={this.props.currentPosition.longitude}
-                onSwipe={this.props.onSwipe}
-                optionLatitude={this.props.optionLatitude}
-                optionLongitude={this.props.optionLongitude}
-                options={this.state.options}
-                title={"Gas"}
-            />
+            <View>
+                <Text style={styles.title}>Gas</Text>
+                <GasFoodSwiperContainer
+                    {...this.props}
+                    hasNewOptions={this.state.hasNewOptions}
+                    hasSetOptions={this._hasSetOptions}
+                    latitude={this.props.currentPosition.latitude}
+                    loading={this.state.loading}
+                    longitude={this.props.currentPosition.longitude}
+                    onSwipe={this.props.onSwipe}
+                    optionLatitude={this.props.optionLatitude}
+                    optionLongitude={this.props.optionLongitude}
+                    options={this.state.options}
+                />
+            </View>
         );
     },
 
@@ -105,6 +107,16 @@ var GasSwiperContainer = React.createClass({
                     this.setState({loading: false, hasNewOptions: false});
                 });
         }
+    },
+});
+
+var styles = StyleSheet.create({
+    title: {
+        color: '#404040',
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 7,
+        textAlign: 'center',
     },
 });
 

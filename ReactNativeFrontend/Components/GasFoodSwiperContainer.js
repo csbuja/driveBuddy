@@ -23,7 +23,7 @@ var GasFoodSwiperContainer = React.createClass({
         optionLatitude: PropTypes.number,
         optionLongitude: PropTypes.number,
         options: PropTypes.array.isRequired,
-        title: PropTypes.string.isRequired,
+        title: PropTypes.string,
     },
 
     render: function() {
