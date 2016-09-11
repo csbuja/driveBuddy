@@ -83,7 +83,7 @@ var styles = StyleSheet.create({
     },
     map: {
         borderRadius: 5,
-        height: height * .365,
+        height: height * .32,
         width: width * .85, // needs to match separator in liveView
     },
 });

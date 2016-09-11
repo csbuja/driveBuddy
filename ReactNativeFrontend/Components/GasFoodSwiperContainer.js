@@ -5,12 +5,15 @@ var React = require('react-native');
 var StartRouteGuidanceButton = require('./StartRouteGuidanceButton');
 
 var {
+    Dimensions,
     PropTypes,
     StyleSheet,
     Text,
     TouchableHighlight,
     View,
 } = React;
+
+var { width } = Dimensions.get('window');
 
 var GasFoodSwiperContainer = React.createClass({
     propTypes: {
@@ -23,12 +26,11 @@ var GasFoodSwiperContainer = React.createClass({
         optionLatitude: PropTypes.number,
         optionLongitude: PropTypes.number,
         options: PropTypes.array.isRequired,
-        title: PropTypes.string,
     },
 
     render: function() {
-        var swiperWidth = 320;
-        var placeContainerOffset = 90;
+        var swiperWidth = width * .9;
+        var placeContainerOffset = width * .2;
 
         return (
             <View style={[styles.container, this.props.style]}>
@@ -40,7 +42,6 @@ var GasFoodSwiperContainer = React.createClass({
                     options={this.props.options}
                     placeContainerOffset={placeContainerOffset}
                     swiperWidth={swiperWidth}
-                    title={this.props.title}
                 />
                 <StartRouteGuidanceButton
                     itemWidth={swiperWidth - placeContainerOffset}

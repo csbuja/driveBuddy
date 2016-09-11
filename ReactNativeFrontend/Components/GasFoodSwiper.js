@@ -15,7 +15,7 @@ var {
     TouchableNativeFeedback
 } = React;
 
-var { height } = Dimensions.get('window');
+var { height, width } = Dimensions.get('window');
 
 var i = 0;
 
@@ -43,7 +43,7 @@ var GasFoodSubSwiper = React.createClass({
     },
 
     render: function(){
-        var imageSize = height * .12;
+        var imageSize = width * .2;
 
         return (
             <Swiper
@@ -67,6 +67,10 @@ var GasFoodSubSwiper = React.createClass({
                         </Text>
                     );
 
+                    var numberOfTitleLines = height < 600
+                        ? 1
+                        : 2;
+
                     return (
                         <View
                             style={[styles.placeContainer, {
@@ -79,7 +83,7 @@ var GasFoodSubSwiper = React.createClass({
                                 source={{uri: place.image}}
                             />
                             <View style={styles.textContainer}>
-                                <Text style={styles.name}>{place.name}</Text>
+                                <Text style={styles.name} numberOfLines={numberOfTitleLines}>{place.name}</Text>
                                 {place.price && price}
                                 {place.score && score}
                                 <Text numberOfLines={1} style={styles.subText}>{place.distance + " miles"}</Text>
@@ -161,7 +165,7 @@ var styles = StyleSheet.create({
     },
     spinnerContainer: {
         // match StartRouteGuidanceButton height + Swiper height
-        height: Math.min(height * .075, 44) + (height * .12),
+        height: Math.min(height * .075, 44) + (width * .2),
         justifyContent: 'center',
     },
     subText: {
@@ -176,6 +180,7 @@ var styles = StyleSheet.create({
         alignSelf: 'stretch',
         flexDirection: 'column',
         justifyContent: 'center',
+        width: width * .45,
     },
 });
 
