@@ -94,11 +94,12 @@ var liveView = React.createClass({
                 foodIndex={this.state.foodIndex}
                 gasIndex={this.state.gasIndex}
                 lastPosition={this.state.lastPosition}
+                navigator={this.props.navigator}
                 onSetOptions={this._onSetFoodOptions}
                 onSwipe={this._onFoodSwipe}
                 optionLatitude={foodOptionLatitude}
                 optionLongitude={foodOptionLongitude}
-                navigator={this.props.navigator}
+                options={this.state.foodOptions}
                 style={styles.swiper}
             />
             <View style={styles.separator} />
@@ -111,6 +112,7 @@ var liveView = React.createClass({
                 onSwipe={this._onGasSwipe}
                 optionLatitude={gasOptionLatitude}
                 optionLongitude={gasOptionLongitude}
+                options={this.state.gasOptions}
                 style={styles.swiper}
             />
             <View style={styles.separator} />
