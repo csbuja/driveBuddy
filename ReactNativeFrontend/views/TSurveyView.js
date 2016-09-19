@@ -4,6 +4,7 @@
 //var liveView = require('./liveView');
 var NavBar = require('../Components/NavBar');
 var React = require('react');
+var config = require("../config");
 //var SurveyRestaurantSearch = require('../Components/SurveyRestaurantSearch');
 //var SurveySelectedRestaurantList = require('../Components/SurveySelectedRestaurantList');
 
@@ -103,7 +104,7 @@ var TSurveyView = React.createClass({
     _onNextPress: function() {
         // TODO (urlauba): Problems if userID retrieval fails
         var selectedInfo = Object.keys(this.state.selected).map((k) => { return this.state.selected[k]; });
-        fetch('http://localhost:3000/api/survey', {
+        fetch('http://' + config.hostname+ '/api/survey', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

@@ -1,6 +1,7 @@
 'use strict';
 var React = require('react-native');
 var { FBLogin, FBLoginManager } = require('react-native-facebook-login');
+var config = require("../config");
 
 var Dimensions = require('Dimensions');
 var windowSize = Dimensions.get('window');
@@ -45,7 +46,7 @@ var Login1 = React.createClass({
           name: 'liveView',
           component: liveView,
       };
-      fetch('http://localhost:3000/api/check/survey/' + userID)
+      fetch('http://' + config.hostname+ '/api/check/survey/' + userID)
       .then((response) => response.text())
       .then((responseText) => {
         if (responseText == 'Existing survey') {

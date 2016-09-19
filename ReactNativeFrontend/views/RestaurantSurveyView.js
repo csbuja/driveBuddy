@@ -7,6 +7,7 @@ var NavBar = require('../Components/NavBar');
 var React = require('react-native');
 var SurveyRestaurantSearch = require('../Components/SurveyRestaurantSearch');
 var SurveySelectedRestaurantList = require('../Components/SurveySelectedRestaurantList');
+var config = require("../config");
 
 var {
     AsyncStorage,
@@ -106,7 +107,7 @@ var RestaurantSurveyView = React.createClass({
     _onNextPress: function() {
         // TODO (urlauba): Problems if userID retrieval fails
         var selectedInfo = Object.keys(this.state.selected).map((k) => { return this.state.selected[k]; });
-        fetch('http://localhost:3000/api/survey', {
+        fetch('http://' + config.hostname+ '/api/survey', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

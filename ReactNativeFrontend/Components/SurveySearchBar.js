@@ -2,6 +2,7 @@
 
 var Icon = require('react-native-vector-icons/FontAwesome');
 var React = require('react-native');
+var config = require("../config");
 
 var {
     PropTypes,
@@ -115,7 +116,7 @@ var SurveySearchBar = React.createClass({
 
         // TODO (urlauba): change url
         this.setState({isSearching: true});
-        fetch('http://localhost:3000/api/search/'
+        fetch('http://' + config.hostname+ '/api/search/'
             + this.props.latitude + '/' + this.props.longitude + '/'
             + text + '/' + this.state.locationText)
             .then((response) => response.text())

@@ -68,11 +68,11 @@ var SwiperContainerMixin = function(props) {
         _setOptions: function(currentPosition, lastPosition) {
             var current = JSON.stringify(currentPosition);
             var last = JSON.stringify(lastPosition);
-
+            var config = require("../config");
             // TODO (urlauba): change url path
             var endpoint = (props.isFoodSwiper)
-                ? 'http://localhost:3000/api/yelp/' + current + '/' + last + '/' + this.state.userID
-                : 'http://localhost:3000/api/gas/' + current + '/' + last;
+                ? 'http://' + config.hostname+ '/api/yelp/' + current + '/' + last + '/' + this.state.userID
+                : 'http://' + config.hostname+ '/api/gas/' + current + '/' + last;
 
             this.props.onSetOptions([]);
             this.setState({loading: true, hasNewOptions: true});
