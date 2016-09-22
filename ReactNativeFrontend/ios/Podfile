@@ -1,0 +1,3 @@
+target 'dri' do
+    pod "HockeySDK"
+end

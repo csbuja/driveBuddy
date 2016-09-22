@@ -25,6 +25,7 @@
 		59D9663F1CB9E9E1002D509F /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		59F3E8021D24AB53000D82F7 /* libRNKeyboardEvents.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59F3E8011D24AB3E000D82F7 /* libRNKeyboardEvents.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		9A06160A67F384F0380F2745 /* libPods-dri.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51DFD8EDD9C6F60C16D5FC2A /* libPods-dri.a */; };
 		DA5FDCB91C87E46D00D6D894 /* GoogleMapsApi.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA5FDCB81C87E46D00D6D894 /* GoogleMapsApi.plist */; };
 		DA5FDCCA1C87E4D600D6D894 /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5FDCBA1C87E4D600D6D894 /* libz.1.dylib */; };
 		DA5FDCCB1C87E4D600D6D894 /* libicucore.A.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5FDCBB1C87E4D600D6D894 /* libicucore.A.dylib */; };
@@ -42,10 +43,12 @@
 		DA5FDCD71C87E4D600D6D894 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5FDCC71C87E4D600D6D894 /* AVFoundation.framework */; };
 		DA5FDCD81C87E4D600D6D894 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5FDCC81C87E4D600D6D894 /* GoogleMaps.framework */; };
 		DA5FDCD91C87E50100D6D894 /* libPPTMapView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5FDCB71C87E43E00D6D894 /* libPPTMapView.a */; };
+		DE85F5211D933335004B4C1E /* RNHockeyApp.m in Sources */ = {isa = PBXBuildFile; fileRef = DE85F5201D933335004B4C1E /* RNHockeyApp.m */; };
 		DE929E771C6D95AF003B41E0 /* libRCTFBLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE929E6D1C6D9561003B41E0 /* libRCTFBLogin.a */; };
 		DE929E7B1C6D9733003B41E0 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE929E781C6D9733003B41E0 /* FBSDKCoreKit.framework */; };
 		DE929E7C1C6D9733003B41E0 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE929E791C6D9733003B41E0 /* FBSDKLoginKit.framework */; };
 		DE929E7D1C6D9733003B41E0 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE929E7A1C6D9733003B41E0 /* FBSDKShareKit.framework */; };
+		DED2D3831D93423300C0D9B9 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED2D3821D93423300C0D9B9 /* HockeySDK.framework */; };
 		DED8FA161C78030F00F84300 /* libRNOverlay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DED8FA0F1C7802D500F84300 /* libRNOverlay.a */; };
 		DED8FA171C78030F00F84300 /* libRNSearchBar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DED8FA151C7802F600F84300 /* libRNSearchBar.a */; };
 		DED8FA211C78034600F84300 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DED8FA191C78034600F84300 /* Entypo.ttf */; };
@@ -157,6 +160,20 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = PPTMapView;
 		};
+		DE85F50A1D9332AC004B4C1E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DE85F5051D9332AC004B4C1E /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E54D76059AE47262685FEC5CE0259E7E;
+			remoteInfo = "HockeySDK-HockeySDKResources";
+		};
+		DE85F50C1D9332AC004B4C1E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DE85F5051D9332AC004B4C1E /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E75EA9D19F4D6793AED433A41C4A97D2;
+			remoteInfo = "Pods-dri";
+		};
 		DE929E6C1C6D9561003B41E0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DE929E671C6D9560003B41E0 /* RCTFBLogin.xcodeproj */;
@@ -200,10 +217,13 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = dri/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = dri/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		51DFD8EDD9C6F60C16D5FC2A /* libPods-dri.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dri.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		59B907351C9A539000E7F5D9 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		59F3E7FC1D24AB3E000D82F7 /* RNKeyboardEvents.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNKeyboardEvents.xcodeproj; path = "../node_modules/react-native-keyboardevents/RNKeyboardEvents.xcodeproj"; sourceTree = "<group>"; };
+		74AF39680A1E2E495A35B0E3 /* Pods-dri.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dri.release.xcconfig"; path = "Pods/Target Support Files/Pods-dri/Pods-dri.release.xcconfig"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		DA3B11F76D5715CF102CF3E5 /* Pods-dri.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dri.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dri/Pods-dri.debug.xcconfig"; sourceTree = "<group>"; };
 		DA5FDCB21C87E43D00D6D894 /* PPTMapView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PPTMapView.xcodeproj; path = "../node_modules/@pod-point/react-native-maps/ios/PPTMapView.xcodeproj"; sourceTree = "<group>"; };
 		DA5FDCB81C87E46D00D6D894 /* GoogleMapsApi.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = GoogleMapsApi.plist; path = "../node_modules/@pod-point/react-native-maps/ios/GoogleMapsApi.plist"; sourceTree = "<group>"; };
 		DA5FDCBA1C87E4D600D6D894 /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = /usr/lib/libz.1.dylib; sourceTree = "<absolute>"; };
@@ -221,10 +241,14 @@
 		DA5FDCC61C87E4D600D6D894 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DA5FDCC71C87E4D600D6D894 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = "<absolute>"; };
 		DA5FDCC81C87E4D600D6D894 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "../ios_modules/GoogleMaps-1.10.4/Frameworks/GoogleMaps.framework"; sourceTree = "<group>"; };
+		DE85F5051D9332AC004B4C1E /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
+		DE85F51F1D933335004B4C1E /* RNHockeyApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNHockeyApp.h; sourceTree = "<group>"; };
+		DE85F5201D933335004B4C1E /* RNHockeyApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNHockeyApp.m; sourceTree = "<group>"; };
 		DE929E671C6D9560003B41E0 /* RCTFBLogin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTFBLogin.xcodeproj; path = "../node_modules/react-native-facebook-login/RCTFBLogin.xcodeproj"; sourceTree = "<group>"; };
 		DE929E781C6D9733003B41E0 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../node_modules/react-native-facebook-login/FacebookSDK/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		DE929E791C6D9733003B41E0 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../node_modules/react-native-facebook-login/FacebookSDK/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		DE929E7A1C6D9733003B41E0 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../node_modules/react-native-facebook-login/FacebookSDK/FBSDKShareKit.framework"; sourceTree = "<group>"; };
+		DED2D3821D93423300C0D9B9 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = "Pods/HockeySDK/HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework"; sourceTree = "<group>"; };
 		DED8F9FF1C7802D400F84300 /* RNOverlay.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNOverlay.xcodeproj; path = "../node_modules/react-native-overlay/RNOverlay.xcodeproj"; sourceTree = "<group>"; };
 		DED8FA101C7802F600F84300 /* RNSearchBar.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSearchBar.xcodeproj; path = "../node_modules/react-native-search-bar/RNSearchBar.xcodeproj"; sourceTree = "<group>"; };
 		DED8FA191C78034600F84300 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
@@ -250,6 +274,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DED2D3831D93423300C0D9B9 /* HockeySDK.framework in Frameworks */,
 				59F3E8021D24AB53000D82F7 /* libRNKeyboardEvents.a in Frameworks */,
 				59B907491C9A53A700E7F5D9 /* libRNVectorIcons.a in Frameworks */,
 				DA5FDCD91C87E50100D6D894 /* libPPTMapView.a in Frameworks */,
@@ -283,6 +308,7 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				DA5FDCD41C87E4D600D6D894 /* GLKit.framework in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				9A06160A67F384F0380F2745 /* libPods-dri.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,6 +411,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		189976EBEC4545327BBAE639 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DA3B11F76D5715CF102CF3E5 /* Pods-dri.debug.xcconfig */,
+				74AF39680A1E2E495A35B0E3 /* Pods-dri.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		59B907361C9A539000E7F5D9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,9 +444,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		8015DE9DEECDA394EE06EB0A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DED2D3821D93423300C0D9B9 /* HockeySDK.framework */,
+				51DFD8EDD9C6F60C16D5FC2A /* libPods-dri.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				DE85F51E1D933335004B4C1E /* RNHockeyApp */,
+				DE85F5051D9332AC004B4C1E /* Pods.xcodeproj */,
 				59F3E7FC1D24AB3E000D82F7 /* RNKeyboardEvents.xcodeproj */,
 				59B907351C9A539000E7F5D9 /* RNVectorIcons.xcodeproj */,
 				DA5FDCB21C87E43D00D6D894 /* PPTMapView.xcodeproj */,
@@ -452,6 +498,8 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* driTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
+				189976EBEC4545327BBAE639 /* Pods */,
+				8015DE9DEECDA394EE06EB0A /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -495,6 +543,25 @@
 			);
 			name = "Google Maps SDK";
 			path = "../node_modules/@pod-point/react-native-maps/ios";
+			sourceTree = "<group>";
+		};
+		DE85F5061D9332AC004B4C1E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DE85F50B1D9332AC004B4C1E /* HockeySDKResources.bundle */,
+				DE85F50D1D9332AC004B4C1E /* libPods-dri.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DE85F51E1D933335004B4C1E /* RNHockeyApp */ = {
+			isa = PBXGroup;
+			children = (
+				DE85F51F1D933335004B4C1E /* RNHockeyApp.h */,
+				DE85F5201D933335004B4C1E /* RNHockeyApp.m */,
+			);
+			name = RNHockeyApp;
+			path = "../node_modules/react-native-hockeyapp/RNHockeyApp";
 			sourceTree = "<group>";
 		};
 		DE929E681C6D9560003B41E0 /* Products */ = {
@@ -562,11 +629,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "dri" */;
 			buildPhases = (
+				235219B453C51294979BBDC2 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				DE2FD5501C8E075C00EAD627 /* ShellScript */,
 				59C9DFEB1CB9F8F3001E2CB4 /* Bundle React Native code and image */,
+				86D0B940A7F296FF9EA63331 /* [CP] Embed Pods Frameworks */,
+				623EC26FFF838751056620B4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -604,6 +674,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = DE85F5061D9332AC004B4C1E /* Products */;
+					ProjectRef = DE85F5051D9332AC004B4C1E /* Pods.xcodeproj */;
+				},
 				{
 					ProductGroup = DA5FDCB31C87E43D00D6D894 /* Products */;
 					ProjectRef = DA5FDCB21C87E43D00D6D894 /* PPTMapView.xcodeproj */;
@@ -769,6 +843,20 @@
 			remoteRef = DA5FDCB61C87E43E00D6D894 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		DE85F50B1D9332AC004B4C1E /* HockeySDKResources.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = HockeySDKResources.bundle;
+			remoteRef = DE85F50A1D9332AC004B4C1E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		DE85F50D1D9332AC004B4C1E /* libPods-dri.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-dri.a";
+			remoteRef = DE85F50C1D9332AC004B4C1E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		DE929E6D1C6D9561003B41E0 /* libRCTFBLogin.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -822,6 +910,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		235219B453C51294979BBDC2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		59C9DFEB1CB9F8F3001E2CB4 /* Bundle React Native code and image */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -835,6 +938,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
+		};
+		623EC26FFF838751056620B4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-dri/Pods-dri-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		86D0B940A7F296FF9EA63331 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-dri/Pods-dri-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		DE2FD5501C8E075C00EAD627 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -866,6 +999,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				DE85F5211D933335004B4C1E /* RNHockeyApp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -935,22 +1069,32 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA3B11F76D5715CF102CF3E5 /* Pods-dri.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets-2";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"<Multiple",
+					"values>",
+					"$(OBJROOT)/UninstalledProducts/$(PLATFORM_NAME)/include",
+				);
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
-					"$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK",
+					"$(PODS_ROOT)/HockeySDK/**",
+					"$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK/**",
 					"$(PROJECT_DIR)/../node_modules/@pod-point/react-native-maps/ios_modules/GoogleMaps-1.10.4/Frameworks/**",
+					"$(OBJROOT)/UninstalledProducts/$(PLATFORM_NAME)/include",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/@pod-point/react-native-maps/**",
+					"$(OBJROOT)/UninstalledProducts/$(PLATFORM_NAME)/include/**",
 				);
 				INFOPLIST_FILE = dri/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -963,21 +1107,30 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 74AF39680A1E2E495A35B0E3 /* Pods-dri.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets-2";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"<Multiple",
+					"values>",
+					"$(OBJROOT)/UninstalledProducts/$(PLATFORM_NAME)/include",
+				);
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
-					"$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK",
+					"$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK/**",
 					"$(PROJECT_DIR)/../node_modules/@pod-point/react-native-maps/ios_modules/GoogleMaps-1.10.4/Frameworks/**",
+					"$(OBJROOT)/UninstalledProducts/$(PLATFORM_NAME)/include",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/@pod-point/react-native-maps/**",
+					"$(OBJROOT)/UninstalledProducts/$(PLATFORM_NAME)/include/**",
 				);
 				INFOPLIST_FILE = dri/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

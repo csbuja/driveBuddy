@@ -18,6 +18,9 @@ var {
   Image,
 } = React;
 
+var HockeyApp = require('react-native-hockeyapp');
+
+
 var RestaurantSurveyView= require('./RestaurantSurveyView');
 var liveView = require('./liveView');
 
@@ -32,6 +35,14 @@ var Login1 = React.createClass({
       password: ''
     }
   },
+  componentWillMount:function() {
+    HockeyApp.configure("395069", true);
+},
+
+componentDidMount:function() {
+    HockeyApp.start();
+    HockeyApp.checkForUpdate();
+},
   onBack : function() {
             console.log('should be poppping')
             this.props.navigator.popToTop();

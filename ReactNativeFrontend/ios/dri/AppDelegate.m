@@ -6,8 +6,10 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
+#import "RNHockeyApp.h"
 #import "PPTGoogleMapProvider.h"
 #import "AppDelegate.h"
+
 
 #import "RCTRootView.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
@@ -88,10 +90,27 @@
                                   didFinishLaunchingWithOptions:launchOptions];
 }
 
+
+////hockeyapp
+//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+//  if( [[BITHockeyManager sharedHockeyManager].authenticator handleOpenURL:url
+//                                                        sourceApplication:sourceApplication
+//                                                               annotation:annotation]) {
+//    return YES;
+//  }
+//  
+//  /* Your own custom URL handlers */
+//  
+//  return NO;
+//}
+
+
 // Facebook SDK
 - (void)applicationDidBecomeActive:(UIApplication *)application {
   [FBSDKAppEvents activateApp];
 }
+
+
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
   return [[FBSDKApplicationDelegate sharedInstance] application:application

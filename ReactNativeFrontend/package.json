@@ -10,6 +10,7 @@
     "react-native-button": "^1.4.2",
     "react-native-facebook-login": "^1.0.3",
     "react-native-gifted-spinner": "0.0.3",
+    "react-native-hockeyapp": "^0.5.0",
     "react-native-keyboardevents": "^0.4.5",
     "react-native-modal-picker": "0.0.13",
     "react-native-navbar": "^1.4.2",
