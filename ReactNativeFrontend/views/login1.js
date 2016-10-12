@@ -54,7 +54,7 @@ var Login1 = React.createClass({
       fetch('http://' + config.hostname+ '/api/check/survey/' + userID)
       .then((response) => response.text())
       .then((responseText) => {
-        // Answers.logLogin('Facebook', true);
+        Answers.logLogin('Facebook', true);
         if (responseText == 'Existing survey') {
           this.props.navigator.push(live);
         }

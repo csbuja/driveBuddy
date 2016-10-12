@@ -62,6 +62,7 @@ var liveView = React.createClass({
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
             };
+            Answers.logCustom('Reached Live View', {position:currentPosition})
             var lastPosition = this.state.currentPosition;
 
             this.setState({
@@ -70,7 +71,7 @@ var liveView = React.createClass({
             });
         });
 
-        Answers.logCustom('Reached Live View', {})
+        
     },
 
     componentWillUnmount: function() {
