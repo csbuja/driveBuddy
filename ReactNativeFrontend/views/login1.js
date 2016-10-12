@@ -4,7 +4,7 @@ var { FBLogin, FBLoginManager } = require('react-native-facebook-login');
 var config = require("../config");
 var Fabric = require('react-native-fabric');
  
-var { Crashlytics } = Fabric;
+var { Crashlytics, Answers} = Fabric;
 
 var Dimensions = require('Dimensions');
 var windowSize = Dimensions.get('window');
@@ -54,6 +54,7 @@ var Login1 = React.createClass({
       fetch('http://' + config.hostname+ '/api/check/survey/' + userID)
       .then((response) => response.text())
       .then((responseText) => {
+        // Answers.logLogin('Facebook', true);
         if (responseText == 'Existing survey') {
           this.props.navigator.push(live);
         }

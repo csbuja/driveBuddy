@@ -18,6 +18,9 @@ var {
     View
 } = React;
 
+var Fabric = require('react-native-fabric');
+var { Crashlytics, Answers} = Fabric;
+
 var { width } = Dimensions.get('window');
 
 var RestaurantSurveyView = React.createClass({
@@ -124,6 +127,7 @@ var RestaurantSurveyView = React.createClass({
             name: 'liveView',
             component: liveView,
         });
+        Answers.logCustom('Survey Complete', {user: this.state.userID, restaurants:selectedInfo });
         this.props.navigator.popToTop();
     },
 

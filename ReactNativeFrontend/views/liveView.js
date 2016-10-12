@@ -6,6 +6,9 @@ var MapContainer = require('../Components/MapContainer.js');
 var NavBar = require('../Components/NavBar');
 var React = require('react-native');
 
+var Fabric = require('react-native-fabric');
+var { Crashlytics, Answers} = Fabric;
+
 var {
     Dimensions,
     StyleSheet,
@@ -66,6 +69,8 @@ var liveView = React.createClass({
                 lastPosition: lastPosition,
             });
         });
+
+        Answers.logCustom('Reached Live View', {})
     },
 
     componentWillUnmount: function() {
