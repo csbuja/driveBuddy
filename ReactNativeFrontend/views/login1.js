@@ -2,9 +2,14 @@
 var React = require('react-native');
 var { FBLogin, FBLoginManager } = require('react-native-facebook-login');
 var config = require("../config");
+var Fabric = require('react-native-fabric');
+ 
+var { Crashlytics } = Fabric;
 
 var Dimensions = require('Dimensions');
 var windowSize = Dimensions.get('window');
+
+
 
 var {
   AppRegistry,

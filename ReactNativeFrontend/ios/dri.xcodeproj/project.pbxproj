@@ -25,6 +25,7 @@
 		59D9663F1CB9E9E1002D509F /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		59F3E8021D24AB53000D82F7 /* libRNKeyboardEvents.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59F3E8011D24AB3E000D82F7 /* libRNKeyboardEvents.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		C46CABEBA32E41EDB78F85C3 /* libSMXCrashlytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 563EE38DC9414ECD9A39B1E9 /* libSMXCrashlytics.a */; };
 		DA5FDCB91C87E46D00D6D894 /* GoogleMapsApi.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA5FDCB81C87E46D00D6D894 /* GoogleMapsApi.plist */; };
 		DA5FDCCA1C87E4D600D6D894 /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5FDCBA1C87E4D600D6D894 /* libz.1.dylib */; };
 		DA5FDCCB1C87E4D600D6D894 /* libicucore.A.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5FDCBB1C87E4D600D6D894 /* libicucore.A.dylib */; };
@@ -42,6 +43,8 @@
 		DA5FDCD71C87E4D600D6D894 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5FDCC71C87E4D600D6D894 /* AVFoundation.framework */; };
 		DA5FDCD81C87E4D600D6D894 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5FDCC81C87E4D600D6D894 /* GoogleMaps.framework */; };
 		DA5FDCD91C87E50100D6D894 /* libPPTMapView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5FDCB71C87E43E00D6D894 /* libPPTMapView.a */; };
+		DE81A3631DAE003E004BD65F /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE81A3611DAE003E004BD65F /* Fabric.framework */; };
+		DE81A3641DAE003E004BD65F /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE81A3621DAE003E004BD65F /* Crashlytics.framework */; };
 		DE929E771C6D95AF003B41E0 /* libRCTFBLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE929E6D1C6D9561003B41E0 /* libRCTFBLogin.a */; };
 		DE929E7B1C6D9733003B41E0 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE929E781C6D9733003B41E0 /* FBSDKCoreKit.framework */; };
 		DE929E7C1C6D9733003B41E0 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE929E791C6D9733003B41E0 /* FBSDKLoginKit.framework */; };
@@ -157,6 +160,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = PPTMapView;
 		};
+		DE81A3881DAE0310004BD65F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F7BE004D7BCB4A92AADDC909 /* SMXCrashlytics.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D8D9DB831C6D03DB009FBC0E;
+			remoteInfo = SMXCrashlytics;
+		};
 		DE929E6C1C6D9561003B41E0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DE929E671C6D9560003B41E0 /* RCTFBLogin.xcodeproj */;
@@ -200,6 +210,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = dri/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = dri/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		563EE38DC9414ECD9A39B1E9 /* libSMXCrashlytics.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSMXCrashlytics.a; sourceTree = "<group>"; };
 		59B907351C9A539000E7F5D9 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		59F3E7FC1D24AB3E000D82F7 /* RNKeyboardEvents.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNKeyboardEvents.xcodeproj; path = "../node_modules/react-native-keyboardevents/RNKeyboardEvents.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -221,6 +232,8 @@
 		DA5FDCC61C87E4D600D6D894 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DA5FDCC71C87E4D600D6D894 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = "<absolute>"; };
 		DA5FDCC81C87E4D600D6D894 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "../ios_modules/GoogleMaps-1.10.4/Frameworks/GoogleMaps.framework"; sourceTree = "<group>"; };
+		DE81A3611DAE003E004BD65F /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		DE81A3621DAE003E004BD65F /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		DE929E671C6D9560003B41E0 /* RCTFBLogin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTFBLogin.xcodeproj; path = "../node_modules/react-native-facebook-login/RCTFBLogin.xcodeproj"; sourceTree = "<group>"; };
 		DE929E781C6D9733003B41E0 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../node_modules/react-native-facebook-login/FacebookSDK/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		DE929E791C6D9733003B41E0 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../node_modules/react-native-facebook-login/FacebookSDK/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
@@ -235,6 +248,7 @@
 		DED8FA1E1C78034600F84300 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
 		DED8FA1F1C78034600F84300 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		DED8FA201C78034600F84300 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
+		F7BE004D7BCB4A92AADDC909 /* SMXCrashlytics.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SMXCrashlytics.xcodeproj; path = "../node_modules/react-native-fabric/ios/SMXCrashlytics.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +270,7 @@
 				DED8FA161C78030F00F84300 /* libRNOverlay.a in Frameworks */,
 				DA5FDCD11C87E4D600D6D894 /* QuartzCore.framework in Frameworks */,
 				DED8FA171C78030F00F84300 /* libRNSearchBar.a in Frameworks */,
+				DE81A3641DAE003E004BD65F /* Crashlytics.framework in Frameworks */,
 				DA5FDCCB1C87E4D600D6D894 /* libicucore.A.dylib in Frameworks */,
 				DA5FDCD71C87E4D600D6D894 /* AVFoundation.framework in Frameworks */,
 				DA5FDCD31C87E4D600D6D894 /* ImageIO.framework in Frameworks */,
@@ -265,6 +280,7 @@
 				DA5FDCD01C87E4D600D6D894 /* SystemConfiguration.framework in Frameworks */,
 				DA5FDCD61C87E4D600D6D894 /* CoreData.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
+				DE81A3631DAE003E004BD65F /* Fabric.framework in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				DA5FDCD21C87E4D600D6D894 /* OpenGLES.framework in Frameworks */,
@@ -283,6 +299,7 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				DA5FDCD41C87E4D600D6D894 /* GLKit.framework in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				C46CABEBA32E41EDB78F85C3 /* libSMXCrashlytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +446,7 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
+				F7BE004D7BCB4A92AADDC909 /* SMXCrashlytics.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -444,6 +462,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				DE81A3611DAE003E004BD65F /* Fabric.framework */,
+				DE81A3621DAE003E004BD65F /* Crashlytics.framework */,
 				DED8FA181C78034600F84300 /* Fonts */,
 				DE929E7A1C6D9733003B41E0 /* FBSDKShareKit.framework */,
 				DE929E791C6D9733003B41E0 /* FBSDKLoginKit.framework */,
@@ -495,6 +515,14 @@
 			);
 			name = "Google Maps SDK";
 			path = "../node_modules/@pod-point/react-native-maps/ios";
+			sourceTree = "<group>";
+		};
+		DE81A3751DAE0310004BD65F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DE81A3891DAE0310004BD65F /* libSMXCrashlytics.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		DE929E681C6D9560003B41E0 /* Products */ = {
@@ -583,7 +611,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 720;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -667,6 +695,10 @@
 				{
 					ProductGroup = 59B907361C9A539000E7F5D9 /* Products */;
 					ProjectRef = 59B907351C9A539000E7F5D9 /* RNVectorIcons.xcodeproj */;
+				},
+				{
+					ProductGroup = DE81A3751DAE0310004BD65F /* Products */;
+					ProjectRef = F7BE004D7BCB4A92AADDC909 /* SMXCrashlytics.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -769,6 +801,13 @@
 			remoteRef = DA5FDCB61C87E43E00D6D894 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		DE81A3891DAE0310004BD65F /* libSMXCrashlytics.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSMXCrashlytics.a;
+			remoteRef = DE81A3881DAE0310004BD65F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		DE929E6D1C6D9561003B41E0 /* libRCTFBLogin.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -847,7 +886,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "INFOPLIST=\"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\necho \"writing to $INFOPLIST\"\nPLISTCMD=\"Add :SERVER_IP string $(ifconfig | grep inet\\ | tail -1 | cut -d \" \" -f 2)\"\necho -n \"$INFOPLIST\" | xargs -0 /usr/libexec/PlistBuddy -c \"$PLISTCMD\" || true\nPLISTCMD=\"Set :SERVER_IP $(ifconfig | grep inet\\ | tail -1 | cut -d \" \" -f 2)\"\necho -n \"$INFOPLIST\" | xargs -0 /usr/libexec/PlistBuddy -c \"$PLISTCMD\" || true";
+			shellScript = "INFOPLIST=\"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\necho \"writing to $INFOPLIST\"\nPLISTCMD=\"Add :SERVER_IP string $(ifconfig | grep inet\\ | tail -1 | cut -d \" \" -f 2)\"\necho -n \"$INFOPLIST\" | xargs -0 /usr/libexec/PlistBuddy -c \"$PLISTCMD\" || true\nPLISTCMD=\"Set :SERVER_IP $(ifconfig | grep inet\\ | tail -1 | cut -d \" \" -f 2)\"\necho -n \"$INFOPLIST\" | xargs -0 /usr/libexec/PlistBuddy -c \"$PLISTCMD\" || true\n./Fabric.framework/run 6bc90653386b2cd69af7fd03e14952968efabf35 2b770a09e59934a2d548572e8c61be85cfee129815763f15f1bee569c0521ad8";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -908,6 +947,10 @@
 				INFOPLIST_FILE = driTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dri.app/dri";
@@ -927,6 +970,10 @@
 				INFOPLIST_FILE = driTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dri.app/dri";
@@ -942,15 +989,22 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(SRCROOT)/**",
+				);
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK",
 					"$(PROJECT_DIR)/../node_modules/@pod-point/react-native-maps/ios_modules/GoogleMaps-1.10.4/Frameworks/**",
+					"$(SRCROOT)/**",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/@pod-point/react-native-maps/**",
+					"$(SRCROOT)/../node_modules/react-native-fabric/ios/SMXCrashlytics",
 				);
 				INFOPLIST_FILE = dri/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -969,15 +1023,22 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(SRCROOT)/**",
+				);
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK",
 					"$(PROJECT_DIR)/../node_modules/@pod-point/react-native-maps/ios_modules/GoogleMaps-1.10.4/Frameworks/**",
+					"$(SRCROOT)/**",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/@pod-point/react-native-maps/**",
+					"$(SRCROOT)/../node_modules/react-native-fabric/ios/SMXCrashlytics",
 				);
 				INFOPLIST_FILE = dri/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1027,6 +1088,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native-fabric/ios/SMXCrashlytics",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1067,6 +1129,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native-fabric/ios/SMXCrashlytics",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;

@@ -13,6 +13,8 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @implementation AppDelegate
 
@@ -20,6 +22,7 @@
 {
   [PPTGoogleMapProvider provideAPIKey];
   NSURL *jsCodeLocation;
+  [Fabric with:@[[Crashlytics class]]];
 
   /**
    * Loading JavaScript code - uncomment the one you want.
