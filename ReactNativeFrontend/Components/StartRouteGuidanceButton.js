@@ -37,15 +37,11 @@ var StartRouteGuidanceButton = React.createClass({
         var apple_maps_url= "http://maps.apple.com/?saddr=" + saddr + "&daddr=" + daddr +  "&dirflg=" + apple_maps_directionsmode;
 
 
+        Linking.openURL(google_maps_url);
+        Linking.openURL(apple_maps_url);
+       
 
-         Linking.canOpenURL(google_maps_url).then(supported => {
-          if (!supported) {
-            console.log('Can\'t handle url: ' + google_maps_url);
-            return Linking.openURL(apple_maps_url);
-          } else {
-            return Linking.openURL(google_maps_url);
-          }
-        })
+        
         
     },
 
