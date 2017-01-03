@@ -17,6 +17,7 @@ var {
 
 var { height } = Dimensions.get('window');
 
+//Routes via google maps, but otherwise routs with apple maps
 var StartRouteGuidanceButton = React.createClass({
     propTypes: {
         itemWidth: PropTypes.number.isRequired,
@@ -26,12 +27,26 @@ var StartRouteGuidanceButton = React.createClass({
         optionLongitude: PropTypes.number,
     },
 
+
     getDirections: function() {
         var saddr = this.props.latitude + ',' + this.props.longitude;
         var daddr = this.props.optionLatitude + ',' + this.props.optionLongitude;
-        var directionsmode = 'driving';
-        var url = 'comgooglemaps://?saddr=' + saddr + '&daddr=' + daddr + '&directionsmode=' + directionsmode;
-        Linking.openURL(url).catch(err => console.error('An error occurred', err));
+        var google_maps_directionsmode = 'driving';
+        var apple_maps_directionsmode = "d";
+        var google_maps_url = 'comgooglemaps://?saddr=' + saddr + '&daddr=' + daddr + '&directionsmode=' + google_maps_directionsmode;
+        var apple_maps_url= "http://maps.apple.com/?saddr=" + saddr + "&daddr=" + daddr +  "&dirflg=" + apple_maps_directionsmode;
+
+
+
+         Linking.canOpenURL(google_maps_url).then(supported => {
+          if (!supported) {
+            console.log('Can\'t handle url: ' + google_maps_url);
+            return Linking.openURL(apple_maps_url);
+          } else {
+            return Linking.openURL(google_maps_url);
+          }
+        })
+        
     },
 
     render: function() {
