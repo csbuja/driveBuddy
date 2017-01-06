@@ -25,6 +25,7 @@ var StartRouteGuidanceButton = React.createClass({
         longitude: PropTypes.number,
         optionLatitude: PropTypes.number,
         optionLongitude: PropTypes.number,
+        shouldHighlightButton: PropTypes.bool,
     },
 
 

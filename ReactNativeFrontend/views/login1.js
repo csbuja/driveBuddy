@@ -87,7 +87,8 @@ var Login1 = React.createClass({
 
     return (
         <View style={styles.container}>
-            <Image style={styles.bg} source={{uri: 'http://i.imgur.com/xlQ56UK.jpg'}} />
+           
+            <View style={styles.bg}  />
             <View style={styles.header}>
                 <Text>Pitstop Pal</Text>
             </View>
@@ -114,7 +115,7 @@ var Login1 = React.createClass({
   },
 });
 
-
+var salmon = '#FF3366'
 
 var styles = StyleSheet.create({
     container: {
@@ -124,6 +125,7 @@ var styles = StyleSheet.create({
     },
     bg: {
         position: 'absolute',
+        backgroundColor: salmon,
         left: 0,
         top: 0,
         width: windowSize.width,
@@ -140,7 +142,7 @@ var styles = StyleSheet.create({
         height: 150
     },
     signin: {
-        backgroundColor: '#FF3366',
+        backgroundColor: salmon,
         padding: 20,
         alignItems: 'center'
     },
