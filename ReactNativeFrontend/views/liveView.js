@@ -5,6 +5,7 @@ var GasSwiperContainer = require('../Components/GasSwiperContainer.js');
 var MapContainer = require('../Components/MapContainer.js');
 var NavBar = require('../Components/NavBar');
 var React = require('react-native');
+var Tutorial = require('../Components/Tutorial.js');
 
 var Fabric = require('react-native-fabric');
 var { Crashlytics, Answers} = Fabric;
@@ -92,6 +93,10 @@ var liveView = React.createClass({
             gasOptionLatitude = parseFloat(this.state.gasOptions[this.state.gasIndex].lat);
             gasOptionLongitude = parseFloat(this.state.gasOptions[this.state.gasIndex].lon);
         }
+        var tutorialMessages = ["Based on the survey, we recommend Pitstops to get food!",
+        "We will tell you if your best Facebook friends enjoyed these Pitstops.",
+        "Swipe left and right to see Food & Gas Pitstops in sorted order.",
+        'Click "Start Route Guidance" to get directions to the Pitstop.']
 
         return (
         <View style={styles.liveView}>
@@ -130,6 +135,7 @@ var liveView = React.createClass({
                 style={styles.map}
             />
             <View style={styles.separatorEmpty} />
+            <Tutorial tutorialMessages={tutorialMessages}></Tutorial>
         </View>
         );
     },

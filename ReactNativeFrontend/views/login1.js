@@ -25,7 +25,6 @@ var {
 
 var RestaurantSurveyView= require('./RestaurantSurveyView');
 var liveView = require('./liveView');
-var Tutorial = require('../Components/Tutorial.js');
 //var FBLoginMock = require('./facebook/FBLoginMock.js');
 
 var FB_PHOTO_WIDTH = 200;
@@ -84,8 +83,7 @@ var Login1 = React.createClass({
     var onBack = this.onBack;
     var onPressLogin = this.onPressLogin;
     var setUserID = this.setUserID;
-    var a = ['hello world']
-
+    
     return (
         <View style={styles.container}>
             
@@ -111,7 +109,7 @@ var Login1 = React.createClass({
                 />
             </View>
             </TouchableHighlight>
-            <Tutorial tutorialMessages={a}></Tutorial>
+            
         </View>
     );
   },

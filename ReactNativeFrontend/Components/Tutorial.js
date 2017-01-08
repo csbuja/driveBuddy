@@ -8,7 +8,8 @@ var {
     Text,
     View,
     TouchableWithoutFeedback,
-    Modal
+    Modal,
+    TouchableHighlight
 } = React;
 
 var { height, width } = Dimensions.get('window');
@@ -20,67 +21,56 @@ var Tutorial = React.createClass({
     },
 
     getInitialState: function(){
-        return {message_index:0}
+        return {modalVisible: true,message_index:0}
     },
 
     _incrementIndex: function(){
-        console.log("hello world")
         this.setState({message_index: this.state.message_index + 1});
     },
-    _backgroundColored: function() {
-      if(this.props.tutorialMessages.length && this.props.tutorialMessages.length > this.state.message_index) {
-        return styles.darkerContainer;
-      } else {
-        return styles.transparentContainer;
-      }
-    },    
 
-    render: function() {
-        if (this.props.tutorialMessages.length && this.props.tutorialMessages.length > this.state.message_index) {
+    _tutorialText : function()
+    {
+        return this.props.tutorialMessages.length -1 > (this.state.message_index ) ? "Next Hint" : "Close Tutorial";
+    },
 
-            var content = (
+  _setModalVisible: function(visible) {
+    this.setState({modalVisible: visible});
+  },
 
-                <View style={styles.tutorialContainer}>
-                <TouchableWithoutFeedback onPress={this._incrementIndex} >
-                    
-                </TouchableWithoutFeedback>
-                </View>
-            );
-        }
+  render: function() {
+    return (
+      <View style={{marginTop: 22}}>
+        <Modal
+          animationType={"slide"}
+          transparent={true}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {alert("Modal has been closed.")}}
+          >
+         <View style={[{marginTop: 22}, styles.darkerContainer]}>
+          <View>
+            <Text style={{color: "white"}}>Pitstop Pal Tutorial: </Text>
+            <Text style={{color: "white"}}>{this.props.tutorialMessages[this.state.message_index]}</Text>
 
-        return (
-            <View style={[this._backgroundColored()]}>
-            <TouchableWithoutFeedback  onPressIn={this._incrementIndex}>
-                
-                <Text>{this.props.tutorialMessages[this.state.message_index]}</Text>
-            </TouchableWithoutFeedback >
-            </View>
-        );
-    }
+            <TouchableHighlight onPress={() => {
+              if (this.props.tutorialMessages.length -1 == this.state.message_index ) this._setModalVisible(!this.state.modalVisible)
+              this._incrementIndex()
+            }}>
+              <Text style={{color: "white"}}>{this._tutorialText()}</Text>
+            </TouchableHighlight>
+
+          </View>
+         </View>
+        </Modal>
+      </View>
+    );
+  }
 });
 
 var styles = StyleSheet.create({
     darkerContainer: {
-    flex: 1,
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    opacity: 0.9,
+    opacity: 0.95,
     backgroundColor: 'black',
-    width: width,
-    height:height
-    },
-    transparentContainer: {
-    flex: 1,
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    opacity: 0,
-    backgroundColor: 'white',
-    width: width,
-    height:height
-    }  
-
+    }
 });
 
 module.exports = Tutorial;
