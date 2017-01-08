@@ -93,9 +93,8 @@ var liveView = React.createClass({
             gasOptionLatitude = parseFloat(this.state.gasOptions[this.state.gasIndex].lat);
             gasOptionLongitude = parseFloat(this.state.gasOptions[this.state.gasIndex].lon);
         }
-        var tutorialMessages = ["Based on the survey, we recommend Pitstops to get food!",
-        "We will tell you if your best Facebook friends enjoyed these Pitstops.",
-        "Swipe left and right to see Food & Gas Pitstops in sorted order.",
+        var tutorialMessages = [
+        "Swipe left and right to see Food & Gas Pitstops in sorted order. \nBased on the survey, we recommend Pitstops to get food and will tell you if your best Facebook friends enjoyed these Pitstops.",
         'Click "Start Route Guidance" to get directions to the Pitstop.']
 
         return (

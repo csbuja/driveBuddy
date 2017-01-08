@@ -15,6 +15,8 @@ var {
 var { height, width } = Dimensions.get('window');
 
 
+
+
 var Tutorial = React.createClass({
     propTypes: {
         tutorialMessages: PropTypes.array.isRequired
@@ -50,7 +52,7 @@ var Tutorial = React.createClass({
           <View>
             <Text style={{color: "white"}}>Pitstop Pal Tutorial: </Text>
             <Text style={{color: "white"}}>{this.props.tutorialMessages[this.state.message_index]}</Text>
-
+            <Image source={require('../Images/gsd2.gif')} />
             <TouchableHighlight onPress={() => {
               if (this.props.tutorialMessages.length -1 == this.state.message_index ) this._setModalVisible(!this.state.modalVisible)
               this._incrementIndex()
@@ -70,6 +72,13 @@ var styles = StyleSheet.create({
     darkerContainer: {
     opacity: 0.95,
     backgroundColor: 'black',
+   
+    },
+    putInCenter: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     }
 });
 
