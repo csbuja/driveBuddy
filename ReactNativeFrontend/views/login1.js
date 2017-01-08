@@ -10,7 +10,6 @@ var Dimensions = require('Dimensions');
 var windowSize = Dimensions.get('window');
 
 
-
 var {
   AppRegistry,
   AsyncStorage,
@@ -88,8 +87,9 @@ var Login1 = React.createClass({
         <View style={styles.container}>
             
             <View style={styles.bg}  />
+            <Image source={require('../Images/PitstopPalLogoPNG.png')} style={{width: windowSize.width,  flex: 1,resizeMode: 'contain'} }/>
             <View style={styles.header}>
-                <Text>Pitstop Pal</Text>
+                <Text>Your Personalized Driving Assistant</Text>
             </View>
             <View style={styles.inputs}>
 
