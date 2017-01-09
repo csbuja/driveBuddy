@@ -24,6 +24,7 @@ var {
 
 var RestaurantSurveyView= require('./RestaurantSurveyView');
 var liveView = require('./liveView');
+var liveViewTutorial = require('./liveViewTutorial');
 //var FBLoginMock = require('./facebook/FBLoginMock.js');
 
 var FB_PHOTO_WIDTH = 200;
@@ -49,12 +50,17 @@ var Login1 = React.createClass({
           name: 'liveView',
           component: liveView,
       };
+      var liveViewTut = {
+          name: 'liveViewTutorial',
+          component: liveViewTutorial,
+      };
+
       fetch('http://' + config.hostname+ '/api/check/survey/' + userID)
       .then((response) => response.text())
       .then((responseText) => {
-        Answers.logLogin('Facebook', true);
+        Answers.logLogin('Facebook', true); //telemetry
         if (responseText == 'Existing survey') {
-          this.props.navigator.push(live);
+          this.props.navigator.push(liveViewTut);
         }
         else {
           this.props.navigator.push(surveyView);

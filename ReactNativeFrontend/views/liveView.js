@@ -96,7 +96,7 @@ var liveView = React.createClass({
         var tutorialMessages = [
         "Swipe left and right to see Food & Gas Pitstops in sorted order. \nBased on the survey, we recommend Pitstops to get food and will tell you if your best Facebook friends enjoyed these Pitstops.",
         'Click "Start Route Guidance" to get directions to the Pitstop.']
-
+ // <Tutorial tutorialMessages={tutorialMessages}></Tutorial>
         return (
         <View style={styles.liveView}>
             <FoodSwiperContainer
@@ -134,7 +134,7 @@ var liveView = React.createClass({
                 style={styles.map}
             />
             <View style={styles.separatorEmpty} />
-            <Tutorial tutorialMessages={tutorialMessages}></Tutorial>
+           
         </View>
         );
     },
