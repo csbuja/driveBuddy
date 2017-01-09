@@ -5,7 +5,6 @@ var GasSwiperContainer = require('../Components/GasSwiperContainer.js');
 var MapContainer = require('../Components/MapContainer.js');
 var NavBar = require('../Components/NavBar');
 var React = require('react-native');
-var Tutorial = require('../Components/Tutorial.js');
 
 var Fabric = require('react-native-fabric');
 var { Crashlytics, Answers} = Fabric;
