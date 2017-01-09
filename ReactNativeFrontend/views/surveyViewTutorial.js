@@ -4,6 +4,7 @@
 var NavBar = require('../Components/NavBar');
 var React = require('react-native');
 var liveView = require('./liveView');
+var RestaurantSurveyView= require('./RestaurantSurveyView');
 
 var {
     Dimensions,
@@ -25,24 +26,26 @@ var liveViewTutorial = React.createClass({
         };
     },
 
+
+
+
     render: function(){
         
         return (
         <View style={styles.liveViewTutorialImageContainer}>     
-        <TouchableWithoutFeedback onPressOut= {this._goToLiveView } style={styles.liveViewTutorialImageContainer}>
-            <Image source={require('../Images/LiveViewTutorial2.png')} style={styles.liveViewTutorialImageContainer} />
+        <TouchableWithoutFeedback onPressOut= {this._goToSurveyView } style={styles.liveViewTutorialImageContainer}>
+            <Image source={require('../Images/SurveyViewTutorial.png')} style={styles.liveViewTutorialImageContainer} />
         </TouchableWithoutFeedback>
         </View>
         
         );
     },
-    _goToLiveView: function(){
-        var live = {
-          name: 'liveView',
-          component: liveView,
+    _goToSurveyView: function(){
+        var surveyView = {
+          name: 'RestaurantSurveyView',
+          component: RestaurantSurveyView,
         };
-        console.log('getting pressed')
-        this.props.navigator.push(live)
+        this.props.navigator.push(surveyView)
         this.props.navigator.popToTop();
     }
 });

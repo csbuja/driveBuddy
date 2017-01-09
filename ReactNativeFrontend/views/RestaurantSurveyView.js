@@ -2,7 +2,7 @@
 
 var Button = require('react-native-button');
 var Dimensions = require('Dimensions');
-var liveView = require('./liveView');
+var liveViewTutorial = require('./liveViewTutorial');
 var NavBar = require('../Components/NavBar');
 var React = require('react-native');
 var SurveyRestaurantSearch = require('../Components/SurveyRestaurantSearch');
@@ -40,7 +40,7 @@ var RestaurantSurveyView = React.createClass({
         var selectedInfo = Object.keys(this.state.selected).map((k) => { return this.state.selected[k]; });
         var isNextDisabled = selectedInfo.length < 10 ? true : false;
         var restaurant = (selectedInfo.length == 9) ? " Restaurant" : " Restaurants";
-        var nextButtonText = isNextDisabled ? "Select " +  (10 - selectedInfo.length) + restaurant : "Next";
+        var nextButtonText = isNextDisabled ? "Select " +  (10 - selectedInfo.length) + restaurant : "Done!";
 
         return (
             <View style={styles.mainView}>
@@ -53,9 +53,9 @@ var RestaurantSurveyView = React.createClass({
                     <Text style={styles.subtitle}>Select 10</Text>
                 </View>
                 <View style={styles.bottom}>
-                    <Image
-                        style={styles.background}
-                        source={require('../Images/london.jpg')}>
+                    <View
+                        style={styles.background}>
+                        
                         <SurveyRestaurantSearch
                             enableResults={this.state.enableResults}
                             onPress={this._onRestaurantSelect}
@@ -66,7 +66,7 @@ var RestaurantSurveyView = React.createClass({
                             onRestaurantSelectRating={this._onRestaurantSelectRating}
                             restaurantInfo={selectedInfo}
                         />
-                    </Image>
+                    </View>
                     <Button
                         containerStyle={styles.buttonContainer}
                         disabled={isNextDisabled}
@@ -124,8 +124,8 @@ var RestaurantSurveyView = React.createClass({
 
         this.setState({enableResults: false});
         this.props.navigator.push({
-            name: 'liveView',
-            component: liveView,
+            name: 'liveViewTutorial',
+            component: liveViewTutorial,
         });
         Answers.logCustom('Survey Complete', {user: this.state.userID, restaurants:selectedInfo });
         this.props.navigator.popToTop();

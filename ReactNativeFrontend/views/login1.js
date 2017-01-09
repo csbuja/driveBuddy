@@ -22,9 +22,11 @@ var {
   Image,
 } = React;
 
+
+//TO DO - remove unneccessary requirements
 var RestaurantSurveyView= require('./RestaurantSurveyView');
 var liveView = require('./liveView');
-var liveViewTutorial = require('./liveViewTutorial');
+var surveyViewTutorial = require('./surveyViewTutorial');
 //var FBLoginMock = require('./facebook/FBLoginMock.js');
 
 var FB_PHOTO_WIDTH = 200;
@@ -50,9 +52,9 @@ var Login1 = React.createClass({
           name: 'liveView',
           component: liveView,
       };
-      var liveViewTut = {
-          name: 'liveViewTutorial',
-          component: liveViewTutorial,
+      var surveyViewTut = {
+          name: 'surveyViewTutorial',
+          component: surveyViewTutorial,
       };
 
       fetch('http://' + config.hostname+ '/api/check/survey/' + userID)
@@ -60,16 +62,16 @@ var Login1 = React.createClass({
       .then((responseText) => {
         Answers.logLogin('Facebook', true); //telemetry
         if (responseText == 'Existing survey') {
-          this.props.navigator.push(liveViewTut);
+          this.props.navigator.push(live);
         }
         else {
-          this.props.navigator.push(surveyView);
+          this.props.navigator.push(surveyViewTut);
         }
       })
       .catch((error) => {
       // TODO (urlauba): handle error state
         console.log('error getting response for existence of survey');
-        this.props.navigator.push(surveyView);
+        this.props.navigator.push(surveyViewTut);
      });
       this.props.navigator.popToTop();
   },
