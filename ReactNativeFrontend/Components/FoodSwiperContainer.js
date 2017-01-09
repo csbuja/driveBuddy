@@ -8,7 +8,8 @@ var TimerMixin = require('react-native-timer-mixin');
 
 var {
     Text,
-    View
+    View,
+    Image
 } = React;
 
 var FoodSwiperContainer = React.createClass({
@@ -19,8 +20,10 @@ var FoodSwiperContainer = React.createClass({
             <View>
                 <NavBar
                     navigator={this.props.navigator}
-                    title={"Food"}
-                />
+                    title={"Food"}/>
+                <View style={{alignItems: 'flex-end'}}>
+                    <Image source={require("../Images/yelp-2c.png")} style={{height:20,width:1.7*20}}/>
+                </View>
                 <GasFoodSwiperContainer
                     {...this.props}
                     hasNewOptions={this.state.hasNewOptions}
