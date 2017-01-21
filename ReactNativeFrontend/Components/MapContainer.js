@@ -47,7 +47,6 @@ var MapContainer = React.createClass({
         for (var i = 0; i < numberOfGasMarkers; i++) {
             var place = this.props.gasOptions[i];
             if (i == this.props.gasIndex) {
-                console.log('PLACE')
                 markersOptions[String(j++)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: gasicon, scale: 11.0}, active: true};
             } else {
                 markersOptions[String(j++)] = {id: place.name, latitude: place.lat, longitude: place.lon, icon: {uri: gasicon, scale: 11.0}};
