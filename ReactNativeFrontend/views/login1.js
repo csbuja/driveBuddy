@@ -20,6 +20,8 @@ var {
   TextInput,
   TouchableHighlight,
   Image,
+  Animated,
+  Easing
 } = React;
 
 
@@ -29,21 +31,39 @@ var liveView = require('./liveView');
 var surveyViewTutorial = require('./surveyViewTutorial');
 //var FBLoginMock = require('./facebook/FBLoginMock.js');
 
+
+const initialDescription = "Your Personalized Driving Assistant";
 var FB_PHOTO_WIDTH = 200;
 
 var Login1 = React.createClass({
   getInitialState: function() {
     return {
       username: '',
-      password: ''
+      password: '',
+      descriptiontext: initialDescription
     }
   },
   onBack : function() {
             console.log('should be poppping')
             this.props.navigator.popToTop();
   },
+componentWillMount:function(){
+this._animatedValue = new Animated.Value(0);
+
+},
+  componentDidMount:function(){
+         // First set up animation 
+ this._animation = Animated.timing(this._animatedValue, {
+        toValue: 100,
+        duration: 5000
+    })
+    
+  },
 
   onPressLogin : function(userID) {
+    this.setState({descriptiontext:"Loading your data!"});
+    this._animation.start(); 
+    
       var surveyView = {
           name: 'RestaurantSurveyView',
           component: RestaurantSurveyView,
@@ -56,23 +76,29 @@ var Login1 = React.createClass({
           name: 'surveyViewTutorial',
           component: surveyViewTutorial,
       };
-
+      console.log("pressed")
       fetch('http://' + config.hostname+ '/api/check/survey/' + userID)
       .then((response) => response.text())
       .then((responseText) => {
         Answers.logLogin('Facebook', true); //telemetry
+        console.log("checked FB login")
+
         if (responseText == 'Existing survey') {
+          console.log("there is a survey")
           this.props.navigator.push(live);
         }
         else {
           this.props.navigator.push(surveyViewTut);
         }
+        var self = this;
+        setTimeout(function(){self.setState({descriptiontext:initialDescription})},1000);
       })
       .catch((error) => {
       // TODO (urlauba): handle error state
         console.log('error getting response for existence of survey');
         this.props.navigator.push(surveyViewTut);
      });
+
       this.props.navigator.popToTop();
   },
 
@@ -90,14 +116,25 @@ var Login1 = React.createClass({
     var onBack = this.onBack;
     var onPressLogin = this.onPressLogin;
     var setUserID = this.setUserID;
-    
+     
+
+     var interpolatedRotateAnimation = this._animatedValue.interpolate({
+        inputRange: [0, 100],
+      outputRange: ['0deg', '1080deg']
+    });
     return (
         <View style={styles.container}>
             
             <View style={styles.bg}  />
-            <Image source={require('../Images/PitstopPalLogoPNG.png')} style={{width: windowSize.width,  flex: 1,resizeMode: 'contain'} }/>
+            <Image source={require('../Images/PitstopPalLogoPNG.png')} style={{backgroundColor:"#FFFFFF", paddingTop:windowSize.height/3,borderRadius:10,width: windowSize.width,  flex: 1,resizeMode: 'contain'} }/>
+            <View style={{flex:1,
+        alignItems:'center'}}>
+            <Animated.Image
+            style={{transform: [{rotate: interpolatedRotateAnimation}] }}
+            source={require('../Images/Icon-76.png')} />
+            </View>
             <View style={styles.header}>
-                <Text>Your Personalized Driving Assistant</Text>
+                <Text>{this.state.descriptiontext}</Text>
             </View>
             <View style={styles.inputs}>
 
