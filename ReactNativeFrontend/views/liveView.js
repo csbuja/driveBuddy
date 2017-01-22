@@ -5,7 +5,7 @@ var GasSwiperContainer = require('../Components/GasSwiperContainer.js');
 var MapContainer = require('../Components/MapContainer.js');
 var NavBar = require('../Components/NavBar');
 var React = require('react-native');
-
+var KDSocialShare = require('NativeModules').KDSocialShare;
 var Fabric = require('react-native-fabric');
 var { Crashlytics, Answers} = Fabric;
 
@@ -17,10 +17,33 @@ var {
     View,
 } = React;
 
-var { width } = Dimensions.get('window');
+var { height,width } = Dimensions.get('window');
 
 var liveView = React.createClass({
     watchID: (null: ?number),
+    tweet : function() {
+
+    KDSocialShare.tweet({
+        'text':this.state.SocialMarketingCopy,
+        'link':this.state.SocialLink
+      },
+      (results) => { //TODO - delete
+        console.log(results);
+      }
+    );
+  },
+
+  shareOnFacebook : function() {
+
+    KDSocialShare.shareOnFacebook({
+        'text':this.state.SocialMarketingCopy,
+        'link':this.state.SocialLink
+      },
+      (results) => { //TODO - delete
+        console.log(results);
+      }
+    );
+  },
 
     getInitialState: function() {
         return {
@@ -36,6 +59,8 @@ var liveView = React.createClass({
             gasOptions: [],
             foodIndex: 0,
             gasIndex: 0,
+            SocialMarketingCopy: 'Spencer Buja is the greatest man in the world.',
+            SocialLink: "https://csbuja.github.io"
         };
     },
 
@@ -98,6 +123,20 @@ var liveView = React.createClass({
  // <Tutorial tutorialMessages={tutorialMessages}></Tutorial>
         return (
         <View style={styles.liveView}>
+        <View style={[styles.shareContainer,{marginTop:height/20}]} >
+            <TouchableHighlight onPress={this.tweet}>
+              <View style={{alignItems: 'center',justifyContent:'center', width: 150, height: 25,backgroundColor:'#00aced'}}>
+               <Text style={{color:'#ffffff',fontWeight:'800',}}>Share on Twitter</Text>
+              </View>
+            </TouchableHighlight>
+
+            <TouchableHighlight onPress={this.shareOnFacebook}>
+              <View style={{alignItems: 'center',justifyContent:'center', width: 150, height: 25,backgroundColor:'#3b5998'}}>
+               <Text style={{color:'#ffffff',fontWeight:'800',}}>Share on Facebook</Text>
+              </View>
+            </TouchableHighlight>
+        </View>
+
             <FoodSwiperContainer
                 currentPosition={this.state.currentPosition}
                 foodIndex={this.state.foodIndex}
@@ -173,6 +212,10 @@ var styles = StyleSheet.create({
     },
     wrapper: {
         flex: 1,
+    },
+    shareContainer:{
+        flex:1,
+        flexDirection:'row'
     }
 });
 

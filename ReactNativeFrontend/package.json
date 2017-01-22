@@ -16,6 +16,7 @@
     "react-native-keyboardevents": "^0.4.5",
     "react-native-modal-picker": "0.0.13",
     "react-native-navbar": "^1.4.2",
+    "react-native-social-share": "^0.8.0",
     "react-native-star-rating": "^1.0.5",
     "react-native-swiper": "^1.4.3",
     "react-native-timer-mixin": "^0.11.0",

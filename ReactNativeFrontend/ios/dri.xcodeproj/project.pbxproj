@@ -43,6 +43,9 @@
 		DA5FDCD71C87E4D600D6D894 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5FDCC71C87E4D600D6D894 /* AVFoundation.framework */; };
 		DA5FDCD81C87E4D600D6D894 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5FDCC81C87E4D600D6D894 /* GoogleMaps.framework */; };
 		DA5FDCD91C87E50100D6D894 /* libPPTMapView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5FDCB71C87E43E00D6D894 /* libPPTMapView.a */; };
+		DE7B463A1E354CA9003952CD /* KDSocialShare.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7B46391E354CA9003952CD /* KDSocialShare.m */; };
+		DE7B464D1E354CE0003952CD /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE7B464C1E354CE0003952CD /* Social.framework */; };
+		DE7B464F1E3553FB003952CD /* PitstopPalLogoPNG.png in Resources */ = {isa = PBXBuildFile; fileRef = DE7B464E1E3553FB003952CD /* PitstopPalLogoPNG.png */; };
 		DE81A3631DAE003E004BD65F /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE81A3611DAE003E004BD65F /* Fabric.framework */; };
 		DE81A3641DAE003E004BD65F /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE81A3621DAE003E004BD65F /* Crashlytics.framework */; };
 		DE929E771C6D95AF003B41E0 /* libRCTFBLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE929E6D1C6D9561003B41E0 /* libRCTFBLogin.a */; };
@@ -232,6 +235,10 @@
 		DA5FDCC61C87E4D600D6D894 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DA5FDCC71C87E4D600D6D894 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = "<absolute>"; };
 		DA5FDCC81C87E4D600D6D894 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "../ios_modules/GoogleMaps-1.10.4/Frameworks/GoogleMaps.framework"; sourceTree = "<group>"; };
+		DE7B46381E354CA9003952CD /* KDSocialShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KDSocialShare.h; path = "../node_modules/react-native-social-share/iOS/KDSocialShare.h"; sourceTree = "<group>"; };
+		DE7B46391E354CA9003952CD /* KDSocialShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KDSocialShare.m; path = "../node_modules/react-native-social-share/iOS/KDSocialShare.m"; sourceTree = "<group>"; };
+		DE7B464C1E354CE0003952CD /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		DE7B464E1E3553FB003952CD /* PitstopPalLogoPNG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PitstopPalLogoPNG.png; path = ../Images/PitstopPalLogoPNG.png; sourceTree = "<group>"; };
 		DE81A3611DAE003E004BD65F /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		DE81A3621DAE003E004BD65F /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		DE929E671C6D9560003B41E0 /* RCTFBLogin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTFBLogin.xcodeproj; path = "../node_modules/react-native-facebook-login/RCTFBLogin.xcodeproj"; sourceTree = "<group>"; };
@@ -264,6 +271,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE7B464D1E354CE0003952CD /* Social.framework in Frameworks */,
 				59F3E8021D24AB53000D82F7 /* libRNKeyboardEvents.a in Frameworks */,
 				59B907491C9A53A700E7F5D9 /* libRNVectorIcons.a in Frameworks */,
 				DA5FDCD91C87E50100D6D894 /* libPPTMapView.a in Frameworks */,
@@ -382,6 +390,7 @@
 		13B07FAE1A68108700A75B9A /* dri */ = {
 			isa = PBXGroup;
 			children = (
+				DE7B464E1E3553FB003952CD /* PitstopPalLogoPNG.png */,
 				DA5FDCB81C87E46D00D6D894 /* GoogleMapsApi.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -429,6 +438,8 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				DE7B46381E354CA9003952CD /* KDSocialShare.h */,
+				DE7B46391E354CA9003952CD /* KDSocialShare.m */,
 				59F3E7FC1D24AB3E000D82F7 /* RNKeyboardEvents.xcodeproj */,
 				59B907351C9A539000E7F5D9 /* RNVectorIcons.xcodeproj */,
 				DA5FDCB21C87E43D00D6D894 /* PPTMapView.xcodeproj */,
@@ -462,6 +473,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				DE7B464C1E354CE0003952CD /* Social.framework */,
 				DE81A3611DAE003E004BD65F /* Fabric.framework */,
 				DE81A3621DAE003E004BD65F /* Crashlytics.framework */,
 				DED8FA181C78034600F84300 /* Fonts */,
@@ -849,6 +861,7 @@
 				DA5FDCCD1C87E4D600D6D894 /* GoogleMaps.bundle in Resources */,
 				DED8FA281C78034600F84300 /* Zocial.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				DE7B464F1E3553FB003952CD /* PitstopPalLogoPNG.png in Resources */,
 				DED8FA231C78034600F84300 /* FontAwesome.ttf in Resources */,
 				DED8FA221C78034600F84300 /* EvilIcons.ttf in Resources */,
 				DED8FA251C78034600F84300 /* Ionicons.ttf in Resources */,
@@ -904,6 +917,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				DE7B463A1E354CA9003952CD /* KDSocialShare.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
