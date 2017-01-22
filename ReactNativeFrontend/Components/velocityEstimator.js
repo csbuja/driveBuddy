@@ -95,7 +95,7 @@ var VelocityEstimator = function(first_loc, number_of_locations_in_mem,sampling_
 
 
 
-module.exports = DirectionEstimator;
+module.exports = VelocityEstimator;
 
 
 

@@ -1,6 +1,8 @@
 'use strict';
 
 var FoodSwiperContainer = require('../Components/FoodSwiperContainer.js');
+var VelocityEstimator = require('../Components/velocityEstimator.js');
+var DirectionFilter = require('../Components/directionFilter.js');
 var GasSwiperContainer = require('../Components/GasSwiperContainer.js');
 var MapContainer = require('../Components/MapContainer.js');
 var NavBar = require('../Components/NavBar');
@@ -17,6 +19,9 @@ var {
     TouchableHighlight,
     View,
 } = React;
+
+const LOCATION_SAMPLING_PERIOD_IN_SECONDS = 10;
+const NUMBER_OF_LATLONS_STORED_WHEN_ESTIMATING_DIRECTION = 10;
 
 var { height,width } = Dimensions.get('window');
 
@@ -62,25 +67,36 @@ var liveView = React.createClass({
             gasIndex: 0,
             SocialMarketingCopy: 'Spencer Buja is the greatest man in the world.',
             SocialLink: "https://csbuja.github.io",
-            highwaymode: "Off"
+            highwaymode: "Off",
+            minHighwaySpeedInMPH: 55,
+            ve : null,
+            df : null,
+            direction: null //is a unit vector
         };
     },
 
     componentDidMount: function() {
+        Answers.logCustom('Reached Live View', {})
+
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                this.setState({
-                    currentPosition: {
+                var currentPosition = { 
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude,
-                    },
+                } 
+                this.setState({
+                    currentPosition: currentPosition
                 });
+
+                this.state.ve = VelocityEstimator(currentPosition,NUMBER_OF_LATLONS_STORED_WHEN_ESTIMATING_DIRECTION,LOCATION_SAMPLING_PERIOD_IN_SECONDS);
+                this.state.df = DirectionFilter(this.state.ve);
+        
             },
             (error) => console.log(error),
             // if battery life become a concern disable high accuracy
             // max age corresponds to using cached value within device, set to 5 min
             // arbitrarily set timeout to 10 seconds
-            {enableHighAccuracy: true, timeout: 10 * 1000, maximumAge: 5 * 60 * 1000}
+            {enableHighAccuracy: true, timeout: LOCATION_SAMPLING_PERIOD_IN_SECONDS * 1000, maximumAge: 5 * 60 * 1000}
         );
 
         // updates when position changes
@@ -89,16 +105,20 @@ var liveView = React.createClass({
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
             };
-            Answers.logCustom('Reached Live View', {position:currentPosition})
+            
             var lastPosition = this.state.currentPosition;
 
             this.setState({
                 currentPosition: currentPosition,
                 lastPosition: lastPosition,
             });
+            var v = this.state.ve.estimateVelocity();
+            this.setState({
+                highwaymode: v[1] > this.state.minHighwaySpeedInMPH,
+                direction: v[0]
+            });
         });
 
-        
     },
 
     componentWillUnmount: function() {

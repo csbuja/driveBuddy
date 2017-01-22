@@ -1,10 +1,10 @@
 var math = require("mathjs");
 var DirectionUtilities = require("./directionUtilities");
 
-//Direction Filter uses a direction estimator
+//Direction Filter uses a  VelocityEstimator
 
 //direction is a vector in R^2 of <north-south,east-west>
-var DirectionFilter = function(directionEstimator)
+var DirectionFilter = function(velocityEstimator)
 {
     var du = directionUtilities();
     var o = {
@@ -14,7 +14,7 @@ var DirectionFilter = function(directionEstimator)
         },
         isAheadWithBusinessPositionVector : function(business,direction){
             //dot product is positive
-            if(!direction) direction = directionEstimator.estimateDirectionAndVelocity()[0];
+            if(!direction) direction = velocityEstimator.estimateVelocity()[0];
             return math.dot(business, direction) > 0;
         },
         convertLatLonToPositionVector : function(bus_lat,bus_lon,current_pos_lat,current_pos_lon){
