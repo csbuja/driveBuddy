@@ -76,12 +76,12 @@ this._animatedValue = new Animated.Value(0);
           name: 'surveyViewTutorial',
           component: surveyViewTutorial,
       };
-      console.log("pressed")
+
       fetch('http://' + config.hostname+ '/api/check/survey/' + userID)
       .then((response) => response.text())
       .then((responseText) => {
         Answers.logLogin('Facebook', true); //telemetry
-        console.log("checked FB login")
+
 
         if (responseText == 'Existing survey') {
           console.log("there is a survey")

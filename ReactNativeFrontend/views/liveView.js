@@ -9,6 +9,7 @@ var KDSocialShare = require('NativeModules').KDSocialShare;
 var Fabric = require('react-native-fabric');
 var { Crashlytics, Answers} = Fabric;
 
+
 var {
     Dimensions,
     StyleSheet,
@@ -60,7 +61,8 @@ var liveView = React.createClass({
             foodIndex: 0,
             gasIndex: 0,
             SocialMarketingCopy: 'Spencer Buja is the greatest man in the world.',
-            SocialLink: "https://csbuja.github.io"
+            SocialLink: "https://csbuja.github.io",
+            highwaymode: "Off"
         };
     },
 
@@ -117,24 +119,28 @@ var liveView = React.createClass({
             gasOptionLatitude = parseFloat(this.state.gasOptions[this.state.gasIndex].lat);
             gasOptionLongitude = parseFloat(this.state.gasOptions[this.state.gasIndex].lon);
         }
-        var tutorialMessages = [
-        "Swipe left and right to see Food & Gas Pitstops in sorted order. \nBased on the survey, we recommend Pitstops to get food and will tell you if your best Facebook friends enjoyed these Pitstops.",
-        'Click "Start Route Guidance" to get directions to the Pitstop.']
- // <Tutorial tutorialMessages={tutorialMessages}></Tutorial>
+        var socialheight = 35
+        var socialwidth = width/3
+
         return (
         <View style={styles.liveView}>
         <View style={[styles.shareContainer,{marginTop:height/20}]} >
             <TouchableHighlight onPress={this.tweet}>
-              <View style={{alignItems: 'center',justifyContent:'center', width: 150, height: 25,backgroundColor:'#00aced'}}>
+              <View style={{alignItems: 'center',justifyContent:'center', width: socialwidth, height: socialheight,backgroundColor:'#00aced'}}>
                <Text style={{color:'#ffffff',fontWeight:'800',}}>Share on Twitter</Text>
               </View>
             </TouchableHighlight>
 
             <TouchableHighlight onPress={this.shareOnFacebook}>
-              <View style={{alignItems: 'center',justifyContent:'center', width: 150, height: 25,backgroundColor:'#3b5998'}}>
+              <View style={{alignItems: 'center',justifyContent:'center', width: socialwidth, height: socialheight,backgroundColor:'#3b5998'}}>
                <Text style={{color:'#ffffff',fontWeight:'800',}}>Share on Facebook</Text>
               </View>
             </TouchableHighlight>
+            <View style={{alignItems: 'center',justifyContent:'center',width: socialwidth, height: socialheight,backgroundColor:'#00aced'}}>
+                <Text style={{color:'#ffffff',fontWeight:'800',justifyContent:'center'}}>Highway Mode {this.state.highwaymode}</Text>
+            </View>
+
+
         </View>
 
             <FoodSwiperContainer
