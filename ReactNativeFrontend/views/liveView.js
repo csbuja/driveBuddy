@@ -114,6 +114,7 @@ var liveView = React.createClass({
             });
 
             if(this.state.ve!==null){
+                this.state.ve.setCurrentLocation(currentPosition);
                 var v = this.state.ve.estimateVelocity();
                 this.setState({
                     highwaymode: v[1] > this.state.minHighwaySpeedInMPH,
