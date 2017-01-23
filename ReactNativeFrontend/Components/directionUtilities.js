@@ -1,5 +1,5 @@
 var math = require("mathjs");
-var jStat = require('jStat').jStat;
+var betaln = require( 'compute-betaln' );
 
 var DirectionUtilities = function(){
     var o = {
@@ -31,8 +31,8 @@ var DirectionUtilities = function(){
         },
         BetaBinom : function(alpha,beta,n,k) {
             var part_1 = math.combinations(n,k)
-            var part_2 = jStat.betaln(k+alpha,n-k+beta)
-            var part_3 = jStat.betaln(alpha,beta)
+            var part_2 = betaln(k+alpha,n-k+beta)
+            var part_3 = betaln(alpha,beta)
             
             var result = (math.log(part_1) + part_2)- part_3
             
