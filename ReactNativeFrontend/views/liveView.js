@@ -112,11 +112,14 @@ var liveView = React.createClass({
                 currentPosition: currentPosition,
                 lastPosition: lastPosition,
             });
-            var v = this.state.ve.estimateVelocity();
-            this.setState({
-                highwaymode: v[1] > this.state.minHighwaySpeedInMPH,
-                direction: v[0]
-            });
+
+            if(this.state.ve!==null){
+                var v = this.state.ve.estimateVelocity();
+                this.setState({
+                    highwaymode: v[1] > this.state.minHighwaySpeedInMPH,
+                    direction: v[0]
+                });
+            }
         });
 
     },
