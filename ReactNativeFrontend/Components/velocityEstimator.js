@@ -31,7 +31,7 @@ var VelocityEstimator = function(first_loc, number_of_locations_in_mem,sampling_
             var y = math.dot(array_of_y,w);
             var z = math.dot(array_of_z,w);
 
-            var NUMBER_OF_R_FOR_ESTIMATING_V = 5
+            var NUMBER_OF_R_FOR_ESTIMATING_V = 2
             var v = self.array_of_v.length > NUMBER_OF_R_FOR_ESTIMATING_V ? math.dot(ones,self.array_of_v)/self.array_of_v.length : 0 ;
 
             r = [x,y,z]

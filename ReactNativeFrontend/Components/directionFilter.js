@@ -6,7 +6,7 @@ var DirectionUtilities = require("./directionUtilities");
 //direction is a vector in R^2 of <north-south,east-west>
 var DirectionFilter = function(velocityEstimator)
 {
-    var du = directionUtilities();
+    var du = DirectionUtilities();
     var o = {
         //business is vector in R^2 of <north-south,east-west>
         isAheadWithLatLons: function(bus_lat,bus_lon,current_pos_lat,current_pos_lon,direction){

@@ -20,7 +20,7 @@ var {
     View,
 } = React;
 
-const LOCATION_SAMPLING_PERIOD_IN_SECONDS = 10;
+const LOCATION_SAMPLING_PERIOD_IN_SECONDS = 3.5;
 const NUMBER_OF_LATLONS_STORED_WHEN_ESTIMATING_DIRECTION = 10;
 
 var { height,width } = Dimensions.get('window');
@@ -71,7 +71,8 @@ var liveView = React.createClass({
             minHighwaySpeedInMPH: 55,
             ve : null,
             df : null,
-            direction: null //is a unit vector
+            direction: null,//is a unit vector
+            speed: 0
         };
     },
 
@@ -117,8 +118,9 @@ var liveView = React.createClass({
                 this.state.ve.setCurrentLocation(currentPosition);
                 var v = this.state.ve.estimateVelocity();
                 this.setState({
-                    highwaymode: v[1] > this.state.minHighwaySpeedInMPH,
-                    direction: v[0]
+                    highwaymode: v[1] > this.state.minHighwaySpeedInMPH? "On": "Off",
+                    direction: v[0],
+                    speed: v[1]
                 });
             }
         });
@@ -150,7 +152,7 @@ var liveView = React.createClass({
         <View style={styles.liveView}>
         <View style={[styles.shareContainer,{marginTop:height/20}]} >
             <TouchableHighlight onPress={this.tweet}>
-              <View style={{alignItems: 'center',justifyContent:'center', width: socialwidth, height: socialheight,backgroundColor:'#00aced'}}>
+              <View style={{alignItems: 'center',justifyContent:'center', width: socialwidth, height: socialheight,backgroundColor: "rgba(0, 172, 237,1)"}}>
                <Text style={{color:'#ffffff',fontWeight:'800',}}>Share on Twitter</Text>
               </View>
             </TouchableHighlight>
@@ -160,8 +162,8 @@ var liveView = React.createClass({
                <Text style={{color:'#ffffff',fontWeight:'800',}}>Share on Facebook</Text>
               </View>
             </TouchableHighlight>
-            <View style={{alignItems: 'center',justifyContent:'center',width: socialwidth, height: socialheight,backgroundColor:'#00aced'}}>
-                <Text style={{color:'#ffffff',fontWeight:'800',justifyContent:'center'}}>Highway Mode {this.state.highwaymode}</Text>
+            <View style={{alignItems: 'center',justifyContent:'center',width: socialwidth, height: socialheight,backgroundColor: "rgba(0, 172, 237,.25)"}}>
+                <Text style={{color:'#ffffff',fontWeight:'800',justifyContent:'center'}}>{this.state.highwaymode} Highway - {this.state.speed} MPH </Text>
             </View>
 
 
