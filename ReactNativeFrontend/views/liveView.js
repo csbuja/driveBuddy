@@ -117,6 +117,11 @@ var liveView = React.createClass({
             if(this.state.ve!==null){
                 this.state.ve.setCurrentLocation(currentPosition);
                 var v = this.state.ve.estimateVelocity();
+                Answers.logCustom('Velocity Telemetry', 
+                    {direction: v[0],
+                    speed: v[1]
+                });
+
                 this.setState({
                     highwaymode: v[1] > this.state.minHighwaySpeedInMPH? "On": "Off",
                     direction: v[0],
