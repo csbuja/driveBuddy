@@ -168,7 +168,7 @@ var liveView = React.createClass({
               </View>
             </TouchableHighlight>
             <View style={{alignItems: 'center',justifyContent:'center',width: socialwidth, height: socialheight,backgroundColor: "rgba(0, 172, 237,.25)"}}>
-                <Text style={{color:'#ffffff',fontWeight:'800',justifyContent:'center'}}>{this.state.highwaymode} Highway - {this.state.speed} MPH </Text>
+                <Text style={{color:'#ffffff',fontWeight:'800',justifyContent:'center'}}>{this.state.highwaymode} Highway - {parseInt(this.state.speed)} MPH </Text>
             </View>
 
 
