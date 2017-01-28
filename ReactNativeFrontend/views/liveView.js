@@ -68,7 +68,7 @@ var liveView = React.createClass({
             SocialMarketingCopy: 'Spencer Buja is the greatest man in the world.',
             SocialLink: "https://csbuja.github.io",
             highwaymode: "Off",
-            minHighwaySpeedInMPH: 55,
+            minHighwaySpeedInMPH: 14.5,
             ve : null,
             df : null,
             direction: null,//is a unit vector
@@ -168,7 +168,7 @@ var liveView = React.createClass({
               </View>
             </TouchableHighlight>
             <View style={{alignItems: 'center',justifyContent:'center',width: socialwidth, height: socialheight,backgroundColor: "rgba(0, 172, 237,.25)"}}>
-                <Text style={{color:'#ffffff',fontWeight:'800',justifyContent:'center'}}>{this.state.highwaymode} Highway - {parseInt(this.state.speed)} MPH </Text>
+                <Text style={{color:'#ffffff',fontWeight:'800',justifyContent:'center'}}>{this.state.highwaymode} Highway </Text>
             </View>
 
 
