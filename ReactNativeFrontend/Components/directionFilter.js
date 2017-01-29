@@ -17,7 +17,7 @@ var DirectionFilter = function(velocityEstimator)
                 "ahead": filtered,
                 "all":arr
             };   
-        }
+        },
         //business is vector in R^2 of <north-south,east-west>
         isAheadWithLatLons: function(bus_lat,bus_lon,current_pos_lat,current_pos_lon,direction){
             return this.isAheadWithBusinessPositionVector(this.convertLatLonToPositionVector(bus_lat,bus_lon,current_pos_lat,current_pos_lon),direction);
