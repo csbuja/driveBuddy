@@ -1,5 +1,6 @@
 var math = require("mathjs");
 var DirectionUtilities = require("./directionUtilities");
+var un = require('underscore');
 
 //Direction Filter uses a  VelocityEstimator
 
@@ -8,6 +9,15 @@ var DirectionFilter = function(velocityEstimator)
 {
     var du = DirectionUtilities();
     var o = {
+        filter: function(arr,current_pos_lat,current_pos_lon,direction){
+            var filtered = un.filter(arr,function(d){ 
+                return this.isAheadWithLatLons(d.lat,d.lon,current_pos_lat,current_pos_lon, direction);
+            });  
+            return {
+                "ahead": filtered,
+                "all":arr
+            };   
+        }
         //business is vector in R^2 of <north-south,east-west>
         isAheadWithLatLons: function(bus_lat,bus_lon,current_pos_lat,current_pos_lon,direction){
             return this.isAheadWithBusinessPositionVector(this.convertLatLonToPositionVector(bus_lat,bus_lon,current_pos_lat,current_pos_lon),direction);

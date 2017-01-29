@@ -9,6 +9,7 @@ var NavBar = require('../Components/NavBar');
 var React = require('react-native');
 var KDSocialShare = require('NativeModules').KDSocialShare;
 var Fabric = require('react-native-fabric');
+var un = require('underscore');
 var { Crashlytics, Answers} = Fabric;
 
 
@@ -72,7 +73,9 @@ var liveView = React.createClass({
             ve : null,
             df : null,
             direction: null,//is a unit vector
-            speed: 0
+            speed: 0,
+            unfilteredFoodOptions:[],
+            unfilteredGasOptions:[]
         };
     },
 
@@ -114,19 +117,45 @@ var liveView = React.createClass({
                 lastPosition: lastPosition,
             });
 
-            if(this.state.ve!==null){
+            if (this.state.ve !== null && this.state.df !== null) { //these two booleans always take on the same value for now
                 this.state.ve.setCurrentLocation(currentPosition);
                 var v = this.state.ve.estimateVelocity();
-                Answers.logCustom('Velocity Telemetry', 
+                Answers.logCustom('Driving Telemetry', 
                     {direction: v[0],
-                    speed: v[1]
+                    speed: v[1],
+                    latitude: currentPosition.latitude,
+                    longitude: currentPosition.longitude
                 });
 
                 this.setState({
-                    highwaymode: v[1] > this.state.minHighwaySpeedInMPH? "On": "Off",
+                    highwaymode: v[1] > this.state.minHighwaySpeedInMPH ? "On": "Off",
                     direction: v[0],
                     speed: v[1]
                 });
+
+                //filtering options code
+                //Future Work: if we get more option types, then have this work on data structures of options
+                if (this.state.foodOptions !== [] && this.state.gasOptions !== []) { // if we don't have any options, then don't filter
+                    if ( (this.state.unfilteredGasOptions !== []  && this.state.unfilteredFoodOptions !== [] && un.intersection(this.state.unfilteredGasOptions,this.state.gasOptions) !== []  && un.intersection(this.state.unfilteredFoodOptions,this.state.foodOptions) !== [] ) )  {
+                        var food = this.state.df.filter(this.state.unfilteredFoodOptions,currentPosition.latitude,currentPosition.longitude,this.state.direction);
+                        var gas = this.state.df.filter(this.state.unfilteredGasOptions,currentPosition.latitude,currentPosition.longitude,this.state.direction);
+                        this.setState({
+                            foodOptions:food["ahead"],
+                            gasOptions:gas["ahead"]
+                        }); 
+                    }
+                    else { //filtering on the initial data or on newly refreshed data
+                        var food = this.state.df.filter(this.state.foodOptions,currentPosition.latitude,currentPosition.longitude,this.state.direction);
+                        var gas = this.state.df.filter(this.state.gasOptions,currentPosition.latitude,currentPosition.longitude,this.state.direction);
+                        this.setState({
+                            foodOptions:food["ahead"],
+                            gasOptions:gas["ahead"],
+                            unfilteredFoodOptions:food["all"],
+                            unfilteredGasOptions: gas["all"]
+                        }); 
+                    } 
+                }
+
             }
         });
 
@@ -170,7 +199,6 @@ var liveView = React.createClass({
             <View style={{alignItems: 'center',justifyContent:'center',width: socialwidth, height: socialheight,backgroundColor: "rgba(0, 172, 237,.25)"}}>
                 <Text style={{color:'#ffffff',fontWeight:'800',justifyContent:'center'}}>{this.state.highwaymode} Highway </Text>
             </View>
-
 
         </View>
 
