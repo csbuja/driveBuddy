@@ -70,9 +70,10 @@ var styles = StyleSheet.create({
     button: {
         backgroundColor: '#6BCDFD',
         borderRadius: 4,
-        height: Math.min(height * .075, 44),
+        height: Math.min(height * .075, 35),
         justifyContent: 'center',
         overflow: 'hidden',
+        marginBottom: 10
     },
     buttonText: {
         color: '#FFFFFF',

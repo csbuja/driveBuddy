@@ -135,8 +135,8 @@ var liveView = React.createClass({
 
                 //filtering options code
                 //Future Work: if we get more option types, then have this work on data structures of options
-                if (this.state.foodOptions !== [] && this.state.gasOptions !== []) { // if we don't have any options, then don't filter
-                    if ( (this.state.unfilteredGasOptions !== []  && this.state.unfilteredFoodOptions !== [] && un.intersection(this.state.unfilteredGasOptions,this.state.gasOptions) !== []  && un.intersection(this.state.unfilteredFoodOptions,this.state.foodOptions) !== [] ) )  {
+                if (this.state.foodOptions.length !== 0 && this.state.gasOptions.length !== 0 && this.state.highwaymode === "On") { // if we don't have any options, then don't filter
+                    if ( (this.state.unfilteredGasOptions.length !== 0  && this.state.unfilteredFoodOptions.length !== 0 && un.intersection(this.state.unfilteredGasOptions,this.state.gasOptions).length !== 0  && un.intersection(this.state.unfilteredFoodOptions,this.state.foodOptions).length !== 0 ) )  {
                         var food = this.state.df.filter(this.state.unfilteredFoodOptions,currentPosition.latitude,currentPosition.longitude,this.state.direction);
                         var gas = this.state.df.filter(this.state.unfilteredGasOptions,currentPosition.latitude,currentPosition.longitude,this.state.direction);
                         this.setState({
@@ -155,6 +155,13 @@ var liveView = React.createClass({
                         }); 
                     } 
                 }
+                
+                if (this.state.highwaymode === "Off" && this.state.unfilteredGasOptions.length !== 0  && this.state.unfilteredFoodOptions.length !== 0 && un.intersection(this.state.unfilteredGasOptions,this.state.gasOptions).length !== 0  && un.intersection(this.state.unfilteredFoodOptions,this.state.foodOptions).length !== 0 ) {
+                    this.setState({
+                        foodOptions:this.state.unfilteredFoodOptions,
+                        gasOptions: this.state.unfilteredGasOptions
+                     }); 
+                }   
 
             }
         });
