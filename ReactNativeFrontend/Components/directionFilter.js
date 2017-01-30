@@ -10,8 +10,9 @@ var DirectionFilter = function(velocityEstimator)
     var du = DirectionUtilities();
     var o = {
         filter: function(arr,current_pos_lat,current_pos_lon,direction){
+            var self = this;
             var filtered = un.filter(arr,function(d){ 
-                return this.isAheadWithLatLons(d.lat,d.lon,current_pos_lat,current_pos_lon, direction);
+                return self.isAheadWithLatLons(d.lat,d.lon,current_pos_lat,current_pos_lon, direction);
             });  
             return {
                 "ahead": filtered,

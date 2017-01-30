@@ -127,8 +127,11 @@ var liveView = React.createClass({
                     longitude: currentPosition.longitude
                 });
 
+
+                var isonhighway = v[1] > this.state.minHighwaySpeedInMPH 
+
                 this.setState({
-                    highwaymode: v[1] > this.state.minHighwaySpeedInMPH ? "On": "Off",
+                    highwaymode: isonhighway ? "On": "Off",
                     direction: v[0],
                     speed: v[1]
                 });
@@ -155,7 +158,7 @@ var liveView = React.createClass({
                         }); 
                     } 
                 }
-                
+
                 if (this.state.highwaymode === "Off" && this.state.unfilteredGasOptions.length !== 0  && this.state.unfilteredFoodOptions.length !== 0 && un.intersection(this.state.unfilteredGasOptions,this.state.gasOptions).length !== 0  && un.intersection(this.state.unfilteredFoodOptions,this.state.foodOptions).length !== 0 ) {
                     this.setState({
                         foodOptions:this.state.unfilteredFoodOptions,
