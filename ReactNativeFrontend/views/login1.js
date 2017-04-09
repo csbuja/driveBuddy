@@ -82,7 +82,7 @@ this._animatedValue = new Animated.Value(0);
       .then((responseText) => {
         Answers.logLogin('Facebook', true); //telemetry
 
-
+ 
         if (responseText == 'Existing survey') {
           console.log("there is a survey")
           this.props.navigator.push(live);
@@ -126,7 +126,7 @@ this._animatedValue = new Animated.Value(0);
         <View style={styles.container}>
             
             <View style={styles.bg}  />
-            <Image source={require('../Images/PitstopPalLogoPNG.png')} style={{backgroundColor:"#FFFFFF", paddingTop:windowSize.height/3,borderRadius:10,width: windowSize.width,  flex: 1,resizeMode: 'contain'} }/>
+            <Image source={require('../Images/PitstopPalLogoPNG.png')} style={{backgroundColor:"#FFFFFF", paddingTop:windowSize.height/3,borderRadius:10,width: windowSize.width,  flex: 1} }/>
             <View style={{flex:1,
         alignItems:'center'}}>
             <Animated.Image
@@ -147,6 +147,7 @@ this._animatedValue = new Animated.Value(0);
                 onLogin={function(data){
                     // need as callback otherwise userID may not be updated in next view
                     setUserID(data['credentials']['userId'], onPressLogin);
+                    //console.log(data['credentials']);
                 }}
                 onLoginFound={function(data) { // may not need onLoginFound, useful for developing
                     setUserID(data['credentials']['userId'], onPressLogin);
