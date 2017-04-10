@@ -22,8 +22,13 @@ var SurveySearchBar = React.createClass({
         setOptions: PropTypes.func.isRequired,
     },
 
-    componentDidMount: function() {
-        this.refs.searchBar.focus();
+    componentDidUpdate: function() {
+        if(this.props.searchBarFocused && !this.state.hasBeenFocusedByButton){
+            this.setState({
+                hasBeenFocusedByButton:true
+            });
+            this.refs.searchBar.focus();
+        }
     },
 
     getInitialState: function() {
@@ -32,6 +37,7 @@ var SurveySearchBar = React.createClass({
             isSearching: false,
             locationText: '',
             searchText: '',
+            hasBeenFocusedByButton:false
         };
     },
 

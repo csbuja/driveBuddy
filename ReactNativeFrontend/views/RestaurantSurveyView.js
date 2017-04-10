@@ -15,6 +15,7 @@ var {
     StyleSheet,
     Text,
     TouchableHighlight,
+    TouchableWithoutFeedback,
     View
 } = React;
 
@@ -31,11 +32,10 @@ getInitialState: function () {
     },
 
     toggleShow: function () {
-
         this.setState({
             show: !this.state.show
         });
-         this.props.searchBarRef.focus()
+        this.props.handlepress()
     },
 
     render: function () {
@@ -59,11 +59,17 @@ var RestaurantSurveyView = React.createClass({
             selected: {},
             enableResults: true,
             userID: '',
+            searchBarFocused:false
         };
     },
 
     componentWillMount: function() {
         this._getUserID();
+    },  
+    _handleClickFocusTheSearch: function(){
+        this.setState({
+            searchBarFocused: true
+        });
     },
 
     render: function() {
@@ -92,11 +98,10 @@ var RestaurantSurveyView = React.createClass({
                         <SurveyRestaurantSearch
                             enableResults={this.state.enableResults}
                             onPress={this._onRestaurantSelect}
-                            selected={this.state.selected}/>
+                            selected={this.state.selected}
+                            searchBarFocused={this.state.searchBarFocused}/>
                         <View style={styles.focusTheSearchWrapper}>
-
-                                <FocusTheSearch searchBarRef={this.refs.searchBar}></FocusTheSearch>
-
+                                    <FocusTheSearch  handlepress={this._handleClickFocusTheSearch.bind(this)}></FocusTheSearch>
                          </View>
                         <SurveySelectedRestaurantList
                             onRestaurantRemove={this._onRestaurantRemove}

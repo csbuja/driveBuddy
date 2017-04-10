@@ -21,6 +21,7 @@ var SurveySearchBarContainer = React.createClass({
         return {
             latitude: 0,
             longitude: 0,
+            isfocused :false
         };
     },
 
