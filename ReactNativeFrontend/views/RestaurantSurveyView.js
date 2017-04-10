@@ -21,7 +21,37 @@ var {
 var Fabric = require('react-native-fabric');
 var { Crashlytics, Answers} = Fabric;
 
-var { width } = Dimensions.get('window');
+var { width, height} = Dimensions.get('window');
+
+var FocusTheSearch= React.createClass({
+getInitialState: function () {
+        return {
+            show: true
+        };
+    },
+
+    toggleShow: function () {
+
+        this.setState({
+            show: !this.state.show
+        });
+         this.props.searchBarRef.focus()
+    },
+
+    render: function () {
+        if (this.state.show) {
+            return (
+                <TouchableHighlight  onPress={this.toggleShow} style={styles.focusTheSearch} >
+                    <View>
+                        <Text style={styles.subtitle}>Start Search Now</Text>
+                    </View>
+                </TouchableHighlight>
+            );
+        } else {
+            return null;
+        }
+    }    
+});
 
 var RestaurantSurveyView = React.createClass({
     getInitialState: function() {
@@ -46,27 +76,36 @@ var RestaurantSurveyView = React.createClass({
             <View style={styles.mainView}>
                 <NavBar
                     navigator={this.props.navigator}
-                    onLogout={this._onLogout}
-                />
+                    onLogout={this._onLogout}/>
+
                 <View style={styles.top}>
                     <Text style={styles.title}>Search Favorite Restaurants</Text>
                     <Text style={styles.subtitle}>Select 10</Text>
                 </View>
+
+                 
                 <View style={styles.bottom}>
                     <View
                         style={styles.background}>
                         
+                         
                         <SurveyRestaurantSearch
                             enableResults={this.state.enableResults}
                             onPress={this._onRestaurantSelect}
-                            selected={this.state.selected}
-                        />
+                            selected={this.state.selected}/>
+                        <View style={styles.focusTheSearchWrapper}>
+
+                                <FocusTheSearch searchBarRef={this.refs.searchBar}></FocusTheSearch>
+
+                         </View>
                         <SurveySelectedRestaurantList
                             onRestaurantRemove={this._onRestaurantRemove}
                             onRestaurantSelectRating={this._onRestaurantSelectRating}
                             restaurantInfo={selectedInfo}
                         />
                     </View>
+
+
                     <Button
                         containerStyle={styles.buttonContainer}
                         disabled={isNextDisabled}
@@ -148,6 +187,22 @@ var styles = StyleSheet.create({
         resizeMode: 'cover',
         width: width,
     },
+    focusTheSearch:{
+        width:width/3,
+        height:45,
+        textAlign: 'center',
+        backgroundColor:"#6BCDFD",
+        marginTop: height/10
+    },
+
+    focusTheSearchWrapper:{
+ 
+        flex:1,
+        flexDirection:'column',
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    
     bottom: {
         flex: 0.88,
         flexDirection: 'column',
@@ -187,6 +242,7 @@ var styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
     },
+
 });
 
 module.exports = RestaurantSurveyView;

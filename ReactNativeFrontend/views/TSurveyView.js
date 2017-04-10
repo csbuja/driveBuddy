@@ -61,6 +61,7 @@ var TSurveyView = React.createClass({
                 <TSurveySearchBarContainer
                     setOptions={this._setSearchOptions}
                 />
+                <Text> hello</Text>
                 <TSurveyArea
                     options={options}
                     selected={selectedInfo}

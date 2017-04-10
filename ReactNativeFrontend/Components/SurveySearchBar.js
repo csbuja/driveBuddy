@@ -11,6 +11,8 @@ var {
     View,
 } = React;
 
+
+
 var SurveySearchBar = React.createClass({
     propTypes: {
         disableSearchResults: PropTypes.func.isRequired,
@@ -21,7 +23,7 @@ var SurveySearchBar = React.createClass({
     },
 
     componentDidMount: function() {
-        //this.refs.searchBar.focus();
+        this.refs.searchBar.focus();
     },
 
     getInitialState: function() {
