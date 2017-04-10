@@ -28,8 +28,20 @@ var { height,width } = Dimensions.get('window');
 
 var liveView = React.createClass({
     watchID: (null: ?number),
-    tweet : function() {
 
+    changeMarketingCopyToFacebook: function(){
+        this.setState({
+            SocialMarketingCopy: "It can't get any easier to find a place to eat while driving. I'm really excited to make a Pitstop at " + this.state.foodOptions[this.state.foodIndex].name + " using the Pitstop Pal app on my iPhone!"
+        })
+    },
+    changeMarketingCopyToTwitter: function(){
+        this.setState({
+            SocialMarketingCopy: "I'm really excited to make a Pitstop at " + this.state.foodOptions[this.state.foodIndex].name + " using the Pitstop Pal app on my iPhone!"
+        })
+    },
+
+    tweet : function() {
+    this.changeMarketingCopyToTwitter();
     KDSocialShare.tweet({
         'text':this.state.SocialMarketingCopy,
         'link':this.state.SocialLink
@@ -42,6 +54,7 @@ var liveView = React.createClass({
 
   shareOnFacebook : function() {
 
+    this.changeMarketingCopyToFacebook();
     KDSocialShare.shareOnFacebook({
         'text':this.state.SocialMarketingCopy,
         'link':this.state.SocialLink
@@ -67,7 +80,7 @@ var liveView = React.createClass({
             foodIndex: 0,
             gasIndex: 0,
             SocialMarketingCopy: 'Spencer Buja is the greatest man in the world.',
-            SocialLink: "https://csbuja.github.io",
+            SocialLink: "https://csbuja.github.io/#PitstopPalSection",
             highwaymode: "Off",
             minHighwaySpeedInMPH: 14.5, //a hack since the units are wrong right now
             ve : null,
