@@ -31,6 +31,7 @@ var SurveyRestaurantSearch = React.createClass({
                     disableSearchResults={this._disableSearchResults}
                     setOptions={this._setOptions}
                     searchBarFocused={this.props.searchBarFocused}
+                    dontShowStartSearchNowBox={this.props.dontShowStartSearchNowBox}
                 />
                 <SurveySearchResultsContainer
                     {...this.props}

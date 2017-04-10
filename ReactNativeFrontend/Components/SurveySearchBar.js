@@ -55,7 +55,7 @@ var SurveySearchBar = React.createClass({
                     <TextInput
                         clearButtonMode={'always'}
                         onChangeText={this._onSearchTextChange}
-                        onFocus={this._onKeyboardFocus}
+                        onFocus={this._onKeyboardFocusSearchBar}
                         onKeyPress={this._onKeyboardEnter}
                         placeholder='Search Restaurants Near'
                         ref="searchBar"
@@ -86,6 +86,16 @@ var SurveySearchBar = React.createClass({
 
     _onKeyboardFocus: function() {
         this.state.searchText.length && this.props.enableSearchResults();
+    },
+    _onKeyboardFocusSearchBar: function(){
+        this._onKeyboardFocus();
+        if(!this.state.hasBeenFocusedByButton){
+            this.setState({
+                hasBeenFocusedByButton:true
+            });
+            this.props.dontShowStartSearchNowBox();
+        }
+        
     },
 
     _onKeyboardEnter: function(e) {

@@ -25,21 +25,13 @@ var { Crashlytics, Answers} = Fabric;
 var { width, height} = Dimensions.get('window');
 
 var FocusTheSearch= React.createClass({
-getInitialState: function () {
-        return {
-            show: true
-        };
-    },
 
     toggleShow: function () {
-        this.setState({
-            show: !this.state.show
-        });
         this.props.handlepress()
     },
 
     render: function () {
-        if (this.state.show) {
+        if (!this.props.searchBarFocused) {
             return (
                 <TouchableHighlight  onPress={this.toggleShow} style={styles.focusTheSearch} >
                     <View>
@@ -99,9 +91,11 @@ var RestaurantSurveyView = React.createClass({
                             enableResults={this.state.enableResults}
                             onPress={this._onRestaurantSelect}
                             selected={this.state.selected}
-                            searchBarFocused={this.state.searchBarFocused}/>
+                            searchBarFocused={this.state.searchBarFocused}
+                            dontShowStartSearchNowBox={this._handleClickFocusTheSearch.bind(this)}/>
+
                         <View style={styles.focusTheSearchWrapper}>
-                                    <FocusTheSearch  handlepress={this._handleClickFocusTheSearch.bind(this)}></FocusTheSearch>
+                            <FocusTheSearch  handlepress={this._handleClickFocusTheSearch.bind(this)} searchBarFocused={this.state.searchBarFocused}></FocusTheSearch>
                          </View>
                         <SurveySelectedRestaurantList
                             onRestaurantRemove={this._onRestaurantRemove}
