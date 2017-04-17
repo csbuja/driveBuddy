@@ -115,9 +115,9 @@ var liveView = React.createClass({
             // arbitrarily set timeout to 10 seconds
             {enableHighAccuracy: true, timeout: LOCATION_SAMPLING_PERIOD_IN_SECONDS * 1000, maximumAge: 5 * 60 * 1000}
         );
-
-        // updates when position changes
-        this.watchID = navigator.geolocation.watchPosition((position) => {
+        var self = this;
+        setTimeout(function(){
+            this.watchID = navigator.geolocation.watchPosition((position) => {
             var currentPosition = {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
@@ -181,6 +181,7 @@ var liveView = React.createClass({
 
             }
         });
+        }.bind(self),200)
 
     },
 

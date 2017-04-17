@@ -51,7 +51,9 @@ var RestaurantSurveyView = React.createClass({
             selected: {},
             enableResults: true,
             userID: '',
-            searchBarFocused:false
+            searchBarFocused:false,
+            ratingsHaventChanged: true
+
         };
     },
 
@@ -67,8 +69,19 @@ var RestaurantSurveyView = React.createClass({
     render: function() {
         var selectedInfo = Object.keys(this.state.selected).map((k) => { return this.state.selected[k]; });
         var isNextDisabled = selectedInfo.length < 10 ? true : false;
-        var restaurant = (selectedInfo.length == 9) ? " Restaurant" : " Restaurants";
-        var nextButtonText = isNextDisabled ? "Select " +  (10 - selectedInfo.length) + restaurant : "Done!";
+        var restaurant = (selectedInfo.length == 9) ? " Pitstop" : " Pitstops";
+        var nextButtonText = null;
+
+        if (isNextDisabled){
+            nextButtonText =  "Select " +  (10 - selectedInfo.length) + restaurant;
+        }
+        else if(this.state.ratingsHaventChanged){
+            nextButtonText = "Please rate a Pitstop!"
+        }
+        else{
+            nextButtonText = "Next!";
+        }
+        
 
         return (
             <View style={styles.mainView}>
@@ -77,8 +90,7 @@ var RestaurantSurveyView = React.createClass({
                     onLogout={this._onLogout}/>
 
                 <View style={styles.top}>
-                    <Text style={styles.title}>Search Favorite Restaurants</Text>
-                    <Text style={styles.subtitle}>Select 10</Text>
+                    <Text style={styles.title}>Help us recommend food Pistops for you!</Text>
                 </View>
 
                  
@@ -143,30 +155,37 @@ var RestaurantSurveyView = React.createClass({
 
     _onRestaurantSelectRating: function(id, rating) {
         this.state.selected[id].rating = rating;
+        this.setState({ratingsHaventChanged : false});
     },
 
     _onNextPress: function() {
         // TODO (urlauba): Problems if userID retrieval fails
-        var selectedInfo = Object.keys(this.state.selected).map((k) => { return this.state.selected[k]; });
-        fetch('http://' + config.hostname+ '/api/survey', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                'restaurants': selectedInfo,
-                'userID': this.state.userID,
-            })
-        });
 
-        this.setState({enableResults: false});
-        this.props.navigator.push({
-            name: 'liveViewTutorial',
-            component: liveViewTutorial,
-        });
-        Answers.logCustom('Survey Complete', {user: this.state.userID, restaurants:selectedInfo });
-        this.props.navigator.popToTop();
+        if (this.state.ratingsHaventChanged == false){
+            var selectedInfo = Object.keys(this.state.selected).map((k) => { return this.state.selected[k]; });
+            fetch('http://' + config.hostname+ '/api/survey', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'restaurants': selectedInfo,
+                    'userID': this.state.userID,
+                })
+            });
+
+            this.setState({enableResults: false});
+            this.props.navigator.push({
+                name: 'liveViewTutorial',
+                component: liveViewTutorial,
+            });
+            Answers.logCustom('Survey Complete', {user: this.state.userID, restaurants:selectedInfo });
+            this.props.navigator.popToTop();
+        }
+        else {
+
+        }
     },
 
     _getUserID: function() {

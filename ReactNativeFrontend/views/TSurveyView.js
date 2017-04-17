@@ -55,13 +55,13 @@ var TSurveyView = React.createClass({
                     onLogout={this._onLogout}
                 />
                 <View>
-                    <Text style={styles.title}>Search Favorite Restaurants</Text>
+                    <Text style={styles.title}>What Food Pitstops Do You Like?</Text>
                     <Text style={styles.subtitle}>Select 10</Text>
                 </View>
                 <TSurveySearchBarContainer
                     setOptions={this._setSearchOptions}
                 />
-                <Text> hello</Text>
+                
                 <TSurveyArea
                     options={options}
                     selected={selectedInfo}
