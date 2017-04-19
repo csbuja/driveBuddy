@@ -60,6 +60,7 @@ this._animatedValue = new Animated.Value(0);
     
   },
 
+
   onPressLogin : function(userID) {
     this.setState({descriptiontext:"Loading your data!"});
     this._animation.start(); 
@@ -146,8 +147,27 @@ this._animatedValue = new Animated.Value(0);
                 }}
                 onLogin={function(data){
                     // need as callback otherwise userID may not be updated in next view
+                    
+                    fetch('http://' + config.hostname+ '/api/login', {
+                      method: 'POST',
+                      headers: {
+                          'Accept': 'application/json',
+                          'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                          token : data['credentials']['token'],
+                          userid : data['credentials']['userId']
+                      })
+                    }).then(function(result){
+                      
+                      AsyncStorage.setItem('token', data['credentials']['token'])
+                      .then(function() {
+                      })
+                      .catch(function(error) {
+                          console.log('error saving userID to disc' + error)
+                      });
+                    });
                     setUserID(data['credentials']['userId'], onPressLogin);
-                    //console.log(data['credentials']);
                 }}
                 onLoginFound={function(data) { // may not need onLoginFound, useful for developing
                     setUserID(data['credentials']['userId'], onPressLogin);

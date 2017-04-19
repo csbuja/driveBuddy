@@ -2,11 +2,12 @@
 
 var React = require('react-native');
 var NavigationBar = require('react-native-navbar');
-
+var config = require("../config");
 var {
     NativeModules,
     PropTypes,
     StyleSheet,
+    AsyncStorage,
     Text,
 } = React;
 var { FBLoginManager } = NativeModules;
@@ -22,7 +23,11 @@ var NavBar = React.createClass({
     getDefaultProps: function() {
         return {
             showLogout: true,
+            userID : ""
         }
+    },
+    componentWillMount: function() {
+            this._getToken();
     },
 
     render: function() {
@@ -40,8 +45,7 @@ var NavBar = React.createClass({
                 leftButton={leftButtonConfig}
                 statusBar={{}} // suppress module bug
                 style={this.props.style}
-                title={title}
-            />
+                title={title}/>
         );
     },
 
@@ -50,8 +54,26 @@ var NavBar = React.createClass({
             if (err) return;
             this.props.onLogout && this.props.onLogout();
             this.props.navigator.popToTop();
+            console.log(this.state.token)
+            fetch('http://' + config.hostname+ '/api/logout', {
+                  method: 'POST',
+                  headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                      token : this.state.token
+                   })
+            })
         });
     },
+    _getToken: function() {
+        AsyncStorage.getItem('token').then(function(token) {
+            this.setState({token: token});
+        }.bind(this)).catch(function(error) {
+            console.log('error retrieving token from disc' + error);
+        });
+    }
 });
 
 var styles = StyleSheet.create({
