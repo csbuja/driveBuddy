@@ -17,7 +17,7 @@ var { width } = Dimensions.get('window');
 
 var GasFoodSwiperContainer = React.createClass({
     propTypes: {
-        hasNewOptions: PropTypes.bool.isRequired,
+
         hasSetOptions: PropTypes.func.isRequired,
         latitude: PropTypes.number,
         loading: PropTypes.bool.isRequired,
@@ -31,7 +31,6 @@ var GasFoodSwiperContainer = React.createClass({
     render: function() {
         var swiperWidth = width * .9;
         var placeContainerOffset = width * .2;
-
         return (
             <View style={[styles.container, this.props.style]}>
                 <GasFoodSwiper

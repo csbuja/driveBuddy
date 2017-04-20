@@ -27,7 +27,12 @@ var NavBar = React.createClass({
         }
     },
     componentWillMount: function() {
-            this._getToken();
+        this._getToken();
+    },
+    getInitialState: function() {
+        return {
+            token: ''
+        }
     },
 
     render: function() {
@@ -50,11 +55,13 @@ var NavBar = React.createClass({
     },
 
     _logout: function() {
+        this._getToken();
+        var self = this;
         FBLoginManager.logout((err, data) => {
             if (err) return;
             this.props.onLogout && this.props.onLogout();
             this.props.navigator.popToTop();
-            console.log(this.state.token)
+            //console.log(this.state.token)
             fetch('http://' + config.hostname+ '/api/logout', {
                   method: 'POST',
                   headers: {
@@ -62,7 +69,7 @@ var NavBar = React.createClass({
                       'Content-Type': 'application/json',
                   },
                   body: JSON.stringify({
-                      token : this.state.token
+                      token : self.state.token
                    })
             })
         });

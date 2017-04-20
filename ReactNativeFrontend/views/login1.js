@@ -79,20 +79,24 @@ this._animatedValue = new Animated.Value(0);
           component: surveyViewTutorial,
       };
 
-      fetch('http://' + config.hostname+ '/api/survey/check/' + userID,method: 'POST',
+      fetch('http://' + config.hostname+ '/api/survey/check/' + userID,{method: 'POST',
                       headers: {
                           'Accept': 'application/json',
                           'Content-Type': 'application/json',
                       },
                       body: JSON.stringify({
-                          token : this.state.token}))
+                          token : this.state.token})})
       .then((response) => response.text())
       .then((responseText) => {
         Answers.logLogin('Facebook', true); //telemetry
-
+        console.log(responseText)
+        console.log(this.state.token)
  
         if (responseText == 'Existing survey') {
           this.props.navigator.push(live);
+        }
+        else if (responseText == 'Invalid Token') {
+          this.onBack();
         }
         else {
           this.props.navigator.push(surveyViewTut);
@@ -123,7 +127,7 @@ this._animatedValue = new Animated.Value(0);
     var onBack = this.onBack;
     var onPressLogin = this.onPressLogin;
     var setUserID = this.setUserID;
-     
+    var self = this;
 
      var interpolatedRotateAnimation = this._animatedValue.interpolate({
         inputRange: [0, 100],
@@ -153,7 +157,7 @@ this._animatedValue = new Animated.Value(0);
                 }}
                 onLogin={function(data){
                     // need as callback otherwise userID may not be updated in next view
-                    var self = this;
+                    
                     fetch('http://' + config.hostname+ '/api/login', {
                       method: 'POST',
                       headers: {

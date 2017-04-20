@@ -21,7 +21,6 @@ var i = 0;
 
 var GasFoodSubSwiper = React.createClass({
     propTypes: {
-        hasNewOptions: PropTypes.bool.isRequired,
         hasSetOptions: PropTypes.func.isRequired,
         onSwipe: PropTypes.func.isRequired,
         options: PropTypes.array.isRequired,
@@ -98,7 +97,6 @@ var GasFoodSubSwiper = React.createClass({
 
 var GasFoodSwiper = React.createClass({
     propTypes: {
-        hasNewOptions: PropTypes.bool.isRequired,
         hasSetOptions: PropTypes.func.isRequired,
         loading: PropTypes.bool.isRequired,
         onSwipe: PropTypes.func,

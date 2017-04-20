@@ -74,19 +74,21 @@ var SwiperContainerMixin = function(props) {
         },
 
         _setOptions: function(currentPosition, lastPosition) {
-            var current = JSON.stringify(currentPosition);
+            AsyncStorage.getItem('userID').then(function(userID) {
+                this.setState({userID: userID});
+                var current = JSON.stringify(currentPosition);
             var last = JSON.stringify(lastPosition);
             var config = require("../config");
             // TODO (urlauba): change url path
             var endpoint = (props.isFoodSwiper)
-                ? 'http://' + config.hostname+ '/api/food/' + current + '/' + last + '/' + this.state.userID
-                : 'http://' + config.hostname+ '/api/gas/' + current + '/' + last;
+                ? 'http://' + config.hostname+ '/api/food/' + current  + '/' + this.state.userID
+                : 'http://' + config.hostname+ '/api/gas/' + current ;
 
             this.props.onSetOptions([]);
             this.setState({loading: true, hasNewOptions: true});
             if (currentPosition.latitude && currentPosition.longitude) {
                 fetch(endpoint,{
-                  method: 'GET',
+                  method: 'POST',
                   headers: {
                       'Accept': 'application/json',
                       'Content-Type': 'application/json',
@@ -96,6 +98,7 @@ var SwiperContainerMixin = function(props) {
                    })
             }).then((response) => response.text()
                 ).then((responseText) => {
+                    
                     var data = JSON.parse(responseText);
                     var options = Object.keys(data).map(function(k) {
                         var item = data[k];
@@ -112,6 +115,7 @@ var SwiperContainerMixin = function(props) {
                     this.setState({loading: false, hasNewOptions: false});
                 });
             }
+            }.bind(this))
         },
 
         _getUserID: function() {
