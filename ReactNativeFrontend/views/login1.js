@@ -40,7 +40,8 @@ var Login1 = React.createClass({
     return {
       username: '',
       password: '',
-      descriptiontext: initialDescription
+      descriptiontext: initialDescription,
+      token: ''
     }
   },
   onBack : function() {
@@ -78,14 +79,19 @@ this._animatedValue = new Animated.Value(0);
           component: surveyViewTutorial,
       };
 
-      fetch('http://' + config.hostname+ '/api/check/survey/' + userID)
+      fetch('http://' + config.hostname+ '/api/survey/check/' + userID,method: 'POST',
+                      headers: {
+                          'Accept': 'application/json',
+                          'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                          token : this.state.token}))
       .then((response) => response.text())
       .then((responseText) => {
         Answers.logLogin('Facebook', true); //telemetry
 
  
         if (responseText == 'Existing survey') {
-          console.log("there is a survey")
           this.props.navigator.push(live);
         }
         else {
@@ -147,7 +153,7 @@ this._animatedValue = new Animated.Value(0);
                 }}
                 onLogin={function(data){
                     // need as callback otherwise userID may not be updated in next view
-                    
+                    var self = this;
                     fetch('http://' + config.hostname+ '/api/login', {
                       method: 'POST',
                       headers: {
@@ -159,7 +165,8 @@ this._animatedValue = new Animated.Value(0);
                           userid : data['credentials']['userId']
                       })
                     }).then(function(result){
-                      
+                      self.setState({token: data['credentials']['token']})
+                      setUserID(data['credentials']['userId'], onPressLogin);
                       AsyncStorage.setItem('token', data['credentials']['token'])
                       .then(function() {
                       })
@@ -167,10 +174,7 @@ this._animatedValue = new Animated.Value(0);
                           console.log('error saving userID to disc' + error)
                       });
                     });
-                    setUserID(data['credentials']['userId'], onPressLogin);
-                }}
-                onLoginFound={function(data) { // may not need onLoginFound, useful for developing
-                    setUserID(data['credentials']['userId'], onPressLogin);
+                    
                 }}
                 />
             </View>

@@ -28,7 +28,15 @@ var SwiperContainerMixin = function(props) {
             return {
                 loading: false,
                 userID: '',
+                token: ''
             };
+        },
+        _getToken: function() {
+        AsyncStorage.getItem('token').then(function(token) {
+            this.setState({token: token});
+        }.bind(this)).catch(function(error) {
+            console.log('error retrieving token from disc' + error);
+        });
         },
 
         componentWillReceiveProps: function(nextProps) {
@@ -45,7 +53,7 @@ var SwiperContainerMixin = function(props) {
 
         componentWillMount: function() {
             this._getUserID();
-
+            this._getToken();
             this._setOptions(
                 this.props.currentPosition,
                 this.props.lastPosition
@@ -71,13 +79,22 @@ var SwiperContainerMixin = function(props) {
             var config = require("../config");
             // TODO (urlauba): change url path
             var endpoint = (props.isFoodSwiper)
-                ? 'http://' + config.hostname+ '/api/yelp/' + current + '/' + last + '/' + this.state.userID
+                ? 'http://' + config.hostname+ '/api/food/' + current + '/' + last + '/' + this.state.userID
                 : 'http://' + config.hostname+ '/api/gas/' + current + '/' + last;
 
             this.props.onSetOptions([]);
             this.setState({loading: true, hasNewOptions: true});
             if (currentPosition.latitude && currentPosition.longitude) {
-                fetch(endpoint).then((response) => response.text()
+                fetch(endpoint,{
+                  method: 'GET',
+                  headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                      token : this.state.token
+                   })
+            }).then((response) => response.text()
                 ).then((responseText) => {
                     var data = JSON.parse(responseText);
                     var options = Object.keys(data).map(function(k) {

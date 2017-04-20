@@ -52,17 +52,26 @@ var RestaurantSurveyView = React.createClass({
             enableResults: true,
             userID: '',
             searchBarFocused:false,
-            ratingsHaventChanged: true
+            ratingsHaventChanged: true,
+            token: ''
 
         };
     },
 
     componentWillMount: function() {
         this._getUserID();
+        this._getToken();
     },  
     _handleClickFocusTheSearch: function(){
         this.setState({
             searchBarFocused: true
+        });
+    },
+    _getToken: function() {
+        AsyncStorage.getItem('token').then(function(token) {
+            this.setState({token: token});
+        }.bind(this)).catch(function(error) {
+            console.log('error retrieving token from disc' + error);
         });
     },
 
@@ -163,7 +172,7 @@ var RestaurantSurveyView = React.createClass({
 
         if (this.state.ratingsHaventChanged == false){
             var selectedInfo = Object.keys(this.state.selected).map((k) => { return this.state.selected[k]; });
-            fetch('http://' + config.hostname+ '/api/survey', {
+            fetch('http://' + config.hostname+ '/api/survey/set', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -172,6 +181,7 @@ var RestaurantSurveyView = React.createClass({
                 body: JSON.stringify({
                     'restaurants': selectedInfo,
                     'userID': this.state.userID,
+                    'token' : this.state.token
                 })
             });
 
