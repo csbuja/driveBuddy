@@ -631,8 +631,8 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = KMSUH5DCF7;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = J5QVJ6LRBF;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -1006,7 +1006,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = KMSUH5DCF7;
+				DEVELOPMENT_TEAM = J5QVJ6LRBF;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1028,9 +1028,10 @@
 				INFOPLIST_FILE = dri/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bujacorp.pitstop;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bujacorp.pitstoppal;
 				PRODUCT_NAME = dri;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6b77a06e-e5e9-4010-9b3a-defda26635ad";
+				PROVISIONING_PROFILE_SPECIFIER = MidAprilHappiness;
 			};
 			name = Debug;
 		};
@@ -1041,7 +1042,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets-2";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = KMSUH5DCF7;
+				DEVELOPMENT_TEAM = J5QVJ6LRBF;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1063,9 +1064,10 @@
 				INFOPLIST_FILE = dri/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bujacorp.pitstop;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bujacorp.pitstoppal;
 				PRODUCT_NAME = dri;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6b77a06e-e5e9-4010-9b3a-defda26635ad";
+				PROVISIONING_PROFILE_SPECIFIER = MidAprilHappiness;
 			};
 			name = Release;
 		};

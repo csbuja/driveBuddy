@@ -10,6 +10,7 @@
     "haversine": "^1.0.2",
     "jStat": "^1.5.3",
     "mathjs": "^3.8.1",
+    "q": "^1.5.0",
     "react-native": "^0.21.0",
     "react-native-button": "^1.4.2",
     "react-native-fabric": "^0.3.1",

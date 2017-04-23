@@ -3,12 +3,14 @@
 var Icon = require('react-native-vector-icons/FontAwesome');
 var React = require('react-native');
 var config = require("../config");
+var Q = require('q')
 
 var {
     PropTypes,
     StyleSheet,
     TextInput,
     View,
+    AsyncStorage,
 } = React;
 
 
@@ -37,7 +39,8 @@ var SurveySearchBar = React.createClass({
             isSearching: false,
             locationText: '',
             searchText: '',
-            hasBeenFocusedByButton:false
+            hasBeenFocusedByButton:false,
+            token: ''
         };
     },
 
@@ -101,6 +104,10 @@ var SurveySearchBar = React.createClass({
     _onKeyboardEnter: function(e) {
         (e.nativeEvent.key === 'Enter') && this.props.disableSearchResults();
     },
+    componentWillMount: function() {
+        this._getToken();
+
+    },
 
     _onLocationTextChange: function(text) {
         // order matters, otherwise can search
@@ -112,6 +119,13 @@ var SurveySearchBar = React.createClass({
     _onSearchTextChange: function(text) {
         this._search(text);
         this.setState({searchText: text});
+    },
+    _getToken: function() {
+        AsyncStorage.getItem('token').then(function(token) {
+            this.setState({token: token});
+        }.bind(this)).catch(function(error) {
+            console.log('error retrieving token from disc' + error);
+        });
     },
 
     _search: function(text) {
@@ -131,12 +145,38 @@ var SurveySearchBar = React.createClass({
             this.setState({isSearchBehind: true});
             return;
         }
-
-        // TODO (urlauba): change url
-        this.setState({isSearching: true});
-        fetch('http://' + config.hostname+ '/api/search/'
+        var self = this;
+        (function(){
+        var deferred = Q.defer();
+        if(self.state.token==''){
+            AsyncStorage.getItem('token').then(function(token) {
+            self.setState({token: token});
+            deferred.resolve(true);
+        }.bind(this)).catch(function(error) {
+            console.log('error retrieving token from disc' + error);
+        });
+        }
+        else {
+            deferred.resolve(true)
+        }
+        return deferred.promise;
+        })().then(function(){
+            console.log('api search')
+            this.setState({isSearching: true});
+            var url = 'http://' + config.hostname+ '/api/search/'
             + this.props.latitude + '/' + this.props.longitude + '/'
-            + text + '/' + this.state.locationText)
+            + text + '/' + this.state.locationText;
+            console.log(self.state.token)
+        fetch(url,{
+                  method: 'POST',
+                  headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                      token : self.state.token
+                   })
+            })
             .then((response) => response.text())
             .then((responseText) => {
                 // short circuit search
@@ -158,7 +198,8 @@ var SurveySearchBar = React.createClass({
                 this.setState({isSearching: false, isSearchBehind: false});
                 this._search(this.state.searchText);
             })
-    },
+        }.bind(self));
+    }
 });
 
 var styles = StyleSheet.create({

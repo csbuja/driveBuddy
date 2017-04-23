@@ -99,7 +99,7 @@ var RestaurantSurveyView = React.createClass({
                     onLogout={this._onLogout}/>
 
                 <View style={styles.top}>
-                    <Text style={styles.title}>Help us recommend food Pistops for you!</Text>
+                    <Text style={styles.title}>Help us recommend food Pitstops for you!</Text>
                 </View>
 
                  

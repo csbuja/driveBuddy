@@ -29,7 +29,7 @@ var {
 var RestaurantSurveyView= require('./RestaurantSurveyView');
 var liveView = require('./liveView');
 var surveyViewTutorial = require('./surveyViewTutorial');
-//var FBLoginMock = require('./facebook/FBLoginMock.js');
+
 
 
 const initialDescription = "Your Personalized Driving Assistant";
@@ -78,7 +78,7 @@ this._animatedValue = new Animated.Value(0);
           name: 'surveyViewTutorial',
           component: surveyViewTutorial,
       };
-
+      console.log('checking survey for user')
       fetch('http://' + config.hostname+ '/api/survey/check/' + userID,{method: 'POST',
                       headers: {
                           'Accept': 'application/json',
@@ -99,7 +99,12 @@ this._animatedValue = new Animated.Value(0);
           this.onBack();
         }
         else {
-          this.props.navigator.push(surveyViewTut);
+          var surveyView = {
+          name: 'RestaurantSurveyView',
+          component: RestaurantSurveyView,
+        };
+        this.props.navigator.push(surveyView)
+          this.props.navigator.push(surveyView);
         }
         var self = this;
         setTimeout(function(){self.setState({descriptiontext:initialDescription})},1000);
@@ -170,9 +175,14 @@ this._animatedValue = new Animated.Value(0);
                       })
                     }).then(function(result){
                       self.setState({token: data['credentials']['token']})
-                      setUserID(data['credentials']['userId'], onPressLogin);
+              
                       AsyncStorage.setItem('token', data['credentials']['token'])
                       .then(function() {
+                        AsyncStorage.getItem('token').then(function(t){
+                          
+                          setUserID(data['credentials']['userId'], onPressLogin);
+                        })
+                        
                       })
                       .catch(function(error) {
                           console.log('error saving userID to disc' + error)
