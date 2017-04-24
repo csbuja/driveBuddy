@@ -90,6 +90,13 @@ var RestaurantSurveyView = React.createClass({
         else{
             nextButtonText = "Next!";
         }
+
+        var focussearchbarcomponent;
+        if (!this.state.searchBarFocused){
+            focussearchbarcomponent = <View style={styles.focusTheSearchWrapper}>
+                            <FocusTheSearch  handlepress={this._handleClickFocusTheSearch.bind(this)} searchBarFocused={this.state.searchBarFocused}></FocusTheSearch>
+                         </View>;
+        }
         
 
         return (
@@ -114,10 +121,8 @@ var RestaurantSurveyView = React.createClass({
                             selected={this.state.selected}
                             searchBarFocused={this.state.searchBarFocused}
                             dontShowStartSearchNowBox={this._handleClickFocusTheSearch.bind(this)}/>
-
-                        <View style={styles.focusTheSearchWrapper}>
-                            <FocusTheSearch  handlepress={this._handleClickFocusTheSearch.bind(this)} searchBarFocused={this.state.searchBarFocused}></FocusTheSearch>
-                         </View>
+                        {focussearchbarcomponent}
+                        
                         <SurveySelectedRestaurantList
                             onRestaurantRemove={this._onRestaurantRemove}
                             onRestaurantSelectRating={this._onRestaurantSelectRating}
