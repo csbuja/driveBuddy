@@ -82,7 +82,7 @@ var liveView = React.createClass({
             SocialMarketingCopy: 'Spencer Buja is the greatest man in the world.',
             SocialLink: "https://csbuja.github.io/#PitstopPalSection",
             highwaymode: "Off",
-            minHighwaySpeedInMPH: 14.5, //a hack since the units are wrong right now
+            minHighwaySpeedInMPH: 13.0, //a hack since the units are wrong right now
             ve : null,
             df : null,
             direction: null,//is a unit vector

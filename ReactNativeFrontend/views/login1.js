@@ -53,6 +53,8 @@ this._animatedValue = new Animated.Value(0);
 
 },
   componentDidMount:function(){
+ //due to bug filing where users navigate to page, and they are logged in. didn't get to root of issue.
+ FBLoginManager.logout(function(){});
          // First set up animation 
  this._animation = Animated.timing(this._animatedValue, {
         toValue: 100,
