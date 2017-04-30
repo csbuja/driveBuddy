@@ -199,7 +199,7 @@ var liveView = React.createClass({
 
         var gasOptionLatitude = null;
         var gasOptionLongitude = null;
-        if (this.state.gasOptions.length) {
+        if (this.state.gasOptions.length && !un.isUndefined(this.state.gasOptions[this.state.gasIndex]) && !un.isUndefined( this.state.gasOptions[this.state.gasIndex]) ) {
             gasOptionLatitude = parseFloat(this.state.gasOptions[this.state.gasIndex].lat);
             gasOptionLongitude = parseFloat(this.state.gasOptions[this.state.gasIndex].lon);
         }

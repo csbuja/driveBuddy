@@ -65,7 +65,7 @@ this._animatedValue = new Animated.Value(0);
 
 
   onPressLogin : function(userID) {
-    this.setState({descriptiontext:"Loading your data!"});
+    this.setState({descriptiontext:"Logging you in!"});
     this._animation.start(); 
     
       var surveyView = {
