@@ -63,10 +63,13 @@ this._animatedValue = new Animated.Value(0);
     
   },
 
+  _initiateLoginBehavior: function(){
+     this.setState({descriptiontext:"Logging you in!"});
+     this._animation.start(); 
+  },
 
   onPressLogin : function(userID) {
-    this.setState({descriptiontext:"Logging you in!"});
-    this._animation.start(); 
+   
     
       var surveyView = {
           name: 'RestaurantSurveyView',
@@ -151,20 +154,14 @@ this._animatedValue = new Animated.Value(0);
             style={{transform: [{rotate: interpolatedRotateAnimation}] }}
             source={require('../Images/Icon-76.png')} />
             </View>
-            <View style={styles.header}>
-                <Text>{this.state.descriptiontext}</Text>
-            </View>
-            <View style={styles.inputs}>
-
-            </View>
-            <TouchableHighlight>
+            <TouchableHighlight style={styles.signin}>
             <View style={styles.signin}>
-                <FBLogin style={styles.signin} onCancel={function(){
+                <FBLogin style={[styles.signin,styles.fblogin]} onCancel={function(){
                     onBack();
                 }}
                 onLogin={function(data){
                     // need as callback otherwise userID may not be updated in next view
-                    
+                    self._initiateLoginBehavior.bind(self)()
                     fetch('http://' + config.hostname+ '/api/login', {
                       method: 'POST',
                       headers: {
@@ -195,6 +192,13 @@ this._animatedValue = new Animated.Value(0);
                 />
             </View>
             </TouchableHighlight>
+            <View style={styles.header}>
+                <Text>{this.state.descriptiontext}</Text>
+            </View>
+            <View style={styles.inputs}>
+
+            </View>
+            
             
         </View>
     );
@@ -228,9 +232,13 @@ var styles = StyleSheet.create({
         height: 150
     },
     signin: {
-        backgroundColor: salmon,
+        backgroundColor: "#fff",
         padding: 20,
-        alignItems: 'center'
+        alignItems: 'center',
+        
+    },
+    fblogin:{
+      
     },
     signup: {
       justifyContent: 'center',
