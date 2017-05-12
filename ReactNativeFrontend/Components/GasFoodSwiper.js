@@ -106,7 +106,7 @@ var GasFoodSwiper = React.createClass({
     },
 
     getInitialState: function(){
-        return {error_message:  "Sorry, no options right now!"}
+        return {error_message:  "Sorry, PitstOptions no options right now!"}
     },
 
     render: function() {

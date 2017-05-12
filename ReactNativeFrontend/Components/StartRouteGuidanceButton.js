@@ -47,13 +47,23 @@ var StartRouteGuidanceButton = React.createClass({
     },
 
     render: function() {
-        if (!this.props.optionLatitude || !this.props.optionLongitude) return null;
-
         var TouchableElement = TouchableHighlight;
 
         if (Platform.OS === 'android') {
             TouchableElement = TouchableNativeFeedback;
         }
+
+        if (!this.props.optionLatitude || !this.props.optionLongitude)
+        {
+            return (
+            <TouchableElement
+                underlayColor='#0387c9'
+                style={[styles.button, { width: this.props.itemWidth}]}>
+                <Text style={styles.buttonText}> No Directions Ready for Pitstop</Text>
+            </TouchableElement>
+            );
+        }
+
 
         return (
             <TouchableElement
