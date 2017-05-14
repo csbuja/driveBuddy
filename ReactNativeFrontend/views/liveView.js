@@ -205,7 +205,7 @@ var liveView = React.createClass({
         }
         var socialheight = 35;
         var socialwidth = width/3;
-        var directionFilterText = this.state.highwaymode === "On" : "Looking Ahead" ? : "Looking Around"
+        var directionFilterText = this.state.highwaymode === "On" ? "Looking Ahead" : "Looking Around";
         return (
         <View style={styles.liveView}>
         <View style={[styles.shareContainer,{marginTop:height/20}]} >
