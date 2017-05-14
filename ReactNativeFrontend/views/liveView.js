@@ -203,9 +203,9 @@ var liveView = React.createClass({
             gasOptionLatitude = parseFloat(this.state.gasOptions[this.state.gasIndex].lat);
             gasOptionLongitude = parseFloat(this.state.gasOptions[this.state.gasIndex].lon);
         }
-        var socialheight = 35
-        var socialwidth = width/3
-
+        var socialheight = 35;
+        var socialwidth = width/3;
+        var directionFilterText = this.state.highwaymode === "On" : "Looking Ahead" ? : "Looking Around"
         return (
         <View style={styles.liveView}>
         <View style={[styles.shareContainer,{marginTop:height/20}]} >
@@ -221,7 +221,7 @@ var liveView = React.createClass({
               </View>
             </TouchableHighlight>
             <View style={{alignItems: 'center',justifyContent:'center',width: socialwidth, height: socialheight,backgroundColor: "rgba(0, 172, 237,.25)"}}>
-                <Text style={{color:'#ffffff',fontWeight:'800',justifyContent:'center'}}>{this.state.highwaymode} Highway </Text>
+                <Text style={{color:"#3b5998",fontWeight:'800',justifyContent:'center'}}>{directionFilterText}</Text>
             </View>
 
         </View>
