@@ -89,6 +89,7 @@ var liveView = React.createClass({
             speed: 0,
             unfilteredFoodOptions:[],
             unfilteredGasOptions:[]
+            
         };
     },
 
@@ -225,7 +226,7 @@ var liveView = React.createClass({
             </View>
 
         </View>
-
+            
             <FoodSwiperContainer
                 currentPosition={this.state.currentPosition}
                 foodIndex={this.state.foodIndex}

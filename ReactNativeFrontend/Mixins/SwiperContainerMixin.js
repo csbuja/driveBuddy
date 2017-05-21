@@ -79,10 +79,13 @@ var SwiperContainerMixin = function(props) {
                 var current = JSON.stringify(currentPosition);
             var last = JSON.stringify(lastPosition);
             var config = require("../config");
-            // TODO (urlauba): change url path
+
             var endpoint = (props.isFoodSwiper)
                 ? 'http://' + config.hostname+ '/api/food/' + current  + '/' + this.state.userID
-                : 'http://' + config.hostname+ '/api/gas/' + current ;
+                : (function(){
+                    var sortBy = props.sortGasByPrice ? "price" : "distance" 
+                    return  'http://' + config.hostname+ '/api/gas/' + current + '/' + sortBy;
+                })() ;
 
             this.props.onSetOptions([]);
             this.setState({loading: true, hasNewOptions: true});
