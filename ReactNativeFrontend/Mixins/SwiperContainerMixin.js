@@ -108,6 +108,7 @@ var SwiperContainerMixin = function(props) {
                         return item;
                     });
                     options.sort((a, b) => { return (a.score < b.score) ? 1 : ((b.score < a.score) ? -1 : 0); });
+                    
                     this.setState({loading: false});
                     this.props.onSetOptions(options);
                 }).catch((error) => {

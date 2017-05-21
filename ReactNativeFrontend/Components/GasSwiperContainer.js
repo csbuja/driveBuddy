@@ -11,14 +11,15 @@ var GasSwiperContainer = React.createClass({
     
     getInitialState:function(){
             return {
-                sortGasByPrice: false
+                sortGasByPrice: true
             }
     },
-    mixins: [TimerMixin, SwiperContainerMixin({ isFoodSwiper: false, sortGasByPrice: false})],
+    mixins: [TimerMixin, SwiperContainerMixin({ isFoodSwiper: false})],
 
     render: function() {
         var yelpImage = (<Image source={require("../Images/yelp-2c.png")} style={{height:20,width:1.7*20}}/>)
-
+        var self = this;
+        var salmon = '#FF3366'
         return (
             <View>
                 <Text style={styles.title}>Gas</Text>
@@ -26,7 +27,25 @@ var GasSwiperContainer = React.createClass({
                     
                     <View style={{flexDirection: "row"}}>
                 <Text> $ </Text>
-                <Switch onValueChange={(value) => this.setState({sortGasByPrice: value})} value={this.state.sortGasByPrice} />
+                <Switch 
+
+                onTintColor={salmon}
+                tintColor={salmon}
+
+                onValueChange={
+                    function(value){
+                     self.setState({sortGasByPrice: value});
+                     if (value){
+                        self.props.options.sort((a,b)=>{return (a.reg_price > b.reg_price)?1: ((b.reg_price > a.reg_price)?-1:0);});
+                     }
+                     else{
+                        //TODO: calculate distance on the fly if necessary
+                        self.props.options.sort((a,b)=>{return (a.distance > b.distance)?1: ((b.distance > a.distance)?-1:0);});
+                     }  
+                    } 
+                 }
+
+                value={this.state.sortGasByPrice} />
                 <Text> Dist. {this.state.sortGasByPrice}</Text>
             </View>
                 </View>
