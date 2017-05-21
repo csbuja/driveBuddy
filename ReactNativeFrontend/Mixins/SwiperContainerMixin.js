@@ -82,10 +82,7 @@ var SwiperContainerMixin = function(props) {
 
             var endpoint = (props.isFoodSwiper)
                 ? 'http://' + config.hostname+ '/api/food/' + current  + '/' + this.state.userID
-                : (function(){
-                    var sortBy = props.sortGasByPrice ? "price" : "distance" 
-                    return  'http://' + config.hostname+ '/api/gas/' + current + '/' + sortBy;
-                })() ;
+                : 'http://' + config.hostname+ '/api/gas/' + current + '/' + 'notSorted';
 
             this.props.onSetOptions([]);
             this.setState({loading: true, hasNewOptions: true});
