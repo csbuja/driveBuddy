@@ -93,45 +93,10 @@ var liveView = React.createClass({
         };
     },
 
-    componentDidMount: function() {
-        Answers.logCustom('Reached Live View', {})
 
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                var currentPosition = { 
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude,
-                } 
-                this.setState({
-                    currentPosition: currentPosition
-                });
-
-                this.state.ve = VelocityEstimator(currentPosition,NUMBER_OF_LATLONS_STORED_WHEN_ESTIMATING_DIRECTION,LOCATION_SAMPLING_PERIOD_IN_SECONDS);
-                this.state.df = DirectionFilter(this.state.ve);
-        
-            },
-            (error) => console.log(error),
-            // if battery life become a concern disable high accuracy
-            // max age corresponds to using cached value within device, set to 5 min
-            // arbitrarily set timeout to 10 seconds
-            {enableHighAccuracy: true, timeout: LOCATION_SAMPLING_PERIOD_IN_SECONDS * 1000, maximumAge: 5 * 60 * 1000}
-        );
-        var self = this;
-        setTimeout(function(){
-            this.watchID = navigator.geolocation.watchPosition((position) => {
-            var currentPosition = {
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-            };
-            
-            var lastPosition = this.state.currentPosition;
-
-            this.setState({
-                currentPosition: currentPosition,
-                lastPosition: lastPosition,
-            });
-
-            if (this.state.ve !== null && this.state.df !== null) { //these two booleans always take on the same value for now
+    _directionFilter: function(){
+        if (this.state.ve !== null && this.state.df !== null) { //these two booleans always take on the same value for now
+                var currentPosition = this.state.currentPosition;
                 this.state.ve.setCurrentLocation(currentPosition);
                 var v = this.state.ve.estimateVelocity();
                 Answers.logCustom('Driving Telemetry', 
@@ -179,11 +144,56 @@ var liveView = React.createClass({
                         gasOptions: this.state.unfilteredGasOptions
                      }); 
                 }   
+        }
+    },
+    componentDidMount: function() {
+        Answers.logCustom('Reached Live View', {})
 
-            }
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                var currentPosition = { 
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                } 
+                this.setState({
+                    currentPosition: currentPosition
+                });
+
+                this.state.ve = VelocityEstimator(currentPosition,NUMBER_OF_LATLONS_STORED_WHEN_ESTIMATING_DIRECTION,LOCATION_SAMPLING_PERIOD_IN_SECONDS);
+                this.state.df = DirectionFilter(this.state.ve);
+        
+            },
+            (error) => console.log(error),
+            // if battery life become a concern disable high accuracy
+            // max age corresponds to using cached value within device, set to 5 min
+            // arbitrarily set timeout to 10 seconds
+            {enableHighAccuracy: true, timeout: LOCATION_SAMPLING_PERIOD_IN_SECONDS * 1000, maximumAge: 5 * 60 * 1000}
+        );
+        var self = this;
+        setTimeout(function(){
+            this.watchID = navigator.geolocation.watchPosition((position) => {
+            var currentPosition = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+            };
+            
+            var lastPosition = this.state.currentPosition;
+
+            this.setState({
+                currentPosition: currentPosition,
+                lastPosition: lastPosition,
+            });
+
+            this._directionFilter();            
         });
         }.bind(self),200)
 
+    },
+    _updateGasDataInContainer: function(gas){
+        this.setState({
+            unfilteredGasOptions: gas,
+            gasOptions: gas
+        })
     },
 
     componentWillUnmount: function() {
@@ -207,6 +217,8 @@ var liveView = React.createClass({
         var socialheight = 35;
         var socialwidth = width/3;
         var directionFilterText = this.state.highwaymode === "On" ? "Looking Ahead" : "Looking Around";
+        
+        console.log(this.state.gasOptions)
         return (
         <View style={styles.liveView}>
         <View style={[styles.shareContainer,{marginTop:height/20}]} >
@@ -252,6 +264,7 @@ var liveView = React.createClass({
                 optionLongitude={gasOptionLongitude}
                 options={this.state.gasOptions}
                 style={styles.swiper}
+                updateGasFunc={this._updateGasDataInContainer.bind(this)}
             />
             <View style={styles.separator} />
             <MapContainer

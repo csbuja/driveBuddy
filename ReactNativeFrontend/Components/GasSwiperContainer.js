@@ -34,19 +34,39 @@ var GasSwiperContainer = React.createClass({
 
                 onValueChange={
                     function(value){
-                     self.setState({sortGasByPrice: value});
+                     self.setState({sortGasByPrice: !value,
+                        loading: true
+                     });
+                    
+                     
+                     console.log(self.state.sortGasByPrice)
                      if (value){
-                        self.props.options.sort((a,b)=>{return (a.reg_price > b.reg_price)?1: ((b.reg_price > a.reg_price)?-1:0);});
-                     }
-                     else{
                         //TODO: calculate distance on the fly if necessary
                         self.props.options.sort((a,b)=>{return (a.distance > b.distance)?1: ((b.distance > a.distance)?-1:0);});
-                     }  
+
+                     }
+                     else{
+                        
+                        self.props.options.sort((a,b)=>{return (a.price > b.price)?1: ((b.price > a.price)?-1:0);});
+                     }
+
+                     self.props.updateGasFunc(self.props.options);
+                     //updates the gasfoodsubswiper
+                     self.setState({
+                        hasNewOptions:true,
+                     });
+
+                     setTimeout(function(){
+                        self.setState({
+                            loading:false
+                        })
+                     },100);
+
                     } 
                  }
 
-                value={this.state.sortGasByPrice} />
-                <Text> Dist. {this.state.sortGasByPrice}</Text>
+                value={!this.state.sortGasByPrice} />
+                <Text> Dist.</Text>
             </View>
                 </View>
                 <GasFoodSwiperContainer
