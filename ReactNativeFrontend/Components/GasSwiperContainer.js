@@ -11,18 +11,21 @@ var GasSwiperContainer = React.createClass({
     
     getInitialState:function(){
             return {
-                sortGasByPrice: true,
-                MAX_NUMBER_GAS_STATIONS_IN_PRICE_MODE: 150
+                sortGasByPrice: true
             }
     },
     mixins: [TimerMixin, SwiperContainerMixin({ isFoodSwiper: false})],
-
+    
+    componentDidMount:function(){
+        this.setState({hasNewOptions:true});
+    },
     render: function() {
         var yelpImage = (<Image source={require("../Images/yelp-2c.png")} style={{height:20,width:1.7*20}}/>)
         var self = this;
         var salmon = '#FF3366'
         
-    
+        var priceFilteredOptions = self.props.options;
+        if(this.state.sortGasByPrice) priceFilteredOptions = priceFilteredOptions.slice(0,this.props.MAX_NUMBER_GAS_STATIONS_IN_PRICE_MODE);
         return (
             <View>
                 <Text style={styles.title}>Gas</Text>
@@ -42,7 +45,7 @@ var GasSwiperContainer = React.createClass({
                      });
                     
                      
-                     console.log(self.state.sortGasByPrice)
+                     
                      if (value){
                         //TODO: calculate distance on the fly if necessary
                         self.props.options.sort((a,b)=>{return (a.distance > b.distance)?1: ((b.distance > a.distance)?-1:0);});
@@ -53,7 +56,11 @@ var GasSwiperContainer = React.createClass({
                         self.props.options.sort((a,b)=>{return (a.price > b.price)?1: ((b.price > a.price)?-1:0);});
                      }
 
-                     self.props.updateGasFunc(self.props.options);
+                     self.props.updateGasFunc(self.props.options,self.state.sortGasByPrice);
+
+                     //must be done after updating the gas func
+                     
+                     
                      //updates the gasfoodsubswiper
                      self.setState({
                         hasNewOptions:true,
@@ -82,7 +89,7 @@ var GasSwiperContainer = React.createClass({
                     onSwipe={this.props.onSwipe}
                     optionLatitude={this.props.optionLatitude}
                     optionLongitude={this.props.optionLongitude}
-                    options={this.props.options.slice(0,this.state.MAX_NUMBER_GAS_STATIONS_IN_PRICE_MODE)}
+                    options={priceFilteredOptions}
                 />
             </View>
         );

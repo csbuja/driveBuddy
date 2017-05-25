@@ -88,7 +88,9 @@ var liveView = React.createClass({
             direction: null,//is a unit vector
             speed: 0,
             unfilteredFoodOptions:[],
-            unfilteredGasOptions:[]
+            unfilteredGasOptions:[],
+            sortByPrice: true,
+            MAX_NUMBER_GAS_STATIONS_IN_PRICE_MODE: 200
             
         };
     },
@@ -189,10 +191,11 @@ var liveView = React.createClass({
         }.bind(self),200)
 
     },
-    _updateGasDataInContainer: function(gas){
+    _updateGasDataInContainer: function(gas,sortByPrice){
         this.setState({
             unfilteredGasOptions: gas,
-            gasOptions: gas
+            gasOptions: gas,
+            sortByPrice: sortByPrice
         })
     },
 
@@ -201,6 +204,7 @@ var liveView = React.createClass({
     },
 
     render: function(){
+        var priceFilteredGasOptions = [];
         var foodOptionLatitude = null;
         var foodOptionLongitude = null;
         if (this.state.foodOptions.length  && !un.isUndefined( this.state.foodOptions[this.state.foodIndex])) {
@@ -213,12 +217,14 @@ var liveView = React.createClass({
         if (this.state.gasOptions.length && !un.isUndefined(this.state.gasOptions[this.state.gasIndex]) ) {
             gasOptionLatitude = parseFloat(this.state.gasOptions[this.state.gasIndex].lat);
             gasOptionLongitude = parseFloat(this.state.gasOptions[this.state.gasIndex].lon);
+            var priceFilteredGasOptions = this.state.gasOptions;
+            if(this.state.sortByPrice) priceFilteredGasOptions = priceFilteredGasOptions.slice(0,this.state.MAX_NUMBER_GAS_STATIONS_IN_PRICE_MODE);
         }
+        console.log(this.state.sortByPrice);
         var socialheight = 35;
         var socialwidth = width/3;
         var directionFilterText = this.state.highwaymode === "On" ? "Looking Ahead" : "Looking Around";
         
-        console.log(this.state.gasOptions)
         return (
         <View style={styles.liveView}>
         <View style={[styles.shareContainer,{marginTop:height/20}]} >
@@ -265,13 +271,14 @@ var liveView = React.createClass({
                 options={this.state.gasOptions}
                 style={styles.swiper}
                 updateGasFunc={this._updateGasDataInContainer.bind(this)}
+                MAX_NUMBER_GAS_STATIONS_IN_PRICE_MODE={this.state.MAX_NUMBER_GAS_STATIONS_IN_PRICE_MODE}
             />
             <View style={styles.separator} />
             <MapContainer
                 foodIndex={this.state.foodIndex}
                 foodOptions={this.state.foodOptions}
                 gasIndex={this.state.gasIndex}
-                gasOptions={this.state.gasOptions}
+                gasOptions={priceFilteredGasOptions}
                 style={styles.map}
             />
             <View style={styles.separatorEmpty} />
