@@ -11,7 +11,8 @@ var GasSwiperContainer = React.createClass({
     
     getInitialState:function(){
             return {
-                sortGasByPrice: true
+                sortGasByPrice: true,
+                MAX_NUMBER_GAS_STATIONS_IN_PRICE_MODE: 150
             }
     },
     mixins: [TimerMixin, SwiperContainerMixin({ isFoodSwiper: false})],
@@ -20,6 +21,8 @@ var GasSwiperContainer = React.createClass({
         var yelpImage = (<Image source={require("../Images/yelp-2c.png")} style={{height:20,width:1.7*20}}/>)
         var self = this;
         var salmon = '#FF3366'
+        
+    
         return (
             <View>
                 <Text style={styles.title}>Gas</Text>
@@ -79,7 +82,7 @@ var GasSwiperContainer = React.createClass({
                     onSwipe={this.props.onSwipe}
                     optionLatitude={this.props.optionLatitude}
                     optionLongitude={this.props.optionLongitude}
-                    options={this.props.options}
+                    options={this.props.options.slice(0,this.state.MAX_NUMBER_GAS_STATIONS_IN_PRICE_MODE)}
                 />
             </View>
         );

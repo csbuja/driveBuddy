@@ -33,9 +33,6 @@ var MapContainer = React.createClass({
     },
 
     componentDidMount: function() {
-
-        // make API call and set state accordingly
-        //this.setState({options: mockLocation});
     },
 
     render: function() {
